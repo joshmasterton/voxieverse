@@ -35,6 +35,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Contact
 
-If you have any questions or suggestions regarding Voxieverse, feel free to contact us at [joshmasterton@tuta.io].
+If you have any questions or suggestions regarding Voxieverse, feel free to contact us at [joshmasterton@tuta.io](joshmasterton@tuta.io).
 
 Happy connecting in the Voxieverse!
