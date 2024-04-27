@@ -1,49 +1,42 @@
 import {
 	type ChangeEvent, type FormEvent, useState, useEffect,
 } from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import {LightMode} from '../context/LightModeContext';
 import {Nav} from '../comp/Nav';
 import {type ValidationResult, validation, Validator} from './Validator';
 import {BiUser} from 'react-icons/bi';
 import {BsEyeFill} from 'react-icons/bs';
-import {MdEmail} from 'react-icons/md';
 import {RiLockFill} from 'react-icons/ri';
 import './style/Auth.scss';
 
-export type SignupInfo = {
+export type LoginInfo = {
 	username: string;
-	email: string;
 	password: string;
-	confirmPassword: string;
 };
 
 type ShowPasswords = {
 	password: boolean;
-	confirmPassword: boolean;
 };
 
-export function Signup() {
+export function Login() {
+	const navigate = useNavigate();
 	const [validationResult, setValidationResult] = useState<ValidationResult | undefined>(undefined);
-	const [showPasswords, setShowPasswords] = useState<ShowPasswords>({
-		password: false,
-		confirmPassword: false,
-	});
-	const [signupInfo, setSignupInfo] = useState<SignupInfo>({
+	const [showPasswords, setShowPasswords] = useState<ShowPasswords>({password: false});
+	const [loginInfo, setLoginInfo] = useState<LoginInfo>({
 		username: '',
-		email: '',
 		password: '',
-		confirmPassword: '',
 	});
 
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		console.log(signupInfo);
+		console.log(loginInfo);
+		navigate('/');
 	};
 
 	const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
 		const {name, value} = e.target;
-		setSignupInfo(prevState => ({
+		setLoginInfo(prevState => ({
 			...prevState,
 			[name]: value,
 		}));
@@ -57,8 +50,8 @@ export function Signup() {
 	};
 
 	useEffect(() => {
-		setValidationResult(validation(signupInfo));
-	}, [signupInfo]);
+		setValidationResult(validation(loginInfo));
+	}, [loginInfo]);
 
 	return (
 		<form method='POST' id='auth' autoComplete='off' onSubmit={e => {
@@ -66,7 +59,7 @@ export function Signup() {
 		}}>
 			<Nav/>
 			<header>
-				<h1>Signup</h1>
+				<h1>Login</h1>
 				<LightMode/>
 			</header>
 			<main>
@@ -75,7 +68,7 @@ export function Signup() {
 					<input
 						type='text'
 						name='username'
-						value={signupInfo.username}
+						value={loginInfo.username}
 						onChange={e => {
 							handleInputChange(e);
 						}}
@@ -84,27 +77,13 @@ export function Signup() {
 					/>
 				</label>
 				{validationResult?.name === 'username' && <Validator value={validationResult.message}/>}
-				<label>
-					<MdEmail/>
-					<input
-						type='email'
-						name='email'
-						value={signupInfo.email}
-						onChange={e => {
-							handleInputChange(e);
-						}}
-						placeholder='Email'
-						maxLength={60}
-					/>
-				</label>
-				{validationResult?.name === 'email' && <Validator value={validationResult.message}/>}
 				<div className='label'>
 					<label>
 						<RiLockFill/>
 						<input
 							type={showPasswords.password ? 'text' : 'password'}
 							name='password'
-							value={signupInfo.password}
+							value={loginInfo.password}
 							onChange={e => {
 								handleInputChange(e);
 							}}
@@ -119,36 +98,14 @@ export function Signup() {
 					</button>
 				</div>
 				{validationResult?.name === 'password' && <Validator value={validationResult.message}/>}
-				<div className='label'>
-					<label>
-						<RiLockFill/>
-						<input
-							type={showPasswords.confirmPassword ? 'text' : 'password'}
-							name='confirmPassword'
-							value={signupInfo.confirmPassword}
-							onChange={e => {
-								handleInputChange(e);
-							}}
-							placeholder='Confirm Password'
-							maxLength={30}
-						/>
-					</label>
-					<button type='button' onClick={() => {
-						handleShowPassword('confirmPassword');
-					}}>
-						<BsEyeFill/>
-					</button>
-				</div>
-				{validationResult?.name === 'confirmPassword' && (
-					<Validator value={validationResult.message}/>
-				)}
+				<Link to='/forgottenPassword'>Forgotten Password</Link>
 				<button type='submit'>
-					Signup
+					Login
 				</button>
 			</main>
 			<footer>
-				<p>Already have an account?</p>
-				<Link to='/login'>Login</Link>
+				<p>Dont have an account?</p>
+				<Link to='/signup'>Signup</Link>
 			</footer>
 		</form>
 	);

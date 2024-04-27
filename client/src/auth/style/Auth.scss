@@ -1,0 +1,52 @@
+@use '../../assets/var';
+
+#auth {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	max-width: var.$maxWidth;
+	padding: var.$pad;
+	margin-top: calc(var.$pad * 5);
+	margin-bottom: calc(var.$pad * 5);
+	gap: var.$pad;
+}
+
+html.dark #auth {
+	background: var.$darkAccent;
+}
+
+html.light #auth {
+	background: var.$lightAccent;
+}
+
+#auth > header {
+	height: var.$height;
+	display: flex;
+	justify-content: space-between;
+}
+
+#auth > main {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: var.$pad;
+}
+
+#auth > footer {
+	display: flex;
+	justify-content: center;
+	text-align: center;
+	gap: var.$pad;
+}
+
+#auth > footer > * {
+	font-size: var.$fontSmall;
+}
+
+#auth > footer > a,
+#auth > main > a {
+	align-self: flex-end;
+	height: fit-content;
+	font-size: var.$fontSmall;
+}

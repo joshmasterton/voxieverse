@@ -1,0 +1,104 @@
+@use '../../assets/var';
+
+#nav {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	display: flex;
+	z-index: 2;
+}
+
+#nav > header {
+	position: fixed;
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	height: calc(var.$height + (var.$pad * 2));
+	padding: var.$pad;
+	gap: var.$pad;
+}
+
+html.dark #nav > header,
+html.dark #nav > main,
+html.dark #nav > footer {
+	background: var.$darkAccent;
+}
+
+html.light #nav > header,
+html.light #nav > main,
+html.light #nav > footer {
+	background: var.$lightAccent;
+}
+
+#nav > header button {
+	padding: 0;
+	color: inherit;
+	background: transparent;
+}
+
+#nav > main {
+	display: none;
+	width: 100%;
+	justify-content: end;
+	height: calc(var.$height + (var.$pad * 2));
+	padding: var.$pad;
+	gap: var.$pad;
+}
+
+#nav > main > h1 {
+	display: flex;
+	justify-content: start;
+	justify-self: start;
+}
+
+#nav > main > label {
+	max-width: calc(var.$maxWidth * 1.5);
+	display: none;
+}
+
+#nav > footer {
+	position: fixed;
+	top: calc(var.$height + (var.$pad * 2));
+	left: 0;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: end;
+	padding: var.$pad;
+	gap: calc(var.$pad * 1.5);
+	transition: transform var.$transition, opacity var.$transition;
+	z-index: -1;
+}
+
+#nav > footer.close {
+	opacity: 0%;
+	visibility: hidden;
+	transform: translateY( - calc(var.$height * 6.65));
+	transition: transform var.$transition, opacity var.$transition 0.4s, visibility 0s 0.4s;
+}
+
+#nav > footer > a {
+	width: 100%;
+}
+
+@media screen and (min-width: var.$maxWidth) {
+	#nav > header {
+		display: none;
+	}
+
+	#nav > main {
+		display: flex;
+	}
+
+	#nav > main > label {
+		display: flex;
+	}		
+
+	#nav > footer {
+		opacity: 0%;
+		visibility: hidden;
+		transform: translateY( - calc(var.$height * 6.65));
+		transition: transform var.$transition, opacity var.$transition 0.4s, visibility 0s 0.4s;
+	}
+}
