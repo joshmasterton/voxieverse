@@ -1,0 +1,29 @@
+@use '../../assets/var';
+
+#lightMode {
+	min-width: calc(var.$height * 2);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+html.dark #lightMode {
+	background: var.$darkBright;
+}
+
+html.light #lightMode {
+	background: var.$light;
+}
+
+#lightMode > button {
+	padding: 0;
+	transition: outline-color var.$transition, transform var.$transition, box-shadow var.$transition;
+}
+
+#lightMode > button.left {
+	transform: translateX(-50%);
+}
+
+#lightMode > button.right {
+	transform: translateX(50%);	
+}

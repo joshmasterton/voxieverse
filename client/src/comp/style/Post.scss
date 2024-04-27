@@ -1,0 +1,52 @@
+@use '../../assets/var';
+
+.post {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	padding: var.$pad;
+	gap: var.$pad;
+}
+
+html.dark .post {
+	background: var.$darkAccent;
+}
+
+html.light .post {
+	background: var.$lightAccent;
+}
+
+.post header {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	gap: var.$pad;
+}
+
+.post main {
+	flex: 1;
+}
+
+.post footer {
+	width: fit-content;
+	display: flex;
+	justify-content: end;
+	align-items: center;
+	align-self: flex-end;
+	flex-wrap: wrap;
+	gap: var.$pad;
+}
+
+.post footer button {
+	padding: 0;
+	color: inherit;
+	background: transparent;
+}
+
+html.dark .post footer button {
+	background: var.$darkBright;
+}
+
+html.light .post footer button {
+	background: var.$light;
+}

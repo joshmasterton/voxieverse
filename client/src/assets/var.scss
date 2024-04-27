@@ -1,0 +1,209 @@
+$primary: #5254de;
+$secondary: #7b2de2;
+$primaryGradient: linear-gradient(
+	45deg,
+	#7b2de2,
+	#5254de,
+	#428cd6,
+);
+
+$light: rgb(240, 240, 245);
+$lightAccent: rgb(255, 255, 255);
+
+$dark: rgb(0, 0, 0);
+$darkAccent: rgb(20, 20, 25);
+$darkBright: rgb(28, 28, 35);
+
+$primaryShadow: 0 0 0 0.2rem $primary;
+
+$outline: 0.1rem solid;
+
+$maxWidth: 30rem;
+$height: 2.5rem;
+$pad: 1rem;
+
+$round: 0.5rem;
+
+$transition: 0.4s ease;
+
+$fontLarge: 1.25rem;
+$fontNormal: 1rem;
+$fontSmall: 0.85rem;
+
+* {
+	padding: 0;
+	margin: 0;
+	line-height: 1.4;
+	font-weight: 400;
+	font-size: $fontNormal;
+	font-family: system-ui, -apple-system, BlinkMacSystemFont,
+		'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+	border-style: none;
+	border-radius: $round;
+	outline-offset: 0;
+	text-decoration: none;
+	outline: $outline transparent;
+	box-sizing: border-box;
+}
+
+html.dark > * {
+	color: white;
+}
+
+html.light > * {
+	color: black;
+}
+
+html.dark *::placeholder {
+	color: $light;
+	opacity: 50%;
+}
+
+html.light *::placeholder {
+	color: $darkBright;
+	opacity: 50%;
+}
+
+html.dark *:focus,
+html.dark button:hover,
+html.dark a:hover,
+html.dark input:hover {
+	outline: $outline $darkAccent;
+	box-shadow: $primaryShadow;
+}
+
+html.light *:focus,
+html.light button:hover,
+html.light a:hover,
+html.light input:hover {
+	outline: $outline $lightAccent;
+	box-shadow: $primaryShadow;
+}
+
+html {
+	padding: $pad;
+}
+
+html.dark {
+	background: $dark;
+}
+
+html.light {
+	background: $light;
+}
+
+#root {
+	display: flex;
+	justify-content: center;
+}
+
+::-webkit-scrollbar {
+	display: none;
+}
+
+button, input, a {
+	transition: outline-color $transition, box-shadow $transition;
+}
+
+button, input {
+	height: $height;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: $pad;
+}
+
+button {
+	width: fit-content;
+	cursor: pointer;
+	color: $lightAccent;
+	background: $primaryGradient;
+}
+
+input {
+	background: transparent;
+	color: inherit;
+	width: 100%;
+}
+
+html.dark label {
+	background: $darkBright;
+}
+
+html.light label {
+	background: $light;
+}
+
+a {
+	width: fit-content;
+	height: $height;
+	display: flex;
+	align-items: center;
+	color: inherit;
+}
+
+h1 {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: calc($pad / 2);
+	font-size: $fontLarge;
+}
+
+p {
+	font-size: $fontSmall;
+}
+
+svg {
+	width: $height;
+	height: $height;
+	padding: calc($pad / 1.5);
+}
+
+img {
+	width: 100%;
+	height: 100%;
+}
+
+.logo {
+	width: $height;
+	height: $height;
+	padding: 0.1rem;
+	border-radius: 10rem;
+	background: $primaryGradient;
+}
+
+.label {
+	width: 100%;
+	position: relative;
+}
+
+.label > button {
+	position: absolute;
+	padding: 0;
+	bottom: 0;
+	right: 0;
+	color: inherit;
+	background: transparent;
+}
+
+.label input {
+	padding-right: $height;
+}
+
+label {
+	width: 100%;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+}
+
+label > svg {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+}
+
+label > input {
+	padding-left: $height;
+}
