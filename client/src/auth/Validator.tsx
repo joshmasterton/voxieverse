@@ -1,4 +1,3 @@
-/* eslint-disable complexity */
 import {type ForgottenPasswordType} from './ForgottenPassword';
 import {type LoginInfo} from './Login';
 import {type SignupInfo} from './Signup';
@@ -24,11 +23,9 @@ export const validation = (authInfo: SignupInfo | LoginInfo | ForgottenPasswordT
 			return {name: 'username', message: 'Username must be at least 6 characters'};
 		}
 
-		if (authInfo.email.length < 6) {
-			const emailRegex = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
-			if (!emailRegex.test(authInfo.email)) {
-				return {name: 'email', message: 'Muse be a valid email type'};
-			}
+		const emailRegex = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
+		if (!emailRegex.test(authInfo.email)) {
+			return {name: 'email', message: 'Must be of valid email type'};
 		}
 
 		if (authInfo.password.length < 6) {
@@ -41,7 +38,7 @@ export const validation = (authInfo: SignupInfo | LoginInfo | ForgottenPasswordT
 	}
 
 	if ('email' in authInfo && !('username' in authInfo)) {
-		if (authInfo.email.length < 6 && authInfo.email.length > 0) {
+		if (authInfo.email.length > 0) {
 			const emailRegex = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
 			if (!emailRegex.test(authInfo.email)) {
 				return {name: 'email', message: 'Muse be a valid email type'};

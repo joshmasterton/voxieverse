@@ -8,8 +8,11 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
+		"noImplicitAny": true,
+		"strictNullChecks": true,
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
   },
 	"include": ["**/*.ts"],
+	"exclude": ["node_modules"]
 }
