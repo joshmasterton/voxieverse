@@ -16,11 +16,22 @@ html.light .post {
 	background: var.$lightAccent;
 }
 
-.post header {
+.post > header {
 	width: 100%;
 	display: flex;
+	justify-content: start;
 	align-items: center;
 	gap: var.$pad;
+	padding: 0;
+	color: inherit;
+	background: transparent;
+}
+
+.post > header button {
+	height: fit-content;
+	padding: 0;
+	border-radius: 10rem;
+	background: transparent;
 }
 
 .post main {
@@ -38,9 +49,18 @@ html.light .post {
 }
 
 .post footer button {
+	height: calc(var.$height / 1.25);
 	padding: 0;
+	padding-right: calc(var.$pad / 1.75);
 	color: inherit;
+	font-size: var.$fontSmall;
 	background: transparent;
+}
+
+.post footer button svg {
+	height: calc(var.$height / 1.25);
+	width: calc(var.$height / 1.25);
+	padding: calc(var.$pad / 1.75);
 }
 
 html.dark .post footer button {

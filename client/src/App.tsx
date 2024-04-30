@@ -1,5 +1,7 @@
 import {type ReactElement} from 'react';
 import {RouterProvider, createHashRouter} from 'react-router-dom';
+import {Popup, PopupProvider} from './context/Popup';
+import {UserProvider} from './context/UserContext';
 import {LightModeProvider} from './context/LightModeContext';
 import {Posts} from './pages/Posts';
 import {Login} from './auth/Login';
@@ -36,7 +38,12 @@ const router = createHashRouter(routes);
 export function App() {
 	return (
 		<LightModeProvider>
-			<RouterProvider router={router}/>
+			<PopupProvider>
+				<UserProvider>
+					<Popup/>
+					<RouterProvider router={router}/>
+				</UserProvider>
+			</PopupProvider>
 		</LightModeProvider>
 	);
 }

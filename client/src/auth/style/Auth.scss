@@ -1,13 +1,14 @@
 @use '../../assets/var';
 
 #auth {
+	position: relative;
 	display: flex;
 	flex-direction: column;
 	width: 100%;
 	max-width: var.$maxWidth;
 	padding: var.$pad;
-	margin-top: calc(var.$pad * 5);
-	margin-bottom: calc(var.$pad * 5);
+	margin-top: calc(var.$pad * 9);
+	margin-bottom: calc(var.$pad * 9);
 	gap: var.$pad;
 }
 
@@ -17,6 +18,14 @@ html.dark #auth {
 
 html.light #auth {
 	background: var.$lightAccent;
+}
+
+#auth > img {
+	position: absolute;
+	top: - calc((var.$height * 2) + (var.$pad * 2.25));
+	width: calc(var.$height * 1.75);
+	height: calc(var.$height * 1.75);
+	align-self: center;
 }
 
 #auth > header {
@@ -31,6 +40,11 @@ html.light #auth {
 	flex-direction: column;
 	align-items: center;
 	gap: var.$pad;
+}
+
+#auth > main > button {
+	min-width: calc(var.$height * 1.5);
+	position: relative;
 }
 
 #auth > footer {

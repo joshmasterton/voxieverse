@@ -2,12 +2,16 @@ import {
 	type ChangeEvent, type FormEvent, useState, useEffect,
 } from 'react';
 import {Link, useNavigate} from 'react-router-dom';
+import {Loading} from '../comp/Loading';
+import {fetchLogin} from './authFetchRequests';
+import {useUser} from '../context/UserContext';
+import {usePopup} from '../context/Popup';
 import {LightMode} from '../context/LightModeContext';
-import {Nav} from '../comp/Nav';
 import {type ValidationResult, validation, Validator} from './Validator';
 import {BiUser} from 'react-icons/bi';
-import {BsEyeFill} from 'react-icons/bs';
+import {BsEyeFill, BsEyeSlashFill} from 'react-icons/bs';
 import {RiLockFill} from 'react-icons/ri';
+import logo from '../assets/Voxieverse_logo.png';
 import './style/Auth.scss';
 
 export type LoginInfo = {
@@ -21,6 +25,9 @@ type ShowPasswords = {
 
 export function Login() {
 	const navigate = useNavigate();
+	const [loading, setLoading] = useState(false);
+	const {setPopup} = usePopup();
+	const {user, setUser} = useUser();
 	const [validationResult, setValidationResult] = useState<ValidationResult | undefined>(undefined);
 	const [showPasswords, setShowPasswords] = useState<ShowPasswords>({password: false});
 	const [loginInfo, setLoginInfo] = useState<LoginInfo>({
@@ -28,10 +35,23 @@ export function Login() {
 		password: '',
 	});
 
-	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		console.log(loginInfo);
-		navigate('/');
+		setLoading(true);
+
+		const login = await fetchLogin(loginInfo);
+
+		setTimeout(() => {
+			if (!login) {
+				setPopup('Login failed');
+			} else if ('validationError' in login) {
+				setPopup(login.validationError);
+			} else {
+				setUser(login);
+			}
+
+			setLoading(false);
+		}, 2000);
 	};
 
 	const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -53,11 +73,17 @@ export function Login() {
 		setValidationResult(validation(loginInfo));
 	}, [loginInfo]);
 
+	useEffect(() => {
+		if (user) {
+			navigate('/');
+		}
+	}, [user]);
+
 	return (
-		<form method='POST' id='auth' autoComplete='off' onSubmit={e => {
-			handleSubmit(e);
+		<form method='POST' id='auth' autoComplete='off' onSubmit={async e => {
+			await handleSubmit(e);
 		}}>
-			<Nav/>
+			<img className='logo' alt='' src={logo}/>
 			<header>
 				<h1>Login</h1>
 				<LightMode/>
@@ -94,13 +120,13 @@ export function Login() {
 					<button type='button' onClick={() => {
 						handleShowPassword('password');
 					}}>
-						<BsEyeFill/>
+						{showPasswords.password ? <BsEyeSlashFill/> : <BsEyeFill/>}
 					</button>
 				</div>
 				{validationResult?.name === 'password' && <Validator value={validationResult.message}/>}
 				<Link to='/forgottenPassword'>Forgotten Password</Link>
 				<button type='submit'>
-					Login
+					{loading ? <Loading onlyComponent={false}/> : 'Login'}
 				</button>
 			</main>
 			<footer>

@@ -1,0 +1,29 @@
+@use '../../assets/var';
+
+.userProfile {
+	display: flex;
+	flex-direction: column;
+	padding: var.$pad;
+	gap: var.$pad;
+}
+
+.userProfile > header {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.userProfile > header img {
+	width: calc(var.$height * 1.5);
+	height: calc(var.$height * 1.5);
+}
+
+.userProfile > main {
+	flex: 1;
+}
+
+.userProfile > footer {
+	display: flex;
+	justify-content: end;
+}

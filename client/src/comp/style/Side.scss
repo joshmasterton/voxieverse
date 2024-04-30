@@ -3,8 +3,8 @@
 div.side {
 	position: fixed;
 	overflow: scroll;
-	height: calc(100% - (var.$height * 3) + (var.$pad * 3));
-	top: calc(var.$height + (var.$pad * 2));
+	height: calc(100% - (var.$height * 3) + (var.$pad * 4));
+	top: calc(var.$height + var.$pad);
 	padding-top: var.$pad;
 	padding-bottom: var.$pad;
 	border-radius: 0;

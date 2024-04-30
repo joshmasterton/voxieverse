@@ -1,9 +1,10 @@
+import {UserProfile} from './UserProfile';
 import './style/Side.scss';
 
 export function Side({side}: {side: string}) {
 	return (
 		<div className={`side ${side}`}>
-			<div/>
+			{side === 'left' && <UserProfile/>}
 			<div/>
 			<div/>
 			<div/>

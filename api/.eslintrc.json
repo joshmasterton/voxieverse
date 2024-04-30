@@ -20,5 +20,7 @@
         "sourceType": "module"
     },
     "rules": {
+			"new-cap": "off",
+			"@typescript-eslint/naming-convention": "off"
     }
 }
