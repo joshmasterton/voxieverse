@@ -1,14 +1,18 @@
 import {
 	type ChangeEvent, type FormEvent, useState, useEffect,
 } from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
+import {Loading} from '../comp/Loading';
+import {useUser} from '../context/UserContext';
+import {usePopup} from '../context/Popup';
+import {fetchSignup} from './authFetchRequests';
 import {LightMode} from '../context/LightModeContext';
-import {Nav} from '../comp/Nav';
 import {type ValidationResult, validation, Validator} from './Validator';
 import {BiUser} from 'react-icons/bi';
-import {BsEyeFill} from 'react-icons/bs';
+import {BsEyeFill, BsEyeSlashFill} from 'react-icons/bs';
 import {MdEmail} from 'react-icons/md';
 import {RiLockFill} from 'react-icons/ri';
+import logo from '../assets/Voxieverse_logo.png';
 import './style/Auth.scss';
 
 export type SignupInfo = {
@@ -24,6 +28,10 @@ type ShowPasswords = {
 };
 
 export function Signup() {
+	const navigate = useNavigate();
+	const {setPopup} = usePopup();
+	const [loading, setLoading] = useState(false);
+	const {user, setUser} = useUser();
 	const [validationResult, setValidationResult] = useState<ValidationResult | undefined>(undefined);
 	const [showPasswords, setShowPasswords] = useState<ShowPasswords>({
 		password: false,
@@ -36,9 +44,23 @@ export function Signup() {
 		confirmPassword: '',
 	});
 
-	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		console.log(signupInfo);
+		setLoading(true);
+
+		const signup = await fetchSignup(signupInfo);
+
+		setTimeout(() => {
+			if (!signup) {
+				setPopup('Login failed');
+			} else if ('validationError' in signup) {
+				setPopup(signup.validationError);
+			} else {
+				setUser(signup);
+			}
+
+			setLoading(false);
+		}, 2000);
 	};
 
 	const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -60,11 +82,17 @@ export function Signup() {
 		setValidationResult(validation(signupInfo));
 	}, [signupInfo]);
 
+	useEffect(() => {
+		if (user) {
+			navigate('/');
+		}
+	}, [user]);
+
 	return (
-		<form method='POST' id='auth' autoComplete='off' onSubmit={e => {
-			handleSubmit(e);
+		<form method='POST' id='auth' autoComplete='off' onSubmit={async e => {
+			await handleSubmit(e);
 		}}>
-			<Nav/>
+			<img className='logo' alt='' src={logo}/>
 			<header>
 				<h1>Signup</h1>
 				<LightMode/>
@@ -115,7 +143,7 @@ export function Signup() {
 					<button type='button' onClick={() => {
 						handleShowPassword('password');
 					}}>
-						<BsEyeFill/>
+						{showPasswords.password ? <BsEyeSlashFill/> : <BsEyeFill/>}
 					</button>
 				</div>
 				{validationResult?.name === 'password' && <Validator value={validationResult.message}/>}
@@ -136,14 +164,14 @@ export function Signup() {
 					<button type='button' onClick={() => {
 						handleShowPassword('confirmPassword');
 					}}>
-						<BsEyeFill/>
+						{showPasswords.confirmPassword ? <BsEyeSlashFill/> : <BsEyeFill/>}
 					</button>
 				</div>
 				{validationResult?.name === 'confirmPassword' && (
 					<Validator value={validationResult.message}/>
 				)}
 				<button type='submit'>
-					Signup
+					{loading ? <Loading onlyComponent={false}/> : 'Signup'}
 				</button>
 			</main>
 			<footer>

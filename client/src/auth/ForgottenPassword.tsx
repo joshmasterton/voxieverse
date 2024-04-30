@@ -3,9 +3,9 @@ import {
 } from 'react';
 import {Link} from 'react-router-dom';
 import {LightMode} from '../context/LightModeContext';
-import {Nav} from '../comp/Nav';
 import {type ValidationResult, validation, Validator} from './Validator';
 import {BiUser} from 'react-icons/bi';
+import logo from '../assets/Voxieverse_logo.png';
 import './style/Auth.scss';
 
 export type ForgottenPasswordType = {
@@ -39,7 +39,7 @@ export function ForgottenPassword() {
 		<form method='POST' id='auth' autoComplete='off' onSubmit={e => {
 			handleSubmit(e);
 		}}>
-			<Nav/>
+			<img className='logo' alt='' src={logo}/>
 			<header>
 				<h1>Forgotten Password</h1>
 				<LightMode/>

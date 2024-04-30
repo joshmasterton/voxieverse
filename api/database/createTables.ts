@@ -12,7 +12,8 @@ export const createUsersTable = async () => {
 			username_lower_case VARCHAR(30),
 			email VARCHAR(60),
 			password VARCHAR(200),
-			created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+			created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+			last_online TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
 		);`
 	, undefined);
 };

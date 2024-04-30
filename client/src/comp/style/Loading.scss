@@ -1,0 +1,78 @@
+@use '../../assets/var';
+
+#loading {
+	top: 0;
+	left: 0;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+div#loading.onlyComponent {
+	position: fixed;
+}
+
+#loading > div {
+	width: calc(var.$pad * 1.5);
+	height: calc(var.$pad * 1.5);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	animation: 1s infinite loadingBar;
+	border-radius: 10rem;
+	background: linear-gradient(
+		45deg,
+		transparent,
+		var.$primary
+	);
+}
+
+html.dark #loading > div {
+	background: linear-gradient(
+		45deg,
+		transparent,
+		var.$lightAccent
+	);
+}
+
+html.light #loading > div {
+	background: linear-gradient(
+		45deg,
+		transparent,
+		var.$light
+	);
+}
+
+div#loading.onlyComponent > div {
+	background: linear-gradient(
+		45deg,
+		transparent,
+		var.$primary
+	);
+}
+
+#loading > div > div {
+	width: var.$pad;
+	height: var.$pad;
+	border-radius: 10rem;
+	background: var.$primary;
+}
+
+html.dark div#loading.onlyComponent > div > div {
+	background: var.$dark;
+}
+
+html.light div#loading.onlyComponent > div > div {
+	background: var.$light;
+}
+
+@keyframes loadingBar {
+	from {
+		transform: rotate(0deg);
+	} to {
+		transform: rotate(360deg);
+	}
+}

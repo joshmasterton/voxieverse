@@ -13,6 +13,7 @@
 	position: fixed;
 	display: flex;
 	justify-content: space-between;
+	align-items: center;
 	width: 100%;
 	height: calc(var.$height + (var.$pad * 2));
 	padding: var.$pad;
@@ -22,16 +23,26 @@
 html.dark #nav > header,
 html.dark #nav > main,
 html.dark #nav > footer {
+	background: var.$dark;
+}
+
+html.dark #nav input {
 	background: var.$darkAccent;
 }
 
 html.light #nav > header,
 html.light #nav > main,
 html.light #nav > footer {
+	background: var.$light;
+}
+
+html.light #nav input {
 	background: var.$lightAccent;
 }
 
-#nav > header button {
+#nav > header button,
+#nav > main > button,
+#nav > footer > button {
 	padding: 0;
 	color: inherit;
 	background: transparent;
@@ -41,6 +52,7 @@ html.light #nav > footer {
 	display: none;
 	width: 100%;
 	justify-content: end;
+	align-items: center;
 	height: calc(var.$height + (var.$pad * 2));
 	padding: var.$pad;
 	gap: var.$pad;
@@ -48,8 +60,8 @@ html.light #nav > footer {
 
 #nav > main > h1 {
 	display: flex;
-	justify-content: start;
-	justify-self: start;
+	justify-content: center;
+	justify-self: center;
 }
 
 #nav > main > label {
@@ -78,7 +90,10 @@ html.light #nav > footer {
 	transition: transform var.$transition, opacity var.$transition 0.4s, visibility 0s 0.4s;
 }
 
-#nav > footer > a {
+#nav > footer > a,
+#nav > footer > button {
+	display: flex;
+	justify-content: start;
 	width: 100%;
 }
 

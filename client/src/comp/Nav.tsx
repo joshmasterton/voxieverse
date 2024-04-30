@@ -1,13 +1,17 @@
 import {type ChangeEvent, useState} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import {LightMode} from '../context/LightModeContext';
+import {useUser} from '../context/UserContext';
+import {fetchLogout} from '../auth/authFetchRequests';
 import {BiSearch, BiUser} from 'react-icons/bi';
 import {MdClear} from 'react-icons/md';
 import {CgLogOut, CgMenu} from 'react-icons/cg';
-import logoLight from '../assets/Voxieverse_logo_light-modified.png';
+import logo from '../assets/Voxieverse_logo.png';
 import './style/Nav.scss';
 
 export function Nav() {
+	const {user, setUser} = useUser();
+	const naviate = useNavigate();
 	const [isMenu, setIsMenu] = useState<boolean>(false);
 	const [searchInput, setSearchInput] = useState<string>('');
 
@@ -24,10 +28,16 @@ export function Nav() {
 		setSearchInput('');
 	};
 
+	const handleLogout = async () => {
+		await fetchLogout();
+		setUser(undefined);
+		naviate('/login');
+	};
+
 	return (
 		<nav id='nav'>
 			<header>
-				<img className='logo' alt='' src={logoLight}/>
+				<img className='logo' alt='' src={logo}/>
 				<button type='button' aria-label='Menu' onClick={() => {
 					handleSwitchMenu();
 				}}>
@@ -35,7 +45,7 @@ export function Nav() {
 				</button>
 			</header>
 			<main>
-				<img className='logo' alt='' src={logoLight}/>
+				<img className='logo' alt='' src={logo}/>
 				<div className='label'>
 					<label>
 						<BiSearch/>
@@ -61,24 +71,28 @@ export function Nav() {
 				<Link to='/'>
 					<BiUser/>
 				</Link>
-				<Link to='/login'>
+				<button type='button' onClick={async () => {
+					await handleLogout();
+				}}>
 					<CgLogOut/>
-				</Link>
+				</button>
 				<LightMode/>
 			</main>
 			<footer className={isMenu ? 'open' : 'close'}>
 				<Link to='/'>
 					<BiUser/>
-					User
+					{user?.username}
 				</Link>
 				<Link to='/'>
 					<BiUser/>
 					User
 				</Link>
-				<Link to='/login'>
+				<button type='button' onClick={async () => {
+					await handleLogout();
+				}}>
 					<CgLogOut/>
 					Logout
-				</Link>
+				</button>
 				<LightMode/>
 			</footer>
 		</nav>

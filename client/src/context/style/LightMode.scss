@@ -11,8 +11,16 @@ html.dark #lightMode {
 	background: var.$darkBright;
 }
 
+html.dark #nav #lightMode {
+	background: var.$darkAccent;
+}
+
 html.light #lightMode {
 	background: var.$light;
+}
+
+html.light #nav #lightMode {
+	background: var.$lightAccent;
 }
 
 #lightMode > button {

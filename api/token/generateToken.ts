@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import {type RefinedUser} from '../routes/login';
+import {type RefinedUser} from '../routes/auth/login';
 
 dotenv.config();
 

@@ -1,8 +1,8 @@
 import express from 'express';
 import bcryptjs from 'bcryptjs';
 import {body, validationResult} from 'express-validator';
-import {queryDb} from '../database/queryDb';
-import {generateAccessToken, generateRefreshToken} from '../token/generateToken';
+import {queryDb} from '../../database/queryDb';
+import {generateAccessToken, generateRefreshToken} from '../../token/generateToken';
 import {type RefinedUser} from './login';
 
 type SignupInfo = {
@@ -12,10 +12,11 @@ type SignupInfo = {
 	confirmPassword: string;
 };
 
-type UserResult = {
+export type UserResult = {
 	username: string;
 	email: string;
 	created_at: string;
+	last_online: string;
 };
 
 export const signup = express.Router();
@@ -51,23 +52,23 @@ signup.post(
 
 		if (validator.length > 0) {
 			const validationError: string = validator[0].msg as string;
-			return res.status(400).json({validationError});
+			return res.status(200).json({validationError});
 		}
 
 		if (password !== confirmPassword) {
-			return res.status(400).json({validationError: 'Passwords must match'});
+			return res.status(200).json({validationError: 'Passwords must match'});
 		}
 
 		try {
 			const checkIfUserExists = await queryDb<string>(`
-			SELECT username, email, created_at FROM voxieverse_users
-			WHERE username_lower_case = $1;`
+				SELECT username, email, created_at FROM voxieverse_users
+				WHERE username_lower_case = $1;`
 			, [username.toLowerCase()]);
 
 			const checkedUser: UserResult = checkIfUserExists?.rows[0] as UserResult;
 
 			if (checkedUser) {
-				return res.status(400).json({validationError: 'User already exists'});
+				return res.status(200).json({validationError: 'User already exists'});
 			}
 
 			const hashedPassword = await bcryptjs.hash(password, 10);
@@ -79,7 +80,7 @@ signup.post(
 					password
 				)VALUES(
 					$1, $2, $3, $4
-				) RETURNING username, email, created_at;`
+				) RETURNING username, email, created_at, last_online;`
 			, [username, username.toLowerCase(), email, hashedPassword]);
 
 			const userResult: UserResult = signupQuery?.rows[0] as UserResult;
@@ -88,6 +89,7 @@ signup.post(
 				username: userResult.username,
 				email: userResult.email,
 				createdAt: new Date(userResult.created_at).toLocaleString(),
+				lastOnline: new Date(userResult.last_online).toLocaleString(),
 			};
 
 			const accessToken = generateAccessToken(user);
@@ -95,7 +97,7 @@ signup.post(
 
 			res.cookie('accessToken', accessToken, {httpOnly: true, secure: true});
 			res.cookie('refreshToken', refreshToken, {httpOnly: true, secure: true});
-			return res.status(200).json({user});
+			return res.status(200).json(user);
 		} catch (err) {
 			if (err instanceof Error) {
 				return res.status(500).json({error: err.message});

@@ -1,10 +1,9 @@
-$primary: #5254de;
-$secondary: #7b2de2;
+$primary: #4a5df0;
+$secondary: #7f41e3;
 $primaryGradient: linear-gradient(
 	45deg,
-	#7b2de2,
-	#5254de,
-	#428cd6,
+	$primary,
+	$secondary,
 );
 
 $light: rgb(240, 240, 245);
@@ -22,7 +21,7 @@ $maxWidth: 30rem;
 $height: 2.5rem;
 $pad: 1rem;
 
-$round: 0.5rem;
+$round: 0.25rem;
 
 $transition: 0.4s ease;
 
@@ -34,8 +33,9 @@ $fontSmall: 0.85rem;
 	padding: 0;
 	margin: 0;
 	line-height: 1.4;
-	font-weight: 400;
+	font-weight: 500;
 	font-size: $fontNormal;
+	-webkit-text-size-adjust: none;
 	font-family: system-ui, -apple-system, BlinkMacSystemFont,
 		'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 	border-style: none;
@@ -166,9 +166,9 @@ img {
 }
 
 .logo {
-	width: $height;
-	height: $height;
-	padding: 0.1rem;
+	width: calc($height / 1.25);
+	height: calc($height / 1.25);
+	padding: 0.25rem;
 	border-radius: 10rem;
 	background: $primaryGradient;
 }

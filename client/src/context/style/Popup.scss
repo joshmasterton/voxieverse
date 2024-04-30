@@ -1,0 +1,72 @@
+@use '../../assets/var';
+
+#popup {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: var.$pad;
+	z-index: 2;
+	transition: transform var.$transition;
+}
+
+#popup.active {
+	transform: translateY(0%);
+}
+
+#popup.hidden {
+	transform: translateY(-100%);
+}
+
+#popup > button {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	background: transparent;
+	box-shadow: 0 0 0 0;
+	outline: none;
+	backdrop-filter: blur(1rem);
+	-webkit-backdrop-filter: blur(1rem);
+	transition: opacity 0.2s ease 0.2s;
+}
+
+#popup.active > button {
+	opacity: 100%;
+}
+
+#popup.hidden > button {
+	transition: opacity 0.2s ease;
+	opacity: 0%;
+}
+
+#popup > div {
+	width: 100%;
+	max-width: calc(var.$maxWidth / 1.25);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: var.$pad;
+	padding: var.$pad;
+	z-index: 1;
+}
+
+#popup > div > div {
+	padding: var.$pad;
+}
+
+html.dark #popup > div {
+	background: var.$darkAccent;
+}
+
+html.light #popup > div {
+	background: var.$lightAccent;
+}
+
+#popup > div > button {
+	width: 100%;
+}
