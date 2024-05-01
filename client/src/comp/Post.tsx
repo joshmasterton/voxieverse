@@ -1,9 +1,29 @@
+import {useState} from 'react';
+import {fetchDislikePost, fetchLikePost, type PostType} from '../pages/postFetchRequests';
 import {FaArrowUpLong, FaArrowDownLong} from 'react-icons/fa6';
 import {MdModeComment} from 'react-icons/md';
 import logo from '../assets/Voxieverse_logo.png';
 import './style/Post.scss';
 
-export function Post() {
+export function Post({post}: {post: PostType}) {
+	const [currentPost, setCurrentPost] = useState<PostType>(post);
+
+	const handleLikePost = async () => {
+		const updatedPost = await fetchLikePost(post?.id);
+
+		if (updatedPost?.id) {
+			setCurrentPost(updatedPost);
+		}
+	};
+
+	const handleDislikePost = async () => {
+		const updatedPost = await fetchDislikePost(post?.id);
+
+		if (updatedPost?.id) {
+			setCurrentPost(updatedPost);
+		}
+	};
+
 	return (
 		<div className='post'>
 			<header>
@@ -11,27 +31,42 @@ export function Post() {
 					<img className='logo' alt='' src={logo}/>
 				</button>
 				<div>
-					<div>Username</div>
-					<p>Email@gmail.com</p>
+					<div>{currentPost?.username}</div>
+					<p>{currentPost?.username}</p>
 				</div>
+				<p>{currentPost?.createdAt}</p>
 			</header>
 			<main>
-				Content post will be here it can also
-				be an image that will go along
-				with the text post content
+				{currentPost?.post}
 			</main>
 			<footer>
-				<button type='button' aria-label='like'>
+				<button
+					type='button'
+					aria-label='like'
+					className={currentPost?.hasLiked ? 'liked' : ''}
+					onClick={async () => {
+						await handleLikePost();
+					}}
+				>
 					<FaArrowUpLong/>
-					10
+					{currentPost?.likes}
 				</button>
-				<button type='button' aria-label='like'>
+				<button
+					type='button'
+					aria-label='like'
+					className={currentPost?.hasDisliked ? 'disliked' : ''}
+					onClick={async () => {
+						await handleDislikePost();
+					}}
+				>
 					<FaArrowDownLong/>
-					100
+					{currentPost?.dislikes}
 				</button>
-				<button type='button' aria-label='like'>
+				<button
+					type='button'
+					aria-label='like'>
 					<MdModeComment/>
-					43
+					{currentPost?.comments}
 				</button>
 			</footer>
 		</div>

@@ -59,8 +59,8 @@ login.post(
 		try {
 			const checkIfUserExists = await queryDb<string>(`
 				SELECT username, email, password, created_at, last_online FROM voxieverse_users
-				WHERE username_lower_case = $1;`
-			, [username.toLowerCase()]);
+				WHERE username = $1;`
+			, [username]);
 
 			const checkedUser: CheckUser = checkIfUserExists?.rows[0] as CheckUser;
 

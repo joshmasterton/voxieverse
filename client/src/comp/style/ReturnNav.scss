@@ -1,0 +1,23 @@
+@use '../../assets/var';
+
+#returnNav {
+	position: fixed;
+	top: 0;
+	left: 0;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	height: calc(var.$height + (var.$pad * 2));
+	padding: var.$pad;
+	gap: var.$pad;
+	z-index: 1;
+}
+
+html.dark #returnNav {
+	background: var.$dark;
+}
+
+html.light #returnNav {
+	background: var.$light;
+}

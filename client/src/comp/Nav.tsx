@@ -1,4 +1,4 @@
-import {type ChangeEvent, useState} from 'react';
+import {type ChangeEvent, useState, useEffect} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import {LightMode} from '../context/LightModeContext';
 import {useUser} from '../context/UserContext';
@@ -34,6 +34,22 @@ export function Nav() {
 		naviate('/login');
 	};
 
+	const handleScroll = () => {
+		setIsMenu(false);
+	};
+
+	useEffect(() => {
+		window.addEventListener('scroll', () => {
+			handleScroll();
+		});
+
+		return () => {
+			window.removeEventListener('scroll', () => {
+				handleScroll();
+			});
+		};
+	}, []);
+
 	return (
 		<nav id='nav'>
 			<header>
@@ -51,6 +67,7 @@ export function Nav() {
 						<BiSearch/>
 						<input
 							type='text'
+							name='search'
 							placeholder='Search posts'
 							value={searchInput}
 							onChange={e => {

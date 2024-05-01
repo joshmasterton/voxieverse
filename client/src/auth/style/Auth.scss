@@ -13,11 +13,11 @@
 }
 
 html.dark #auth {
-	background: var.$darkAccent;
+	outline: var.$outline var.$darkAccent;
 }
 
 html.light #auth {
-	background: var.$lightAccent;
+	outline: var.$outline var.$lightAccent;
 }
 
 #auth > img {

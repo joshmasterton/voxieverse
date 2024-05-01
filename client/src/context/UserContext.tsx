@@ -5,7 +5,7 @@ import {
 import {fetchValidateUser} from '../auth/authFetchRequests';
 import {Loading} from '../comp/Loading';
 
-type UserContentType = {
+type UserContextType = {
 	user: User | undefined;
 	setUser: Dispatch<SetStateAction<User | undefined>>;
 };
@@ -21,7 +21,7 @@ export type ValidationError = {
 	validationError: string;
 };
 
-const UserContext = createContext<UserContentType | undefined>(undefined);
+const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export const useUser = () => {
 	const context = useContext(UserContext);
@@ -43,7 +43,7 @@ export const UserProvider = ({children}: {children: ReactNode}) => {
 				const fetchUser = await fetchValidateUser();
 				setUser(fetchUser);
 				setLoading(false);
-			}, 2000);
+			}, 1000);
 		};
 
 		fetchUser()
@@ -54,7 +54,7 @@ export const UserProvider = ({children}: {children: ReactNode}) => {
 	}, []);
 
 	if (loading) {
-		return <Loading onlyComponent/>;
+		return <Loading onlyComponent marginTop='' height='100%' border='0'/>;
 	}
 
 	return (
