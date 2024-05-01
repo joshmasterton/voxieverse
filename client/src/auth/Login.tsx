@@ -51,7 +51,7 @@ export function Login() {
 			}
 
 			setLoading(false);
-		}, 2000);
+		}, 1000);
 	};
 
 	const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -126,7 +126,7 @@ export function Login() {
 				{validationResult?.name === 'password' && <Validator value={validationResult.message}/>}
 				<Link to='/forgottenPassword'>Forgotten Password</Link>
 				<button type='submit'>
-					{loading ? <Loading onlyComponent={false}/> : 'Login'}
+					{loading ? <Loading onlyComponent={false} marginTop='' height='100%' border='0'/> : 'Login'}
 				</button>
 			</main>
 			<footer>

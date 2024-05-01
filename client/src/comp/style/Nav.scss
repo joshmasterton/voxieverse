@@ -26,18 +26,10 @@ html.dark #nav > footer {
 	background: var.$dark;
 }
 
-html.dark #nav input {
-	background: var.$darkAccent;
-}
-
 html.light #nav > header,
 html.light #nav > main,
 html.light #nav > footer {
 	background: var.$light;
-}
-
-html.light #nav input {
-	background: var.$lightAccent;
 }
 
 #nav > header button,

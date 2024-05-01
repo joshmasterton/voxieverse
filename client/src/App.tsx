@@ -4,6 +4,7 @@ import {Popup, PopupProvider} from './context/Popup';
 import {UserProvider} from './context/UserContext';
 import {LightModeProvider} from './context/LightModeContext';
 import {Posts} from './pages/Posts';
+import {AddPost} from './pages/AddPost';
 import {Login} from './auth/Login';
 import {Signup} from './auth/Signup';
 import {ForgottenPassword} from './auth/ForgottenPassword';
@@ -15,6 +16,10 @@ type Routes = {
 };
 
 const routes: Routes[] = [
+	{
+		path: '/',
+		element: <Posts/>,
+	},
 	{
 		path: '/login',
 		element: <Login/>,
@@ -28,8 +33,8 @@ const routes: Routes[] = [
 		element: <ForgottenPassword/>,
 	},
 	{
-		path: '/',
-		element: <Posts/>,
+		path: '/addPost',
+		element: <AddPost/>,
 	},
 ];
 

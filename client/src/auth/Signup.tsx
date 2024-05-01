@@ -60,7 +60,7 @@ export function Signup() {
 			}
 
 			setLoading(false);
-		}, 2000);
+		}, 1000);
 	};
 
 	const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -171,7 +171,7 @@ export function Signup() {
 					<Validator value={validationResult.message}/>
 				)}
 				<button type='submit'>
-					{loading ? <Loading onlyComponent={false}/> : 'Signup'}
+					{loading ? <Loading onlyComponent={false} marginTop='' height='100%' border='0'/> : 'Signup'}
 				</button>
 			</main>
 			<footer>

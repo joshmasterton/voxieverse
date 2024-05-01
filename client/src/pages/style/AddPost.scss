@@ -1,0 +1,35 @@
+@use '../../assets/var';
+
+#addPost {
+	width: 100%;
+	max-width: var.$maxWidth;
+	display: flex;
+	padding: var.$pad;
+	margin-top: var.$height + var.$pad;
+}
+
+html.dark #addPost {
+	border: var.$outline var.$darkAccent;
+}
+
+html.light #addPost {
+	border: var.$outline var.$lightAccent;
+}
+
+#addPost > form {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: end;
+	gap: var.$pad;
+}
+
+#addPost textarea {
+	height: auto;
+	padding: var.$pad;
+}
+
+#addPost > form button {
+	min-width: calc(var.$height * 1.5);
+	position: relative;
+}

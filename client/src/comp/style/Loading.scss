@@ -5,10 +5,18 @@
 	left: 0;
 	position: absolute;
 	width: 100%;
-	height: 100%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	gap: calc(var.$pad / 4);
+}
+
+html.dark #loading {
+	border: var.$outline var.$darkAccent;
+}
+
+html.light #loading {
+	border: var.$outline var.$lightAccent;
 }
 
 div#loading.onlyComponent {
@@ -16,63 +24,43 @@ div#loading.onlyComponent {
 }
 
 #loading > div {
-	width: calc(var.$pad * 1.5);
-	height: calc(var.$pad * 1.5);
+	width: calc(var.$pad / 2);
+	height: calc(var.$pad * 1);
 	display: flex;
+	flex-direction: row;
 	justify-content: center;
 	align-items: center;
-	animation: 1s infinite loadingBar;
+	animation: 1.5s infinite loadingBar ease;
+	transform: translateY(-0.2rem);
 	border-radius: 10rem;
-	background: linear-gradient(
-		45deg,
-		transparent,
-		var.$primary
-	);
 }
 
 html.dark #loading > div {
-	background: linear-gradient(
-		45deg,
-		transparent,
-		var.$lightAccent
-	);
+	background: var.$lightAccent;
 }
 
 html.light #loading > div {
-	background: linear-gradient(
-		45deg,
-		transparent,
-		var.$light
-	);
+	background: var.$darkAccent;
 }
 
-div#loading.onlyComponent > div {
-	background: linear-gradient(
-		45deg,
-		transparent,
-		var.$primary
-	);
+#loading > div:nth-of-type(1) {
+	animation-delay: 100ms;
 }
 
-#loading > div > div {
-	width: var.$pad;
-	height: var.$pad;
-	border-radius: 10rem;
-	background: var.$primary;
+#loading > div:nth-of-type(2) {
+	animation-delay: 350ms;
 }
 
-html.dark div#loading.onlyComponent > div > div {
-	background: var.$dark;
-}
-
-html.light div#loading.onlyComponent > div > div {
-	background: var.$light;
+#loading > div:nth-of-type(3) {
+	animation-delay: 600ms;
 }
 
 @keyframes loadingBar {
-	from {
-		transform: rotate(0deg);
-	} to {
-		transform: rotate(360deg);
+	0% {
+		transform: translateY(-0.2rem);
+	} 50% {
+		transform: translateY(0.2rem);
+	} 100% {
+		transform: translateY(-0.2rem);
 	}
 }

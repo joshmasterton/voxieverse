@@ -7,6 +7,14 @@
 	gap: var.$pad;
 }
 
+html.dark .userProfile {
+	border: var.$outline var.$darkAccent;
+}
+
+html.light .userProfile {
+	border: var.$outline var.$lightAccent;
+}
+
 .userProfile > header {
 	display: flex;
 	flex-direction: column;

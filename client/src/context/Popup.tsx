@@ -12,10 +12,10 @@ type PopupContentType = {
 	setPopupActive: Dispatch<SetStateAction<boolean>>;
 };
 
-const PopupContent = createContext<PopupContentType | undefined>(undefined);
+const PopupContext = createContext<PopupContentType | undefined>(undefined);
 
 export const usePopup = () => {
-	const context = useContext(PopupContent);
+	const context = useContext(PopupContext);
 
 	if (!context) {
 		throw new Error('Cannot use usePopup without PopupProvider');
@@ -29,11 +29,11 @@ export const PopupProvider = ({children}: {children: ReactNode}) => {
 	const [popupActive, setPopupActive] = useState(false);
 
 	return (
-		<PopupContent.Provider value={{
+		<PopupContext.Provider value={{
 			popup, setPopup, popupActive, setPopupActive,
 		}}>
 			{children}
-		</PopupContent.Provider>
+		</PopupContext.Provider>
 	);
 };
 

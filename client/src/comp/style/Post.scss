@@ -9,11 +9,11 @@
 }
 
 html.dark .post {
-	background: var.$darkAccent;
+	border: var.$outline var.$darkAccent;
 }
 
 html.light .post {
-	background: var.$lightAccent;
+	border: var.$outline var.$lightAccent;
 }
 
 .post > header {
@@ -39,7 +39,7 @@ html.light .post {
 }
 
 .post footer {
-	width: fit-content;
+	width: 100%;
 	display: flex;
 	justify-content: end;
 	align-items: center;
@@ -64,9 +64,19 @@ html.light .post {
 }
 
 html.dark .post footer button {
-	background: var.$darkBright;
+	outline: var.$outline var.$darkAccent;
 }
 
 html.light .post footer button {
-	background: var.$light;
+	outline: var.$outline var.$lightAccent;
+}
+
+div.post footer button.liked,
+div.post footer button.disliked {
+	outline: var.$outline var.$primary;
+}
+
+.post footer button.liked svg,
+.post footer button.disliked svg {
+	color: var.$primary;
 }
