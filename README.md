@@ -13,7 +13,7 @@ Voxieverse is a vibrant and dynamic social media platform built for meaningful c
 
 - **Frontend:** ReactJS
 - **Backend:** Express.js
-- **Database:** MongoDB
+- **Database:** PostgreSQL
 - **Language:** TypeScript
 
 ## Getting Started
