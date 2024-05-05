@@ -2,7 +2,7 @@ import {
 	type ReactNode, createContext, useContext, useEffect, useState,
 	type Dispatch, type SetStateAction,
 } from 'react';
-import {fetchValidateUser} from '../auth/authFetchRequests';
+import {fetchValidateUser} from '../fetchRequests/authFetchRequests';
 import {Loading} from '../comp/Loading';
 
 type UserContextType = {
@@ -54,7 +54,7 @@ export const UserProvider = ({children}: {children: ReactNode}) => {
 	}, []);
 
 	if (loading) {
-		return <Loading onlyComponent marginTop='' height='100%' border='0'/>;
+		return <Loading onlyComponent border='0'/>;
 	}
 
 	return (

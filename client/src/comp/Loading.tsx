@@ -2,21 +2,15 @@ import './style/Loading.scss';
 
 type OnlyComponent = {
 	onlyComponent: boolean;
-	marginTop: string;
-	height: string;
 	border: string;
 };
 
-export function Loading({onlyComponent, marginTop, height, border}: OnlyComponent) {
+export function Loading({onlyComponent, border}: OnlyComponent) {
 	return (
 		<div
 			id='loading'
 			className={onlyComponent ? 'onlyComponent' : ''}
-			style={{
-				height,
-				marginTop,
-				border,
-			}}
+			style={{border}}
 		>
 			<div></div>
 			<div></div>

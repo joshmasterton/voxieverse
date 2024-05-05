@@ -1,6 +1,6 @@
 @use '../../assets/var';
 
-#users {
+.users {
 	display: flex;
 	flex-direction: column;
 	align-items: start;
@@ -8,12 +8,16 @@
 	gap: var.$pad;
 }
 
-html.dark #users {
+html.dark .users {
 	border: var.$outline var.$darkAccent;
 }
 
-html.light #users {
+html.light .users {
 	border: var.$outline var.$lightAccent;
+}
+
+.users > h1 {
+	padding: 0;
 }
 
 .userCard {
@@ -45,4 +49,9 @@ html.light .userCard {
 	display: flex;
 	flex-direction: column;
 	align-items: start;
+}
+
+.userCard > footer {
+	display: flex;
+	gap: var.$pad;
 }

@@ -33,9 +33,9 @@ likeDislikePost.put(
 
 			// Has user already liked or disliked post
 			const existingInteraction = await queryDb(`
-			SELECT * FROM voxieverse_post_${action}s
-			WHERE username = $1 AND post_id = $2
-		`, [user.username, postId]);
+				SELECT * FROM voxieverse_post_${action}s
+				WHERE username = $1 AND post_id = $2
+			`, [user.username, postId]);
 
 			// If so delete relation
 			if (existingInteraction?.rows[0]) {
@@ -45,48 +45,48 @@ likeDislikePost.put(
 			`, [user.username, postId]);
 
 				await queryDb(`
-				UPDATE voxieverse_posts
-				SET ${action}s = ${action}s - 1
-				WHERE id = $1;
-			`, [postId]);
+					UPDATE voxieverse_posts
+					SET ${action}s = ${action}s - 1
+					WHERE id = $1;
+				`, [postId]);
 			} else {
 			// Check if user disliked a liked post and vice versa
 				const existingLikeOrDislike = await queryDb(`
-				SELECT * FROM voxieverse_post_${action === 'like' ? 'dislike' : 'like'}s
-				WHERE username = $1 AND post_id = $2
-			`, [user.username, postId]);
+					SELECT * FROM voxieverse_post_${action === 'like' ? 'dislike' : 'like'}s
+					WHERE username = $1 AND post_id = $2
+				`, [user.username, postId]);
 
 				// If so delete relation
 				if (existingLikeOrDislike?.rows[0]) {
 					await queryDb(`
-					DELETE FROM voxieverse_post_${action === 'like' ? 'dislike' : 'like'}s
-					WHERE username = $1 AND post_id = $2
-				`, [user.username, postId]);
+						DELETE FROM voxieverse_post_${action === 'like' ? 'dislike' : 'like'}s
+						WHERE username = $1 AND post_id = $2
+					`, [user.username, postId]);
 
 					await queryDb(`
-					UPDATE voxieverse_posts
-					SET ${action === 'like' ? 'dislike' : 'like'}s = ${action === 'like' ? 'dislike' : 'like'}s - 1
-					WHERE id = $1;
-				`, [postId]);
+						UPDATE voxieverse_posts
+						SET ${action === 'like' ? 'dislike' : 'like'}s = ${action === 'like' ? 'dislike' : 'like'}s - 1
+						WHERE id = $1;
+					`, [postId]);
 				}
 
 				// Insert new like or dislike to post
 				await queryDb(`
-				INSERT INTO voxieverse_post_${action}s(username, post_id)
-				VALUES($1, $2)
-			`, [user.username, postId]);
+					INSERT INTO voxieverse_post_${action}s(username, post_id)
+					VALUES($1, $2)
+				`, [user.username, postId]);
 
 				await queryDb(`
-				UPDATE voxieverse_posts
-				SET ${action}s = ${action}s + 1
-				WHERE id = $1;
-			`, [postId]);
+					UPDATE voxieverse_posts
+					SET ${action}s = ${action}s + 1
+					WHERE id = $1;
+				`, [postId]);
 			}
 
 			// Get latest version of post
 			const updatedPost = await queryDb(`
-			SELECT * FROM voxieverse_posts WHERE id = $1
-		`, [postId]);
+				SELECT * FROM voxieverse_posts WHERE id = $1
+			`, [postId]);
 
 			if (!updatedPost?.rows[0]) {
 				throw new Error('Post does not exist');
@@ -96,14 +96,14 @@ likeDislikePost.put(
 
 			// Get likes and dislikes for post
 			const likedResult = await queryDb(`
-			SELECT * FROM voxieverse_post_likes
-			WHERE username = $1 AND post_id = $2;
-		`, [user.username, post.id]);
+				SELECT * FROM voxieverse_post_likes
+				WHERE username = $1 AND post_id = $2;
+			`, [user.username, post.id]);
 
 			const dislikedResult = await queryDb(`
-			SELECT * FROM voxieverse_post_dislikes
-			WHERE username = $1 AND post_id = $2;
-		`, [user.username, post.id]);
+				SELECT * FROM voxieverse_post_dislikes
+				WHERE username = $1 AND post_id = $2;
+			`, [user.username, post.id]);
 
 			const refinedPost: RefinedPost = {
 				id: post.id,

@@ -16,25 +16,20 @@ html.light .post {
 	border: var.$outline var.$lightAccent;
 }
 
-.post > header {
+.post > a {
 	width: 100%;
 	display: flex;
 	justify-content: start;
 	align-items: center;
 	gap: var.$pad;
-	padding: 0;
+	padding: calc(var.$pad / 3);
 	color: inherit;
 	background: transparent;
 }
 
-.post > header button {
-	height: fit-content;
-	padding: 0;
-	border-radius: 10rem;
-	background: transparent;
-}
-
 .post main {
+	display: flex;
+	word-break: break-all;
 	flex: 1;
 }
 
@@ -69,11 +64,6 @@ html.dark .post footer button {
 
 html.light .post footer button {
 	outline: var.$outline var.$lightAccent;
-}
-
-div.post footer button.liked,
-div.post footer button.disliked {
-	outline: var.$outline var.$primary;
 }
 
 .post footer button.liked svg,

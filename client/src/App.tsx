@@ -1,12 +1,14 @@
 import {type ReactElement} from 'react';
 import {RouterProvider, createHashRouter} from 'react-router-dom';
-import {Popup, PopupProvider} from './context/Popup';
+import {Popup, PopupProvider} from './context/PopupContext';
 import {UserProvider} from './context/UserContext';
 import {LightModeProvider} from './context/LightModeContext';
 import {Posts} from './pages/Posts';
 import {AddPost} from './pages/AddPost';
 import {Login} from './auth/Login';
+import {Profile} from './pages/Profile';
 import {Signup} from './auth/Signup';
+import {Users} from './pages/Users';
 import {ForgottenPassword} from './auth/ForgottenPassword';
 import './assets/var.scss';
 
@@ -19,6 +21,10 @@ const routes: Routes[] = [
 	{
 		path: '/',
 		element: <Posts/>,
+	},
+	{
+		path: '/users',
+		element: <Users/>,
 	},
 	{
 		path: '/login',
@@ -35,6 +41,10 @@ const routes: Routes[] = [
 	{
 		path: '/addPost',
 		element: <AddPost/>,
+	},
+	{
+		path: '/profile/:username',
+		element: <Profile/>,
 	},
 ];
 

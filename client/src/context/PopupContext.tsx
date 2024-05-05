@@ -3,7 +3,7 @@ import {
 	type Dispatch, type SetStateAction,
 	useEffect,
 } from 'react';
-import './style/Popup.scss';
+import './style/PopupContext.scss';
 
 type PopupContentType = {
 	popup: string;

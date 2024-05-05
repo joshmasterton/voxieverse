@@ -3,9 +3,9 @@ import {
 } from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import {Loading} from '../comp/Loading';
-import {fetchLogin} from './authFetchRequests';
+import {fetchLogin} from '../fetchRequests/authFetchRequests';
 import {useUser} from '../context/UserContext';
-import {usePopup} from '../context/Popup';
+import {usePopup} from '../context/PopupContext';
 import {LightMode} from '../context/LightModeContext';
 import {type ValidationResult, validation, Validator} from './Validator';
 import {BiUser} from 'react-icons/bi';
@@ -126,7 +126,7 @@ export function Login() {
 				{validationResult?.name === 'password' && <Validator value={validationResult.message}/>}
 				<Link to='/forgottenPassword'>Forgotten Password</Link>
 				<button type='submit'>
-					{loading ? <Loading onlyComponent={false} marginTop='' height='100%' border='0'/> : 'Login'}
+					{loading ? <Loading onlyComponent={false} border='0'/> : 'Login'}
 				</button>
 			</main>
 			<footer>

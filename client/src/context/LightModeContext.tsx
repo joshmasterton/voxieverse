@@ -3,7 +3,7 @@ import {
 	useEffect,
 } from 'react';
 import {BiMoon} from 'react-icons/bi';
-import './style/LightMode.scss';
+import './style/LightModeContext.scss';
 
 type LightModeContextType = {
 	lightMode: string;

@@ -3,11 +3,11 @@ import {
 	type FormEvent,
 } from 'react';
 import {Loading} from '../comp/Loading';
-import {fetchAddPost} from './postFetchRequests';
+import {fetchAddPost} from '../fetchRequests/postFetchRequests';
 import {useUser} from '../context/UserContext';
-import {usePopup} from '../context/Popup';
+import {usePopup} from '../context/PopupContext';
 import {useNavigate} from 'react-router-dom';
-import {ReturnNav} from '../comp/ReturnNav';
+import {NavReturn} from '../comp/NavReturn';
 import './style/AddPost.scss';
 
 export function AddPost() {
@@ -45,13 +45,13 @@ export function AddPost() {
 		}, 400);
 	};
 
-	useEffect(() => {
+	const handleResizeTextarea = () => {
 		if (textAreaRef.current) {
 			const {current} = textAreaRef;
 			current.style.height = 'auto';
 			current.style.height = `${current.scrollHeight}px`;
 		}
-	}, [post]);
+	};
 
 	useEffect(() => {
 		if (!user) {
@@ -59,9 +59,26 @@ export function AddPost() {
 		}
 	}, [user]);
 
+	useEffect(() => {
+		handleResizeTextarea();
+	}, [post]);
+
+	useEffect(() => {
+		window.addEventListener('resize', () => {
+			handleResizeTextarea();
+
+			return () => {
+				window.removeEventListener('resize', () => {
+					handleResizeTextarea();
+				});
+			};
+		});
+	}, []);
+
 	return (
 		<div id='addPost'>
-			<ReturnNav/>
+			<NavReturn/>
+			<h1>New post</h1>
 			<form method='POST' onSubmit={e => {
 				handleOnSubmit(e);
 			}}>
@@ -77,6 +94,10 @@ export function AddPost() {
 						maxLength={500}
 					/>
 				</label>
+				<div>
+					<div style={{width: `${(post.length) / 5.4}%`}}/>
+					<p>{post?.length}</p>
+				</div>
 				<button type='submit'>
 					{loading ? <Loading onlyComponent={false} marginTop='' height='100%' border='0'/> : 'Send'}
 				</button>

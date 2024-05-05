@@ -1,8 +1,11 @@
 @use '../../assets/var';
 
 .userProfile {
+	position: relative;
+	width: 100%;
 	display: flex;
 	flex-direction: column;
+	justify-content: space-between;
 	padding: var.$pad;
 	gap: var.$pad;
 }
@@ -22,16 +25,56 @@ html.light .userProfile {
 	align-items: center;
 }
 
-.userProfile > header img {
+.userProfile > header > a {
+	width: 100%;
+	height: fit-content;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: var.$pad;
+}
+
+html.dark .userProfile > header > a {
+	border: var.$outline var.$darkAccent;
+}
+
+html.light .userProfile > header > a {
+	border: var.$outline var.$lightAccent;
+}
+
+.userProfile > header > a > img {
 	width: calc(var.$height * 1.5);
 	height: calc(var.$height * 1.5);
 }
 
 .userProfile > main {
+	display: flex;
+	justify-content: center;
+	gap: var.$pad;
+}
+
+.userProfile > main button {
 	flex: 1;
+	color: white;
 }
 
 .userProfile > footer {
 	display: flex;
-	justify-content: end;
+	align-items: end;
+	justify-content: center;
+	text-align: center;
+	gap: 0.4rem;
+}
+
+@media screen and (min-width: calc(var.$maxWidth * 1.25)) {
+	.userProfile {
+		margin-left: calc((var.$height * 6) + (var.$pad * 3));
+	}		
+}
+
+@media screen and (min-width: calc(var.$maxWidth * 2.25)) {
+	.userProfile {
+		margin-left: calc((var.$height * 6) + (var.$pad * 3));
+		margin-right: calc((var.$height * 8) + (var.$pad * 3));
+	}		
 }

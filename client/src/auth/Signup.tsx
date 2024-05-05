@@ -4,8 +4,8 @@ import {
 import {Link, useNavigate} from 'react-router-dom';
 import {Loading} from '../comp/Loading';
 import {useUser} from '../context/UserContext';
-import {usePopup} from '../context/Popup';
-import {fetchSignup} from './authFetchRequests';
+import {usePopup} from '../context/PopupContext';
+import {fetchSignup} from '../fetchRequests/authFetchRequests';
 import {LightMode} from '../context/LightModeContext';
 import {type ValidationResult, validation, Validator} from './Validator';
 import {BiUser} from 'react-icons/bi';
@@ -171,7 +171,7 @@ export function Signup() {
 					<Validator value={validationResult.message}/>
 				)}
 				<button type='submit'>
-					{loading ? <Loading onlyComponent={false} marginTop='' height='100%' border='0'/> : 'Signup'}
+					{loading ? <Loading onlyComponent={false} border='0'/> : 'Signup'}
 				</button>
 			</main>
 			<footer>

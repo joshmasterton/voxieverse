@@ -1,11 +1,12 @@
 import {useState} from 'react';
-import {fetchDislikePost, fetchLikePost, type PostType} from '../pages/postFetchRequests';
+import {Link} from 'react-router-dom';
+import {fetchDislikePost, fetchLikePost, type PostType} from '../fetchRequests/postFetchRequests';
 import {FaArrowUpLong, FaArrowDownLong} from 'react-icons/fa6';
 import {MdModeComment} from 'react-icons/md';
 import logo from '../assets/Voxieverse_logo.png';
-import './style/Post.scss';
+import './style/PostCard.scss';
 
-export function Post({post}: {post: PostType}) {
+export function PostCard({post}: {post: PostType}) {
 	const [currentPost, setCurrentPost] = useState<PostType>(post);
 
 	const handleLikePost = async () => {
@@ -26,16 +27,13 @@ export function Post({post}: {post: PostType}) {
 
 	return (
 		<div className='post'>
-			<header>
-				<button type='button'>
-					<img className='logo' alt='' src={logo}/>
-				</button>
+			<Link to={`/profile/${currentPost?.username}`}>
+				<img className='logo' alt='' src={logo}/>
 				<div>
 					<div>{currentPost?.username}</div>
-					<p>{currentPost?.username}</p>
+					<p>{currentPost?.createdAt}</p>
 				</div>
-				<p>{currentPost?.createdAt}</p>
-			</header>
+			</Link>
 			<main>
 				{currentPost?.post}
 			</main>

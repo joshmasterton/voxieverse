@@ -20,9 +20,10 @@ export const getUsers = express.Router();
 
 getUsers.get('/', verifyToken, async (req, res) => {
 	try {
-		const users = await queryDb(`
-			SELECT username, email, created_at, last_online FROM voxieverse_users;
-		`, undefined);
+		const users = await queryDb<string>(`
+			SELECT username, email, created_at, last_online FROM voxieverse_users
+			WHERE username != $1;
+		`, [res.locals.user.username]);
 
 		const usersFromDatabase: User[] = users?.rows as User[];
 

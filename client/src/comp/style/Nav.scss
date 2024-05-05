@@ -1,3 +1,4 @@
+
 @use '../../assets/var';
 
 #nav {
@@ -51,8 +52,9 @@ html.light #nav > footer {
 }
 
 #nav > main > h1 {
+	flex: 1;
 	display: flex;
-	justify-content: center;
+	justify-content: start;
 	justify-self: center;
 }
 
@@ -70,7 +72,7 @@ html.light #nav > footer {
 	flex-direction: column;
 	align-items: end;
 	padding: var.$pad;
-	gap: calc(var.$pad * 1.5);
+	gap: calc(var.$pad * 1.75);
 	transition: transform var.$transition, opacity var.$transition;
 	z-index: -1;
 }
@@ -78,7 +80,7 @@ html.light #nav > footer {
 #nav > footer.close {
 	opacity: 0%;
 	visibility: hidden;
-	transform: translateY( - calc(var.$height * 6.65));
+	transform: translateY( - calc(var.$height * 6.9));
 	transition: transform var.$transition, opacity var.$transition 0.4s, visibility 0s 0.4s;
 }
 
@@ -105,7 +107,7 @@ html.light #nav > footer {
 	#nav > footer {
 		opacity: 0%;
 		visibility: hidden;
-		transform: translateY( - calc(var.$height * 6.65));
+		transform: translateY( - calc(var.$height * 6.9));
 		transition: transform var.$transition, opacity var.$transition 0.4s, visibility 0s 0.4s;
 	}
 }
