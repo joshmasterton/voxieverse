@@ -1,17 +1,23 @@
 $primary: #4a5df0;
 $secondary: #7f41e3;
+$danger: #f52323;
+$dangerSecondary: #da1a31;
 $primaryGradient: linear-gradient(
 	45deg,
 	$primary,
 	$secondary,
 );
+$dangerGradient: linear-gradient(
+	45deg,
+	$danger,
+	$dangerSecondary,
+);
 
 $light: rgb(255, 255, 255);
-$lightAccent: rgb(229, 229, 239);
+$lightAccent: rgb(209, 209, 219);
 
 $dark: rgb(10, 10, 13);
-$darkAccent: rgb(25, 25, 32);
-$darkBright: rgb(18, 18, 24);
+$darkAccent: rgb(35, 35, 46);
 
 $primaryShadow: 0 0 0 0.2rem $primary;
 
@@ -21,7 +27,7 @@ $maxWidth: 30rem;
 $height: 2.5rem;
 $pad: 1rem;
 
-$round: 0.5rem;
+$round: 0.75rem;
 
 $transition: 0.4s ease;
 
@@ -61,7 +67,7 @@ html.dark *::placeholder {
 }
 
 html.light *::placeholder {
-	color: $darkBright;
+	color: $darkAccent;
 	opacity: 50%;
 }
 
@@ -119,8 +125,12 @@ button, input {
 button {
 	width: fit-content;
 	cursor: pointer;
-	color: $lightAccent;
+	color: $light;
 	background: $primaryGradient;
+}
+
+.buttonDanger {
+	background: $dangerGradient;
 }
 
 input, textarea {
@@ -146,10 +156,8 @@ a {
 }
 
 h1 {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	padding: calc($pad / 2);
+	padding-left: calc($pad / 2);
+	padding-right: calc($pad / 2);
 	font-size: $fontLarge;
 }
 

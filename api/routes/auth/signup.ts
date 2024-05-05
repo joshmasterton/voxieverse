@@ -94,9 +94,11 @@ signup.post(
 
 			const accessToken = generateAccessToken(user);
 			const refreshToken = generateRefreshToken(user);
+			const expirationDate = new Date();
+			expirationDate.setDate(expirationDate.getDate() + 7);
 
-			res.cookie('accessToken', accessToken, {httpOnly: true, secure: true});
-			res.cookie('refreshToken', refreshToken, {httpOnly: true, secure: true});
+			res.cookie('accessToken', accessToken, {httpOnly: true, secure: true, expires: expirationDate});
+			res.cookie('refreshToken', refreshToken, {httpOnly: true, secure: true, expires: expirationDate});
 			return res.status(200).json(user);
 		} catch (err) {
 			if (err instanceof Error) {

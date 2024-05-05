@@ -1,33 +1,44 @@
 @use '../../assets/var';
 
-#posts {
+#users {
 	position: relative;
 	width: 100%;
-	min-height: calc(100vh - (var.$pad * 5.5));
+	min-height: calc(100vh - var.$pad * 5.5);
 	display: flex;
 	flex-direction: column;
 	gap: var.$pad;
 	margin-top: calc(var.$height + var.$pad);
 }
 
-#posts > #add {
+#users > form {
+	padding: var.$pad;
+}
+
+html.dark #users > form {
+	border: var.$outline var.$darkAccent;
+}
+
+html.light #users > form {
+	border: var.$outline var.$lightAccent;
+}
+
+#users #up {
 	position: fixed;
 	bottom: 0;
 	right: 0;
 	margin: var.$pad;
-	z-index: 2;
-	color: var.$lightAccent;
-	background: var.$primaryGradient;
+	padding: 0;
+	z-index: 1;
 }
 
 @media screen and (min-width: calc(var.$maxWidth * 1.25)) {
-	#posts {
+	#users {
 		margin-left: calc((var.$height * 6) + (var.$pad * 3));
 	}		
 }
 
 @media screen and (min-width: calc(var.$maxWidth * 2.25)) {
-	#posts {
+	#users {
 		margin-left: calc((var.$height * 6) + (var.$pad * 3));
 		margin-right: calc((var.$height * 8) + (var.$pad * 3));
 	}		

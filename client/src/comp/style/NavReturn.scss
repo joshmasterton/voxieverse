@@ -1,6 +1,6 @@
 @use '../../assets/var';
 
-#returnNav {
+#navReturn {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -14,10 +14,20 @@
 	z-index: 1;
 }
 
-html.dark #returnNav {
+html.dark #navReturn {
 	background: var.$dark;
 }
 
-html.light #returnNav {
+html.light #navReturn {
 	background: var.$light;
+}
+
+#navReturn > form {
+	width: 100%;
+}
+
+#navReturn > button {
+	padding: 0;
+	color: inherit;
+	background: transparent;
 }

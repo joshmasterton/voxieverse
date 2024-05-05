@@ -1,0 +1,98 @@
+;@use '../../assets/var';
+
+#profile {
+	position: relative;
+	width: 100%;
+	min-height: calc(100vh - var.$pad * 5.5);
+	display: flex;
+	flex-direction: column;
+	gap: var.$pad;
+	margin-top: calc(var.$height + var.$pad);
+}
+
+#profile > .empty {
+	min-height: calc(var.$height * 5);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: var.$pad;
+}
+
+html.dark #profile > .empty {
+	border: var.$outline var.$darkAccent;
+}
+
+html.light #profile > .empty {
+	border: var.$outline var.$lightAccent;
+}
+
+#profileUser {
+	display: flex;
+	flex-direction: column;
+	padding: var.$pad;
+	gap: var.$pad;
+}
+
+html.dark #profileUser {
+	border: var.$outline var.$darkAccent;
+}
+
+html.light #profileUser {
+	border: var.$outline var.$lightAccent;
+}
+
+#profileUser > header {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: var.$pad;
+}
+
+#profileUser > header > div {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#profileUser > header > img {
+	width: calc(var.$height * 1.5);
+	height: calc(var.$height * 1.5);
+}
+
+#profileUser > footer {
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: var.$pad;
+}
+
+#profileUser > footer > div {
+	height: var.$height;
+	display: flex;
+	justify-content: center;
+	align-items: end;
+	gap: calc(var.$pad / 2);
+	padding: calc(var.$pad / 1.75);
+}
+
+html.dark #profileUser > footer > div {
+	border: var.$outline var.$darkAccent;
+}
+
+html.light #profileUser > footer > div {
+	border: var.$outline var.$lightAccent;
+}
+
+@media screen and (min-width: calc(var.$maxWidth * 1.25)) {
+	#profile {
+		margin-left: calc((var.$height * 6) + (var.$pad * 3));
+	}		
+}
+
+@media screen and (min-width: calc(var.$maxWidth * 2.25)) {
+	#profile {
+		margin-left: calc((var.$height * 6) + (var.$pad * 3));
+		margin-right: calc((var.$height * 8) + (var.$pad * 3));
+	}		
+}

@@ -52,19 +52,18 @@
 	align-items: center;
 	gap: var.$pad;
 	padding: var.$pad;
+	text-align: center;
 	z-index: 1;
 }
 
-#popup > div > div {
-	padding: var.$pad;
-}
-
 html.dark #popup > div {
-	background: var.$darkAccent;
+	background: var.$dark;
+	border: var.$outline var.$darkAccent;
 }
 
 html.light #popup > div {
-	background: var.$lightAccent;
+	background: var.$light;
+	border: var.$outline var.$lightAccent;
 }
 
 #popup > div > button {

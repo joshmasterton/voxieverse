@@ -1,11 +1,10 @@
 import {useEffect, useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import {useUser} from '../context/UserContext';
-import {type PostType, fetchGetPosts} from './postFetchRequests';
+import {type PostType, fetchGetPosts} from '../fetchRequests/postFetchRequests';
 import {Nav} from '../comp/Nav';
 import {Loading} from '../comp/Loading';
-import {Side} from '../comp/Side';
-import {Post} from '../comp/Post';
+import {PostCard} from '../comp/PostCard';
 import {CgAdd} from 'react-icons/cg';
 import './style/Posts.scss';
 
@@ -39,20 +38,18 @@ export function Posts() {
 		return (
 			<>
 				<Nav/>
-				<Side side='left' />
 				<div id='posts'>
 					{loading ? (
-						<Loading onlyComponent={false} marginTop='' height='100%' border=''/>
+						<Loading onlyComponent={false} border=''/>
 					) : (
 						posts?.map(post => (
-							<Post key={post.id} post={post} />
+							<PostCard key={post.id} post={post} />
 						))
 					)}
 					<Link to='/addPost' id='add'>
 						<CgAdd />
 					</Link>
 				</div>
-				<Side side='right' />
 			</>
 		);
 	}

@@ -1,31 +1,20 @@
-import {type ChangeEvent, useState, useEffect} from 'react';
+import {useState, useEffect} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import {LightMode} from '../context/LightModeContext';
 import {useUser} from '../context/UserContext';
-import {fetchLogout} from '../auth/authFetchRequests';
-import {BiSearch, BiUser} from 'react-icons/bi';
-import {MdClear} from 'react-icons/md';
+import {fetchLogout} from '../fetchRequests/authFetchRequests';
+import {BiGroup, BiUser} from 'react-icons/bi';
 import {CgLogOut, CgMenu} from 'react-icons/cg';
 import logo from '../assets/Voxieverse_logo.png';
 import './style/Nav.scss';
 
 export function Nav() {
-	const {user, setUser} = useUser();
 	const naviate = useNavigate();
+	const {user, setUser} = useUser();
 	const [isMenu, setIsMenu] = useState<boolean>(false);
-	const [searchInput, setSearchInput] = useState<string>('');
 
 	const handleSwitchMenu = () => {
 		setIsMenu(!isMenu);
-	};
-
-	const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-		const {value} = e.target;
-		setSearchInput(value);
-	};
-
-	const handleSearchClear = () => {
-		setSearchInput('');
 	};
 
 	const handleLogout = async () => {
@@ -61,32 +50,14 @@ export function Nav() {
 				</button>
 			</header>
 			<main>
-				<img className='logo' alt='' src={logo}/>
-				<div className='label'>
-					<label>
-						<BiSearch/>
-						<input
-							type='text'
-							name='search'
-							placeholder='Search posts'
-							value={searchInput}
-							onChange={e => {
-								handleInputChange(e);
-							}}
-							maxLength={120}
-						/>
-					</label>
-					<button type='button' onClick={() => {
-						handleSearchClear();
-					}}>
-						<MdClear/>
-					</button>
-				</div>
-				<Link to='/'>
+				<h1>
+					<img className='logo' alt='' src={logo}/>
+				</h1>
+				<Link to={`/profile/${user?.username}`}>
 					<BiUser/>
 				</Link>
-				<Link to='/'>
-					<BiUser/>
+				<Link to='/users'>
+					<BiGroup/>
 				</Link>
 				<button type='button' onClick={async () => {
 					await handleLogout();
@@ -96,13 +67,13 @@ export function Nav() {
 				<LightMode/>
 			</main>
 			<footer className={isMenu ? 'open' : 'close'}>
-				<Link to='/'>
+				<Link to={`/profile/${user?.username}`}>
 					<BiUser/>
 					{user?.username}
 				</Link>
-				<Link to='/'>
-					<BiUser/>
-					User
+				<Link to='/users'>
+					<BiGroup/>
+					Users
 				</Link>
 				<button type='button' onClick={async () => {
 					await handleLogout();

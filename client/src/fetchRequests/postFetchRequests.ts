@@ -53,9 +53,31 @@ export const fetchGetPosts = async (sort: string): Promise<PostType[] | undefine
 			return undefined;
 		}
 
-		const addPostData: PostType[] = await getPostsResponse.json() as PostType[];
+		const getPostdata: PostType[] = await getPostsResponse.json() as PostType[];
 
-		return addPostData;
+		return getPostdata;
+	} catch (err) {
+		if (err instanceof Error) {
+			console.error(err.message);
+		}
+	}
+};
+
+export const fetchGetPostsFromUser = async (username: string): Promise<PostType[] | undefined> => {
+	try {
+		const getPostsFromUserResponse = await fetch(`${apiUrl}/getPostsFromUser/${username}`, {
+			method: 'GET',
+			headers: {'Content-Type': 'application/json'},
+			credentials: 'include',
+		});
+
+		if (!getPostsFromUserResponse.ok) {
+			return undefined;
+		}
+
+		const getPostFromUserData: PostType[] = await getPostsFromUserResponse.json() as PostType[];
+
+		return getPostFromUserData;
 	} catch (err) {
 		if (err instanceof Error) {
 			console.error(err.message);

@@ -81,7 +81,10 @@ export const verifyToken = async (req: Request, res: Response, next: NextFunctio
 			res.locals.user = user;
 
 			const newAccessToken = generateAccessToken(user);
-			res.cookie('accessToken', newAccessToken, {httpOnly: true, secure: true});
+			const expirationDate = new Date();
+			expirationDate.setDate(expirationDate.getDate() + 7);
+
+			res.cookie('accessToken', newAccessToken, {httpOnly: true, secure: true, expires: expirationDate});
 
 			next();
 		} catch (err) {
