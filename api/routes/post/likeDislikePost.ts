@@ -13,13 +13,13 @@ export const likeDislikePost = express.Router();
 
 likeDislikePost.put(
 	'/',
+	verifyToken,
 	body('postId')
 		.escape()
 		.trim(),
 	body('action')
 		.escape()
 		.trim(),
-	verifyToken,
 	async (req, res) => {
 		try {
 			const validator = validationResult(req).array();

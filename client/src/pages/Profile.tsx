@@ -1,19 +1,25 @@
 import {useNavigate} from 'react-router-dom';
 import {useEffect, useState} from 'react';
-import {type User} from '../context/UserContext';
+import {useUser, type User} from '../context/UserContext';
 import {fetchGetPostsFromUser, type PostType} from '../fetchRequests/postFetchRequests';
 import {NavReturn} from '../comp/NavReturn';
 import {fetchGetUser} from '../fetchRequests/usersFetchRequests';
+import {
+	type Friendship, fetchCreateFriendship, fetchDeleteFriendship, fetchGetFriendship,
+} from '../fetchRequests/friendshipFetchRequests';
 import {Loading} from '../comp/Loading';
 import {PostCard} from '../comp/PostCard';
+import {BiMinus, BiPlus} from 'react-icons/bi';
 import logo from '../assets/Voxieverse_logo.png';
 import './style/Profile.scss';
 
 export function Profile() {
 	const navigate = useNavigate();
-	const [user, setUser] = useState<User | undefined>(undefined);
+	const {user} = useUser();
+	const [profileUser, setProfileUser] = useState<User | undefined>(undefined);
 	const [loading, setLoading] = useState<boolean>(true);
 	const [posts, setPosts] = useState<PostType[] | undefined>(undefined);
+	const [friendship, setFriendship] = useState<Friendship | undefined>(undefined);
 	const [totalLikes, setTotalLikes] = useState<number>(0);
 	const [totalDislikes, setTotalDislikes] = useState<number>(0);
 
@@ -23,7 +29,7 @@ export function Profile() {
 		setTimeout(() => {
 			fetchGetUser(usernamePath)
 				.then(async userData => {
-					setUser(userData);
+					setProfileUser(userData);
 					setLoading(false);
 				})
 				.catch(err => {
@@ -35,9 +41,9 @@ export function Profile() {
 	}, []);
 
 	useEffect(() => {
-		if (user) {
+		if (profileUser) {
 			setLoading(true);
-			fetchGetPostsFromUser(user?.username)
+			fetchGetPostsFromUser(profileUser?.username)
 				.then(postData => {
 					if (postData) {
 						if (postData[0]) {
@@ -56,7 +62,47 @@ export function Profile() {
 					setLoading(false);
 				});
 		}
-	}, [user]);
+
+		if (profileUser && user && profileUser.username !== user?.username) {
+			setLoading(true);
+			fetchGetFriendship(profileUser?.username, user?.username)
+				.then(friendshipData => {
+					setFriendship(friendshipData);
+				})
+				.catch(err => {
+					console.error(err.message);
+					setLoading(false);
+				});
+		}
+	}, [profileUser]);
+
+	const addFriend = async () => {
+		if (user && profileUser && profileUser?.username !== user?.username) {
+			await fetchCreateFriendship(user?.username, profileUser?.username);
+			fetchGetFriendship(profileUser?.username, user?.username)
+				.then(friendshipData => {
+					setFriendship(friendshipData);
+				})
+				.catch(err => {
+					console.error(err.message);
+					setLoading(false);
+				});
+		}
+	};
+
+	const deleteFriend = async () => {
+		if (user && profileUser && profileUser?.username !== user?.username) {
+			await fetchDeleteFriendship(user?.username, profileUser?.username);
+			fetchGetFriendship(profileUser?.username, user?.username)
+				.then(friendshipData => {
+					setFriendship(friendshipData);
+				})
+				.catch(err => {
+					console.error(err.message);
+					setLoading(false);
+				});
+		}
+	};
 
 	return (
 		<>
@@ -67,25 +113,49 @@ export function Profile() {
 				) : (
 					<>
 						{user && (
-							<div id='profileUser'>
+							<div id='profileUser' className={friendship?.status}>
 								<header>
 									<img alt='user' src={logo} className='logo'/>
 									<div>
-										<div>{user?.username}</div>
-										<p>{user?.email}</p>
+										<div>{profileUser?.username}</div>
+										<p>{profileUser?.email}</p>
 									</div>
+									{friendship?.status === 'accepted' && (
+										<div>Friends</div>
+									)}
+									{friendship?.status === 'pending' && friendship.userInitiator === user.username && (
+										<div>Waiting for person to respond to friend request</div>
+									)}
+									{friendship?.status === 'pending' && friendship.userInitiator !== user.username && (
+										<div>Waiting for you to responsd to friend request</div>
+									)}
+
 								</header>
 								<footer>
 									<div>
-										<p>Posts</p>
-										|
-										<p>{posts ? posts?.length : 0}</p>
+										<div>
+											<p>Posts</p>
+											<p>{posts ? posts?.length : 0}</p>
+										</div>
+										<div>
+											<p>Likes</p>
+											<p>{totalLikes - totalDislikes}</p>
+										</div>
 									</div>
-									<div>
-										<p>Likes</p>
-										|
-										<p>{totalLikes - totalDislikes}</p>
-									</div>
+									{user.username !== profileUser?.username && (
+										<div>
+											<button type='button' aria-label='Add friend' onClick={async () => {
+												await addFriend();
+											}}>
+												<BiPlus/>
+											</button>
+											<button type='button' aria-label='Remove friend' onClick={async () => {
+												await deleteFriend();
+											}}>
+												<BiMinus/>
+											</button>
+										</div>
+									)}
 								</footer>
 							</div>
 						)}

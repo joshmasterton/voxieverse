@@ -33,6 +33,10 @@ html.light #profile > .empty {
 	gap: var.$pad;
 }
 
+#profileUser button {
+	padding: 0;
+}
+
 html.dark #profileUser {
 	border: var.$outline var.$darkAccent;
 }
@@ -46,6 +50,7 @@ html.light #profileUser {
 	flex-direction: column;
 	align-items: center;
 	gap: var.$pad;
+	text-align: center;
 }
 
 #profileUser > header > div {
@@ -62,25 +67,37 @@ html.light #profileUser {
 #profileUser > footer {
 	width: 100%;
 	display: flex;
-	flex-wrap: wrap;
+	flex-direction: column;
 	justify-content: center;
 	gap: var.$pad;
 }
 
 #profileUser > footer > div {
-	height: var.$height;
 	display: flex;
+	flex-wrap: wrap;
 	justify-content: center;
-	align-items: end;
-	gap: calc(var.$pad / 2);
-	padding: calc(var.$pad / 1.75);
+	align-items: center;
+	gap: var.$pad;
 }
 
-html.dark #profileUser > footer > div {
+#profileUser > footer > div > div {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: calc(var.$pad / 2);
+}
+
+#profileUser button {
+	flex: 1;
+}
+
+html.dark #profileUser > footer > div > div {
 	border: var.$outline var.$darkAccent;
 }
 
-html.light #profileUser > footer > div {
+html.light #profileUser > footer > div > div {
 	border: var.$outline var.$lightAccent;
 }
 

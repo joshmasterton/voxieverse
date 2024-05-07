@@ -9,7 +9,7 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	gap: calc(var.$pad / 4);
+	gap: 3px;
 }
 
 html.dark #loading {
@@ -25,8 +25,8 @@ div#loading.onlyComponent {
 }
 
 #loading > div {
-	width: calc(var.$pad / 2);
-	height: calc(var.$pad * 1);
+	width: calc(var.$pad / 5);
+	height: calc(var.$pad / 1.5);
 	display: flex;
 	flex-direction: row;
 	justify-content: center;

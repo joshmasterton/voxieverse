@@ -66,6 +66,10 @@ html.light #popup > div {
 	border: var.$outline var.$lightAccent;
 }
 
+#popup > div > div {
+	padding: var.$pad;
+}
+
 #popup > div > button {
 	width: 100%;
 }

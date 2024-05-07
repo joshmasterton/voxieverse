@@ -17,6 +17,14 @@ export type User = {
 	lastOnline: string;
 };
 
+export type UserWithFriendship = {
+	username: string;
+	email: string;
+	createdAt: string;
+	lastOnline: string;
+	friendshipStatus: string | undefined;
+};
+
 export type ValidationError = {
 	validationError: string;
 };

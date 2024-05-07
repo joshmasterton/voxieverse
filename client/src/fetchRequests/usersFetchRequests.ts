@@ -1,10 +1,10 @@
-import {type User} from '../context/UserContext';
+import {type UserWithFriendship, type User} from '../context/UserContext';
 
 const apiUrl = 'http://localhost:9001';
 
-export const fetchGetUsers = async (): Promise<User[] | undefined> => {
+export const fetchGetUsers = async (filterFriends: boolean, filter: string | undefined): Promise<UserWithFriendship[] | undefined> => {
 	try {
-		const getUsersResponse = await fetch(`${apiUrl}/getUsers`, {
+		const getUsersResponse = await fetch(`${apiUrl}/${filterFriends ? `getFriends/${filter}` : `getUsers/${filter}`}`, {
 			method: 'GET',
 			headers: {'Content-Type': 'application/json'},
 			credentials: 'include',
@@ -14,7 +14,7 @@ export const fetchGetUsers = async (): Promise<User[] | undefined> => {
 			return undefined;
 		}
 
-		const getUsersData: User[] = await getUsersResponse.json() as User[];
+		const getUsersData: UserWithFriendship[] = await getUsersResponse.json() as UserWithFriendship[];
 
 		return getUsersData;
 	} catch (err) {
@@ -27,17 +27,17 @@ export const fetchGetUsers = async (): Promise<User[] | undefined> => {
 export const fetchGetUser = async (username: string | undefined): Promise<User | undefined> => {
 	try {
 		if (username) {
-			const getContactResponse = await fetch(`${apiUrl}/getContact/${username}`, {
+			const getUserResponse = await fetch(`${apiUrl}/getUser/${username}`, {
 				method: 'GET',
 				headers: {'Content-Type': 'application/json'},
 				credentials: 'include',
 			});
 
-			if (!getContactResponse.ok) {
+			if (!getUserResponse.ok) {
 				return undefined;
 			}
 
-			const getContactData: User | {error: string} = await getContactResponse.json() as User | {error: string};
+			const getContactData: User | {error: string} = await getUserResponse.json() as User | {error: string};
 
 			if ('error' in getContactData) {
 				throw new Error('No user here');
