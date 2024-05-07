@@ -8,6 +8,7 @@ import {AddPost} from './pages/AddPost';
 import {Login} from './auth/Login';
 import {Profile} from './pages/Profile';
 import {Signup} from './auth/Signup';
+import {Friends} from './pages/Friends';
 import {Users} from './pages/Users';
 import {ForgottenPassword} from './auth/ForgottenPassword';
 import './assets/var.scss';
@@ -23,7 +24,11 @@ const routes: Routes[] = [
 		element: <Posts/>,
 	},
 	{
-		path: '/users',
+		path: '/friends',
+		element: <Friends/>,
+	},
+	{
+		path: '/findUser',
 		element: <Users/>,
 	},
 	{

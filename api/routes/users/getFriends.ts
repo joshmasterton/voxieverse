@@ -3,6 +3,7 @@ import {param, validationResult} from 'express-validator';
 import {verifyToken} from '../../token/verifyToken';
 import {queryDb} from '../../database/queryDb';
 import {type Friendship} from '../friendship/getFriendship';
+import {type RefinedUserFriendship} from './getUsers';
 
 type User = {
 	username: string;
@@ -11,17 +12,9 @@ type User = {
 	last_online: Date;
 };
 
-export type RefinedUserFriendship = {
-	username: string;
-	email: string;
-	createdAt: string;
-	lastOnline: string;
-	friendshipStatus: string | undefined;
-} | undefined;
+export const getFriends = express.Router();
 
-export const getUsers = express.Router();
-
-getUsers.get(
+getFriends.get(
 	'/:filter?',
 	verifyToken,
 	param('filter')
@@ -54,16 +47,20 @@ getUsers.get(
 
 				const friendship: Friendship = friendshipFromDatabse?.rows[0] as Friendship;
 
-				return {
-					username: user.username,
-					email: user.email,
-					createdAt: new Date(user.created_at).toLocaleString(),
-					lastOnline: new Date(user.last_online).toLocaleString(),
-					friendshipStatus: friendship ? friendship.status : undefined,
-				};
+				if (friendship) {
+					return {
+						username: user.username,
+						email: user.email,
+						createdAt: new Date(user.created_at).toLocaleString(),
+						lastOnline: new Date(user.last_online).toLocaleString(),
+						friendshipStatus: friendship ? friendship.status : undefined,
+					};
+				}
+
+				return undefined;
 			}));
 
-			return res.status(201).json(refinedUsers);
+			return res.json(refinedUsers.filter(friend => friend));
 		} catch (err) {
 			if (err instanceof Error) {
 				console.error(err.message);

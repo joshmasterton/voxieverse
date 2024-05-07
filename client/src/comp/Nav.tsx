@@ -43,6 +43,7 @@ export function Nav() {
 		<nav id='nav'>
 			<header>
 				<img className='logo' alt='' src={logo}/>
+				<div>{user?.username}</div>
 				<button type='button' aria-label='Menu' onClick={() => {
 					handleSwitchMenu();
 				}}>
@@ -52,11 +53,12 @@ export function Nav() {
 			<main>
 				<h1>
 					<img className='logo' alt='' src={logo}/>
+					<div>{user?.username}</div>
 				</h1>
 				<Link to={`/profile/${user?.username}`}>
 					<BiUser/>
 				</Link>
-				<Link to='/users'>
+				<Link to='/friends'>
 					<BiGroup/>
 				</Link>
 				<button type='button' onClick={async () => {
@@ -71,9 +73,9 @@ export function Nav() {
 					<BiUser/>
 					{user?.username}
 				</Link>
-				<Link to='/users'>
+				<Link to='/friends'>
 					<BiGroup/>
-					Users
+					Friends
 				</Link>
 				<button type='button' onClick={async () => {
 					await handleLogout();

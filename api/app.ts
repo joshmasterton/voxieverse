@@ -4,9 +4,9 @@ import helmet from 'helmet';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import {
+	createFriendshipTable,
 	createPostDislikesTable, createPostLikesTable,
 	createPostsTable, createUsersTable,
-	dropPostDislikesTable, dropPostLikesTable, dropPostsTable,
 } from './database/createTables';
 import {signup} from './routes/auth/signup';
 import {login} from './routes/auth/login';
@@ -14,10 +14,14 @@ import {logout} from './routes/auth/logout';
 import {addPost} from './routes/post/addPost';
 import {getPosts} from './routes/post/getPosts';
 import {getPostsFromUser} from './routes/post/getPostsFromUser';
-import {getContact} from './routes/users/getContact';
+import {getUser} from './routes/users/getUser';
+import {getFriendship} from './routes/friendship/getFriendship';
 import {getUsers} from './routes/users/getUsers';
+import {getFriends} from './routes/users/getFriends';
 import {likeDislikePost} from './routes/post/likeDislikePost';
 import {validateUser} from './routes/auth/validateUser';
+import {createFriendship} from './routes/friendship/createFriendship';
+import {deleteFriendship} from './routes/friendship/deleteFriendship';
 
 dotenv.config();
 
@@ -29,6 +33,7 @@ await createUsersTable();
 await createPostsTable();
 await createPostLikesTable();
 await createPostDislikesTable();
+await createFriendshipTable();
 
 // App settings
 app.use(cors(clientUrl ? {origin: [clientUrl], credentials: true} : {credentials: true}));
@@ -51,7 +56,13 @@ app.use('/likeDislikePost', likeDislikePost);
 
 // Users routes
 app.use('/getUsers', getUsers);
-app.use('/getContact', getContact);
+app.use('/getUser', getUser);
+app.use('/getFriends', getFriends);
+
+// Friendship routes
+app.use('/createFriendship', createFriendship);
+app.use('/getFriendship', getFriendship);
+app.use('/deleteFriendship', deleteFriendship);
 
 app.listen(port, (): void => {
 	console.log(`Server running on port ${port}`);

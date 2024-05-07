@@ -14,8 +14,8 @@ export const createUsersTable = async () => {
 			password VARCHAR(200),
 			created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
 			last_online TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
-		);`
-	, undefined);
+		);
+	`, undefined);
 };
 
 export const dropPostsTable = async () => {
@@ -32,8 +32,8 @@ export const createPostsTable = async () => {
 			dislikes INT DEFAULT 0,
 			comments INT DEFAULT 0,
 			created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
-		);`
-	, undefined);
+		);
+		`, undefined);
 };
 
 export const dropPostLikesTable = async () => {
@@ -47,12 +47,12 @@ export const createPostLikesTable = async () => {
 			username VARCHAR(30),
 			post_id INT,
 			created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
-		);`
-	, undefined);
+		);
+	`, undefined);
 };
 
 export const dropPostDislikesTable = async () => {
-	await queryDb('DROP TABLE IF EXISTS voxieverse_post_dislikes', undefined);
+	await queryDb('DROP TABLE IF EXISTS voxieverse_post_dislikes;', undefined);
 };
 
 export const createPostDislikesTable = async () => {
@@ -62,6 +62,23 @@ export const createPostDislikesTable = async () => {
 			username VARCHAR(30),
 			post_id INT,
 			created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
-		);`
-	, undefined);
+		);
+	`, undefined);
+};
+
+export const dropFriendshipTable = async () => {
+	await queryDb('DROP TABLE IF EXISTS voxieverse_friendship;', undefined);
+};
+
+export const createFriendshipTable = async () => {
+	await queryDb(`
+		CREATE TABLE IF NOT EXISTS voxieverse_friendship(
+			friendship_id SERIAL PRIMARY KEY,
+			user_one VARCHAR(30),
+			user_two VARCHAR(30),
+			user_initiator VARCHAR(30),
+			status VARCHAR(20) DEFAULT 'pending',
+			created_At TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+		);
+	`, undefined);
 };

@@ -14,6 +14,10 @@
 	padding: var.$pad;
 }
 
+#users > form button {
+	min-width: var.$height;
+}
+
 html.dark #users > form {
 	border: var.$outline var.$darkAccent;
 }
@@ -22,6 +26,7 @@ html.light #users > form {
 	border: var.$outline var.$lightAccent;
 }
 
+#users #findUser,
 #users #up {
 	position: fixed;
 	bottom: 0;
@@ -29,6 +34,8 @@ html.light #users > form {
 	margin: var.$pad;
 	padding: 0;
 	z-index: 1;
+	color: var.$light;
+	background: var.$primaryGradient;
 }
 
 @media screen and (min-width: calc(var.$maxWidth * 1.25)) {

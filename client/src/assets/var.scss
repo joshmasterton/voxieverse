@@ -2,6 +2,8 @@ $primary: #4a5df0;
 $secondary: #7f41e3;
 $danger: #f52323;
 $dangerSecondary: #da1a31;
+$accept: rgb(24, 210, 24);
+$pending: rgb(231, 164, 31);
 $primaryGradient: linear-gradient(
 	45deg,
 	$primary,
@@ -27,7 +29,7 @@ $maxWidth: 30rem;
 $height: 2.5rem;
 $pad: 1rem;
 
-$round: 0.75rem;
+$round: 0.25rem;
 
 $transition: 0.4s ease;
 
@@ -156,6 +158,10 @@ a {
 }
 
 h1 {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: $pad;
 	padding-left: calc($pad / 2);
 	padding-right: calc($pad / 2);
 	font-size: $fontLarge;
