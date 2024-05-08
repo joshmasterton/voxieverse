@@ -1,0 +1,56 @@
+@use '../../assets/var';
+
+.side, .sidePost, .sideFriends {
+	display: none;
+	position: fixed;
+	flex-direction: column;
+	margin-top: var.$height + var.$pad;
+	min-height: calc(100vh - (var.$pad * 5.5));
+	max-height: calc(100% - (var.$pad * 5.5));
+	width: 100%;
+	gap: var.$pad;
+	padding: var.$pad;
+	overflow: scroll;
+}
+
+.side {
+	padding: 0;
+}
+
+html.dark .side,
+html.dark .sidePost,
+html.dark .sideFriends {
+	background: var.$darkAccent;
+}
+
+html.light .side,
+html.light .sidePost,
+html.light .sideFriends {
+	background: var.$lightAccent;
+}
+
+.side.left {
+	left: var.$pad;
+	max-width: calc((var.$height * 6) + var.$pad * 2);
+}
+
+.side.right, .sidePost.right, .sideFriends.right {
+	right: var.$pad;
+	max-width: calc((var.$height * 8) + var.$pad * 2);
+}
+
+@media screen and (min-width: calc(var.$maxWidth * 1.25)) {
+	.side.left {
+		display: flex;
+	}		
+}
+
+@media screen and (min-width: calc(var.$maxWidth * 2.25)) {
+	.side.left {
+		display: flex;
+	}		
+
+	.side.right, .sidePost.right, .sideFriends.right {
+		display: flex;
+	}		
+}

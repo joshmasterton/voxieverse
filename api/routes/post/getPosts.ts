@@ -28,14 +28,18 @@ export type RefinedPost = {
 export const getPosts = express.Router();
 
 getPosts.get(
-	'/:sort',
+	'/:sort/:page',
 	verifyToken,
 	body('sort')
 		.escape()
 		.trim(),
+	body('page')
+		.escape()
+		.trim(),
 	async (req, res) => {
 		try {
-			const {sort} = req.params;
+			const {sort, page} = req.params;
+			const offset = parseInt(page, 10) * 10;
 			const validator = validationResult(req).array();
 
 			if (validator.length > 0) {
@@ -44,8 +48,9 @@ getPosts.get(
 			}
 
 			const postsFromDatabase = await queryDb<number>(`
-				SELECT * FROM voxieverse_posts ORDER BY ${sort} DESC LIMIT $1;
-			`, [10]);
+				SELECT * FROM voxieverse_posts
+				ORDER BY ${sort} DESC LIMIT $1 OFFSET $2;
+			`, [10, offset]);
 
 			const posts: PostFromDatabase[] = postsFromDatabase?.rows as PostFromDatabase[];
 

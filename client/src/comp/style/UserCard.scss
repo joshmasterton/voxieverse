@@ -9,11 +9,11 @@
 }
 
 html.dark .users {
-	border: var.$outline var.$darkAccent;
+	background: var.$darkAccent;
 }
 
 html.light .users {
-	border: var.$outline var.$lightAccent;
+	background: var.$lightAccent;
 }
 
 .users > h1 {
@@ -32,11 +32,11 @@ html.light .users {
 }
 
 html.dark .userCard {
-	border: var.$outline var.$darkAccent;
+	background: var.$darkBright;
 }
 
 html.light .userCard {
-	border: var.$outline var.$lightAccent;
+	background: var.$lightBright;
 }
 
 .userCard > header {
@@ -55,3 +55,39 @@ html.light .userCard {
 	display: flex;
 	gap: var.$pad;
 }
+
+.userCardSmall {
+	height: fit-content;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: var.$pad;
+	color: inherit;
+}
+
+html.dark .userCardSmall {
+	background: var.$darkBright;
+}
+
+html.light .userCardSmall {
+	background: var.$lightBright;
+}
+
+.userCardSmall > header {
+	display: flex;
+	align-items: center;
+	gap: var.$pad;
+}
+
+.userCardSmall > header > div {
+	display: flex;
+	flex-direction: column;
+	align-items: start;
+}
+
+.userCardSmall > footer {
+	display: flex;
+	gap: var.$pad;
+}
+

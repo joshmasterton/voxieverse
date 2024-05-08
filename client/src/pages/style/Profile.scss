@@ -33,24 +33,29 @@ html.light #profile > .empty {
 	gap: var.$pad;
 }
 
-#profileUser button {
-	padding: 0;
-}
-
 html.dark #profileUser {
-	border: var.$outline var.$darkAccent;
+	background: var.$darkAccent;
 }
 
 html.light #profileUser {
-	border: var.$outline var.$lightAccent;
+	background: var.$lightAccent;
 }
 
 #profileUser > header {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	padding: var.$pad;
 	gap: var.$pad;
 	text-align: center;
+}
+
+html.dark #profileUser > header {
+	background: var.$darkBright;
+}
+
+html.light #profileUser > header {
+	background: var.$lightBright;
 }
 
 #profileUser > header > div {
@@ -64,6 +69,21 @@ html.light #profileUser {
 	height: calc(var.$height * 1.5);
 }
 
+#profileUser > main {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: var.$pad;
+}
+
+#profileUser > main > div {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
 #profileUser > footer {
 	width: 100%;
 	display: flex;
@@ -74,14 +94,17 @@ html.light #profileUser {
 
 #profileUser > footer > div {
 	display: flex;
-	flex-wrap: wrap;
 	justify-content: center;
 	align-items: center;
 	gap: var.$pad;
 }
 
+#profileUser > footer button {
+	width: 100%;
+}
+
 #profileUser > footer > div > div {
-	flex: 1;
+	width: 100%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -89,16 +112,12 @@ html.light #profileUser {
 	padding: calc(var.$pad / 2);
 }
 
-#profileUser button {
-	flex: 1;
-}
-
 html.dark #profileUser > footer > div > div {
-	border: var.$outline var.$darkAccent;
+	background: var.$darkBright;
 }
 
 html.light #profileUser > footer > div > div {
-	border: var.$outline var.$lightAccent;
+	background: var.$lightBright;
 }
 
 @media screen and (min-width: calc(var.$maxWidth * 1.25)) {

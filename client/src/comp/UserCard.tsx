@@ -18,3 +18,19 @@ export function UserCard({user}: {user: UserWithFriendship}) {
 		</Link>
 	);
 }
+
+export function UserCardSmall({user}: {user: UserWithFriendship}) {
+	return (
+		<Link to={`/profile/${user.username}`} className={`userCardSmall ${user.friendshipStatus}`}>
+			<header>
+				<img alt='user' src={logo} className='logo'/>
+				<div>
+					<div>{user?.username}</div>
+					<p>{user?.email}</p>
+				</div>
+			</header>
+			<footer>
+			</footer>
+		</Link>
+	);
+}

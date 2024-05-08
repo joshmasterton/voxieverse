@@ -1,30 +1,41 @@
 @use '../../assets/var';
 
-#loading {
+div#loading {
 	top: 0;
 	left: 0;
 	position: absolute;
 	width: 100%;
 	height: 100%;
 	display: flex;
+	flex-direction: row;
 	justify-content: center;
 	align-items: center;
 	gap: 3px;
+	background: inherit;
 }
 
-html.dark #loading {
-	border: var.$outline var.$darkAccent;
+html.dark div#loading {
+	background: var.$darkAccent;
 }
 
-html.light #loading {
-	border: var.$outline var.$lightAccent;
+html.light div#loading {
+	background: var.$lightAccent;
+}
+
+div#loading.gradient {
+	background: var.$primaryGradient;	
+}
+
+div#loading.transparent {
+	background: transparent;
 }
 
 div#loading.onlyComponent {
 	position: fixed;
+	background: transparent;
 }
 
-#loading > div {
+div#loading > div {
 	width: calc(var.$pad / 5);
 	height: calc(var.$pad / 1.5);
 	display: flex;
@@ -36,11 +47,11 @@ div#loading.onlyComponent {
 	border-radius: 10rem;
 }
 
-html.dark #loading > div {
+html.dark div#loading > div {
 	background: var.$light;
 }
 
-html.light #loading > div {
+html.light div#loading > div {
 	background: var.$darkAccent;
 }
 

@@ -26,14 +26,16 @@ export function PostCard({post}: {post: PostType}) {
 	};
 
 	return (
-		<div className='post'>
-			<Link to={`/profile/${currentPost?.username}`}>
-				<img className='logo' alt='' src={logo}/>
+		<div className='postCard'>
+			<header>
+				<Link to={`/profile/${currentPost?.username}`}>
+					<img className='logo' alt='' src={logo}/>
+				</Link>
 				<div>
 					<div>{currentPost?.username}</div>
 					<p>{currentPost?.createdAt}</p>
 				</div>
-			</Link>
+			</header>
 			<main>
 				{currentPost?.post}
 			</main>
@@ -60,13 +62,34 @@ export function PostCard({post}: {post: PostType}) {
 					<FaArrowDownLong/>
 					{currentPost?.dislikes}
 				</button>
-				<button
-					type='button'
+				<Link
+					to={`/post/${post.id}`}
 					aria-label='like'>
 					<MdModeComment/>
 					{currentPost?.comments}
-				</button>
+				</Link>
 			</footer>
 		</div>
+	);
+}
+
+export function PostCardSmall({post}: {post: PostType}) {
+	return (
+		<Link to={`/post/${post.id}`} className='postCardSmall'>
+			<main>
+				{post?.post?.slice(0, 200)}
+				{post?.post?.length > 200 ? '...' : ''}
+			</main>
+			<footer>
+				<div>
+					<FaArrowUpLong/>
+					{post?.likes}
+				</div>
+				<div>
+					<FaArrowDownLong/>
+					{post?.dislikes}
+				</div>
+			</footer>
+		</Link>
 	);
 }

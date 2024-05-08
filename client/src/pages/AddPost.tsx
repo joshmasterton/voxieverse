@@ -2,7 +2,7 @@ import {
 	type ChangeEvent, useState, useEffect, useRef,
 	type FormEvent,
 } from 'react';
-import {Loading} from '../comp/Loading';
+import {LoadingButton} from '../comp/Loading';
 import {fetchAddPost} from '../fetchRequests/postFetchRequests';
 import {useUser} from '../context/UserContext';
 import {usePopup} from '../context/PopupContext';
@@ -17,6 +17,12 @@ export function AddPost() {
 	const {setPopup} = usePopup();
 	const [loading, setLoading] = useState(false);
 	const textAreaRef = useRef<HTMLTextAreaElement>(null);
+
+	useEffect(() => {
+		if (!user) {
+			navigate('/login');
+		}
+	}, [user]);
 
 	const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
 		const {value} = e.target;
@@ -42,7 +48,7 @@ export function AddPost() {
 					setPopup(err.message);
 				}
 			}
-		}, 400);
+		}, 300);
 	};
 
 	const handleResizeTextarea = () => {
@@ -52,12 +58,6 @@ export function AddPost() {
 			current.style.height = `${current.scrollHeight}px`;
 		}
 	};
-
-	useEffect(() => {
-		if (!user) {
-			navigate('/login');
-		}
-	}, [user]);
 
 	useEffect(() => {
 		handleResizeTextarea();
@@ -75,33 +75,35 @@ export function AddPost() {
 		});
 	}, []);
 
-	return (
-		<div id='addPost'>
-			<NavReturn/>
-			<h1>New post</h1>
-			<form method='POST' onSubmit={e => {
-				handleOnSubmit(e);
-			}}>
-				<label>
-					<textarea
-						name='post'
-						value={post}
-						ref={textAreaRef}
-						onChange={e => {
-							handleInputChange(e);
-						}}
-						placeholder='Write post here...'
-						maxLength={500}
-					/>
-				</label>
-				<div>
-					<div style={{width: `${(post.length) / 5.4}%`}}/>
-					<p>{post?.length}</p>
-				</div>
-				<button type='submit'>
-					{loading ? <Loading onlyComponent={false} marginTop='' height='100%' border='0'/> : 'Send'}
-				</button>
-			</form>
-		</div>
-	);
+	if (user) {
+		return (
+			<div id='addPost'>
+				<NavReturn/>
+				<h1>New post</h1>
+				<form method='POST' onSubmit={e => {
+					handleOnSubmit(e);
+				}}>
+					<label>
+						<textarea
+							name='post'
+							value={post}
+							ref={textAreaRef}
+							onChange={e => {
+								handleInputChange(e);
+							}}
+							placeholder='Write post here...'
+							maxLength={500}
+						/>
+					</label>
+					<div>
+						<div style={{width: `${(post.length) / 5.4}%`}}/>
+						<p>{post?.length}</p>
+					</div>
+					<button type='submit'>
+						{loading ? <LoadingButton/> : 'Send'}
+					</button>
+				</form>
+			</div>
+		);
+	}
 }

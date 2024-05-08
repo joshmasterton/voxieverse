@@ -41,9 +41,9 @@ export const fetchAddPost = async <T>(post: T): Promise<ValidationError | undefi
 	}
 };
 
-export const fetchGetPosts = async (sort: string): Promise<PostType[] | undefined> => {
+export const fetchGetPosts = async (sort: string, page: number): Promise<PostType[] | undefined> => {
 	try {
-		const getPostsResponse = await fetch(`${apiUrl}/getPosts/${sort}`, {
+		const getPostsResponse = await fetch(`${apiUrl}/getPosts/${sort}/${page}`, {
 			method: 'GET',
 			headers: {'Content-Type': 'application/json'},
 			credentials: 'include',
@@ -53,7 +53,29 @@ export const fetchGetPosts = async (sort: string): Promise<PostType[] | undefine
 			return undefined;
 		}
 
-		const getPostdata: PostType[] = await getPostsResponse.json() as PostType[];
+		const getPostsdata: PostType[] = await getPostsResponse.json() as PostType[];
+
+		return getPostsdata;
+	} catch (err) {
+		if (err instanceof Error) {
+			console.error(err.message);
+		}
+	}
+};
+
+export const fetchGetPost = async (postId: number): Promise<PostType | undefined> => {
+	try {
+		const getPostResponse = await fetch(`${apiUrl}/getPost/${postId}`, {
+			method: 'GET',
+			headers: {'Content-Type': 'application/json'},
+			credentials: 'include',
+		});
+
+		if (!getPostResponse.ok) {
+			return undefined;
+		}
+
+		const getPostdata: PostType = await getPostResponse.json() as PostType;
 
 		return getPostdata;
 	} catch (err) {
@@ -63,9 +85,9 @@ export const fetchGetPosts = async (sort: string): Promise<PostType[] | undefine
 	}
 };
 
-export const fetchGetPostsFromUser = async (username: string): Promise<PostType[] | undefined> => {
+export const fetchGetPostsFromUser = async (username: string, page: number): Promise<PostType[] | undefined> => {
 	try {
-		const getPostsFromUserResponse = await fetch(`${apiUrl}/getPostsFromUser/${username}`, {
+		const getPostsFromUserResponse = await fetch(`${apiUrl}/getPostsFromUser/${username}/${page}`, {
 			method: 'GET',
 			headers: {'Content-Type': 'application/json'},
 			credentials: 'include',

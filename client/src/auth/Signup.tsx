@@ -2,7 +2,7 @@ import {
 	type ChangeEvent, type FormEvent, useState, useEffect,
 } from 'react';
 import {Link, useNavigate} from 'react-router-dom';
-import {Loading} from '../comp/Loading';
+import {LoadingButton} from '../comp/Loading';
 import {useUser} from '../context/UserContext';
 import {usePopup} from '../context/PopupContext';
 import {fetchSignup} from '../fetchRequests/authFetchRequests';
@@ -60,7 +60,7 @@ export function Signup() {
 			}
 
 			setLoading(false);
-		}, 1000);
+		}, 300);
 	};
 
 	const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -171,7 +171,7 @@ export function Signup() {
 					<Validator value={validationResult.message}/>
 				)}
 				<button type='submit'>
-					{loading ? <Loading onlyComponent={false} border='0'/> : 'Signup'}
+					{loading ? <LoadingButton/> : 'Signup'}
 				</button>
 			</main>
 			<footer>

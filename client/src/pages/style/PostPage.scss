@@ -1,0 +1,21 @@
+@use '../../assets/var';
+
+#postPage {
+	position: relative;
+	width: 100%;
+	min-height: calc(100vh - (var.$pad * 5.5));
+	margin-top: var.$height + var.$pad;
+}
+
+@media screen and (min-width: calc(var.$maxWidth * 1.25)) {
+	#postPage {
+		margin-left: calc((var.$height * 6) + (var.$pad * 3));
+	}		
+}
+
+@media screen and (min-width: calc(var.$maxWidth * 2.25)) {
+	#postPage {
+		margin-left: calc((var.$height * 6) + (var.$pad * 3));
+		margin-right: calc((var.$height * 8) + (var.$pad * 3));
+	}		
+}

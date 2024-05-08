@@ -3,7 +3,7 @@ import {
 	type Dispatch, type SetStateAction,
 } from 'react';
 import {fetchValidateUser} from '../fetchRequests/authFetchRequests';
-import {Loading} from '../comp/Loading';
+import {LoadingTransparent} from '../comp/Loading';
 
 type UserContextType = {
 	user: User | undefined;
@@ -51,7 +51,7 @@ export const UserProvider = ({children}: {children: ReactNode}) => {
 				const fetchUser = await fetchValidateUser();
 				setUser(fetchUser);
 				setLoading(false);
-			}, 1000);
+			}, 300);
 		};
 
 		fetchUser()
@@ -59,10 +59,20 @@ export const UserProvider = ({children}: {children: ReactNode}) => {
 				console.error(err.message);
 				setLoading(false);
 			});
+
+		const checkUserInterval = setInterval(async () => {
+			const fetchUser = await fetchValidateUser();
+			setUser(fetchUser);
+			setLoading(false);
+		}, 60000);
+
+		return () => {
+			clearInterval(checkUserInterval);
+		};
 	}, []);
 
 	if (loading) {
-		return <Loading onlyComponent border='0'/>;
+		return <LoadingTransparent/>;
 	}
 
 	return (

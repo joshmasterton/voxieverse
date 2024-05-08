@@ -2,7 +2,7 @@ import {
 	type ChangeEvent, type FormEvent, useState, useEffect,
 } from 'react';
 import {Link, useNavigate} from 'react-router-dom';
-import {Loading} from '../comp/Loading';
+import {LoadingButton} from '../comp/Loading';
 import {fetchLogin} from '../fetchRequests/authFetchRequests';
 import {useUser} from '../context/UserContext';
 import {usePopup} from '../context/PopupContext';
@@ -51,7 +51,7 @@ export function Login() {
 			}
 
 			setLoading(false);
-		}, 1000);
+		}, 300);
 	};
 
 	const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -126,7 +126,7 @@ export function Login() {
 				{validationResult?.name === 'password' && <Validator value={validationResult.message}/>}
 				<Link to='/forgottenPassword'>Forgotten Password</Link>
 				<button type='submit'>
-					{loading ? <Loading onlyComponent={false} border='0'/> : 'Login'}
+					{loading ? <LoadingButton/> : 'Login'}
 				</button>
 			</main>
 			<footer>
