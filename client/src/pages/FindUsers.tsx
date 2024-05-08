@@ -4,6 +4,7 @@ import {useUser, type UserWithFriendship} from '../context/UserContext';
 import {Loading, LoadingButtonTransparent} from '../comp/Loading';
 import {NavReturn} from '../comp/NavReturn';
 import {UserCard} from '../comp/UserCard';
+import {SideFriends, SideUser} from '../comp/Side';
 import {fetchGetUsers} from '../fetchRequests/usersFetchRequests';
 import {MdClear} from 'react-icons/md';
 import {CgChevronUp} from 'react-icons/cg';
@@ -65,6 +66,10 @@ export function FindUsers() {
 		return (
 			<>
 				<NavReturn/>
+				<SideUser
+					isLeft
+					user={user}
+				/>
 				<div id='users'>
 					{loading ? (
 						<Loading/>
@@ -100,22 +105,28 @@ export function FindUsers() {
 								<CgChevronUp/>
 							</button>
 							<div className='usersList'>
-								{(usersFriends?.length ?? 0) === 0 ? '' : 'Friends'}
+								{(users?.length ?? 0) === 0 ? '' : <h2>People</h2>}
+								{users?.map(user => (
+									<UserCard key={user.username} user={user} />
+								))}
+								{(usersFriends?.length ?? 0) === 0 ? '' : <h2>Friends</h2>}
 								{usersFriends?.map(user => (
 									<UserCard key={user.username} user={user} />
 								))}
-								{(usersFriendsWaiting?.length ?? 0) === 0 ? '' : 'Friends in waiting'}
+								{(usersFriendsWaiting?.length ?? 0) === 0 ? '' : <h2>Friends in waiting</h2>}
 								{usersFriendsWaiting?.map(user => (
-									<UserCard key={user.username} user={user} />
-								))}
-								{(users?.length ?? 0) === 0 ? '' : 'People'}
-								{users?.map(user => (
 									<UserCard key={user.username} user={user} />
 								))}
 							</div>
 						</>
 					)}
 				</div>
+				<SideFriends
+					isLeft={false}
+					usersFriends={usersFriends}
+					usersFriendsWaiting={usersFriendsWaiting}
+					loading={loading}
+				/>
 			</>
 		);
 	}

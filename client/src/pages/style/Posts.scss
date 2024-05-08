@@ -10,6 +10,22 @@
 	margin-top: calc(var.$height + var.$pad);
 }
 
+.postsList {
+	display: flex;
+	flex-direction: column;
+	align-items: start;
+	padding: var.$pad;
+	gap: var.$pad;
+}
+
+html.dark .postsList {
+	background: var.$darkAccent;
+}
+
+html.light .postsList {
+	background: var.$lightAccent;
+}
+
 #posts > #add {
 	position: fixed;
 	bottom: 0;

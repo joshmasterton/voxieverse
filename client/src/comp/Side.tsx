@@ -11,6 +11,13 @@ type SidePostProps = {
 	isLeft: boolean;
 	loading: boolean;
 	content: PostType[] | undefined;
+	title: string;
+};
+
+type SideCommentProps = {
+	isLeft: boolean;
+	loading: boolean;
+	post: PostType | undefined;
 };
 
 type SideFriendsProps = {
@@ -87,17 +94,32 @@ export function SideUser({isLeft, user}: SideUserProps) {
 	);
 }
 
-export function SidePost({isLeft, loading, content}: SidePostProps) {
+export function SidePost({isLeft, loading, content, title}: SidePostProps) {
 	return (
 		<div className={`sidePost ${isLeft ? 'left' : 'right'}`}>
 			{loading ? (
 				<Loading/>
 			) : (
 				<>
-					Trending posts
+					<h2>{title}</h2>
 					{content?.map(content => (
 						<PostCardSmall key={content.id} post={content} />
 					))}
+				</>
+			)}
+		</div>
+	);
+}
+
+export function SideComment({isLeft, loading, post}: SideCommentProps) {
+	return (
+		<div className={`sidePost ${isLeft ? 'left' : 'right'}`}>
+			{loading ? (
+				<Loading/>
+			) : (
+				<>
+					<h2>Post</h2>
+					{post ? <PostCardSmall key={post?.id} post={post}/> : null}
 				</>
 			)}
 		</div>
@@ -111,11 +133,11 @@ export function SideFriends({isLeft, loading, usersFriends, usersFriendsWaiting}
 				<Loading/>
 			) : (
 				<>
-					{(usersFriends?.length ?? 0) === 0 ? '' : 'Friends'}
+					{(usersFriends?.length ?? 0) === 0 ? '' : <h2>Friends</h2>}
 					{usersFriends?.map(friend => (
 						<UserCardSmall key={friend.username} user={friend} />
 					))}
-					{(usersFriendsWaiting?.length ?? 0) === 0 ? '' : 'Friends in waiting'}
+					{(usersFriendsWaiting?.length ?? 0) === 0 ? '' : <h2>Friends in waiting</h2>}
 					{usersFriendsWaiting?.map(friend => (
 						<UserCardSmall key={friend.username} user={friend} />
 					))}
