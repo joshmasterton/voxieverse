@@ -1,0 +1,40 @@
+@use '../../assets/var';
+
+#error {
+	position: relative;
+	width: 100%;
+	min-height: calc(100vh - (var.$pad * 2));
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: var.$pad;
+	padding-bottom: calc(var.$pad * 10);
+}
+
+#error > header > img {
+	flex: 1;
+	height: calc(var.$height * 2);
+	width: calc(var.$height * 2);
+	padding: calc(var.$pad / 2);
+	background: var.$primaryGradient;
+	border-radius: 10rem;
+}
+
+#error > main {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: calc(var.$pad * 2);
+	gap: calc(var.$pad / 2);
+}
+
+#error > main > h1 {
+	font-size: 3rem;
+}
+
+#error > main > a {
+	height: var.$height;
+	padding: var.$pad;
+}

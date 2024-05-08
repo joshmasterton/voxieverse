@@ -3,15 +3,16 @@ import {useLocation, useNavigate} from 'react-router-dom';
 import {useUser} from '../context/UserContext';
 import {NavReturn} from '../comp/NavReturn';
 import {Loading} from '../comp/Loading';
+import {SideComment, SideUser} from '../comp/Side';
 import {PostCard} from '../comp/PostCard';
 import {fetchGetPost, type PostType} from '../fetchRequests/postFetchRequests';
 import './style/PostPage.scss';
 
 export function PostPage() {
 	const navigate = useNavigate();
-	const {user} = useUser();
 	const location = useLocation();
 	const postId = location.pathname.split('/').pop();
+	const {user} = useUser();
 	const [post, setPost] = useState<PostType | undefined>(undefined);
 	const [loading, setLoading] = useState<boolean>(true);
 
@@ -44,15 +45,29 @@ export function PostPage() {
 		return (
 			<>
 				<NavReturn/>
+				<SideUser
+					isLeft
+					user={user}
+				/>
 				<div id='postPage'>
 					{loading ? (
 						<Loading/>
 					) : (
 						<>
-							{post ? <PostCard post={post}/> : null}
+							<div className='postsList'>
+								<h2>Post</h2>
+								{post ? <PostCard post={post}/> : null}
+								<h2>Comments</h2>
+								{post ? <PostCard post={post}/> : null}
+							</div>
 						</>
 					)}
 				</div>
+				<SideComment
+					isLeft={false}
+					post={post}
+					loading={loading}
+				/>
 			</>
 		);
 	}

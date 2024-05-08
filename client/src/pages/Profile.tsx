@@ -204,18 +204,21 @@ export function Profile() {
 									</footer>
 								</div>
 							)}
-							{posts?.map(post => (
-								<PostCard key={post.id} post={post} />
-							))}
-							{noMorePosts ? null : (
-								<button type='button' className='fetchMore' onClick={async () => {
-									await fetchMorePosts();
-								}}>
-									{loadingMore ? (
-										<LoadingButtonTransparent/>
-									) : 'Load more posts'}
-								</button>
-							)}
+							<div className='postsList'>
+								<h2>Posts</h2>
+								{posts?.map(post => (
+									<PostCard key={post.id} post={post} />
+								))}
+								{noMorePosts ? null : (
+									<button type='button' className='fetchMore' onClick={async () => {
+										await fetchMorePosts();
+									}}>
+										{loadingMore ? (
+											<LoadingButtonTransparent/>
+										) : 'Load more posts'}
+									</button>
+								)}
+							</div>
 						</>
 					)}
 				</div>
@@ -223,6 +226,7 @@ export function Profile() {
 					isLeft={false}
 					content={posts}
 					loading={loading}
+					title='User posts'
 				/>
 			</>
 		);

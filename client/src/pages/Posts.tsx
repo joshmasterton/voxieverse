@@ -95,7 +95,8 @@ export function Posts() {
 					{loading ? (
 						<Loading/>
 					) : (
-						<>
+						<div className='postsList'>
+							<h2>Posts</h2>
 							{posts?.map(post => (
 								<PostCard key={post.id} post={post} />
 							))}
@@ -106,7 +107,7 @@ export function Posts() {
 									) : 'Load more ...'}
 								</button>
 							)}
-						</>
+						</div>
 					)}
 					<Link to='/addPost' id='add'>
 						<BiPlus />
@@ -116,6 +117,7 @@ export function Posts() {
 					isLeft={false}
 					content={topPosts}
 					loading={loading}
+					title='Top posts'
 				/>
 			</>
 		);

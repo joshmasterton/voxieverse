@@ -93,11 +93,11 @@ export function Friends() {
 								<BiPlus/>
 							</Link>
 							<div className='usersList'>
-								{(usersFriends?.length ?? 0) === 0 ? '' : 'Friends'}
+								{(usersFriends?.length ?? 0) === 0 ? '' : <h2>Friends</h2>}
 								{usersFriends?.map(user => (
 									<UserCard key={user.username} user={user} />
 								))}
-								{(usersFriendsWaiting?.length ?? 0) === 0 ? '' : 'Friends in waiting'}
+								{(usersFriendsWaiting?.length ?? 0) === 0 ? '' : <h2>Friends in waiting</h2>}
 								{usersFriendsWaiting?.map(user => (
 									<UserCard key={user.username} user={user} />
 								))}

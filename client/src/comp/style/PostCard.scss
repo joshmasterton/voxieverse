@@ -9,11 +9,11 @@
 }
 
 html.dark .postCard {
-	background: var.$darkAccent;
+	background: var.$darkBright;
 }
 
 html.light .postCard {
-	background: var.$lightAccent;
+	background: var.$lightBright;
 }
 
 .postCard > header {
@@ -60,12 +60,12 @@ html.light .postCard {
 
 html.dark .postCard footer button,
 html.dark .postCard footer a {
-	background: var.$darkBright;
+	background: var.$darkBrightest;
 }
 
 html.light .postCard footer button,
 html.light .postCard footer a {
-	background: var.$lightBright;
+	background: var.$lightBrightest;
 }
 
 .postCard footer button svg,
@@ -114,6 +114,14 @@ html.light .postCardSmall {
 	padding-right: calc(var.$pad / 1.75);
 	color: inherit;
 	font-size: var.$fontSmall;
+}
+
+html.dark .postCardSmall footer > div {
+	background: var.$darkBrightest;
+}
+
+html.light .postCardSmall footer > div {
+	background: var.$lightBrightest;
 }
 
 .postCardSmall footer div svg {

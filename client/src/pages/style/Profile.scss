@@ -27,6 +27,7 @@ html.light #profile > .empty {
 }
 
 #profileUser {
+	width: 100%;
 	display: flex;
 	flex-direction: column;
 	padding: var.$pad;

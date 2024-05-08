@@ -3,10 +3,11 @@ import {
 	type FormEvent,
 } from 'react';
 import {LoadingButton} from '../comp/Loading';
-import {fetchAddPost} from '../fetchRequests/postFetchRequests';
+import {type PostType, fetchAddPost, fetchGetPosts} from '../fetchRequests/postFetchRequests';
 import {useUser} from '../context/UserContext';
 import {usePopup} from '../context/PopupContext';
 import {useNavigate} from 'react-router-dom';
+import {SidePost, SideUser} from '../comp/Side';
 import {NavReturn} from '../comp/NavReturn';
 import './style/AddPost.scss';
 
@@ -15,7 +16,9 @@ export function AddPost() {
 	const {user} = useUser();
 	const [post, setPost] = useState('');
 	const {setPopup} = usePopup();
-	const [loading, setLoading] = useState(false);
+	const [loading, setLoading] = useState<boolean>(true);
+	const [loadingAdd, setLoadingAdd] = useState<boolean>(false);
+	const [topPosts, setTopPosts] = useState<PostType[] | undefined>(undefined);
 	const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
 	useEffect(() => {
@@ -29,9 +32,23 @@ export function AddPost() {
 		setPost(value);
 	};
 
+	useEffect(() => {
+		setTimeout(() => {
+			fetchGetPosts('likes', 0)
+				.then(posts => {
+					setTopPosts(posts);
+					setLoading(false);
+				})
+				.catch(err => {
+					console.error(err);
+					setLoading(false);
+				});
+		}, 500);
+	}, []);
+
 	const handleOnSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		setLoading(true);
+		setLoadingAdd(true);
 		setTimeout(async () => {
 			try {
 				const postResponse = await fetchAddPost<string>(post);
@@ -42,10 +59,11 @@ export function AddPost() {
 					navigate('/');
 				}
 
-				setLoading(false);
+				setLoadingAdd(false);
 			} catch (err) {
 				if (err instanceof Error) {
 					setPopup(err.message);
+					setLoading(false);
 				}
 			}
 		}, 300);
@@ -77,33 +95,45 @@ export function AddPost() {
 
 	if (user) {
 		return (
-			<div id='addPost'>
+			<>
 				<NavReturn/>
-				<h1>New post</h1>
-				<form method='POST' onSubmit={e => {
-					handleOnSubmit(e);
-				}}>
-					<label>
-						<textarea
-							name='post'
-							value={post}
-							ref={textAreaRef}
-							onChange={e => {
-								handleInputChange(e);
-							}}
-							placeholder='Write post here...'
-							maxLength={500}
-						/>
-					</label>
-					<div>
-						<div style={{width: `${(post.length) / 5.4}%`}}/>
-						<p>{post?.length}</p>
-					</div>
-					<button type='submit'>
-						{loading ? <LoadingButton/> : 'Send'}
-					</button>
-				</form>
-			</div>
+				<SideUser
+					isLeft
+					user={user}
+				/>
+				<div id='addPost'>
+					<h2>New post</h2>
+					<form method='POST' onSubmit={e => {
+						handleOnSubmit(e);
+					}}>
+						<label>
+							<textarea
+								name='post'
+								value={post}
+								ref={textAreaRef}
+								onChange={e => {
+									handleInputChange(e);
+								}}
+								placeholder='Write post here...'
+								maxLength={500}
+							/>
+						</label>
+						<div>
+							<div style={{width: `${(post.length) / 5.4}%`}}/>
+							<p>{post?.length}</p>
+						</div>
+						<button type='submit'>
+							{loadingAdd ? <LoadingButton/> : 'Send'}
+						</button>
+					</form>
+				</div>
+				<SidePost
+					isLeft={false}
+					content={topPosts}
+					loading={loading}
+					title='Top posts'
+				/>
+			</>
 		);
 	}
 }
