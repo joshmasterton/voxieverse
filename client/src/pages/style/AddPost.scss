@@ -2,6 +2,7 @@
 
 #addPost {
 	width: 100%;
+	min-height: calc(100vh - var.$pad * 5.5);
 	display: flex;
 	flex-direction: column;
 	align-items: start;
@@ -11,24 +12,31 @@
 }
 
 html.dark #addPost {
-	border: var.$outline var.$darkAccent;
+	background: var.$darkAccent;
 }
 
 html.light #addPost {
-	border: var.$outline var.$lightAccent;
+	background: var.$lightAccent;
 }
 
 #addPost > form {
 	width: 100%;
+	height: 100%;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
+	justify-content: end;
 	align-items: end;
 	gap: var.$pad;
 }
 
+#addPost > form > label {
+	height: 100%;
+	background: transparent;
+}
+
 #addPost > form textarea {
 	height: auto;
+	min-height: 100%;
 	overflow: hidden;
 	padding: var.$pad;
 }

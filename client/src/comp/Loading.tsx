@@ -1,16 +1,48 @@
 import './style/Loading.scss';
 
-type OnlyComponent = {
-	onlyComponent: boolean;
-	border: string;
-};
-
-export function Loading({onlyComponent, border}: OnlyComponent) {
+export function Loading() {
 	return (
 		<div
 			id='loading'
-			className={onlyComponent ? 'onlyComponent' : ''}
-			style={{border}}
+		>
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+	);
+}
+
+export function LoadingTransparent() {
+	return (
+		<div
+			id='loading'
+			className='onlyComponent'
+		>
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+	);
+}
+
+export function LoadingButton() {
+	return (
+		<div
+			id='loading'
+			className='gradient'
+		>
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+	);
+}
+
+export function LoadingButtonTransparent() {
+	return (
+		<div
+			id='loading'
+			className='transparent'
 		>
 			<div></div>
 			<div></div>

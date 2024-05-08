@@ -20,6 +20,21 @@
 	background: var.$primaryGradient;
 }
 
+.fetchMore {
+	width: 100%;
+	position: relative;
+	align-self: center;
+	color: inherit;
+}
+
+html.dark .fetchMore {
+	background: var.$darkAccent;
+}
+
+html.light .fetchMore {
+	background: var.$lightAccent;
+}
+
 @media screen and (min-width: calc(var.$maxWidth * 1.25)) {
 	#posts {
 		margin-left: calc((var.$height * 6) + (var.$pad * 3));

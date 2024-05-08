@@ -1,7 +1,7 @@
-$primary: #4a5df0;
-$secondary: #7f41e3;
+$primary: #ea2b48;
+$secondary: #ed274e;
 $danger: #f52323;
-$dangerSecondary: #da1a31;
+$dangerSecondary: #ca2236;
 $accept: rgb(24, 210, 24);
 $pending: rgb(231, 164, 31);
 $primaryGradient: linear-gradient(
@@ -15,11 +15,13 @@ $dangerGradient: linear-gradient(
 	$dangerSecondary,
 );
 
-$light: rgb(255, 255, 255);
-$lightAccent: rgb(209, 209, 219);
+$light: rgb(245, 245, 250);
+$lightAccent:rgb(255, 255, 255);
+$lightBright: rgb(245, 245, 250);
 
 $dark: rgb(10, 10, 13);
-$darkAccent: rgb(35, 35, 46);
+$darkAccent: rgb(16, 16, 22);
+$darkBright: rgb(22, 22, 30);
 
 $primaryShadow: 0 0 0 0.2rem $primary;
 
@@ -29,7 +31,7 @@ $maxWidth: 30rem;
 $height: 2.5rem;
 $pad: 1rem;
 
-$round: 0.25rem;
+$round: 1.5rem;
 
 $transition: 0.4s ease;
 
@@ -141,12 +143,12 @@ input, textarea {
 	width: 100%;
 }
 
-html.dark label {
-	outline: $outline $darkAccent;
+html.dark label, html.dark textarea {
+	background: $darkBright;
 }
 
-html.light label {
-	outline: $outline $lightAccent;
+html.light label, html.light textarea {
+	background: $lightBright;
 }
 
 a {

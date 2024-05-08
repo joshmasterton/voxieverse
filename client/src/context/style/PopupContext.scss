@@ -57,13 +57,11 @@
 }
 
 html.dark #popup > div {
-	background: var.$dark;
-	border: var.$outline var.$darkAccent;
+	background: var.$darkAccent;
 }
 
 html.light #popup > div {
-	background: var.$light;
-	border: var.$outline var.$lightAccent;
+	background: var.$lightAccent;
 }
 
 #popup > div > div {

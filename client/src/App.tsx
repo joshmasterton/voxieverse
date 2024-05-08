@@ -4,12 +4,13 @@ import {Popup, PopupProvider} from './context/PopupContext';
 import {UserProvider} from './context/UserContext';
 import {LightModeProvider} from './context/LightModeContext';
 import {Posts} from './pages/Posts';
+import {PostPage} from './pages/PostPage';
 import {AddPost} from './pages/AddPost';
 import {Login} from './auth/Login';
 import {Profile} from './pages/Profile';
 import {Signup} from './auth/Signup';
 import {Friends} from './pages/Friends';
-import {Users} from './pages/Users';
+import {FindUsers} from './pages/FindUsers';
 import {ForgottenPassword} from './auth/ForgottenPassword';
 import './assets/var.scss';
 
@@ -20,8 +21,12 @@ type Routes = {
 
 const routes: Routes[] = [
 	{
-		path: '/',
+		path: '/*',
 		element: <Posts/>,
+	},
+	{
+		path: '/post/:postId',
+		element: <PostPage/>,
 	},
 	{
 		path: '/friends',
@@ -29,7 +34,15 @@ const routes: Routes[] = [
 	},
 	{
 		path: '/findUser',
-		element: <Users/>,
+		element: <FindUsers/>,
+	},
+	{
+		path: '/addPost',
+		element: <AddPost/>,
+	},
+	{
+		path: '/profile/:username',
+		element: <Profile/>,
 	},
 	{
 		path: '/login',
@@ -42,14 +55,6 @@ const routes: Routes[] = [
 	{
 		path: '/forgottenPassword',
 		element: <ForgottenPassword/>,
-	},
-	{
-		path: '/addPost',
-		element: <AddPost/>,
-	},
-	{
-		path: '/profile/:username',
-		element: <Profile/>,
 	},
 ];
 

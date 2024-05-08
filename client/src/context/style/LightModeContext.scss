@@ -8,11 +8,16 @@
 }
 
 html.dark #lightMode {
-	outline: var.$outline var.$darkAccent;
+	background: var.$darkBright;
 }
 
 html.light #lightMode {
-	outline: var.$outline var.$lightAccent;
+	background: var.$lightBright;
+}
+
+html.light #nav #lightMode,
+html.light #navReturn #lightMode {
+	background: var.$lightAccent;
 }
 
 #lightMode > button {

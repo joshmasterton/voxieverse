@@ -1,6 +1,6 @@
 @use '../../assets/var';
 
-.post {
+.postCard {
 	width: 100%;
 	display: flex;
 	flex-direction: column;
@@ -8,15 +8,15 @@
 	gap: var.$pad;
 }
 
-html.dark .post {
-	border: var.$outline var.$darkAccent;
+html.dark .postCard {
+	background: var.$darkAccent;
 }
 
-html.light .post {
-	border: var.$outline var.$lightAccent;
+html.light .postCard {
+	background: var.$lightAccent;
 }
 
-.post > a {
+.postCard > header {
 	width: 100%;
 	display: flex;
 	justify-content: start;
@@ -27,13 +27,19 @@ html.light .post {
 	background: transparent;
 }
 
-.post main {
+.postCard > header > a {
+	height: fit-content;
+	border-radius: 10rem;
+}
+
+.postCard main {
 	display: flex;
 	word-break: break-all;
 	flex: 1;
+	margin-left: calc(var.$height + var.$pad);
 }
 
-.post footer {
+.postCard footer {
 	width: 100%;
 	display: flex;
 	justify-content: end;
@@ -43,30 +49,75 @@ html.light .post {
 	gap: var.$pad;
 }
 
-.post footer button {
+.postCard footer button,
+.postCard footer a {
 	height: calc(var.$height / 1.25);
 	padding: 0;
 	padding-right: calc(var.$pad / 1.75);
 	color: inherit;
 	font-size: var.$fontSmall;
-	background: transparent;
 }
 
-.post footer button svg {
+html.dark .postCard footer button,
+html.dark .postCard footer a {
+	background: var.$darkBright;
+}
+
+html.light .postCard footer button,
+html.light .postCard footer a {
+	background: var.$lightBright;
+}
+
+.postCard footer button svg,
+.postCard footer a svg {
 	height: calc(var.$height / 1.25);
 	width: calc(var.$height / 1.25);
 	padding: calc(var.$pad / 1.75);
 }
 
-html.dark .post footer button {
-	outline: var.$outline var.$darkAccent;
-}
-
-html.light .post footer button {
-	outline: var.$outline var.$lightAccent;
-}
-
-.post footer button.liked svg,
-.post footer button.disliked svg {
+.postCard footer button.liked svg,
+.postCard footer button.disliked svg {
 	color: var.$primary;
+}
+
+
+.postCardSmall {
+	height: fit-content;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: start;
+	gap: var.$pad;
+	padding: var.$pad;
+}
+
+html.dark .postCardSmall {
+	background: var.$darkBright;
+}
+
+html.light .postCardSmall {
+	background: var.$lightBright;
+}
+
+.postCardSmall > footer {
+	width: 100%;
+	display: flex;
+	justify-content: end;
+	gap: var.$pad;
+}
+
+.postCardSmall footer > div {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 0;
+	padding-right: calc(var.$pad / 1.75);
+	color: inherit;
+	font-size: var.$fontSmall;
+}
+
+.postCardSmall footer div svg {
+	height: calc(var.$height / 1.25);
+	width: calc(var.$height / 1.25);
+	padding: calc(var.$pad / 1.75);
 }

@@ -19,11 +19,27 @@
 }
 
 html.dark #users > form {
-	border: var.$outline var.$darkAccent;
+	background: var.$darkAccent;
 }
 
 html.light #users > form {
-	border: var.$outline var.$lightAccent;
+	background: var.$lightAccent;
+}
+
+.usersList {
+	min-height: calc(100vh - (var.$pad * 11));
+	display: flex;
+	flex-direction: column;
+	padding: var.$pad;
+	gap: var.$pad;
+}
+
+html.dark #users > .usersList {
+	background: var.$darkAccent;
+}
+
+html.light #users > .usersList {
+	background: var.$lightAccent;
 }
 
 #users #findUser,

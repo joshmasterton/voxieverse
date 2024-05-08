@@ -25,21 +25,17 @@ export type RefinedPost = {
 	createdAt: string;
 };
 
-export const getPostsFromUser = express.Router();
+export const getPost = express.Router();
 
-getPostsFromUser.get(
-	'/:username/:page',
+getPost.get(
+	'/:postId',
 	verifyToken,
-	body('username')
-		.escape()
-		.trim(),
-	body('page')
+	body('postId')
 		.escape()
 		.trim(),
 	async (req, res) => {
 		try {
-			const {username, page} = req.params;
-			const offset = parseInt(page, 10) * 10;
+			const {postId} = req.params;
 			const validator = validationResult(req).array();
 
 			if (validator.length > 0) {
@@ -47,15 +43,14 @@ getPostsFromUser.get(
 				return res.status(200).json({validationError});
 			}
 
-			const postsFromDatabase = await queryDb<string | number>(`
+			const postFromDatabase = await queryDb<number>(`
 				SELECT * FROM voxieverse_posts
-				WHERE username = $1
-				ORDER BY created_at DESC LIMIT $2 OFFSET $3;
-			`, [username, 10, offset]);
+				WHERE id = $1
+			`, [parseInt(postId, 10)]);
 
-			const posts: PostFromDatabase[] = postsFromDatabase?.rows as PostFromDatabase[];
+			const posts: PostFromDatabase[] = postFromDatabase?.rows as PostFromDatabase[];
 
-			const refinedPostsPomises: Array<Promise<RefinedPost>> = posts.map(async post => {
+			const refinedPostPomise: Array<Promise<RefinedPost>> = posts.map(async post => {
 				const likedResult = await queryDb(`
 					SELECT * FROM voxieverse_post_likes
 					WHERE username = $1 AND post_id = $2;
@@ -79,9 +74,9 @@ getPostsFromUser.get(
 				};
 			});
 
-			const refinedPosts: RefinedPost[] = await Promise.all(refinedPostsPomises);
+			const refinedPost: RefinedPost[] = await Promise.all(refinedPostPomise);
 
-			return res.json(refinedPosts);
+			return res.json(refinedPost[0]);
 		} catch (err) {
 			if (err instanceof Error) {
 				return res.status(500).json({error: err.message});

@@ -12,6 +12,7 @@ import {signup} from './routes/auth/signup';
 import {login} from './routes/auth/login';
 import {logout} from './routes/auth/logout';
 import {addPost} from './routes/post/addPost';
+import {getPost} from './routes/post/getPost';
 import {getPosts} from './routes/post/getPosts';
 import {getPostsFromUser} from './routes/post/getPostsFromUser';
 import {getUser} from './routes/users/getUser';
@@ -51,6 +52,7 @@ app.use('/validateUser', validateUser);
 // Post Routes
 app.use('/addPost', addPost);
 app.use('/getPosts', getPosts);
+app.use('/getPost', getPost);
 app.use('/getPostsFromUser', getPostsFromUser);
 app.use('/likeDislikePost', likeDislikePost);
 
