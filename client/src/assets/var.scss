@@ -1,5 +1,5 @@
-$primary: #d62d81;
-$secondary: #f92c55;
+$primary: #298ddf;
+$secondary: #6628ed;
 $danger: #f52323;
 $dangerSecondary: #ca2236;
 $accept: rgb(24, 210, 24);
@@ -15,14 +15,14 @@ $dangerGradient: linear-gradient(
 	$dangerSecondary,
 );
 
-$light: rgb(235, 235, 241);
-$lightAccent:rgb(244, 244, 248);
-$lightBright: rgb(250, 250, 252);
+$light: rgb(230, 230, 235);
+$lightAccent:rgb(240, 240, 244);
+$lightBright: rgb(248, 248, 250);
 $lightBrightest:rgb(255, 255, 255);
 
 $dark: rgb(10, 10, 13);
 $darkAccent: rgb(16, 16, 22);
-$darkBright: rgb(22, 22, 30);
+$darkBright: rgb(22, 22, 31);
 $darkBrightest: rgb(26, 26, 36);
 
 $primaryShadow: 0 0 0 0.2rem $primary;
@@ -31,9 +31,9 @@ $outline: 0.1rem solid;
 
 $maxWidth: 30rem;
 $height: 2.5rem;
-$pad: 1rem;
+$pad: 1.25rem;
 
-$round: 0.5rem;
+$round: 0.25rem;
 
 $transition: 0.4s ease;
 
@@ -184,12 +184,13 @@ h2 {
 
 p {
 	font-size: $fontSmall;
+	opacity: 75%;
 }
 
 svg {
 	width: $height;
 	height: $height;
-	padding: calc($pad / 1.5);
+	padding: calc($pad / 1.75);
 }
 
 img {
@@ -238,4 +239,13 @@ label > svg {
 
 label > input {
 	padding-left: $height;
+}
+
+.fetchMore {
+	min-width: calc($pad * 3);
+	height: $pad;
+	position: relative;
+	align-self: center;
+	color: inherit;
+	padding: 0;
 }

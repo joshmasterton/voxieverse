@@ -1,10 +1,11 @@
 import {type UserWithFriendship, type User} from '../context/UserContext';
+import {apiUrl} from '../main';
 
-const apiUrl = 'http://localhost:9001';
-
-export const fetchGetUsers = async (filterFriends: boolean, filter: string | undefined): Promise<UserWithFriendship[] | undefined> => {
+export const fetchGetUsers = async (filterFriends: boolean, filter: string | undefined, page: number): Promise<UserWithFriendship[] | undefined> => {
 	try {
-		const getUsersResponse = await fetch(`${apiUrl}/${filterFriends ? `getFriends/${filter}` : `getUsers/${filter}`}`, {
+		const endpoint = filterFriends ? `getFriends/${page}/${filter}` : `getUsers/${page}/${filter}`;
+
+		const getUsersResponse = await fetch(`${apiUrl}/${endpoint}`, {
 			method: 'GET',
 			headers: {'Content-Type': 'application/json'},
 			credentials: 'include',

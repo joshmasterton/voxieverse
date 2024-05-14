@@ -22,9 +22,15 @@ export type RefinedUserFriendship = {
 export const getUsers = express.Router();
 
 getUsers.get(
-	'/:filter?',
+	'/:page?/:filter?/',
 	verifyToken,
+	param('page')
+		.escape()
+		.isInt({min: 0})
+		.toInt()
+		.trim(),
 	param('filter')
+		.optional()
 		.trim()
 		.escape(),
 	async (req, res) => {
@@ -36,21 +42,23 @@ getUsers.get(
 		}
 
 		try {
-			const {filter = ''} = req.params;
+			const {filter = '', page} = req.params;
+			const offset = parseInt(page, 10) * 10;
 			const users = await queryDb<string>(`
-			SELECT username, email, created_at, last_online FROM voxieverse_users
-			WHERE username != $1
-			AND username_lower_case LIKE '%' || $2 || '%';
-		`, [res.locals.user.username, filter.toLowerCase()]);
+				SELECT username, email, created_at, last_online FROM voxieverse_users
+				WHERE username != $1
+				AND username_lower_case LIKE '%' || $2 || '%'
+				LIMIT 10 OFFSET $3;
+			`, [res.locals.user.username, filter.toLowerCase(), offset]);
 
 			const usersFromDatabase: User[] = users?.rows as User[];
 
 			const refinedUsers: RefinedUserFriendship[] = await Promise.all(usersFromDatabase.map(async user => {
 				const friendshipFromDatabse = await queryDb<string>(`
-				SELECT user_one, user_two, user_initiator, status, created_at FROM voxieverse_friendship
-				WHERE (user_one = $1 AND user_two = $2)
-				OR (user_one = $2 AND user_two = $1)
-			`, [res.locals.user.username, user.username]);
+					SELECT user_one, user_two, user_initiator, status, created_at FROM voxieverse_friendship
+					WHERE (user_one = $1 AND user_two = $2)
+					OR (user_one = $2 AND user_two = $1)
+				`, [res.locals.user.username, user.username]);
 
 				const friendship: Friendship = friendshipFromDatabse?.rows[0] as Friendship;
 

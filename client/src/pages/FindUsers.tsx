@@ -14,6 +14,9 @@ import './style/FindUsers.scss';
 export function FindUsers() {
 	const navigate = useNavigate();
 	const {user} = useUser();
+	const [loadingMore, setLoadingMore] = useState(false);
+	const [page, setPage] = useState(0);
+	const [noMoreUsers, setNoMoreUsers] = useState(true);
 	const [users, setUsers] = useState<UserWithFriendship [] | undefined>(undefined);
 	const [usersFriends, setUsersFriends] = useState<UserWithFriendship[] | undefined>(undefined);
 	const [usersFriendsWaiting, setUsersFriendsWaiting] = useState<UserWithFriendship[] | undefined>(undefined);
@@ -30,11 +33,20 @@ export function FindUsers() {
 	useEffect(() => {
 		setLoadingSearch(true);
 		setTimeout(() => {
-			fetchGetUsers(false, searchInput)
+			fetchGetUsers(false, searchInput, page)
 				.then(usersFromRequest => {
-					setUsers(usersFromRequest?.filter(user => user.friendshipStatus === undefined));
-					setUsersFriends(usersFromRequest?.filter(user => user.friendshipStatus === 'accepted'));
-					setUsersFriendsWaiting(usersFromRequest?.filter(user => user.friendshipStatus === 'pending'));
+					if (usersFromRequest && usersFromRequest?.length > 0) {
+						if (usersFromRequest.length === 10) {
+							setNoMoreUsers(false);
+						} else {
+							setNoMoreUsers(true);
+						}
+
+						setUsers(usersFromRequest?.filter(user => user.friendshipStatus === undefined));
+						setUsersFriends(usersFromRequest?.filter(user => user.friendshipStatus === 'accepted'));
+						setUsersFriendsWaiting(usersFromRequest?.filter(user => user.friendshipStatus === 'pending'));
+					}
+
 					setLoadingSearch(false);
 					setLoading(false);
 				})
@@ -45,6 +57,59 @@ export function FindUsers() {
 				});
 		}, 300);
 	}, [searchInput]);
+
+	const fetchMoreUsers = async () => {
+		setLoadingMore(true);
+		setTimeout(() => {
+			fetchGetUsers(false, searchInput, page + 1)
+				.then(usersFromRequest => {
+					console.log(usersFromRequest);
+					if (usersFromRequest && usersFromRequest.length > 0) {
+						if (usersFromRequest.length === 10) {
+							setNoMoreUsers(false);
+						} else {
+							setNoMoreUsers(true);
+						}
+
+						const filteredUsers = usersFromRequest?.filter(user => user.friendshipStatus === undefined);
+						const filteredFriends = usersFromRequest?.filter(user => user.friendshipStatus === 'accepted');
+						const filteredFriendsInWaiting = usersFromRequest?.filter(user => user.friendshipStatus === 'pending');
+
+						setUsers(prevUsers => {
+							if (prevUsers && filteredUsers) {
+								return [...prevUsers, ...filteredUsers];
+							}
+
+							return prevUsers;
+						});
+
+						setUsersFriends(prevUsers => {
+							if (prevUsers && filteredFriends) {
+								return [...prevUsers, ...filteredFriends];
+							}
+
+							return prevUsers;
+						});
+
+						setUsersFriendsWaiting(prevUsers => {
+							if (prevUsers && filteredFriendsInWaiting) {
+								return [...prevUsers, ...filteredFriendsInWaiting];
+							}
+
+							return prevUsers;
+						});
+
+						setPage(prevPage => prevPage + 1);
+					}
+
+					setLoadingMore(false);
+				})
+				.catch(err => {
+					console.error(err);
+					setLoadingMore(false);
+				});
+		}, 300);
+	};
 
 	const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
 		const {value} = e.target;
@@ -117,6 +182,13 @@ export function FindUsers() {
 								{usersFriendsWaiting?.map(user => (
 									<UserCard key={user.username} user={user} />
 								))}
+								{noMoreUsers ? null : (
+									<button type='button' className='fetchMore' onClick={async () => fetchMoreUsers()}>
+										{loadingMore ? (
+											<LoadingButtonTransparent/>
+										) : 'Load more...'}
+									</button>
+								)}
 							</div>
 						</>
 					)}

@@ -1,6 +1,5 @@
 import {type User, type ValidationError} from '../context/UserContext';
-
-const apiUrl = 'http://localhost:9001';
+import {apiUrl} from '../main';
 
 export const fetchLogin = async <T>(authInfo: T): Promise<User | ValidationError | undefined> => {
 	try {

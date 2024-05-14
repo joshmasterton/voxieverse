@@ -48,9 +48,9 @@ getPost.get(
 				WHERE id = $1
 			`, [parseInt(postId, 10)]);
 
-			const posts: PostFromDatabase[] = postFromDatabase?.rows as PostFromDatabase[];
+			const post: PostFromDatabase[] = postFromDatabase?.rows as PostFromDatabase[];
 
-			const refinedPostPomise: Array<Promise<RefinedPost>> = posts.map(async post => {
+			const refinedPostPomise: Array<Promise<RefinedPost>> = post.map(async post => {
 				const likedResult = await queryDb(`
 					SELECT * FROM voxieverse_post_likes
 					WHERE username = $1 AND post_id = $2;

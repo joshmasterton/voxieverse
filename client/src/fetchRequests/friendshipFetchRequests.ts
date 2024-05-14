@@ -1,6 +1,5 @@
 import {type ValidationError} from '../context/UserContext';
-
-const apiUrl = 'http://localhost:9001';
+import {apiUrl} from '../main';
 
 export type Friendship = {
 	userOne: string;
@@ -24,8 +23,6 @@ export const fetchCreateFriendship = async (usernameOne: string, usernameTwo: st
 		}
 
 		const createFriendshipData: ValidationError = await createFriendshipResponse.json() as ValidationError;
-
-		console.log(createFriendshipData);
 
 		if ('validationError' in createFriendshipData) {
 			return createFriendshipData;
@@ -53,8 +50,6 @@ export const fetchDeleteFriendship = async (usernameOne: string, usernameTwo: st
 		}
 
 		const deleteFriendshipData: ValidationError = await deleteFriendshipResponse.json() as ValidationError;
-
-		console.log(deleteFriendshipData);
 
 		if ('validationError' in deleteFriendshipData) {
 			return deleteFriendshipData;

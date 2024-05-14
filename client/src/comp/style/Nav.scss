@@ -79,9 +79,9 @@ html.light #nav > footer {
 }
 
 #nav > footer.close {
-	opacity: 0%;
-	visibility: hidden;
-	transform: translateY( - calc(var.$height * 6.9));
+	// opacity: 0%;
+	// visibility: hidden;
+	transform: translateY( - calc(var.$height + (var.$pad * 13.5)));
 	transition: transform var.$transition, opacity var.$transition 0.4s, visibility 0s 0.4s;
 }
 

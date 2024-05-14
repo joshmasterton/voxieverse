@@ -6,8 +6,8 @@
 	flex-direction: column;
 	align-items: start;
 	margin-top: var.$height + var.$pad;
-	min-height: calc(100vh - (var.$pad * 5.5));
-	max-height: calc(100% - (var.$pad * 5.5));
+	min-height: calc(100vh - (var.$pad * 5));
+	max-height: calc(100vh - (var.$pad * 5));
 	width: 100%;
 	gap: var.$pad;
 	padding: var.$pad;

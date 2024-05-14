@@ -1,0 +1,190 @@
+@use '../../assets/var';
+
+.commentCard {
+	width: 100%;
+	display: flex;
+}
+
+.commentCard button {
+	position: relative;
+}
+
+.commentCard .commentCard:first-of-type {
+	display: flex;
+}
+
+.commentCard > header {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.commentCard > header button,
+.commentCard > header a {
+	padding: 0;
+	width: calc(var.$height / 1.25);
+	height: calc(var.$height / 1.25);
+	min-height: calc(var.$height / 1.25);
+}
+
+.commentCard > header button {
+	position: absolute;
+	top: calc(var.$pad * 3.4);
+	color: inherit;
+}
+
+html.dark .commentCard > header > button {
+	background: var.$darkBright;
+}
+
+html.light .commentCard > header > button {
+	background: var.$lightBright;
+}
+
+.commentCard > header > div {
+	height: 100%;
+	width: 0.2rem;
+	border-radius: 10rem;
+}
+
+
+html.dark .commentCard > header > div {
+	background: var.$darkBrightest;
+}
+
+html.light .commentCard > header > div {
+	background: var.$lightBright;
+}
+
+.commentCard > header button svg {
+	padding: calc(var.$pad / 3);
+}
+
+.commentCard > div {
+	width: 100%;
+}
+
+.commentCard > div > main {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	padding: calc(var.$pad / 2);
+	gap: calc(var.$pad / 2);
+}
+
+.commentCard > div > main button,
+.commentCard > div > main a {
+	padding: 0;
+	padding-right: calc(var.$pad / 2);
+}
+
+.commentCard main button.liked svg,
+.commentCard main button.disliked svg {
+	color: var.$primary;
+}
+
+.commentCard > div > main > div {
+	display: flex;
+	font-size: var.$fontSmall;
+	gap: calc(var.$pad / 2);
+}
+
+.commentCard > div > main > div > div {
+	font-size: var.$fontSmall;
+}
+
+.commentCard > div > main > div:last-of-type {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: end;
+	justify-content: end;
+	align-self: end;
+}
+
+.commentCard > div > main button,
+.commentCard > div > main a {
+	height: calc(var.$height / 1.25);
+	padding: 0;
+	padding-right: calc(var.$pad / 1.75);
+	color: inherit;
+	font-size: var.$fontSmall;
+}
+
+html.dark .commentCard > div > main button,
+html.dark .commentCard > div > main a {
+	background: var.$darkBright;
+}
+
+html.light .commentCard > div > main button,
+html.light .commentCard > div > main a {
+	background: var.$lightBright;
+}
+
+.commentCard > div > main button svg {
+	height: calc(var.$height / 1.25);
+	width: calc(var.$height / 1.25);
+	padding: calc(var.$pad / 2);
+}
+
+.commentCard > div > footer {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.commentCard > div > footer > form {
+	display: flex;
+	flex-direction: column;
+	padding: calc(var.$pad / 2);
+	padding-top: 0;
+	padding-bottom: 0;
+	gap: calc(var.$pad / 2);
+}
+
+.commentCard > div > footer textarea {
+	font-size: var.$fontSmall;
+	padding: calc(var.$pad / 2);
+}
+
+.commentCard > div > footer button {
+	height: calc(var.$pad * 1.5);
+	padding: calc(var.$pad / 2);
+	align-self: end;
+	font-size: var.$fontSmall;
+}
+
+.commentCard.profile {
+	width: 100%;
+	display: flex;
+}
+
+html.dark .commentCard.profile {
+	background-color: var.$darkBright;
+}
+
+html.light .commentCard.profile {
+	background-color: var.$lightBright;
+}
+
+.commentCard.profile > header {
+	padding: var.$pad;
+	padding-right: 0;
+}
+
+.commentCard.profile > div main {
+	width: 100%;
+	display: flex;
+	padding: var.$pad;
+}
+
+html.dark .commentCard.profile > div > main > div button,
+html.dark .commentCard.profile > div > main > div a {
+	background-color: var.$darkBrightest;
+}
+
+html.light .commentCard.profile > div > main > div button,
+html.light .commentCard.profile > div > main > div a {
+	background-color: var.$lightBrightest;
+}

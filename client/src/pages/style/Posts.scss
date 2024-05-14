@@ -3,11 +3,17 @@
 #posts {
 	position: relative;
 	width: 100%;
-	min-height: calc(100vh - (var.$pad * 5.5));
+	min-height: calc(100vh - (var.$pad * 5));
 	display: flex;
 	flex-direction: column;
 	gap: var.$pad;
 	margin-top: calc(var.$height + var.$pad);
+}
+
+#posts .fetchMore {
+	position: relative;
+	align-self: center;
+	color: inherit;
 }
 
 .postsList {
@@ -34,13 +40,6 @@ html.light .postsList {
 	z-index: 2;
 	color: var.$light;
 	background: var.$primaryGradient;
-}
-
-.fetchMore {
-	width: 100%;
-	position: relative;
-	align-self: center;
-	color: inherit;
 }
 
 html.dark .fetchMore {
