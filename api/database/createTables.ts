@@ -33,7 +33,7 @@ export const createPostsTable = async () => {
 			comments INT DEFAULT 0,
 			created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
 		);
-		`, undefined);
+	`, undefined);
 };
 
 export const dropPostLikesTable = async () => {
@@ -61,6 +61,56 @@ export const createPostDislikesTable = async () => {
 			id SERIAL PRIMARY KEY,
 			username VARCHAR(30),
 			post_id INT,
+			created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+		);
+	`, undefined);
+};
+
+export const dropCommentsTable = async () => {
+	await queryDb('DROP TABLE IF EXISTS voxieverse_comments', undefined);
+};
+
+export const createCommentsTable = async () => {
+	await queryDb(`
+		CREATE TABLE IF NOT EXISTS voxieverse_comments(
+			id SERIAL PRIMARY KEY,
+			post_id INT,
+			comment_parent_id INT,
+			username VARCHAR(30),
+			comment VARCHAR(500),
+			likes INT DEFAULT 0,
+			dislikes INT DEFAULT 0,
+			comments INT DEFAULT 0,
+			created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+		);
+	`, undefined);
+};
+
+export const dropCommentLikesTable = async () => {
+	await queryDb('DROP TABLE IF EXISTS voxieverse_comment_likes', undefined);
+};
+
+export const createCommentLikesTable = async () => {
+	await queryDb(`
+		CREATE TABLE IF NOT EXISTS voxieverse_comment_likes(
+			id SERIAL PRIMARY KEY,
+			username VARCHAR(30),
+			comment_id INT,
+			created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
+		);
+	`, undefined);
+};
+
+export const dropCommentDislikesTable = async () => {
+	await queryDb('DROP TABLE IF EXISTS voxieverse_comment_dislikes;', undefined);
+};
+
+export const createCommentDislikesTable = async () => {
+	await queryDb(`
+		CREATE TABLE IF NOT EXISTS voxieverse_comment_dislikes(
+			id SERIAL PRIMARY KEY,
+			username VARCHAR(30),
+			comment_id INT,
 			created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
 		);
 	`, undefined);

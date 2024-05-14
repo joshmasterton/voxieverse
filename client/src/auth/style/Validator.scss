@@ -31,5 +31,6 @@
 	padding-top: calc(var.$pad / 1.5);
 	padding-bottom: calc(var.$pad / 1.5);
 	background: var.$primaryGradient;
+	opacity: 100%;
 	z-index: 1;
 }

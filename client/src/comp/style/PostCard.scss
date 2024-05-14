@@ -22,9 +22,13 @@ html.light .postCard {
 	justify-content: start;
 	align-items: center;
 	gap: var.$pad;
-	padding: calc(var.$pad / 3);
 	color: inherit;
 	background: transparent;
+}
+
+.postCard > header > div {
+	position: relative;
+	width: 100%;
 }
 
 .postCard > header > a {
@@ -36,7 +40,33 @@ html.light .postCard {
 	display: flex;
 	word-break: break-all;
 	flex: 1;
-	margin-left: calc(var.$height + var.$pad);
+	margin-left: calc(var.$height + (var.$pad / 2));
+}
+
+.postCard > form {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: end;
+	padding: 0;
+	gap: var.$pad;
+}
+
+.postCard > form button {
+	min-width: calc(var.$pad * 4);
+	position: relative;
+}
+
+.postCard > form textarea {
+	padding: var.$pad;
+}
+
+html.dark .postCard > form textarea {
+	background: var.$darkBrightest;
+}
+
+html.light .postCard > form textarea {
+	background: var.$lightBrightest;
 }
 
 .postCard footer {
@@ -72,7 +102,7 @@ html.light .postCard footer a {
 .postCard footer a svg {
 	height: calc(var.$height / 1.25);
 	width: calc(var.$height / 1.25);
-	padding: calc(var.$pad / 1.75);
+	padding: calc(var.$pad / 2);
 }
 
 .postCard footer button.liked svg,
@@ -127,5 +157,11 @@ html.light .postCardSmall footer > div {
 .postCardSmall footer div svg {
 	height: calc(var.$height / 1.25);
 	width: calc(var.$height / 1.25);
-	padding: calc(var.$pad / 1.75);
+	padding: calc(var.$pad / 2);
 }
+
+.postCardSmall footer div.liked svg,
+.postCardSmall footer div.disliked svg {
+	color: var.$primary;
+}
+

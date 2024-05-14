@@ -3,18 +3,20 @@ import {body, validationResult} from 'express-validator';
 import {verifyToken} from '../../token/verifyToken';
 import {queryDb} from '../../database/queryDb';
 
-type Post = {
-	post: string;
+type Comment = {
+	comment: string;
+	postId: number;
+	commentParentId: number;
 };
 
-export const addPost = express.Router();
+export const addComment = express.Router();
 
-addPost.post(
+addComment.post(
 	'/',
 	verifyToken,
-	body('post')
+	body('comment')
 		.isLength({min: 1})
-		.withMessage('Post cannot be empty')
+		.withMessage('Comment cannot be empty')
 		.isLength({max: 500})
 		.withMessage('Cannot exceed 500 characters')
 		.escape()
@@ -24,7 +26,7 @@ addPost.post(
 			return res.status(400).json({error: 'Request body missing'});
 		}
 
-		const {post}: Post = req.body as Post;
+		const {comment, postId, commentParentId}: Comment = req.body as Comment;
 		const {user} = res.locals;
 		const validator = validationResult(req).array();
 
@@ -33,21 +35,37 @@ addPost.post(
 			return res.status(200).json({validationError});
 		}
 
-		if (!post.trim()) {
+		if (!comment.trim()) {
 			return res.status(200).json({validationError: 'Cannot be empty'});
 		}
 
 		try {
 			await queryDb<string>(`
-				INSERT INTO voxieverse_posts(
+				INSERT INTO voxieverse_comments(
+					post_id,
+					comment_parent_id,
 					username,
-					post
+					comment
 				)VALUES(
-					$1, $2
+					$1, $2, $3, $4
 				);
-			`, [user.username, post]);
+			`, [postId, commentParentId ?? null, user.username, comment]);
 
-			return res.json({message: 'Post sent successfully'});
+			await queryDb(`
+				UPDATE voxieverse_posts
+				SET comments = comments + 1
+				WHERE id = $1
+			`, [postId]);
+
+			if (commentParentId !== null) {
+				await queryDb(`
+          UPDATE voxieverse_comments
+          SET comments = comments + 1
+          WHERE id = $1;
+        `, [commentParentId]);
+			}
+
+			return res.json({message: 'Comment added successfully'});
 		} catch (err) {
 			if (err instanceof Error) {
 				return res.status(500).json({error: err.message});

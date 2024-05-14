@@ -13,11 +13,11 @@ export function Posts() {
 	const navigate = useNavigate();
 	const {user} = useUser();
 	const [page, setPage] = useState<number>(0);
-	const [loading, setLoading] = useState(true);
-	const [loadingMore, setLoadingMore] = useState(false);
+	const [loading, setLoading] = useState<boolean>(true);
+	const [loadingMore, setLoadingMore] = useState<boolean>(false);
+	const [noMorePosts, setNoMorePosts] = useState<boolean>(true);
 	const [posts, setPosts] = useState<PostType[] | undefined>(undefined);
 	const [topPosts, setTopPosts] = useState<PostType[] | undefined>(undefined);
-	const [noMorePosts, setNoMorePosts] = useState<boolean>(false);
 
 	useEffect(() => {
 		if (!user) {
@@ -29,10 +29,10 @@ export function Posts() {
 		setTimeout(() => {
 			fetchGetPosts('created_at', page)
 				.then(posts => {
-					setPosts(posts);
 					if (posts) {
-						if (posts?.length < 10) {
-							setNoMorePosts(true);
+						setPosts(posts);
+						if (posts.length === 10) {
+							setNoMorePosts(false);
 						}
 					}
 
@@ -61,18 +61,21 @@ export function Posts() {
 			setTimeout(() => {
 				fetchGetPosts('created_at', page + 1)
 					.then(posts => {
-						setPage(prevPage => prevPage + 1);
-						setPosts(prevPosts => {
-							if (prevPosts && posts) {
-								if (posts.length === 0) {
-									setNoMorePosts(true);
-								}
-
-								return [...prevPosts, ...posts];
+						if (posts) {
+							if (posts.length === 0) {
+								setNoMorePosts(true);
 							}
 
-							return prevPosts;
-						});
+							setPage(prevPage => prevPage + 1);
+							setPosts(prevPosts => {
+								if (prevPosts && posts) {
+									return [...prevPosts, ...posts];
+								}
+
+								return prevPosts;
+							});
+						}
+
 						setLoadingMore(false);
 					})
 					.catch(err => {
@@ -98,7 +101,7 @@ export function Posts() {
 						<div className='postsList'>
 							<h2>Posts</h2>
 							{posts?.map(post => (
-								<PostCard key={post.id} post={post} />
+								<PostCard key={post.id} post={post} canUserComment={false} getComments={undefined}/>
 							))}
 							{noMorePosts ? null : (
 								<button type='button' className='fetchMore' onClick={async () => fetchMorePosts()}>

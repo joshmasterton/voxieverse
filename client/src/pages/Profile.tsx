@@ -1,6 +1,7 @@
 import {useNavigate} from 'react-router-dom';
 import {useEffect, useState} from 'react';
 import {useUser, type User} from '../context/UserContext';
+import {fetchGetComment, type CommentType} from '../fetchRequests/commentFetchRequests';
 import {fetchGetPostsFromUser, type PostType} from '../fetchRequests/postFetchRequests';
 import {NavReturn} from '../comp/NavReturn';
 import {fetchGetUser} from '../fetchRequests/usersFetchRequests';
@@ -8,6 +9,7 @@ import {SidePost, SideUser} from '../comp/Side';
 import {
 	type Friendship, fetchCreateFriendship, fetchDeleteFriendship, fetchGetFriendship,
 } from '../fetchRequests/friendshipFetchRequests';
+import {CommentCardProfile} from '../comp/CommentCard';
 import {Loading, LoadingButtonTransparent} from '../comp/Loading';
 import {PostCard} from '../comp/PostCard';
 import logo from '../assets/Voxieverse_logo.png';
@@ -16,15 +18,18 @@ import './style/Profile.scss';
 export function Profile() {
 	const navigate = useNavigate();
 	const {user} = useUser();
-	const [page, setPage] = useState<number>(0);
+	const [postsPage, setPostsPage] = useState<number>(0);
+	const [commentsPage, setCommentsPage] = useState<number>(0);
 	const [profileUser, setProfileUser] = useState<User | undefined>(undefined);
 	const [loading, setLoading] = useState<boolean>(true);
 	const [loadingMore, setLoadingMore] = useState<boolean>(false);
 	const [posts, setPosts] = useState<PostType[] | undefined>(undefined);
+	const [comments, setComments] = useState<CommentType[] | undefined>(undefined);
 	const [friendship, setFriendship] = useState<Friendship | undefined>(undefined);
 	const [totalLikes, setTotalLikes] = useState<number>(0);
 	const [totalDislikes, setTotalDislikes] = useState<number>(0);
-	const [noMorePosts, setNoMorePosts] = useState<boolean>(false);
+	const [noMorePosts, setNoMorePosts] = useState<boolean>(true);
+	const [noMorecomments, setNoMoreComments] = useState<boolean>(true);
 
 	const usernamePath = window?.location.hash.split('/').pop();
 
@@ -52,11 +57,11 @@ export function Profile() {
 	useEffect(() => {
 		if (profileUser) {
 			setLoading(true);
-			fetchGetPostsFromUser(profileUser?.username, page)
+			fetchGetPostsFromUser(profileUser?.username, postsPage)
 				.then(postData => {
 					if (postData) {
-						if (postData.length < 10) {
-							setNoMorePosts(true);
+						if (postData.length === 10) {
+							setNoMorePosts(false);
 						}
 
 						if (postData[0]) {
@@ -65,6 +70,31 @@ export function Profile() {
 							setPosts(postData);
 						} else {
 							setPosts(undefined);
+						}
+					}
+
+					setLoading(false);
+				})
+				.catch(err => {
+					console.error(err.message);
+					setLoading(false);
+				});
+
+			setLoading(true);
+
+			fetchGetComment(profileUser.username, 'created_at', 0)
+				.then(commentData => {
+					if (commentData) {
+						if (commentData.length === 10) {
+							setNoMoreComments(false);
+						}
+
+						if (commentData[0]) {
+							setTotalLikes(commentData.reduce((total, post) => total + post.likes, 0));
+							setTotalDislikes(commentData.reduce((total, post) => total + post.dislikes, 0));
+							setComments(commentData);
+						} else {
+							setComments(undefined);
 						}
 					}
 
@@ -121,19 +151,49 @@ export function Profile() {
 		if (!loadingMore) {
 			setLoadingMore(true);
 			setTimeout(() => {
-				fetchGetPostsFromUser('created_at', page + 1)
-					.then(posts => {
-						setPage(prevPage => prevPage + 1);
+				fetchGetPostsFromUser('created_at', postsPage + 1)
+					.then(postsData => {
+						setPostsPage(prevPage => prevPage + 1);
 						setPosts(prevPosts => {
-							if (prevPosts && posts) {
-								if (posts.length === 0) {
+							if (prevPosts && postsData) {
+								if (postsData.length === 10) {
+									setNoMorePosts(false);
+								}	else {
 									setNoMorePosts(true);
 								}
 
-								return [...prevPosts, ...posts];
+								return [...prevPosts, ...postsData];
 							}
 
 							return prevPosts;
+						});
+						setLoadingMore(false);
+					})
+					.catch(err => {
+						console.error(err);
+						setLoadingMore(false);
+					});
+			}, 1000);
+		}
+	};
+
+	const fetchMoreComments = async () => {
+		if (!loadingMore && profileUser) {
+			setLoadingMore(true);
+			setTimeout(() => {
+				fetchGetComment(profileUser?.username, 'created_at', commentsPage + 1)
+					.then(commentsData => {
+						setCommentsPage(prevPage => prevPage + 1);
+						setComments(prevComments => {
+							if (prevComments && commentsData) {
+								if (commentsData.length < 10) {
+									setNoMoreComments(true);
+								}
+
+								return [...prevComments, ...commentsData];
+							}
+
+							return prevComments;
 						});
 						setLoadingMore(false);
 					})
@@ -205,9 +265,9 @@ export function Profile() {
 								</div>
 							)}
 							<div className='postsList'>
-								<h2>Posts</h2>
+								{posts?.length ?? 0 ? <h2>Posts</h2> : null}
 								{posts?.map(post => (
-									<PostCard key={post.id} post={post} />
+									<PostCard key={post.id} post={post} canUserComment={false} getComments={undefined}/>
 								))}
 								{noMorePosts ? null : (
 									<button type='button' className='fetchMore' onClick={async () => {
@@ -216,6 +276,17 @@ export function Profile() {
 										{loadingMore ? (
 											<LoadingButtonTransparent/>
 										) : 'Load more posts'}
+									</button>
+								)}
+								{comments?.length ?? 0 ? <h2>Comments</h2> : null}
+								{comments?.map(comment => <CommentCardProfile key={comment.id} comment={comment}/>)}
+								{noMorecomments ? null : (
+									<button type='button' className='fetchMore' onClick={async () => {
+										await fetchMoreComments();
+									}}>
+										{loadingMore ? (
+											<LoadingButtonTransparent/>
+										) : 'Load more comments'}
 									</button>
 								)}
 							</div>

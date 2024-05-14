@@ -133,7 +133,7 @@ export function SideFriends({isLeft, loading, usersFriends, usersFriendsWaiting}
 				<Loading/>
 			) : (
 				<>
-					{(usersFriends?.length ?? 0) === 0 ? '' : <h2>Friends</h2>}
+					{(usersFriends?.length ?? 0) === 0 ? <h2>No friends yet</h2> : <h2>Friends</h2>}
 					{usersFriends?.map(friend => (
 						<UserCardSmall key={friend.username} user={friend} />
 					))}

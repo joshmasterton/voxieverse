@@ -43,7 +43,7 @@ export function AddPost() {
 					console.error(err);
 					setLoading(false);
 				});
-		}, 500);
+		}, 300);
 	}, []);
 
 	const handleOnSubmit = (e: FormEvent<HTMLFormElement>) => {

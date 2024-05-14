@@ -1,6 +1,5 @@
 import {type ValidationError} from '../context/UserContext';
-
-const apiUrl = 'http://localhost:9001';
+import {apiUrl} from '../main';
 
 export type PostType = {
 	id: number;
@@ -81,6 +80,7 @@ export const fetchGetPost = async (postId: number): Promise<PostType | undefined
 	} catch (err) {
 		if (err instanceof Error) {
 			console.error(err.message);
+			throw err;
 		}
 	}
 };
