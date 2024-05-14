@@ -265,7 +265,7 @@ export function Profile() {
 								</div>
 							)}
 							<div className='postsList'>
-								{posts?.length ?? 0 ? <h2>Posts</h2> : null}
+								{posts?.length ?? 0 ? <h2>User posts</h2> : <h2>No posts yet</h2>}
 								{posts?.map(post => (
 									<PostCard key={post.id} post={post} canUserComment={false} getComments={undefined}/>
 								))}
