@@ -2,6 +2,8 @@ import express from 'express';
 import dotenv from 'dotenv';
 import helmet from 'helmet';
 import cors from 'cors';
+import {fileURLToPath} from 'url';
+import path from 'path';
 import cookieParser from 'cookie-parser';
 import {
 	createCommentDislikesTable, createCommentLikesTable, createCommentsTable, createFriendshipTable, createPostDislikesTable, createPostLikesTable, createPostsTable, createUsersTable,
@@ -28,6 +30,9 @@ import {createFriendship} from './routes/friendship/createFriendship.js';
 import {deleteFriendship} from './routes/friendship/deleteFriendship.js';
 dotenv.config();
 const app = express();
+// Convert file URL to path
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const {port, clientUrl} = process.env;
 // Create database user table
 await createUsersTable();
@@ -47,6 +52,7 @@ app.use(cookieParser());
 app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+app.use(express.static(path.join(__dirname, '..', '..', 'client', 'dist')));
 // Auth routes
 app.use('/signup', signup);
 app.use('/login', login);
@@ -72,6 +78,7 @@ app.use('/getFriends', getFriends);
 app.use('/createFriendship', createFriendship);
 app.use('/getFriendship', getFriendship);
 app.use('/deleteFriendship', deleteFriendship);
+app.get('*', (req, res) => res.sendFile(path.join(__dirname, '..', '..', 'client', 'dist', 'index.html')));
 app.listen(port, () => {
 	console.log(`Server running on port ${port}`);
 });
