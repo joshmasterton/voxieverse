@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import {App} from './App.tsx';
 import {getLightMode} from './context/LightModeContext.tsx';
 
-export const apiUrl = 'http://localhost:9001';
+export const apiUrl = 'https://voxieverse-7043922376c4.herokuapp.com';
 
 document.documentElement.className = getLightMode();
 
