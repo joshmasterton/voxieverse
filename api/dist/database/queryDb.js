@@ -6,6 +6,7 @@ const {dbUser, dbHost, dbPassword} = process.env;
 const {Pool} = pgPkg;
 const pool = new Pool({
 	connectionString: process.env.DATABASE_URL ?? `postgresql://${dbUser}:${dbPassword}@${dbHost}`,
+	ssl: {rejectUnauthorized: false},
 });
 export const queryDb = async (query, values) => {
 	try {
