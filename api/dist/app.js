@@ -33,7 +33,7 @@ const app = express();
 // Convert file URL to path
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const {port, clientUrl} = process.env;
+const {PORT, clientUrl} = process.env;
 // Create database user table
 await createUsersTable();
 // Create database post tables
@@ -79,6 +79,6 @@ app.use('/createFriendship', createFriendship);
 app.use('/getFriendship', getFriendship);
 app.use('/deleteFriendship', deleteFriendship);
 app.get('*', (req, res) => res.sendFile(path.join(__dirname, '..', '..', 'client', 'dist', 'index.html')));
-app.listen(port, () => {
-	console.log(`Server running on port ${port}`);
+app.listen(PORT, () => {
+	console.log(`Server running on port ${PORT}`);
 });
