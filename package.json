@@ -1,0 +1,13 @@
+{
+  "name": "voxieverse",
+  "version": "1.0.0",
+  "description": "Voxieverse is a vibrant and dynamic social media platform built for meaningful connections and engaging conversations. With Voxieverse, users can express themselves freely, connect with like-minded individuals, and explore a universe of diverse perspectives.",
+  "main": "app.ts",
+  "scripts": {
+		"start": "node api/dist/app.js",
+		"heroku-postbuild": "cd api && npm install && npm run build && ../client && npm install && npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

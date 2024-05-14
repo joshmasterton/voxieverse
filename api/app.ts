@@ -10,12 +10,6 @@ import {
 	createFriendshipTable,
 	createPostDislikesTable, createPostLikesTable,
 	createPostsTable, createUsersTable,
-	dropCommentDislikesTable,
-	dropCommentLikesTable,
-	dropCommentsTable,
-	dropPostDislikesTable,
-	dropPostLikesTable,
-	dropPostsTable,
 } from './database/createTables';
 import {signup} from './routes/auth/signup';
 import {login} from './routes/auth/login';
@@ -47,10 +41,6 @@ const {port, clientUrl} = process.env;
 await createUsersTable();
 
 // Create database post tables
-// await dropPostsTable();
-// await dropPostLikesTable();
-// await dropPostDislikesTable();
-
 await createPostsTable();
 await createPostLikesTable();
 await createPostDislikesTable();
@@ -59,10 +49,6 @@ await createPostDislikesTable();
 await createFriendshipTable();
 
 // Create database comment tables
-// await dropCommentsTable();
-// await dropCommentLikesTable();
-// await dropCommentDislikesTable();
-
 await createCommentsTable();
 await createCommentLikesTable();
 await createCommentDislikesTable();
