@@ -3,7 +3,7 @@ import {verifyToken} from '../../token/verifyToken';
 
 export const validateUser = express.Router();
 
-validateUser.get('/', verifyToken, (req, res) => {
+validateUser.get('/', verifyToken, (_req, res) => {
 	if (res.locals.user) {
 		const {user} = res.locals;
 		return res.status(200).json(user);
