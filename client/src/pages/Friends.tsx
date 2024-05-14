@@ -141,7 +141,9 @@ export function Friends() {
 									}}>
 										{loadingSearch ? (
 											<LoadingButtonTransparent/>
-										) : <MdClear/>}
+										) : (
+											<MdClear/>
+										)}
 									</button>
 								</div>
 							</form>

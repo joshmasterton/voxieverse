@@ -27,7 +27,7 @@ button div#loading.gradient {
 }
 
 div#loading.transparent {
-	background: transparent;
+	background: inherit;
 }
 
 div#loading.onlyComponent {
@@ -42,7 +42,7 @@ div#loading > div {
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
-	animation: 1.5s infinite loadingBar ease;
+	animation: 1s infinite loadingBar ease;
 	transform: translateY(-0.2rem);
 	border-radius: 10rem;
 }

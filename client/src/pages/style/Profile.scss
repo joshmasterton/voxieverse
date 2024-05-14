@@ -19,6 +19,10 @@
 	padding: 0;
 }
 
+#profile .postsList {
+	min-height: calc(var.$height * 7 + (var.$pad * 2.5));
+}
+
 #profile > .empty {
 	min-height: calc(var.$height * 5);
 	display: flex;

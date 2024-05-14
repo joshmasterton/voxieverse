@@ -94,14 +94,14 @@ export function SideUser({isLeft, user}: SideUserProps) {
 	);
 }
 
-export function SidePost({isLeft, loading, content, title}: SidePostProps) {
+export function SidePost({isLeft, loading, content}: SidePostProps) {
 	return (
 		<div className={`sidePost ${isLeft ? 'left' : 'right'}`}>
 			{loading ? (
 				<Loading/>
 			) : (
 				<>
-					<h2>{title}</h2>
+					{content?.length ?? 0 ? <h2>User posts</h2> : <h2>No posts yet</h2>}
 					{content?.map(content => (
 						<PostCardSmall key={content.id} post={content} />
 					))}

@@ -6,6 +6,7 @@
 		"moduleResolution": "bundler",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
+		"outDir": "./dist",
     "noUnusedLocals": true,
     "noUnusedParameters": true,
 		"noImplicitAny": true,
