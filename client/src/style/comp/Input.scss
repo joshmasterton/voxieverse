@@ -1,0 +1,84 @@
+@use '../App.scss';
+
+label {
+  position: relative;
+  display: flex;
+  min-height: App.$height;
+  max-height: App.$height;
+  border-radius: App.$round;
+  outline: var(--outline);
+}
+
+label > input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding-left: App.$height;
+  border-radius: App.$round;
+  background: transparent;
+  transition: box-shadow App.$anim;
+}
+
+label > input:hover,
+label > input:focus {
+  outline: var(--outline);
+  box-shadow: var(--outline-shadow);
+}
+
+label > input::placeholder {
+  color: var(--color);
+  opacity: 50%;
+}
+
+label > svg {
+  z-index: 1;
+}
+
+label.file {
+  cursor: pointer;
+  outline: var(--outline);
+  transition: box-shadow App.$anim;
+}
+
+label.file:hover,
+label.file:focus {
+  outline: var(--outline);
+  box-shadow: var(--outline-shadow);
+}
+
+label.file > input {
+  display: none;
+}
+
+label.file > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--color);
+  opacity: 50%;
+}
+
+label.file > p {
+  display: flex;
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+}
+
+div.labelPassword {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+div.labelPassword button {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+div.labelPassword input {
+  padding-right: App.$height;
+}

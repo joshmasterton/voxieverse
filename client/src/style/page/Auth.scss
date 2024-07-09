@@ -1,0 +1,39 @@
+@use '../App.scss';
+
+#auth {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: App.$widthLarge;
+  padding: App.$padLarge;
+  gap: App.$padLarge;
+  outline: var(--outline);
+  border-radius: App.$round;
+}
+
+#auth > header {
+  display: flex;
+  justify-content: space-between;
+}
+
+#auth > main {
+  display: flex;
+  flex-direction: column;
+  gap: App.$pad;
+}
+
+#auth > main > button {
+  margin-top: App.$pad;
+}
+
+#auth > main > a {
+  align-self: end;
+}
+
+#auth > footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  text-align: center;
+  gap: App.$padSmall;
+}
