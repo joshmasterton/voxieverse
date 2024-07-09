@@ -1,0 +1,82 @@
+$height: 2.5rem;
+
+$widthLarge: 25rem;
+$width: 5rem;
+
+$padLarge: 2rem;
+$pad: 1rem;
+$padSVG: 0.75rem;
+$padSmall: 0.5rem;
+
+$round: 0.5rem;
+
+$anim: 0.4s ease;
+
+$fontLarge: 1.25rem;
+$font: 1rem;
+$fontSmall: 0.75rem;
+
+[data-theme='dark'] {
+  --color: white;
+  --primary: #5735ff;
+  --background: black;
+  --outline: 0.075rem solid rgb(40, 40, 50);
+  --outline-shadow: 0 0 0 0.15rem #5735ff;
+}
+
+[data-theme='light'] {
+  --color: black;
+  --primary: #5735ff;
+  --background: white;
+  --outline: 0.075rem solid rgb(200, 200, 210);
+  --outline-shadow: 0 0 0 0.15rem #5735ff;
+}
+
+* {
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    'Open Sans',
+    'Helvetica Neue',
+    sans-serif;
+  font-size: $font;
+  font-weight: 500;
+  text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  outline: 0.05rem solid transparent;
+  color: inherit;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  color: var(--color);
+  background: var(--background);
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: $padLarge;
+  min-height: 100%;
+}
+
+h1 {
+  font-size: $fontLarge;
+}
+
+svg {
+  width: $height;
+  height: $height;
+  padding: $padSVG;
+  border-radius: $round;
+}

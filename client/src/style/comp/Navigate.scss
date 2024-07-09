@@ -1,0 +1,17 @@
+@use '../App.scss';
+
+a {
+  width: fit-content;
+  text-decoration: none;
+  color: var(--primary);
+  border-radius: App.$round;
+  transition:
+    box-shadow App.$anim,
+    outline-color App.$anim;
+}
+
+a:hover,
+a:focus {
+  outline: var(--outline);
+  box-shadow: var(--outline-shadow);
+}

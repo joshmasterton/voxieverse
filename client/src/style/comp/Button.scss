@@ -1,0 +1,51 @@
+@use '../App.scss';
+
+button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: App.$height;
+  max-height: App.$height;
+  border-radius: App.$round;
+  background: transparent;
+  cursor: pointer;
+  transition:
+    box-shadow App.$anim,
+    outline-color App.$anim;
+}
+
+button:hover,
+button:focus {
+  outline: var(--outline);
+  box-shadow: var(--outline-shadow);
+}
+
+button.buttonPrimary {
+  color: white;
+  background: var(--primary);
+}
+
+div.buttonTheme {
+  display: flex;
+  justify-content: center;
+  width: calc(App.$height * 2);
+  border-radius: App.$round;
+  outline: var(--outline);
+}
+
+div.buttonTheme > button {
+  transition:
+    transform App.$anim,
+    box-shadow App.$anim,
+    outline-color App.$anim;
+  color: white;
+  background: var(--primary);
+}
+
+div.buttonTheme > button.dark {
+  transform: translateX(-50%);
+}
+
+div.buttonTheme > button.light {
+  transform: translateX(50%);
+}
