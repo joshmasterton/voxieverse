@@ -1,8 +1,11 @@
 import { BiMoon } from 'react-icons/bi';
-import { ButtonProps, ButtonThemeProps } from '../../types/comp/Button.types';
-import { useTheme } from '../context/Theme';
+import {
+  ButtonProps,
+  ButtonThemeProps
+} from '../../types/comp/Button.comp.types';
+import { useTheme } from '../context/Theme.context';
 import { CgSun } from 'react-icons/cg';
-import '../style/comp/Button.scss';
+import '../style/comp/Button.comp.scss';
 
 export const Button = ({
   type,

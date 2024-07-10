@@ -1,13 +1,14 @@
-import { AuthProps, UserDetails } from '../../types/page/Auth.types';
+import { AuthProps, UserDetails } from '../../types/page/Auth.page.types';
 import { BiUser } from 'react-icons/bi';
-import { Input } from '../comp/Input';
-import { MouseEvent, useState } from 'react';
-import { Button, ButtonTheme } from '../comp/Button';
-import { Navigate } from '../comp/Navigate';
+import { Input } from '../comp/Input.comp';
+import { FormEvent, MouseEvent, useState } from 'react';
+import { Button, ButtonTheme } from '../comp/Button.comp';
+import { Navigate } from '../comp/Navigate.comp';
+import { request } from '../utilities/request.utilities';
 import { TfiEmail } from 'react-icons/tfi';
 import { BsImage } from 'react-icons/bs';
 import { RiLockPasswordLine } from 'react-icons/ri';
-import '../style/page/Auth.scss';
+import '../style/page/Auth.page.scss';
 
 export const Auth = ({ isSignup = false }: AuthProps) => {
   const [userDetails, setUserDetails] = useState<UserDetails>({
@@ -29,8 +30,30 @@ export const Auth = ({ isSignup = false }: AuthProps) => {
     });
   };
 
+  const handleOnSubmit = async (e: FormEvent) => {
+    try {
+      e?.preventDefault();
+      if (isSignup) {
+        const signup = await request('/signup', 'POST', userDetails);
+        console.log(signup);
+      } else {
+        const login = await request('/login', 'POST', userDetails);
+        console.log(login);
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error(error.message);
+      }
+    }
+  };
+
   return (
-    <form id="auth" method="POST" autoComplete="off">
+    <form
+      id="auth"
+      method="POST"
+      autoComplete="off"
+      onSubmit={(e) => handleOnSubmit(e)}
+    >
       <header>
         <h1>{isSignup ? 'Signup' : 'Login'}</h1>
         <ButtonTheme />

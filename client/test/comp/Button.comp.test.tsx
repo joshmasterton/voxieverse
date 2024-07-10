@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, test } from 'vitest';
-import { Button } from '../../src/comp/Button';
+import { Button } from '../../src/comp/Button.comp';
 import { BiTestTube } from 'react-icons/bi';
 
 describe('Button', () => {

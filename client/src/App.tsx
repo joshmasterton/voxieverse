@@ -1,7 +1,8 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { Auth } from './page/Auth';
+import { Auth } from './page/Auth.page';
+import { ThemeProvider } from './context/Theme.context';
+import { ForgotPassword } from './page/ForgotPassword.page';
 import './style/App.scss';
-import { ThemeProvider } from './context/Theme';
 
 export const routes = [
   {
@@ -11,6 +12,14 @@ export const routes = [
   {
     path: '/signup',
     element: <Auth isSignup />
+  },
+  {
+    path: '/forgotPassword',
+    element: <ForgotPassword />
+  },
+  {
+    path: '/resetPassword',
+    element: <ForgotPassword isReset />
   }
 ];
 

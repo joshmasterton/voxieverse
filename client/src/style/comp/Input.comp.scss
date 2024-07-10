@@ -1,12 +1,16 @@
 @use '../App.scss';
 
-label {
+div.input {
   position: relative;
+  min-height: App.$height;
+  max-height: App.$height;
+}
+
+label {
   display: flex;
   min-height: App.$height;
   max-height: App.$height;
   border-radius: App.$round;
-  outline: var(--outline);
 }
 
 label > input {
@@ -18,7 +22,15 @@ label > input {
   padding-left: App.$height;
   border-radius: App.$round;
   background: transparent;
+  outline: var(--outline);
   transition: box-shadow App.$anim;
+}
+
+div.input > button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
 }
 
 label > input:hover,

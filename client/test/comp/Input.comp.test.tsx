@@ -1,7 +1,7 @@
 import { userEvent } from '@testing-library/user-event';
 import { render, screen } from '@testing-library/react';
 import { describe, expect, test } from 'vitest';
-import { Input } from '../../src/comp/Input';
+import { Input } from '../../src/comp/Input.comp';
 import { BiTestTube } from 'react-icons/bi';
 
 describe('Input', () => {
@@ -47,6 +47,25 @@ describe('Input', () => {
       inputElement,
       new File([], 'test.jpg', { type: 'text/plain' })
     );
+
+    expect(screen.queryByText('test.jpg')).not.toBeInTheDocument();
+  });
+
+  test('Should remove file on button click', async () => {
+    render(
+      <Input id="test" type="file" placeholder="Test" setValue={() => {}} />
+    );
+
+    const inputElement = screen.getByLabelText('test') as HTMLInputElement;
+    await userEvent.upload(
+      inputElement,
+      new File([], 'test.jpg', { type: 'image/jpg' })
+    );
+
+    expect(screen.queryByText('test.jpg')).toBeInTheDocument();
+
+    const removeFileButton = screen.getByLabelText('removeFile');
+    await userEvent.click(removeFileButton);
 
     expect(screen.queryByText('test.jpg')).not.toBeInTheDocument();
   });

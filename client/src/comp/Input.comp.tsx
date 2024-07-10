@@ -1,8 +1,9 @@
-import { ChangeEvent, MouseEvent, useState } from 'react';
-import { InputProps } from '../../types/comp/Input.types';
+import { ChangeEvent, MouseEvent, useRef, useState } from 'react';
+import { InputProps } from '../../types/comp/Input.comp.types';
 import { BsEye, BsEyeSlash } from 'react-icons/bs';
-import { Button } from './Button';
-import '../style/comp/Input.scss';
+import { Button } from './Button.comp';
+import { CgClose } from 'react-icons/cg';
+import '../style/comp/Input.comp.scss';
 
 export const Input = <T,>({
   id,
@@ -13,6 +14,7 @@ export const Input = <T,>({
   className,
   SVG
 }: InputProps<T>) => {
+  const inputRef = useRef<HTMLInputElement>(null);
   const [showPassword, setShowPassword] = useState(false);
   const [profilePicture, setProfilePicture] = useState('');
 
@@ -38,6 +40,18 @@ export const Input = <T,>({
       setValue((prevState) => ({
         ...prevState,
         [name]: value
+      }));
+    }
+  };
+
+  const handleRemoveFile = (e: MouseEvent<HTMLButtonElement>) => {
+    e?.currentTarget.blur();
+    if (inputRef.current) {
+      inputRef.current.value = '';
+      setProfilePicture('');
+      setValue((prevState) => ({
+        ...prevState,
+        profilePicture: undefined
       }));
     }
   };
@@ -73,22 +87,33 @@ export const Input = <T,>({
   }
 
   return (
-    <label htmlFor={id} className={className}>
-      {SVG}
-      {profilePicture ? (
-        <p>{profilePicture}</p>
-      ) : (
-        type === 'file' && <div>{placeholder}</div>
+    <div className="input">
+      <label htmlFor={id} className={className}>
+        {SVG}
+        {profilePicture ? (
+          <p>{profilePicture}</p>
+        ) : (
+          type === 'file' && <div>{placeholder}</div>
+        )}
+        <input
+          id={id}
+          type={type}
+          value={value}
+          name={id}
+          ref={inputRef}
+          aria-label={id}
+          onChange={(e) => handleOnChange(e)}
+          placeholder={placeholder}
+        />
+      </label>
+      {type === 'file' && (
+        <Button
+          type="button"
+          onClick={(e) => handleRemoveFile(e)}
+          label="removeFile"
+          SVG={<CgClose />}
+        />
       )}
-      <input
-        id={id}
-        type={type}
-        value={value}
-        name={id}
-        aria-label={id}
-        onChange={(e) => handleOnChange(e)}
-        placeholder={placeholder}
-      />
-    </label>
+    </div>
   );
 };
