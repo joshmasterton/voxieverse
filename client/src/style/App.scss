@@ -1,20 +1,20 @@
 $height: 2.5rem;
-
 $widthLarge: 25rem;
 $width: 5rem;
 
-$padLarge: 2rem;
 $pad: 1rem;
 $padSVG: 0.75rem;
+
+$padLarge: 2rem;
 $padSmall: 0.5rem;
 
-$round: 0.5rem;
-
-$anim: 0.4s ease;
+$round: 0.25rem;
 
 $fontLarge: 1.25rem;
 $font: 1rem;
 $fontSmall: 0.75rem;
+
+$anim: 0.4s ease;
 
 [data-theme='dark'] {
   --color: white;
@@ -47,9 +47,10 @@ $fontSmall: 0.75rem;
     sans-serif;
   font-size: $font;
   font-weight: 500;
+  outline-offset: 0;
   text-size-adjust: none;
   -webkit-text-size-adjust: none;
-  outline: 0.05rem solid transparent;
+  outline: 0.075rem solid transparent;
   color: inherit;
 }
 

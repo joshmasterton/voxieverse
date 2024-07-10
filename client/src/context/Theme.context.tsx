@@ -8,7 +8,7 @@ import {
 import {
   ThemeContext,
   ThemeProviderProps
-} from '../../types/context/Theme.types';
+} from '../../types/context/Theme.context.types';
 
 const Theme = createContext<ThemeContext | undefined>(undefined);
 
