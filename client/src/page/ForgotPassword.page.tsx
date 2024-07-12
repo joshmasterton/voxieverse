@@ -15,8 +15,8 @@ export const ForgotPassword = ({ isReset = false }: ForgotPasswordProps) => {
   const [forgotDetails, setForgotDetails] = useState({
     email: '',
     token: '',
-    password: '',
-    confirmPassword: ''
+    newPassword: '',
+    newConfirmPassword: ''
   });
 
   return (
@@ -37,21 +37,21 @@ export const ForgotPassword = ({ isReset = false }: ForgotPasswordProps) => {
               SVG={<RxTokens />}
             />
             <Input<ForgotDetails>
-              id="password"
+              id="newPassword"
               className="labelPassword"
               type="password"
-              value={forgotDetails.password}
+              value={forgotDetails.newPassword}
               setValue={setForgotDetails}
-              placeholder="Password"
+              placeholder="New password"
               SVG={<RiLockPasswordLine />}
             />{' '}
             <Input<ForgotDetails>
-              id="confirmPassword"
+              id="newConfirmPassword"
               className="labelPassword"
               type="password"
-              value={forgotDetails.confirmPassword}
+              value={forgotDetails.newConfirmPassword}
               setValue={setForgotDetails}
-              placeholder="Confirm password"
+              placeholder="Confirm new password"
               SVG={<RiLockPasswordLine />}
             />
           </>

@@ -75,9 +75,11 @@ h1 {
   font-size: $fontLarge;
 }
 
-svg {
+svg,
+img {
   width: $height;
   height: $height;
   padding: $padSVG;
   border-radius: $round;
+  object-fit: cover;
 }

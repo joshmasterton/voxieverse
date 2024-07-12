@@ -5,18 +5,20 @@ import { FormEvent, MouseEvent, useState } from 'react';
 import { Button, ButtonTheme } from '../comp/Button.comp';
 import { Navigate } from '../comp/Navigate.comp';
 import { request } from '../utilities/request.utilities';
+import { useUser } from '../context/User.context';
 import { TfiEmail } from 'react-icons/tfi';
 import { BsImage } from 'react-icons/bs';
 import { RiLockPasswordLine } from 'react-icons/ri';
 import '../style/page/Auth.page.scss';
 
 export const Auth = ({ isSignup = false }: AuthProps) => {
+  const { setUser } = useUser();
   const [userDetails, setUserDetails] = useState<UserDetails>({
     username: '',
     email: '',
     password: '',
     confirmPassword: '',
-    profilePicture: undefined
+    file: undefined
   });
 
   const handleOnNavigate = (e: MouseEvent<HTMLAnchorElement>) => {
@@ -26,7 +28,7 @@ export const Auth = ({ isSignup = false }: AuthProps) => {
       email: '',
       password: '',
       confirmPassword: '',
-      profilePicture: undefined
+      file: undefined
     });
   };
 
@@ -34,11 +36,29 @@ export const Auth = ({ isSignup = false }: AuthProps) => {
     try {
       e?.preventDefault();
       if (isSignup) {
-        const signup = await request('/signup', 'POST', userDetails);
-        console.log(signup);
+        const formData = new FormData();
+        formData.append('username', userDetails.username);
+        formData.append('email', userDetails.email);
+        formData.append('password', userDetails.password);
+        formData.append('confirmPassword', userDetails.confirmPassword);
+
+        if (userDetails.file) {
+          formData.append('file', userDetails.file);
+        }
+
+        const signup = await request('/signup', 'POST', formData);
+        if (signup) {
+          setUser(signup);
+        } else {
+          throw new Error('Signup failure');
+        }
       } else {
         const login = await request('/login', 'POST', userDetails);
-        console.log(login);
+        if (login) {
+          setUser(login);
+        } else {
+          throw new Error('Login failure');
+        }
       }
     } catch (error) {
       if (error instanceof Error) {
@@ -52,6 +72,7 @@ export const Auth = ({ isSignup = false }: AuthProps) => {
       id="auth"
       method="POST"
       autoComplete="off"
+      noValidate
       onSubmit={(e) => handleOnSubmit(e)}
     >
       <header>
@@ -78,7 +99,7 @@ export const Auth = ({ isSignup = false }: AuthProps) => {
               SVG={<TfiEmail />}
             />
             <Input<UserDetails>
-              id="profilePicture"
+              id="file"
               type="file"
               className="file"
               setValue={setUserDetails}

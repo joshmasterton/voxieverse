@@ -1,6 +1,6 @@
 import request from 'supertest';
 import { app } from '../../../src/app';
-import { describe, test } from 'vitest';
+import { describe, expect, test } from 'vitest';
 import path from 'path';
 
 describe('/signup', () => {
@@ -21,20 +21,74 @@ describe('/signup', () => {
         password: 'Password',
         confirmPassword: 'Password'
       })
-      .attach('profilePicture', profilePicture);
-    console.log(response.body);
+      .attach('file', profilePicture);
+
+    expect(response.body.user_id).toBe(1);
+    expect(response.body.username).toBe('testUser');
+    expect(response.headers['set-cookie'][0]).toBeDefined();
+    expect(response.headers['set-cookie'][1]).toBeDefined();
   });
 
-  test('Should return error if incorrect details', async () => {
+  test('Should return error if no username', async () => {
+    const response = await request(app)
+      .post('/signup')
+      .field({
+        email: 'test@email.com',
+        password: 'Password',
+        confirmPassword: 'Password'
+      })
+      .attach('file', profilePicture);
+
+    expect(response.body).toEqual({ error: 'Username required' });
+  });
+
+  test('Should return error if no email', async () => {
+    const response = await request(app)
+      .post('/signup')
+      .field({
+        username: 'testUser',
+        password: 'Password',
+        confirmPassword: 'Password'
+      })
+      .attach('file', profilePicture);
+
+    expect(response.body).toEqual({ error: 'Email required' });
+  });
+
+  test('Should return error if no password', async () => {
     const response = await request(app)
       .post('/signup')
       .field({
         username: 'testUser',
         email: 'test@email.com',
-        password: 'Password',
         confirmPassword: 'Password'
       })
-      .attach('profilePicture', profilePicture);
-    console.log(response.body);
+      .attach('file', profilePicture);
+
+    expect(response.body).toEqual({ error: 'Password required' });
+  });
+
+  test('Should return error if no confirm password', async () => {
+    const response = await request(app)
+      .post('/signup')
+      .field({
+        username: 'testUser',
+        email: 'test@email.com',
+        password: 'Password'
+      })
+      .attach('file', profilePicture);
+
+    expect(response.body).toEqual({ error: 'Confirm password required' });
+  });
+
+  test('Should return error if no profile picture', async () => {
+    const response = await request(app).post('/signup').field({
+      username: 'testUser',
+      email: 'test@email.com',
+      password: 'Password',
+      confirmPassword: 'Password'
+    });
+
+    expect(response.body).toEqual({ error: 'Profile picture required' });
   });
 });

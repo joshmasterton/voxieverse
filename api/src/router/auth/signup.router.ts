@@ -2,21 +2,19 @@ import express from 'express';
 import { check } from 'express-validator';
 import { validator } from '../../middleware/validator.middleware';
 import { signupController } from '../../controller/auth/signup.controller';
-import multer from 'multer';
-
-const upload = multer();
+import { multerMiddleware } from '../../middleware/multer.middleware';
 
 export const signup = () => {
   const router = express.Router();
 
   router.post(
     '/signup',
-    upload.single('profilePicture'),
+    multerMiddleware,
     check('username')
       .trim()
       .escape()
-      .notEmpty()
       .isString()
+      .notEmpty()
       .withMessage('Username required')
       .isLength({ min: 6 })
       .withMessage('Username must be at least 6 characters')
@@ -26,6 +24,7 @@ export const signup = () => {
       .trim()
       .escape()
       .notEmpty()
+      .withMessage('Email required')
       .isEmail()
       .withMessage('Valid email required')
       .isLength({ max: 50 })
@@ -33,8 +32,8 @@ export const signup = () => {
     check('password')
       .trim()
       .escape()
-      .notEmpty()
       .isString()
+      .notEmpty()
       .withMessage('Password required')
       .isLength({ min: 6 })
       .withMessage('Password must be at least 6 characters')
@@ -43,8 +42,8 @@ export const signup = () => {
     check('confirmPassword')
       .trim()
       .escape()
-      .notEmpty()
       .isString()
+      .notEmpty()
       .withMessage('Confirm password required')
       .isLength({ min: 6 })
       .withMessage('Confirm password must be at least 6 characters')

@@ -1,8 +1,34 @@
 import pg from 'pg';
 import dotenv from 'dotenv';
+import { TableConfig } from '../../types/db/database.types';
 dotenv.config({ path: './src/env/dev.env' });
 
 const { DB_URL } = process.env;
+
+class TableConfigManager {
+  private config: TableConfig;
+
+  constructor() {
+    this.config = this.defaultConfig();
+  }
+
+  private defaultConfig() {
+    return {
+      tokensTable: 'voxieverse_tokens',
+      usersTable: 'voxieverse_users'
+    };
+  }
+
+  setConfig(newConfig: TableConfig) {
+    this.config = newConfig;
+  }
+
+  getConfig() {
+    return this.config;
+  }
+}
+
+export const tableConfigManager = new TableConfigManager();
 
 export class Db {
   private pool: pg.Pool;
@@ -48,9 +74,31 @@ export class Db {
     }
   }
 
-  async dropUsers(usersTable = 'voxieverse_users') {
+  async createTokens(tokensTable = 'voxieverse_tokens') {
+    try {
+      await this.query(
+        `
+					CREATE TABLE IF NOT EXISTS ${tokensTable}(
+					token_id SERIAL PRIMARY KEY,
+					user_id INT NOT NULL,
+					refresh_token VARCHAR(500))
+				`,
+        []
+      );
+    } catch (error) {
+      if (error instanceof Error) {
+        throw error;
+      }
+    }
+  }
+
+  async dropTables(
+    usersTable = 'voxieverse_users',
+    tokensTable = 'voxieverse_tokens'
+  ) {
     try {
       await this.query(`DROP TABLE IF EXISTS ${usersTable}`, []);
+      await this.query(`DROP TABLE IF EXISTS ${tokensTable}`, []);
     } catch (error) {
       if (error instanceof Error) {
         throw error;
