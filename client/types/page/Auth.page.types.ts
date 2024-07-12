@@ -7,5 +7,5 @@ export type UserDetails = {
   email: string;
   password: string;
   confirmPassword: string;
-  profilePicture?: File;
+  file?: File;
 };

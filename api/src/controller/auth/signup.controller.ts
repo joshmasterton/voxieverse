@@ -23,14 +23,29 @@ export const signupController = async (req: Request, res: Response) => {
 
     const user = await new User(
       username,
-      email,
       password,
+      email,
       profilePicture
-    ).create();
+    ).signup();
 
     if (!user) {
       throw new Error('User signup failed');
     }
+
+    const tokens = await user.tokens();
+    res.cookie('accessToken', tokens?.accessToken, {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'none',
+      maxAge: 5 * 60 * 1000
+    });
+
+    res.cookie('refreshToken', tokens?.refreshToken, {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'none',
+      maxAge: 24 * 60 * 60 * 1000
+    });
 
     return res.status(201).json(user.serializeUser());
   } catch (error) {

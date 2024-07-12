@@ -1,4 +1,5 @@
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
+import { processImage } from './uploadImage.utilities';
 
 const { AWS_REGION, AWS_BUCKET, AWS_ACCESS_KEY, AWS_SECRET_ACCESS_KEY } =
   process.env;
@@ -14,10 +15,12 @@ export const uploadToS3 = async (picture: Express.Multer.File) => {
         }
       });
 
+      const processedBuffer = await processImage(picture.buffer);
+
       const params = {
         Bucket: AWS_BUCKET,
         Key: picture.originalname,
-        Body: picture.buffer,
+        Body: processedBuffer,
         ContentType: picture.mimetype
       };
 

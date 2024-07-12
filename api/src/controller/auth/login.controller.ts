@@ -3,16 +3,28 @@ import { User } from '../../model/user.model';
 
 export const loginController = async (req: Request, res: Response) => {
   try {
-    const { username, email, password, confirmPassword } = req.body;
+    const { username, password } = req.body;
 
-    if (password !== confirmPassword) {
-      return res.status(400).json({ error: 'Passwords must match' });
-    }
-    const user = await new User(username, email, password).create();
+    const user = await new User(username, password).login();
 
     if (!user) {
       throw new Error('User login failed');
     }
+
+    const tokens = await user.tokens();
+    res.cookie('accessToken', tokens?.accessToken, {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'none',
+      maxAge: 5 * 60 * 1000
+    });
+
+    res.cookie('refreshToken', tokens?.refreshToken, {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'none',
+      maxAge: 24 * 60 * 60 * 1000
+    });
 
     return res.status(201).json(user.serializeUser());
   } catch (error) {
