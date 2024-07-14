@@ -3,9 +3,11 @@
 #auth {
   display: flex;
   flex-direction: column;
+  align-self: center;
   width: 100%;
-  max-width: App.$widthLarge;
+  max-width: App.$widthMedium;
   padding: App.$padLarge;
+  margin: App.$pad;
   gap: App.$padLarge;
   outline: var(--outline);
   border-radius: App.$round;

@@ -1,6 +1,7 @@
 *,
 *:before,
 *:after {
+  line-height: 1;
   box-sizing: border-box;
   border-style: none;
 }
@@ -21,7 +22,6 @@ h6,
 p,
 blockquote,
 pre,
-a,
 code,
 em,
 img,
@@ -47,7 +47,6 @@ tfoot,
 thead,
 tr,
 th,
-button,
 td,
 main,
 canvas,

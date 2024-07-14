@@ -89,9 +89,9 @@ export class User {
         const existingUser = await db.query(
           `
 						SELECT user_id, password from ${usersTable}
-						WHERE username_lower_case = $1	
+						WHERE username = $1	
 					`,
-          [this.username.toLowerCase()]
+          [this.username]
         );
 
         if (!existingUser?.rows[0]) {

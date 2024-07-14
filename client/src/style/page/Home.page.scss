@@ -1,0 +1,10 @@
+@use '../App.scss';
+
+#home {
+  display: flex;
+  flex-direction: column;
+  gap: App.$pad;
+  width: 100%;
+  min-height: 100%;
+  margin-top: calc(App.$height + (App.$pad * 2));
+}

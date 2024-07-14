@@ -1,4 +1,10 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import {
+  createContext,
+  MouseEvent,
+  useContext,
+  useEffect,
+  useState
+} from 'react';
 import { request } from '../utilities/request.utilities';
 import { SerializedUser } from '../../types/utilities/request.utilities.types';
 import {
@@ -38,8 +44,9 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     }
   };
 
-  const logout = async () => {
+  const logout = async (e?: MouseEvent<HTMLButtonElement>) => {
     try {
+      e?.currentTarget.blur();
       const logoutData = await request('/logout', 'GET');
       if (logoutData) {
         setUser(undefined);

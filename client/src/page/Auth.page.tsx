@@ -1,14 +1,14 @@
 import { AuthProps, UserDetails } from '../../types/page/Auth.page.types';
-import { BiUser } from 'react-icons/bi';
+import { BiSolidUser } from 'react-icons/bi';
 import { Input } from '../comp/Input.comp';
-import { FormEvent, MouseEvent, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { Button, ButtonTheme } from '../comp/Button.comp';
 import { Navigate } from '../comp/Navigate.comp';
 import { request } from '../utilities/request.utilities';
 import { useUser } from '../context/User.context';
-import { TfiEmail } from 'react-icons/tfi';
 import { BsImage } from 'react-icons/bs';
-import { RiLockPasswordLine } from 'react-icons/ri';
+import { MdEmail } from 'react-icons/md';
+import { RiLockPasswordFill } from 'react-icons/ri';
 import '../style/page/Auth.page.scss';
 
 export const Auth = ({ isSignup = false }: AuthProps) => {
@@ -21,8 +21,7 @@ export const Auth = ({ isSignup = false }: AuthProps) => {
     file: undefined
   });
 
-  const handleOnNavigate = (e: MouseEvent<HTMLAnchorElement>) => {
-    e?.currentTarget?.blur();
+  const handleOnNavigate = () => {
     setUserDetails({
       username: '',
       email: '',
@@ -86,7 +85,7 @@ export const Auth = ({ isSignup = false }: AuthProps) => {
           value={userDetails.username}
           setValue={setUserDetails}
           placeholder="Username"
-          SVG={<BiUser />}
+          SVG={<BiSolidUser />}
         />
         {isSignup && (
           <>
@@ -96,7 +95,7 @@ export const Auth = ({ isSignup = false }: AuthProps) => {
               value={userDetails.email}
               setValue={setUserDetails}
               placeholder="Email"
-              SVG={<TfiEmail />}
+              SVG={<MdEmail />}
             />
             <Input<UserDetails>
               id="file"
@@ -115,7 +114,7 @@ export const Auth = ({ isSignup = false }: AuthProps) => {
           value={userDetails.password}
           setValue={setUserDetails}
           placeholder="Password"
-          SVG={<RiLockPasswordLine />}
+          SVG={<RiLockPasswordFill />}
         />
         {!isSignup && (
           <Navigate
@@ -132,7 +131,7 @@ export const Auth = ({ isSignup = false }: AuthProps) => {
             value={userDetails.confirmPassword}
             setValue={setUserDetails}
             placeholder="Confirm password"
-            SVG={<RiLockPasswordLine />}
+            SVG={<RiLockPasswordFill />}
           />
         )}
         <Button
@@ -150,7 +149,7 @@ export const Auth = ({ isSignup = false }: AuthProps) => {
             <Navigate
               to="/login"
               name="Login"
-              onClick={(e) => handleOnNavigate(e)}
+              onClick={() => handleOnNavigate()}
             />
           </>
         ) : (
@@ -159,7 +158,7 @@ export const Auth = ({ isSignup = false }: AuthProps) => {
             <Navigate
               to="/signup"
               name="Signup"
-              onClick={(e) => handleOnNavigate(e)}
+              onClick={() => handleOnNavigate()}
             />
           </>
         )}

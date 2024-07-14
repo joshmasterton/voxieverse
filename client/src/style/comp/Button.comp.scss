@@ -7,11 +7,26 @@ button {
   min-height: App.$height;
   max-height: App.$height;
   border-radius: App.$round;
+  padding: 0;
   background: transparent;
   cursor: pointer;
   transition:
     box-shadow App.$anim,
     outline-color App.$anim;
+}
+
+button.buttonOutline {
+  outline: var(--outline);
+}
+
+button.buttonName {
+  padding-right: App.$pad;
+}
+
+button.buttonSmall {
+  padding-right: App.$padSVG;
+  min-height: App.$heightSmall;
+  max-height: App.$heightSmall;
 }
 
 button:hover,

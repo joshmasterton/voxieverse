@@ -1,0 +1,138 @@
+@use '../App.scss';
+
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  transition: height App.$anim;
+  -webkit-backdrop-filter: blur(1rem);
+  backdrop-filter: blur(1rem);
+  background: var(--backgroundBlur);
+  z-index: 2;
+}
+
+nav.active {
+  height: calc(App.$height * 9.2);
+}
+
+nav.hidden {
+  height: calc(App.$height + (App.$pad * 2));
+}
+
+nav > header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding-left: App.$pad;
+  padding-right: App.$pad;
+  z-index: 1;
+}
+
+nav > header > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: App.$pad;
+  padding-top: App.$pad;
+  padding-bottom: App.$pad;
+  border-bottom: var(--outline);
+}
+
+nav > header > div > button {
+  display: flex;
+}
+
+nav > header > div > ul {
+  display: none;
+  justify-content: end;
+  flex: 1;
+  gap: App.$pad;
+}
+
+nav > main {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  top: calc(App.$height + (App.$pad * 2));
+  left: 0;
+  width: 100%;
+  padding: App.$pad;
+  padding-bottom: 0;
+}
+
+nav.active > main {
+  opacity: 100%;
+  transition:
+    transform App.$anim,
+    opacity App.$anim 0.25s;
+}
+
+nav.hidden > main {
+  opacity: 0;
+  transform: translateY(-23.1rem);
+  transition:
+    transform App.$anim,
+    opacity 0.05s ease;
+}
+
+nav > main > div {
+  width: 100%;
+  border-bottom: var(--outline);
+}
+
+nav > main > div > ul {
+  display: flex;
+  flex-direction: column;
+  gap: App.$pad;
+  padding-bottom: App.$pad;
+}
+
+nav > main > div > ul > li {
+  display: flex;
+  justify-content: end;
+}
+
+nav > main > div > ul > li > button,
+nav > main > div > ul > li > a {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  width: 100%;
+}
+
+@media screen and (min-width: App.$widthLarge) {
+  nav.active {
+    height: calc(App.$height + (App.$pad * 2));
+  }
+
+  nav.hidden {
+    height: calc(App.$height + (App.$pad * 2));
+  }
+
+  nav > header > div > button {
+    display: none;
+  }
+
+  nav > header > div > ul {
+    display: flex;
+  }
+
+  nav.active > main {
+    opacity: 0;
+    transform: translateY(-23.1rem);
+    transition:
+      transform App.$anim,
+      opacity 0.05s ease;
+  }
+
+  nav.hidden > main {
+    opacity: 0;
+    transform: translateY(-23.1rem);
+    transition:
+      transform App.$anim,
+      opacity 0.05s ease;
+  }
+}
