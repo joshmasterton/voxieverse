@@ -1,6 +1,6 @@
-import { ChangeEvent, MouseEvent, useRef, useState } from 'react';
+import { ChangeEvent, useRef, useState } from 'react';
 import { InputProps } from '../../types/comp/Input.comp.types';
-import { BsEye, BsEyeSlash } from 'react-icons/bs';
+import { BsEyeFill, BsEyeSlashFill } from 'react-icons/bs';
 import { Button } from './Button.comp';
 import { CgClose } from 'react-icons/cg';
 import '../style/comp/Input.comp.scss';
@@ -44,8 +44,7 @@ export const Input = <T,>({
     }
   };
 
-  const handleRemoveFile = (e: MouseEvent<HTMLButtonElement>) => {
-    e?.currentTarget.blur();
+  const handleRemoveFile = () => {
     if (inputRef.current) {
       inputRef.current.value = '';
       setProfilePicture('');
@@ -56,8 +55,7 @@ export const Input = <T,>({
     }
   };
 
-  const handleShowPassword = (e: MouseEvent<HTMLButtonElement>) => {
-    e?.currentTarget.blur();
+  const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };
 
@@ -78,9 +76,9 @@ export const Input = <T,>({
         </label>
         <Button
           type="button"
-          onClick={(e) => handleShowPassword(e)}
+          onClick={() => handleShowPassword()}
           label="showPassword"
-          SVG={showPassword ? <BsEyeSlash /> : <BsEye />}
+          SVG={showPassword ? <BsEyeSlashFill /> : <BsEyeFill />}
         />
       </div>
     );
@@ -109,7 +107,7 @@ export const Input = <T,>({
       {type === 'file' && (
         <Button
           type="button"
-          onClick={(e) => handleRemoveFile(e)}
+          onClick={() => handleRemoveFile()}
           label="removeFile"
           SVG={<CgClose />}
         />

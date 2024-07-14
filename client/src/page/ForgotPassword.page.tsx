@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { Input } from '../comp/Input.comp';
-import { TfiEmail } from 'react-icons/tfi';
 import { Button, ButtonTheme } from '../comp/Button.comp';
 import { Navigate } from '../comp/Navigate.comp';
-import { RiLockPasswordLine } from 'react-icons/ri';
-import { RxTokens } from 'react-icons/rx';
+import { RiLockPasswordFill } from 'react-icons/ri';
+import { MdEmail } from 'react-icons/md';
+import { GiToken } from 'react-icons/gi';
 import {
   ForgotDetails,
   ForgotPasswordProps
@@ -34,7 +34,7 @@ export const ForgotPassword = ({ isReset = false }: ForgotPasswordProps) => {
               value={forgotDetails.token}
               setValue={setForgotDetails}
               placeholder="Token"
-              SVG={<RxTokens />}
+              SVG={<GiToken />}
             />
             <Input<ForgotDetails>
               id="newPassword"
@@ -43,7 +43,7 @@ export const ForgotPassword = ({ isReset = false }: ForgotPasswordProps) => {
               value={forgotDetails.newPassword}
               setValue={setForgotDetails}
               placeholder="New password"
-              SVG={<RiLockPasswordLine />}
+              SVG={<RiLockPasswordFill />}
             />{' '}
             <Input<ForgotDetails>
               id="newConfirmPassword"
@@ -52,7 +52,7 @@ export const ForgotPassword = ({ isReset = false }: ForgotPasswordProps) => {
               value={forgotDetails.newConfirmPassword}
               setValue={setForgotDetails}
               placeholder="Confirm new password"
-              SVG={<RiLockPasswordLine />}
+              SVG={<RiLockPasswordFill />}
             />
           </>
         ) : (
@@ -62,20 +62,20 @@ export const ForgotPassword = ({ isReset = false }: ForgotPasswordProps) => {
             value={forgotDetails.email}
             setValue={setForgotDetails}
             placeholder="Email"
-            SVG={<TfiEmail />}
+            SVG={<MdEmail />}
           />
         )}
         {isReset ? (
           <Navigate
             to="/forgotPassword"
             name="Forgot password?"
-            onClick={(e) => e?.currentTarget.blur()}
+            onClick={() => {}}
           />
         ) : (
           <Navigate
             to="/resetPassword"
             name="Reset password?"
-            onClick={(e) => e?.currentTarget.blur()}
+            onClick={() => {}}
           />
         )}
         <Button
@@ -88,11 +88,7 @@ export const ForgotPassword = ({ isReset = false }: ForgotPasswordProps) => {
       </main>
       <footer>
         <div>Remember your password?</div>
-        <Navigate
-          to="/login"
-          name="Login"
-          onClick={(e) => e?.currentTarget.blur()}
-        />
+        <Navigate to="/login" name="Login" onClick={() => {}} />
       </footer>
     </form>
   );

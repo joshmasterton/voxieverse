@@ -1,6 +1,7 @@
 @use '../App.scss';
 
 a {
+  display: flex;
   width: fit-content;
   text-decoration: none;
   color: var(--primary);
@@ -8,6 +9,10 @@ a {
   transition:
     box-shadow App.$anim,
     outline-color App.$anim;
+}
+
+a.transparent {
+  color: inherit;
 }
 
 a:hover,
