@@ -2,7 +2,7 @@ import { ErrorResponse } from '../../types/utilities/request.utilities.types';
 
 const API_URL = 'http://localhost:9001';
 
-export const request = async <T>(
+export const request = async <T, D>(
   url: string,
   method: string,
   body?: T | FormData
@@ -26,7 +26,7 @@ export const request = async <T>(
       throw new Error(error);
     }
 
-    const data = await response.json();
+    const data = (await response.json()) as D;
     return data;
   } catch (error) {
     if (error instanceof Error) {

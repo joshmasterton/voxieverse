@@ -1,0 +1,56 @@
+@use '../App.scss';
+
+#createPost {
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+  width: 100%;
+  margin-top: calc(App.$height + (App.$pad * 2));
+  gap: App.$pad;
+}
+
+#createPost > div {
+  display: flex;
+  justify-content: stretch;
+  align-items: center;
+  gap: App.$pad;
+}
+
+#createPost > div:first-of-type {
+  min-height: 10rem;
+}
+
+#createPost > div:last-of-type {
+  flex-wrap: wrap;
+}
+
+#createPost > div > div:first-of-type {
+  width: 100%;
+}
+
+#createPost > div > div:last-of-type {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: App.$height;
+  height: App.$height;
+  border-radius: App.$round;
+  color: white;
+  background: var(--primary);
+}
+
+#createPost > div > button {
+  flex: 1;
+}
+
+@media screen and (min-width: App.$widthLarge) {
+  #createPost {
+    margin-left: calc(App.$height * 6);
+  }
+}
+
+@media screen and (min-width: App.$widthExtraLarge) {
+  #createPost {
+    margin-right: calc(App.$height * 8);
+  }
+}

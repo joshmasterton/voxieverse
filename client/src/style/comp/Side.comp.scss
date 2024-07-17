@@ -1,0 +1,99 @@
+@use '../App.scss';
+
+#side {
+  display: none;
+  position: fixed;
+  top: calc(App.$height * 1 + (App.$pad * 3));
+  right: 0;
+  height: calc(100% - (App.$height + App.$pad * 4));
+  width: calc(App.$height * 8);
+  border-left: var(--outline);
+}
+
+#sideUser {
+  position: fixed;
+  display: none;
+  top: 0;
+  left: 0;
+  padding-top: calc(App.$height + (App.$pad * 3));
+  width: calc(App.$height * 6);
+  height: calc(100% - App.$pad);
+}
+
+#sideUser > div {
+  display: flex;
+  flex-direction: column;
+  overflow: scroll;
+  gap: App.$pad;
+  padding: App.$pad;
+  padding-top: 0;
+  padding-bottom: 0;
+  border-right: var(--outline);
+}
+
+#sideUser > div > header {
+  display: flex;
+  flex-direction: column;
+  gap: App.$pad;
+}
+
+#sideUser > div > header > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#sideUser > div > header > div > div:last-of-type {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: App.$pad;
+}
+
+#sideUser > div > main {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+#sideUser > div > main > ul {
+  display: flex;
+  flex-direction: column;
+  gap: App.$pad;
+  flex: 1;
+}
+
+#sideUser > div > main > ul > li {
+  display: flex;
+  justify-content: end;
+}
+
+#sideUser > div > main > ul > li:last-of-type {
+  display: flex;
+  justify-content: end;
+  align-items: end;
+  flex: 1;
+  padding-bottom: 0.1rem;
+}
+
+#sideUser > div > main > ul > li > button,
+#sideUser > div > main > ul > li > a {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  width: 100%;
+}
+
+@media screen and (min-width: App.$widthLarge) {
+  #sideUser {
+    display: flex;
+  }
+}
+
+@media screen and (min-width: App.$widthExtraLarge) {
+  #side {
+    display: flex;
+  }
+}

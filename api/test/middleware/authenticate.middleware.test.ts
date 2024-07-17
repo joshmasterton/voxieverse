@@ -57,11 +57,11 @@ describe('Authenticate', () => {
       .get('/')
       .set('Cookie', [`accessToken=incorrect_token`]);
 
-    expect(responseAuth.body).toEqual({ error: 'Unauthorized' });
+    expect(responseAuth.body).toEqual({ error: 'No tokens' });
   });
 
   test('Should throw error if no tokens', async () => {
     const response = await request(app).get('/');
-    expect(response.body).toEqual({ error: 'Unauthorized' });
+    expect(response.body).toEqual({ error: 'No tokens' });
   });
 });

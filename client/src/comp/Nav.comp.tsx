@@ -119,7 +119,6 @@ export const Nav = () => {
           </ul>
         </div>
       </main>
-      <footer></footer>
     </nav>
   );
 };

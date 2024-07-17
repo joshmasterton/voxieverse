@@ -6,6 +6,8 @@ import { UserProvider } from './context/User.context';
 import { Public } from './comp/Public.comp';
 import { Private } from './comp/Private.comp';
 import { Home } from './page/Home.page';
+import { CreatePost } from './page/CreatePost.page';
+import { Post } from './page/Post.page';
 import './style/App.scss';
 
 export const routes = [
@@ -14,6 +16,18 @@ export const routes = [
     element: (
       <Private>
         <Home />
+      </Private>
+    )
+  },
+  {
+    path: '/post/:post_id',
+    element: <Post />
+  },
+  {
+    path: '/createPost',
+    element: (
+      <Private>
+        <CreatePost />
       </Private>
     )
   },

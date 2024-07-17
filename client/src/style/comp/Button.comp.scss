@@ -24,9 +24,22 @@ button.buttonName {
 }
 
 button.buttonSmall {
-  padding-right: App.$padSVG;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  padding-bottom: App.$padSmall;
+  max-width: App.$height;
+  min-height: App.$heightSmall;
+  max-height: calc(App.$heightSmall * 2);
+  font-size: App.$fontSmall;
+}
+
+button.buttonSmall > svg {
+  min-width: App.$heightSmall;
+  max-width: App.$heightSmall;
   min-height: App.$heightSmall;
   max-height: App.$heightSmall;
+  padding: App.$padSmall;
 }
 
 button:hover,
@@ -35,7 +48,7 @@ button:focus {
   box-shadow: var(--outline-shadow);
 }
 
-button.buttonPrimary {
+.buttonPrimary {
   color: white;
   background: var(--primary);
 }

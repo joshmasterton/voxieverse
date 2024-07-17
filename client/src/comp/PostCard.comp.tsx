@@ -1,29 +1,29 @@
 import { BiSolidDislike, BiSolidLike } from 'react-icons/bi';
 import { Button } from './Button.comp';
 import { MdModeComment } from 'react-icons/md';
-import { SerializedUser } from '../../types/utilities/request.utilities.types';
-import '../style/comp/Post.comp.scss';
+import { SerializedPost } from '../../types/page/Home.page.types';
+import { Navigate } from './Navigate.comp';
+import '../style/comp/PostCard.comp.scss';
 
-export const Post = ({ user }: { user: SerializedUser }) => {
+export const PostCard = ({ post }: { post: SerializedPost }) => {
   return (
-    <div className="post">
+    <div className="postCard">
+      <Navigate to={`/post/${post.post_id}`} onClick={() => {}} />
       <header>
-        <img alt="" src={user?.profile_picture} />
+        <img alt="" src={post?.profile_picture} />
         <div>
-          <div>{user?.username}</div>
-          <p>{user?.email}</p>
+          <div>{post?.username}</div>
+          <p>{post?.created_at}</p>
         </div>
       </header>
       <main>
-        {user?.profile_picture && (
+        <div>{post?.post}</div>
+        {post?.post_picture && (
           <div className="imgCon">
-            <img alt="" src={user?.profile_picture} />
+            <img alt="" className="imgPost" src={post?.post_picture} />
+            <img alt="" className="imgPost" src={post?.post_picture} />
           </div>
         )}
-        <div>
-          Post content that will have user context and also maybe an image Post
-          content that will have user context and also maybe an image
-        </div>
       </main>
       <footer>
         <Button
@@ -31,7 +31,7 @@ export const Post = ({ user }: { user: SerializedUser }) => {
           onClick={() => {}}
           label="like"
           className="buttonName buttonOutline buttonSmall"
-          name={user?.likes}
+          name={post?.likes}
           SVG={<BiSolidLike />}
         />
         <Button
@@ -39,7 +39,7 @@ export const Post = ({ user }: { user: SerializedUser }) => {
           onClick={() => {}}
           label="dislike"
           className="buttonName buttonOutline buttonSmall"
-          name={user?.dislikes}
+          name={post?.dislikes}
           SVG={<BiSolidDislike />}
         />
         <Button
@@ -47,7 +47,7 @@ export const Post = ({ user }: { user: SerializedUser }) => {
           onClick={() => {}}
           label="comment"
           className="buttonName buttonOutline buttonSmall"
-          name={user?.comments}
+          name={post?.comments}
           SVG={<MdModeComment />}
         />
       </footer>

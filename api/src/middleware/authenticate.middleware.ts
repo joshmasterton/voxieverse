@@ -1,6 +1,5 @@
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
-import { Db, tableConfigManager } from '../database/db.database';
 import { User } from '../model/user.model';
 import { generateToken } from '../utilities/generateToken.utilities';
 
@@ -11,8 +10,6 @@ export const authenticate = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { tokensTable } = tableConfigManager.getConfig();
-
   try {
     if (ACCESS_TOKEN_SECRET) {
       const { accessToken } = req.cookies;
@@ -52,24 +49,11 @@ export const authenticate = async (
           const { refreshToken } = req.cookies;
 
           if (!refreshToken) {
-            throw new Error('No refresh token');
-          }
-
-          const db = new Db();
-          const existingRefreshToken = await db.query(
-            `
-							SELECT * FROM ${tokensTable ?? 'voxieverse_tokens'}
-							WHERE refresh_token = $1	
-						`,
-            [refreshToken]
-          );
-
-          if (!existingRefreshToken?.rows[0]) {
-            return res.status(403).json({ error: 'Unauthorized' });
+            throw new Error('No tokens');
           }
 
           const decodedRefreshToken = jwt.verify(
-            existingRefreshToken?.rows[0].refresh_token,
+            refreshToken,
             REFRESH_TOKEN_SECRET
           ) as JwtPayload;
 
@@ -105,18 +89,7 @@ export const authenticate = async (
         }
       } catch (error) {
         if (error instanceof Error) {
-          const { refreshToken } = req.cookies;
-
-          const db = new Db();
-          await db.query(
-            `
-							DELETE FROM ${tokensTable ?? 'voxieverse_tokens'}
-							WHERE refresh_token = $1
-						`,
-            [refreshToken]
-          );
-
-          return res.status(403).json({ error: 'Unauthorized' });
+          return res.status(403).json({ error: error.message });
         }
       }
     }

@@ -1,4 +1,4 @@
-import { ChangeEvent, useRef, useState } from 'react';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { InputProps } from '../../types/comp/Input.comp.types';
 import { BsEyeFill, BsEyeSlashFill } from 'react-icons/bs';
 import { Button } from './Button.comp';
@@ -12,9 +12,12 @@ export const Input = <T,>({
   setValue,
   placeholder,
   className,
-  SVG
+  SVG,
+  isTextarea
 }: InputProps<T>) => {
   const inputRef = useRef<HTMLInputElement>(null);
+  const textareaRefCon = useRef<HTMLDivElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [showPassword, setShowPassword] = useState(false);
   const [profilePicture, setProfilePicture] = useState('');
 
@@ -44,6 +47,26 @@ export const Input = <T,>({
     }
   };
 
+  const handleResizeChange = () => {
+    if (textareaRef.current && textareaRefCon.current) {
+      textareaRef.current.style.height = 'auto';
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+      textareaRefCon.current.style.height = 'auto';
+      textareaRefCon.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    }
+  };
+
+  const handleTextareaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+
+    handleResizeChange();
+
+    setValue((prevState) => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
+
   const handleRemoveFile = () => {
     if (inputRef.current) {
       inputRef.current.value = '';
@@ -59,6 +82,12 @@ export const Input = <T,>({
     setShowPassword(!showPassword);
   };
 
+  useEffect(() => {
+    window.addEventListener('resize', handleResizeChange);
+
+    return () => window.removeEventListener('resize', handleResizeChange);
+  }, []);
+
   if (className === 'labelPassword') {
     return (
       <div className={className}>
@@ -68,6 +97,7 @@ export const Input = <T,>({
             id={id}
             type={showPassword ? 'text' : type}
             name={id}
+            max={300}
             value={value}
             aria-label={id}
             onChange={(e) => handleOnChange(e)}
@@ -85,7 +115,10 @@ export const Input = <T,>({
   }
 
   return (
-    <div className="input">
+    <div
+      ref={isTextarea ? textareaRefCon : null}
+      className={isTextarea ? 'textarea' : 'input'}
+    >
       <label htmlFor={id} className={className}>
         {SVG}
         {profilePicture ? (
@@ -93,16 +126,30 @@ export const Input = <T,>({
         ) : (
           type === 'file' && <div>{placeholder}</div>
         )}
-        <input
-          id={id}
-          type={type}
-          value={value}
-          name={id}
-          ref={inputRef}
-          aria-label={id}
-          onChange={(e) => handleOnChange(e)}
-          placeholder={placeholder}
-        />
+        {isTextarea ? (
+          <textarea
+            id={id}
+            value={value}
+            name={id}
+            ref={textareaRef}
+            maxLength={500}
+            aria-label={id}
+            onChange={(e) => handleTextareaChange(e)}
+            placeholder={placeholder}
+          />
+        ) : (
+          <input
+            id={id}
+            type={type}
+            value={value}
+            name={id}
+            max={300}
+            ref={inputRef}
+            aria-label={id}
+            onChange={(e) => handleOnChange(e)}
+            placeholder={placeholder}
+          />
+        )}
       </label>
       {type === 'file' && (
         <Button

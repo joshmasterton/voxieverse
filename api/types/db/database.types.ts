@@ -1,4 +1,5 @@
 export type TableConfig = {
-  tokensTable: string;
   usersTable: string;
+  postsTable: string;
+  commentsTable: string;
 };

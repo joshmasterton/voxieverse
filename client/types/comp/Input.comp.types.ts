@@ -8,4 +8,5 @@ export type InputProps<T> = {
   className?: string;
   setValue: Dispatch<SetStateAction<T>>;
   SVG?: ReactNode;
+  isTextarea?: boolean;
 };

@@ -1,29 +1,19 @@
 @use '../App.scss';
 
-#home {
-  display: flex;
-  flex-direction: column;
-  gap: App.$pad;
+#postPage {
   width: 100%;
-  min-height: 100%;
   margin-top: calc(App.$height + (App.$pad * 2));
-}
-
-#home > a {
-  position: fixed;
-  bottom: App.$pad;
-  right: App.$pad;
-  z-index: 1;
+  min-height: 100%;
 }
 
 @media screen and (min-width: App.$widthLarge) {
-  #home {
+  #postPage {
     margin-left: calc(App.$height * 6);
   }
 }
 
 @media screen and (min-width: App.$widthExtraLarge) {
-  #home {
+  #postPage {
     margin-right: calc(App.$height * 8);
   }
 }

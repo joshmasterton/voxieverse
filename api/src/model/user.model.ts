@@ -1,6 +1,9 @@
 import bcryptjs from 'bcryptjs';
 import { Db, tableConfigManager } from '../database/db.database';
 import { generateToken } from '../utilities/generateToken.utilities';
+import { SerializedUser } from '../../types/model/user.model.types';
+
+const db = new Db();
 
 export class User {
   constructor(
@@ -22,7 +25,6 @@ export class User {
 
     try {
       if (this.password && this.username) {
-        const db = new Db();
         const existingUser = await db.query(
           `
 						SELECT user_id from ${usersTable}
@@ -123,7 +125,6 @@ export class User {
     const { usersTable } = tableConfigManager.getConfig();
 
     try {
-      const db = new Db();
       const userFromDb = await db.query(
         `
 					SELECT user_id, username, email, profile_picture, likes, dislikes,
@@ -164,34 +165,10 @@ export class User {
   }
 
   async tokens() {
-    const { tokensTable } = tableConfigManager.getConfig();
-
     try {
-      const db = new Db();
-
       if (this.user_id) {
         const accessToken = generateToken(this.user_id, 'access');
         const refreshToken = generateToken(this.user_id, 'refresh');
-
-        if (refreshToken) {
-          await db.query(
-            `
-							DELETE FROM ${tokensTable}
-							WHERE user_id = $1
-						`,
-            [this.user_id]
-          );
-
-          await db.query(
-            `
-							INSERT INTO ${tokensTable}(user_id, refresh_token)
-							VALUES($1, $2)	
-						`,
-            [this.user_id, refreshToken]
-          );
-        } else {
-          throw new Error('Invalid refresh token');
-        }
 
         return { accessToken, refreshToken };
       } else {
@@ -205,7 +182,7 @@ export class User {
   }
 
   serializeUser() {
-    const serializeUser = {
+    const serializeUser: SerializedUser = {
       user_id: this.user_id,
       username: this.username,
       email: this.email,

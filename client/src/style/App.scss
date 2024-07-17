@@ -1,8 +1,9 @@
 @use './reset.scss';
 
 $height: 2.5rem;
-$heightSmall: 2rem;
-$widthLarge: 32.5rem;
+$heightSmall: 1.75rem;
+$widthLarge: 35rem;
+$widthExtraLarge: 57.5rem;
 $widthMedium: 25rem;
 $width: 5rem;
 
@@ -12,7 +13,7 @@ $padSVG: 0.75rem;
 $padLarge: 2rem;
 $padSmall: 0.5rem;
 
-$round: 0.25rem;
+$round: 1.5rem;
 
 $fontLarge: 1.25rem;
 $font: 1rem;
@@ -24,7 +25,7 @@ $anim: 0.4s ease;
   --color: white;
   --primary: #5735ff;
   --background: rgba(0, 0, 0, 1);
-  --backgroundBlur: rgba(0, 0, 0, 0.75);
+  --backgroundBlur: rgba(0, 0, 0, 0.65);
   --outline: 0.075rem solid rgb(50, 50, 60);
   --outline-shadow: 0 0 0 0.15rem #5735ff;
 }
@@ -33,7 +34,7 @@ $anim: 0.4s ease;
   --color: black;
   --primary: #5735ff;
   --background: white;
-  --backgroundBlur: rgba(255, 255, 255, 0.75);
+  --backgroundBlur: rgba(255, 255, 255, 0.65);
   --outline: 0.075rem solid rgb(150, 150, 160);
   --outline-shadow: 0 0 0 0.15rem #5735ff;
 }
@@ -86,6 +87,7 @@ h1 {
 
 p {
   font-size: $fontSmall;
+  opacity: 50%;
 }
 
 svg {
@@ -105,21 +107,46 @@ img {
   max-height: $height;
   border-radius: $round;
   object-fit: cover;
+  object-fit: top;
+}
+
+.imgUser {
+  max-width: 100%;
+  min-height: 12rem;
+  max-height: 12rem;
+  display: block;
+  margin: auto;
+  object-fit: cover;
 }
 
 .imgCon {
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: calc($height * 8);
-  width: 100%;
-  border-radius: $round;
   overflow: hidden;
-  background: darkblue;
+  border-radius: $round;
+  padding: $pad;
 }
 
-.imgCon > img {
-  min-width: 100%;
+.imgCon > img:last-of-type {
+  transform: translate(0%);
+  width: auto;
+  z-index: 1;
+}
+
+.imgCon > img:first-of-type {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
   min-height: 100%;
+  filter: blur(1rem);
+  object-position: 50% 50%;
+  object-fit: cover;
+  opacity: 75%;
+}
+
+.imgPost {
+  max-width: 100%;
+  max-height: 20rem;
+  display: block;
+  margin: auto;
 }
