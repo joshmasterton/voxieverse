@@ -128,7 +128,6 @@ export const Input = <T,>({
         )}
         {isTextarea ? (
           <textarea
-            id={id}
             value={value}
             name={id}
             ref={textareaRef}

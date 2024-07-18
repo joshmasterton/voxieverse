@@ -9,7 +9,7 @@ export const getCommentController = async (req: Request, res: Response) => {
       throw new Error('comment_id required');
     }
 
-    const comment = new Comment(undefined, comment_id);
+    const comment = new Comment(undefined, undefined, comment_id);
     await comment.get();
 
     return res.status(200).json(comment.serializeComment());

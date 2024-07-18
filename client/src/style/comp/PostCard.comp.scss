@@ -15,7 +15,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: calc(100% - 5.9rem);
+  height: calc(100% - 3.75rem);
   border: 0;
   box-shadow: none;
   outline: none;
@@ -39,12 +39,26 @@
   display: flex;
   flex-direction: column;
   flex: 1;
-  min-height: App.$height + (App.$height * 2);
   gap: App.$pad;
 }
 
 .postCard > footer {
   display: flex;
+  flex-wrap: wrap;
   justify-content: end;
   gap: App.$pad;
+}
+
+.postCard > form {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  justify-content: space-between;
+  gap: App.$pad;
+}
+
+.postCard > form > button {
+  padding: App.$pad;
+  min-height: App.$heightSmall;
+  max-height: App.$heightSmall;
 }

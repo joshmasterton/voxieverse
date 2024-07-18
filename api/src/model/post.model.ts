@@ -92,6 +92,10 @@ export class Post {
         [this.post_id]
       );
 
+      if (!postFromDb?.rows[0]) {
+        throw new Error('No post found');
+      }
+
       const post = postFromDb?.rows[0] as Post;
 
       this.post = post.post;

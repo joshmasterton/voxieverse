@@ -2,6 +2,7 @@ import { Db, tableConfigManager } from '../database/db.database';
 import { SerializedComment } from '../../types/model/comment.model.types';
 import { User } from './user.model';
 import { Post } from './post.model';
+import { QueryResult } from 'pg';
 
 const db = new Db();
 
@@ -26,7 +27,11 @@ export class Comment {
     try {
       if (this.comment) {
         const post = new Post(undefined, this.post_id);
-        await post.get();
+        const postFromDb = await post.get();
+
+        if (!postFromDb) {
+          throw new Error('No post found');
+        }
 
         const commentFirstLetter = this.comment.slice(0, 1).toUpperCase();
         const commentRest = this.comment.slice(1);
@@ -75,6 +80,10 @@ export class Comment {
         [this.comment_id]
       );
 
+      if (!commentFromDb?.rows[0]) {
+        throw new Error('No comment found');
+      }
+
       const comment = commentFromDb?.rows[0] as Comment;
 
       this.comment = comment.comment;
@@ -114,15 +123,44 @@ export class Comment {
   async getComments(page = 0) {
     const { commentsTable } = tableConfigManager.getConfig();
 
+    const post = new Post(undefined, this.post_id);
+    const postFromDb = await post.get();
+
+    if (!postFromDb) {
+      throw new Error('No post found');
+    }
+
     try {
-      const commentsFromDb = await db.query(
-        `
-					SELECT * FROM ${commentsTable}
-					ORDER BY created_at DESC
-					LIMIT $1 OFFSET $2
-				`,
-        [10, page * 10]
-      );
+      let commentsFromDb: QueryResult | undefined;
+
+      if (this.comment_parent_id) {
+        commentsFromDb = await db.query(
+          `
+						SELECT * FROM ${commentsTable}
+						WHERE post_id = $1
+						AND comment_parent_id = $2
+						ORDER BY created_at DESC
+						LIMIT $3 OFFSET $4
+					`,
+          [
+            postFromDb.serializePost().post_id,
+            this.comment_parent_id,
+            10,
+            page * 10
+          ]
+        );
+      } else {
+        commentsFromDb = await db.query(
+          `
+						SELECT * FROM ${commentsTable}
+						WHERE post_id = $1
+						AND comment_parent_id IS NULL
+						ORDER BY created_at DESC
+						LIMIT $2 OFFSET $3
+					`,
+          [postFromDb.serializePost().post_id, 10, page * 10]
+        );
+      }
 
       if (!commentsFromDb?.rows) {
         throw new Error('No comments found');

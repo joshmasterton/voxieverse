@@ -1,9 +1,11 @@
 @use '../App.scss';
 
 #postPage {
+  display: flex;
+  flex-direction: column;
   width: 100%;
+  gap: App.$pad;
   margin-top: calc(App.$height + (App.$pad * 2));
-  min-height: 100%;
 }
 
 @media screen and (min-width: App.$widthLarge) {

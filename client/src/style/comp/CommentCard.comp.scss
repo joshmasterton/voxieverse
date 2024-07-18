@@ -1,0 +1,97 @@
+@use '../App.scss';
+
+.commentCard {
+  position: relative;
+  display: flex;
+  width: 100%;
+}
+
+.commentCard > header {
+  padding: App.$pad * 1.35;
+  padding-bottom: 0;
+}
+
+.commentCard > header > div {
+  height: 100%;
+  padding: 0.025rem;
+  background: var(--background-outline);
+}
+
+.commentCard > .commentCardChild {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 1rem;
+}
+
+.commentCard > .commentCardChild > header {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  left: -3.25rem;
+  padding-left: App.$pad;
+  gap: App.$pad;
+}
+
+.commentCard > .commentCardChild > header img {
+  min-width: App.$heightSmall;
+  max-width: App.$heightSmall;
+  min-height: App.$heightSmall;
+  max-height: App.$heightSmall;
+}
+
+.commentCard > .commentCardChild > main {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: App.$pad;
+  padding-top: App.$height + App.$padSmall;
+  padding-left: App.$padSmall;
+}
+
+.commentCard > .commentCardChild > footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  margin-left: App.$padSmall;
+  gap: App.$pad;
+}
+
+.commentCard > .commentCardChild > footer .buttonLess {
+  position: absolute;
+  left: -2.25rem;
+  min-width: App.$heightSmall;
+  max-width: App.$heightSmall;
+  min-height: App.$heightSmall;
+  max-height: App.$heightSmall;
+  padding: 0;
+  background: var(--background);
+}
+
+.commentCard > .commentCardChild > footer button:last-of-type {
+  position: absolute;
+  left: -2.25rem;
+  bottom: 0;
+  min-width: App.$heightSmall;
+  max-width: App.$heightSmall;
+  min-height: App.$heightSmall;
+  max-height: App.$heightSmall;
+  padding: 0;
+  background: var(--background);
+}
+
+.commentCard > .commentCardChild > form {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  justify-content: space-between;
+  margin-left: App.$padSmall;
+  gap: App.$pad;
+}
+
+.commentCard > .commentCardChild > form > button {
+  padding: App.$pad;
+  min-height: App.$heightSmall;
+  max-height: App.$heightSmall;
+}

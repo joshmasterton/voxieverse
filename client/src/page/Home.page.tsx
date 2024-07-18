@@ -4,7 +4,7 @@ import { Navigate } from '../comp/Navigate.comp';
 import { PostCard } from '../comp/PostCard.comp';
 import { Side, SideUser } from '../comp/Side.comp';
 import { useEffect, useState } from 'react';
-import { SerializedPost } from '../../types/page/Home.page.types';
+import { SerializedPost } from '../../types/utilities/request.utilities.types';
 import { request } from '../utilities/request.utilities';
 import { Button } from '../comp/Button.comp';
 import '../style/page/Home.page.scss';
@@ -19,6 +19,7 @@ export const Home = () => {
         `/getPosts?page=${currentPage}`,
         'GET'
       );
+
       if (postsData) {
         setPosts((prevPosts) => {
           if (prevPosts && postsData.length > 0) {

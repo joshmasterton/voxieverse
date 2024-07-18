@@ -25,12 +25,12 @@ button.buttonName {
 
 button.buttonSmall {
   display: flex;
-  flex-direction: column;
   padding: 0;
-  padding-bottom: App.$padSmall;
-  max-width: App.$height;
+  padding-right: App.$padSmall;
+  min-width: App.$height + App.$padSmall;
+  max-width: App.$height + App.$padSmall;
   min-height: App.$heightSmall;
-  max-height: calc(App.$heightSmall * 2);
+  max-height: App.$heightSmall;
   font-size: App.$fontSmall;
 }
 

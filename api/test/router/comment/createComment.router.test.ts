@@ -113,6 +113,6 @@ describe('/createComment', async () => {
         responseLogin.headers['set-cookie'][1].split(/;/)[0]
       ]);
 
-    console.log(response.body);
+    expect(response.body).toEqual({ error: 'No post found' });
   });
 });

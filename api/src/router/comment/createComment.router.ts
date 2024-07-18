@@ -11,12 +11,7 @@ export const createComment = () => {
     '/createComment',
     authenticate,
     check('comment_parent_id').trim().escape().toInt().isInt().optional(),
-    check('post_id')
-      .trim()
-      .escape()
-      .toInt()
-      .isInt()
-      .withMessage('post_id required'),
+    check('post_id').trim().toInt().isInt().withMessage('post_id required'),
     check('comment')
       .trim()
       .escape()

@@ -3,7 +3,7 @@ import { app } from '../../../src/app';
 import request from 'supertest';
 import path from 'path';
 
-describe('/createPost', async () => {
+describe('/getPost', async () => {
   const profilePicture = path.join(
     __dirname,
     '..',
@@ -55,7 +55,7 @@ describe('/createPost', async () => {
     expect(response.body.username).toBe('testUser');
   });
 
-  test('Should return error if on post_id', async () => {
+  test('Should return error if no post_id', async () => {
     await request(app)
       .post('/signup')
       .field({
