@@ -61,7 +61,7 @@ export const Home = () => {
           posts?.map((post) => {
             return <PostCard key={post.post_id} post={post} />;
           })}
-        {posts && (
+        {posts && posts.length > 0 && (
           <Button
             type="button"
             onClick={async () => await getPosts(page + 1, true)}

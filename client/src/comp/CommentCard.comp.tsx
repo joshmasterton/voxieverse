@@ -10,6 +10,7 @@ import '../style/comp/CommentCard.comp.scss';
 
 export const CommentCard = ({ comment }: { comment: SerializedComment }) => {
   const [page, setPage] = useState(0);
+  const [currentComment, setCurrentComment] = useState(comment);
   const [isComment, setIsComment] = useState(false);
   const [replies, setReplies] = useState<SerializedComment[] | undefined>(
     undefined
@@ -62,11 +63,19 @@ export const CommentCard = ({ comment }: { comment: SerializedComment }) => {
     try {
       e.preventDefault();
 
-      await request('/createComment', 'POST', {
-        comment: commentDetails.comment,
-        post_id: comment.post_id,
-        comment_parent_id: comment.comment_id
-      });
+      const updatedComment = await request<unknown, SerializedComment>(
+        '/createComment',
+        'POST',
+        {
+          comment: commentDetails.comment,
+          post_id: comment.post_id,
+          comment_parent_id: comment.comment_id
+        }
+      );
+
+      if (updatedComment) {
+        setCurrentComment(updatedComment);
+      }
 
       setIsComment(false);
       setPage(0);
@@ -74,7 +83,8 @@ export const CommentCard = ({ comment }: { comment: SerializedComment }) => {
         comment: ''
       });
 
-      await getReplies(page);
+      setReplies(undefined);
+      await getReplies();
     } catch (error) {
       if (error instanceof Error) {
         console.error(error.message);
@@ -89,14 +99,14 @@ export const CommentCard = ({ comment }: { comment: SerializedComment }) => {
       </header>
       <div className="commentCardChild">
         <header>
-          <img alt="" src={comment?.profile_picture} />
+          <img alt="" src={currentComment?.profile_picture} />
           <div>
-            <div>{comment?.username}</div>
-            <p>{comment?.created_at}</p>
+            <div>{currentComment?.username}</div>
+            <p>{currentComment?.created_at}</p>
           </div>
         </header>
         <main>
-          <div>{comment?.comment}</div>
+          <div>{currentComment?.comment}</div>
         </main>
         <footer>
           {replies && replies.length > 0 && (
@@ -113,7 +123,7 @@ export const CommentCard = ({ comment }: { comment: SerializedComment }) => {
             onClick={() => {}}
             label="like"
             className="buttonName buttonOutline buttonSmall"
-            name={comment?.likes}
+            name={currentComment?.likes}
             SVG={<BiSolidLike />}
           />
           <Button
@@ -121,7 +131,7 @@ export const CommentCard = ({ comment }: { comment: SerializedComment }) => {
             onClick={() => {}}
             label="dislike"
             className="buttonName buttonOutline buttonSmall"
-            name={comment?.dislikes}
+            name={currentComment?.dislikes}
             SVG={<BiSolidDislike />}
           />
           <Button
@@ -129,7 +139,7 @@ export const CommentCard = ({ comment }: { comment: SerializedComment }) => {
             onClick={() => setIsComment(!isComment)}
             label="comment"
             className="buttonName buttonOutline buttonSmall"
-            name={comment?.comments}
+            name={currentComment?.comments}
             SVG={<MdModeComment />}
           />
           <Button
@@ -165,7 +175,6 @@ export const CommentCard = ({ comment }: { comment: SerializedComment }) => {
           </form>
         )}
         {replies &&
-          replies.length > 0 &&
           replies.map((reply) => (
             <CommentCard key={reply.comment_id} comment={reply} />
           ))}

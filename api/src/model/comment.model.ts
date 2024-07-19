@@ -22,7 +22,7 @@ export class Comment {
   ) {}
 
   async createComment() {
-    const { commentsTable } = tableConfigManager.getConfig();
+    const { postsTable, commentsTable } = tableConfigManager.getConfig();
 
     try {
       if (this.comment) {
@@ -37,27 +37,52 @@ export class Comment {
         const commentRest = this.comment.slice(1);
         const updatedComment = commentFirstLetter + commentRest;
 
+        if (this.comment_parent_id) {
+          await db.query(
+            `
+							UPDATE ${commentsTable}
+							SET comments = comments + 1
+							WHERE comment_id = $1							
+						`,
+            [this.comment_parent_id]
+          );
+        } else {
+          await db.query(
+            `
+							UPDATE ${postsTable}
+							SET comments = comments + 1
+							WHERE post_id = $1	
+						`,
+            [this.post_id]
+          );
+        }
+
         const createComment = await db.query(
           `
-							INSERT INTO ${commentsTable}(user_id, post_id, comment, comment_parent_id)
-							VALUES($1, $2, $3, $4) RETURNING *
-						`,
+						INSERT INTO ${commentsTable}(user_id, post_id, comment, comment_parent_id)
+						VALUES($1, $2, $3, $4) RETURNING comment_id
+					`,
           [this.user_id, this.post_id, updatedComment, this.comment_parent_id]
         );
 
-        const comment = createComment?.rows[0] as Comment;
+        this.comment_id = createComment?.rows[0].comment_id;
+        await this.get();
 
-        this.comment = comment.comment;
-        this.user_id = comment.user_id;
-        this.post_id = comment.post_id;
-        this.comment_id = comment.comment_id;
-        this.comment_parent_id = comment.comment_parent_id;
-        this.likes = comment.likes;
-        this.dislikes = comment.dislikes;
-        this.comments = comment.comments;
-        this.created_at = comment.created_at;
+        if (this.comment_parent_id) {
+          const updatedComment = new Comment(
+            undefined,
+            undefined,
+            this.comment_parent_id
+          );
+          const updatedSerilizedComment = await updatedComment.get();
 
-        return this;
+          return updatedSerilizedComment?.serializeComment();
+        } else {
+          const updatedPost = new Post(undefined, this.post_id);
+          const updatedSerializedPost = await updatedPost.get();
+
+          return updatedSerializedPost?.serializePost();
+        }
       } else {
         throw new Error('Comment required');
       }

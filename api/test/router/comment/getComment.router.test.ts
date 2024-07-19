@@ -39,7 +39,7 @@ describe('/getComment', async () => {
         responseLogin.headers['set-cookie'][1].split(/;/)[0]
       ]);
 
-    const responseComment = await request(app)
+    await request(app)
       .post('/createComment')
       .send({
         comment: 'random comment',
@@ -52,7 +52,7 @@ describe('/getComment', async () => {
 
     const responseGetComment = await request(app)
       .get('/getComment')
-      .query({ comment_id: responseComment.body.comment_id })
+      .query({ comment_id: 1 })
       .set('Cookie', [
         responseLogin.headers['set-cookie'][0].split(/;/)[0],
         responseLogin.headers['set-cookie'][1].split(/;/)[0]

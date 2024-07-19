@@ -7,7 +7,7 @@
 }
 
 .commentCard > header {
-  padding: App.$pad * 1.35;
+  padding: App.$pad;
   padding-bottom: 0;
 }
 
@@ -29,7 +29,7 @@
   position: absolute;
   display: flex;
   align-items: center;
-  left: -3.25rem;
+  left: -2.9rem;
   padding-left: App.$pad;
   gap: App.$pad;
 }
@@ -47,37 +47,37 @@
   flex: 1;
   gap: App.$pad;
   padding-top: App.$height + App.$padSmall;
-  padding-left: App.$padSmall;
+  padding-left: App.$pad;
 }
 
 .commentCard > .commentCardChild > footer {
   display: flex;
   flex-wrap: wrap;
   justify-content: start;
-  margin-left: App.$padSmall;
+  margin-left: App.$pad;
   gap: App.$pad;
 }
 
 .commentCard > .commentCardChild > footer .buttonLess {
   position: absolute;
-  left: -2.25rem;
+  left: -1.9rem;
+  padding: 0;
   min-width: App.$heightSmall;
   max-width: App.$heightSmall;
   min-height: App.$heightSmall;
   max-height: App.$heightSmall;
-  padding: 0;
   background: var(--background);
 }
 
 .commentCard > .commentCardChild > footer button:last-of-type {
   position: absolute;
-  left: -2.25rem;
+  left: -1.9rem;
   bottom: 0;
+  padding: 0;
   min-width: App.$heightSmall;
   max-width: App.$heightSmall;
   min-height: App.$heightSmall;
   max-height: App.$heightSmall;
-  padding: 0;
   background: var(--background);
 }
 
@@ -86,7 +86,7 @@
   flex-direction: column;
   align-items: end;
   justify-content: space-between;
-  margin-left: App.$padSmall;
+  margin-left: App.$pad;
   gap: App.$pad;
 }
 

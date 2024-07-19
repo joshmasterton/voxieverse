@@ -13,8 +13,8 @@ export const createCommentController = async (req: Request, res: Response) => {
       comment_parent_id,
       comment
     );
-    await newComment.createComment();
-    return res.status(200).json(newComment);
+    const updatedPostComment = await newComment.createComment();
+    return res.status(200).json(updatedPostComment);
   } catch (error) {
     if (error instanceof Error) {
       return res.status(500).json({ error: error.message });

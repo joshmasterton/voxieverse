@@ -51,8 +51,8 @@ describe('/createComment', async () => {
         responseLogin.headers['set-cookie'][1].split(/;/)[0]
       ]);
 
-    expect(response.body.comment_parent_id).toBe(0);
-    expect(response.body.comment).toBe('Random comment');
+    expect(response.body.post_id).toBe(1);
+    expect(response.body.comments).toBe(1);
   });
 
   test('Should return error if comment is empty or not existing', async () => {

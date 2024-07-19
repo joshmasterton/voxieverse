@@ -16,7 +16,8 @@ class TableConfigManager {
     return {
       usersTable: 'voxieverse_users',
       postsTable: 'voxieverse_posts',
-      commentsTable: 'voxieverse_comments'
+      commentsTable: 'voxieverse_comments',
+      likeDislikeTable: 'voxieverse_like_dislike'
     };
   }
 
@@ -64,6 +65,7 @@ export class Db {
 					profile_picture VARCHAR(255),
 					likes INT DEFAULT 0,
 					dislikes INT DEFAULT 0,
+					posts INT DEFAULT 0,
 					comments INT DEFAULT 0,
 					friends INT DEFAULT 0,
 					created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
@@ -127,15 +129,38 @@ export class Db {
     }
   }
 
+  async createLikeDislike(likeDislikeTable = 'voxieverse_like_dislike') {
+    try {
+      await this.query(
+        `
+					CREATE TABLE IF NOT EXISTS ${likeDislikeTable}(
+						like_dislike_id SERIAL PRIMARY KEY,
+						type VARCHAR(10),
+						type_id INT NOT NULL,
+						user_id INT NOT NULL,
+						reaction VARCHAR(10)
+					)
+				`,
+        []
+      );
+    } catch (error) {
+      if (error instanceof Error) {
+        throw error;
+      }
+    }
+  }
+
   async dropTables(
     usersTable = 'voxieverse_users',
     postsTable = 'voxieverse_posts',
-    commentsTable = 'voxieverse_comments'
+    commentsTable = 'voxieverse_comments',
+    likeDislikeTable = 'voxieverse_like_dislike'
   ) {
     try {
       await this.query(`DROP TABLE IF EXISTS ${usersTable}`, []);
       await this.query(`DROP TABLE IF EXISTS ${postsTable}`, []);
       await this.query(`DROP TABLE IF EXISTS ${commentsTable}`, []);
+      await this.query(`DROP TABLE IF EXISTS ${likeDislikeTable}`, []);
     } catch (error) {
       if (error instanceof Error) {
         throw error;

@@ -14,6 +14,7 @@ export class User {
     private user_id?: number,
     private likes?: number,
     private dislikes?: number,
+    private posts?: number,
     private comments?: number,
     private friends?: number,
     private created_at?: string,
@@ -43,7 +44,7 @@ export class User {
 						INSERT INTO ${usersTable}(username, username_lower_case, email, password, profile_picture)
 						VALUES($1, $2, $3, $4, $5)
 						RETURNING user_id, username, email, profile_picture, likes,
-						dislikes, comments, friends, created_at, last_online;
+						dislikes, posts, comments, friends, created_at, last_online;
 					`,
           [
             this.username,
@@ -62,6 +63,7 @@ export class User {
         this.profile_picture = user.profile_picture;
         this.likes = user.likes;
         this.dislikes = user.dislikes;
+        this.posts = user.posts;
         this.comments = user.comments;
         this.friends = user.friends;
         this.created_at = user.created_at
@@ -128,7 +130,7 @@ export class User {
       const userFromDb = await db.query(
         `
 					SELECT user_id, username, email, profile_picture, likes, dislikes,
-					comments, friends, created_at, last_online
+					posts, comments, friends, created_at, last_online
 					FROM ${usersTable}
 					WHERE user_id = $1	
 				`,
@@ -147,6 +149,7 @@ export class User {
       this.profile_picture = user.profile_picture;
       this.likes = user.likes;
       this.dislikes = user.dislikes;
+      this.posts = user.posts;
       this.comments = user.comments;
       this.friends = user.friends;
       this.created_at = user.created_at
@@ -189,6 +192,7 @@ export class User {
       profile_picture: this.profile_picture,
       likes: this.likes,
       dislikes: this.dislikes,
+      posts: this.posts,
       comments: this.comments,
       friends: this.friends,
       created_at: this.created_at,

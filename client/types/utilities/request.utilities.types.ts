@@ -9,6 +9,7 @@ export type SerializedUser = {
   profile_picture?: string;
   likes?: number;
   dislikes?: number;
+  posts?: number;
   comments?: number;
   friends?: number;
   created_at?: string;

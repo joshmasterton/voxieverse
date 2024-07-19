@@ -128,7 +128,7 @@ describe('/getComments', async () => {
       .send({
         comment: 'random comment two',
         post_id: responsePost.body.post_id,
-        comment_parent_id: responseComment.body.comment_id
+        comment_parent_id: 1
       })
       .set('Cookie', [
         responseLogin.headers['set-cookie'][0].split(/;/)[0],
@@ -146,6 +146,6 @@ describe('/getComments', async () => {
         responseLogin.headers['set-cookie'][1].split(/;/)[0]
       ]);
 
-    expect(response.body).toHaveLength(1);
+    expect(response.body).toHaveLength(2);
   });
 });

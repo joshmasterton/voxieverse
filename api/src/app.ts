@@ -13,6 +13,7 @@ import { getPosts } from './router/post/getPosts.router';
 import { createComment } from './router/comment/createComment.router';
 import { getComment } from './router/comment/getComment.router';
 import { getComments } from './router/comment/getComments.router';
+import { likeDislike } from './router/postComment/likeDislike.router';
 dotenv.config({ path: './src/env/dev.env' });
 
 export const app = express();
@@ -23,6 +24,7 @@ if (NODE_ENV !== 'test') {
   db.createUsers();
   db.createPosts();
   db.createComments();
+  db.createLikeDislike();
 }
 
 app.use(cors({ origin: CLIENT_URL, credentials: true }));
@@ -49,6 +51,8 @@ app.use(getPosts());
 app.use(createComment());
 app.use(getComment());
 app.use(getComments());
+
+app.use(likeDislike());
 
 if (NODE_ENV !== 'test') {
   app.listen(9001, () => {

@@ -31,7 +31,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
   const getUser = async () => {
     try {
       setLoading(true);
-      const userData = await request<SerializedUser>('/', 'GET');
+      const userData = await request<unknown, SerializedUser>('/', 'GET');
       if (userData) {
         setUser(userData);
       }
