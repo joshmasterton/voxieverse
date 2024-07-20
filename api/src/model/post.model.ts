@@ -1,11 +1,13 @@
 import { Db, tableConfigManager } from '../database/db.database';
 import { SerializedPost } from '../../types/model/post.model.types';
 import { User } from './user.model';
+import { LikeDislike } from './likeDislike.model';
 
 const db = new Db();
 
 export class Post {
   constructor(
+    private auth_user_id?: number,
     private user_id?: number,
     private post_id?: number,
     private post?: string,
@@ -15,7 +17,9 @@ export class Post {
     private comments?: number,
     private created_at?: string,
     private username?: string,
-    private profile_picture?: string
+    private profile_picture?: string,
+    private hasLiked = false,
+    private hasDisliked = false
   ) {}
 
   async createPost() {
@@ -123,6 +127,21 @@ export class Post {
       this.username = serailizedUser.username;
       this.profile_picture = serailizedUser.profile_picture;
 
+      if (this.post_id && this.auth_user_id) {
+        const likedDisliked = new LikeDislike(
+          'post',
+          this.post_id,
+          this.auth_user_id
+        );
+        const hasLikedDisliked = await likedDisliked.hasLikedDisliked();
+
+        if (hasLikedDisliked === 'like') {
+          this.hasLiked = true;
+        } else if (hasLikedDisliked === 'dislike') {
+          this.hasDisliked = true;
+        }
+      }
+
       return this;
     } catch (error) {
       if (error instanceof Error) {
@@ -151,6 +170,7 @@ export class Post {
       const postsPromise = postsFromDb?.rows.map(async (postPromise: Post) => {
         try {
           const postInstance = new Post();
+          postInstance.auth_user_id = this.auth_user_id;
           postInstance.post = postPromise.post;
           postInstance.post_id = postPromise.post_id;
           postInstance.user_id = postPromise.user_id;
@@ -189,7 +209,9 @@ export class Post {
       likes: this.likes,
       dislikes: this.dislikes,
       comments: this.comments,
-      created_at: this.created_at
+      created_at: this.created_at,
+      hasLiked: this.hasLiked,
+      hasDisliked: this.hasDisliked
     };
 
     return serializePost;

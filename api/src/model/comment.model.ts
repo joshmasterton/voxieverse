@@ -3,11 +3,13 @@ import { SerializedComment } from '../../types/model/comment.model.types';
 import { User } from './user.model';
 import { Post } from './post.model';
 import { QueryResult } from 'pg';
+import { LikeDislike } from './likeDislike.model';
 
 const db = new Db();
 
 export class Comment {
   constructor(
+    private auth_user_id?: number,
     private user_id?: number,
     private post_id?: number,
     private comment_id?: number,
@@ -18,7 +20,9 @@ export class Comment {
     private comments?: number,
     private created_at?: string,
     private username?: string,
-    private profile_picture?: string
+    private profile_picture?: string,
+    private hasLiked = false,
+    private hasDisliked = false
   ) {}
 
   async createComment() {
@@ -26,7 +30,7 @@ export class Comment {
 
     try {
       if (this.comment) {
-        const post = new Post(undefined, this.post_id);
+        const post = new Post(undefined, undefined, this.post_id);
         const postFromDb = await post.get();
 
         if (!postFromDb) {
@@ -70,6 +74,7 @@ export class Comment {
 
         if (this.comment_parent_id) {
           const updatedComment = new Comment(
+            this.auth_user_id,
             undefined,
             undefined,
             this.comment_parent_id
@@ -78,7 +83,7 @@ export class Comment {
 
           return updatedSerilizedComment?.serializeComment();
         } else {
-          const updatedPost = new Post(undefined, this.post_id);
+          const updatedPost = new Post(undefined, undefined, this.post_id);
           const updatedSerializedPost = await updatedPost.get();
 
           return updatedSerializedPost?.serializePost();
@@ -137,6 +142,21 @@ export class Comment {
       this.username = serailizedUser.username;
       this.profile_picture = serailizedUser.profile_picture;
 
+      if (this.comment_id && this.auth_user_id) {
+        const likedDisliked = new LikeDislike(
+          'comment',
+          this.comment_id,
+          this.auth_user_id
+        );
+        const hasLikedDisliked = await likedDisliked.hasLikedDisliked();
+
+        if (hasLikedDisliked === 'like') {
+          this.hasLiked = true;
+        } else if (hasLikedDisliked === 'dislike') {
+          this.hasDisliked = true;
+        }
+      }
+
       return this;
     } catch (error) {
       if (error instanceof Error) {
@@ -148,7 +168,7 @@ export class Comment {
   async getComments(page = 0) {
     const { commentsTable } = tableConfigManager.getConfig();
 
-    const post = new Post(undefined, this.post_id);
+    const post = new Post(undefined, undefined, this.post_id);
     const postFromDb = await post.get();
 
     if (!postFromDb) {
@@ -195,6 +215,7 @@ export class Comment {
         async (commentPromise: Comment) => {
           try {
             const commentInstance = new Comment();
+            commentInstance.auth_user_id = this.auth_user_id;
             commentInstance.comment = commentPromise.comment;
             commentInstance.comment_id = commentPromise.comment_id;
             commentInstance.comment_parent_id =
@@ -237,7 +258,9 @@ export class Comment {
       likes: this.likes,
       dislikes: this.dislikes,
       comments: this.comments,
-      created_at: this.created_at
+      created_at: this.created_at,
+      hasLiked: this.hasLiked,
+      hasDisliked: this.hasDisliked
     };
 
     return serializePost;

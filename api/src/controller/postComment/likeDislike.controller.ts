@@ -9,9 +9,9 @@ export const likeDislikeController = async (req: Request, res: Response) => {
     const likeDislike = new LikeDislike(type, type_id, user_id, reaction);
 
     await likeDislike.create();
-    const likeDislikeSerialized = await likeDislike.get();
+    const updatedPostComment = await likeDislike.get();
 
-    return res.status(201).json(likeDislikeSerialized);
+    return res.status(201).json(updatedPostComment);
   } catch (error) {
     if (error instanceof Error) {
       return res.status(500).json({ error: error.message });

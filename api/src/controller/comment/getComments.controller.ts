@@ -3,6 +3,7 @@ import { Comment } from '../../model/comment.model';
 
 export const getCommentsController = async (req: Request, res: Response) => {
   try {
+    const { user_id } = res.locals.user;
     const { page, post_id, comment_parent_id } = req.query as unknown as {
       page: number;
       post_id: number;
@@ -10,6 +11,7 @@ export const getCommentsController = async (req: Request, res: Response) => {
     };
 
     const comment = new Comment(
+      user_id,
       undefined,
       post_id,
       undefined,

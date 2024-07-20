@@ -1,5 +1,6 @@
 import { Db, tableConfigManager } from '../database/db.database';
-import { SerializedLikeDislike } from '../../types/model/likeDislike.model.types';
+import { Post } from './post.model';
+import { Comment } from './comment.model';
 
 const db = new Db();
 
@@ -8,7 +9,7 @@ export class LikeDislike {
     private type: string,
     private type_id: number,
     private user_id: number,
-    private reaction: string
+    private reaction?: string
   ) {}
 
   async create() {
@@ -16,10 +17,16 @@ export class LikeDislike {
       tableConfigManager.getConfig();
 
     try {
-      const existingLikeDislike = await this.get();
+      const existingLikeDislike = await db.query(
+        `
+					SELECT * FROM ${likeDislikeTable}
+					WHERE type = $1 AND type_id = $2 AND user_id = $3
+				`,
+        [this.type, this.type_id, this.user_id]
+      );
 
-      if (existingLikeDislike) {
-        if (existingLikeDislike.reaction === this.reaction) {
+      if (existingLikeDislike?.rows[0]) {
+        if (existingLikeDislike.rows[0].reaction === this.reaction) {
           await db.query(
             `
 							DELETE FROM ${likeDislikeTable}
@@ -79,6 +86,14 @@ export class LikeDislike {
               [this.type_id]
             );
           }
+
+          await db.query(
+            `
+							INSERT INTO ${likeDislikeTable}(type, type_id, user_id, reaction)
+							VALUES($1, $2, $3, $4) RETURNING *
+						`,
+            [this.type, this.type_id, this.user_id, this.reaction]
+          );
         }
       } else {
         if (this.type === 'post') {
@@ -100,15 +115,15 @@ export class LikeDislike {
             [this.type_id]
           );
         }
-      }
 
-      await db.query(
-        `
-					INSERT INTO ${likeDislikeTable}(type, type_id, user_id, reaction)
-					VALUES($1, $2, $3, $4) RETURNING *
-				`,
-        [this.type, this.type_id, this.user_id, this.reaction]
-      );
+        await db.query(
+          `
+						INSERT INTO ${likeDislikeTable}(type, type_id, user_id, reaction)
+						VALUES($1, $2, $3, $4) RETURNING *
+					`,
+          [this.type, this.type_id, this.user_id, this.reaction]
+        );
+      }
 
       return await this.get();
     } catch (error) {
@@ -119,10 +134,35 @@ export class LikeDislike {
   }
 
   async get() {
+    try {
+      if (this.type === 'post') {
+        const post = new Post(this.user_id, undefined, this.type_id);
+        const postFromDb = await post.get();
+
+        return postFromDb?.serializePost();
+      } else if (this.type === 'comment') {
+        const comment = new Comment(
+          this.user_id,
+          undefined,
+          undefined,
+          this.type_id
+        );
+        const commentFromDb = await comment.get();
+
+        return commentFromDb?.serializeComment();
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        throw error;
+      }
+    }
+  }
+
+  async hasLikedDisliked() {
     const { likeDislikeTable } = tableConfigManager.getConfig();
 
     try {
-      const likeDislike = await db.query(
+      const existingLikeDislike = await db.query(
         `
 					SELECT * FROM ${likeDislikeTable}
 					WHERE type = $1 AND type_id = $2 AND user_id = $3
@@ -130,11 +170,11 @@ export class LikeDislike {
         [this.type, this.type_id, this.user_id]
       );
 
-      if (!likeDislike?.rows[0]) {
-        return undefined;
+      if (existingLikeDislike?.rows[0]) {
+        return existingLikeDislike?.rows[0].reaction;
       }
 
-      return likeDislike.rows[0] as SerializedLikeDislike;
+      return undefined;
     } catch (error) {
       if (error instanceof Error) {
         throw error;

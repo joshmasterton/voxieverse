@@ -8,6 +8,7 @@ export const createCommentController = async (req: Request, res: Response) => {
 
     const newComment = new Comment(
       user_id,
+      user_id,
       post_id,
       undefined,
       comment_parent_id,

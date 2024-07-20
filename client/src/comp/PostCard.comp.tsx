@@ -9,6 +9,7 @@ import { SerializedComment } from '../../types/utilities/request.utilities.types
 import { CommentDetails } from '../../types/comp/PostCard.comp.types';
 import { request } from '../utilities/request.utilities';
 import { CommentCard } from './CommentCard.comp';
+import { useNavigate } from 'react-router-dom';
 import '../style/comp/PostCard.comp.scss';
 
 export const PostCard = ({
@@ -18,6 +19,7 @@ export const PostCard = ({
   post: SerializedPost;
   isPostPage?: boolean;
 }) => {
+  const navigate = useNavigate();
   const [page, setPage] = useState(0);
   const [currentPost, setCurrentPost] = useState(post);
   const [isComment, setIsComment] = useState(false);
@@ -34,13 +36,19 @@ export const PostCard = ({
     reaction: string
   ) => {
     try {
-      const likeDislike = await request('/likeDislike', 'PUT', {
-        type,
-        type_id,
-        reaction
-      });
+      const likedDislikedPost = await request<unknown, SerializedPost>(
+        '/likeDislike',
+        'PUT',
+        {
+          type,
+          type_id,
+          reaction
+        }
+      );
 
-      console.log(likeDislike);
+      if (likedDislikedPost) {
+        setCurrentPost(likedDislikedPost);
+      }
     } catch (error) {
       if (error instanceof Error) {
         console.error(error.message);
@@ -145,26 +153,30 @@ export const PostCard = ({
           <Button
             type="button"
             onClick={async () =>
-              handleLikeDislike('post', post?.post_id, 'like')
+              handleLikeDislike('post', post.post_id, 'like')
             }
             label="like"
-            className="buttonName buttonOutline buttonSmall"
+            className={`buttonName buttonOutline buttonSmall ${currentPost.hasLiked && 'buttonPrimary'}`}
             name={currentPost?.likes}
             SVG={<BiSolidLike />}
           />
           <Button
             type="button"
             onClick={async () =>
-              handleLikeDislike('post', post?.post_id, 'dislike')
+              handleLikeDislike('post', post.post_id, 'dislike')
             }
             label="dislike"
-            className="buttonName buttonOutline buttonSmall"
+            className={`buttonName buttonOutline buttonSmall ${currentPost.hasDisliked && 'buttonPrimary'}`}
             name={currentPost?.dislikes}
             SVG={<BiSolidDislike />}
           />
           <Button
             type="button"
-            onClick={() => setIsComment(!isComment)}
+            onClick={() =>
+              isPostPage
+                ? setIsComment(!isComment)
+                : navigate(`/post/${post.post_id}`)
+            }
             label="comment"
             className="buttonName buttonOutline buttonSmall"
             name={currentPost?.comments}

@@ -15,12 +15,18 @@ export const createPostController = async (req: Request, res: Response) => {
         throw new Error('Post picture upload failed');
       }
 
-      const newPost = new Post(user_id, undefined, post, postPicture);
+      const newPost = new Post(
+        undefined,
+        user_id,
+        undefined,
+        post,
+        postPicture
+      );
       await newPost.createPost();
       return res.status(200).json(newPost);
     }
 
-    const newPost = new Post(user_id, undefined, post);
+    const newPost = new Post(undefined, user_id, undefined, post);
     await newPost.createPost();
     return res.status(200).json(newPost);
   } catch (error) {

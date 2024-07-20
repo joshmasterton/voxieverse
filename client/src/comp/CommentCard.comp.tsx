@@ -59,6 +59,32 @@ export const CommentCard = ({ comment }: { comment: SerializedComment }) => {
     }
   };
 
+  const handleLikeDislike = async (
+    type: string,
+    type_id: number | undefined,
+    reaction: string
+  ) => {
+    try {
+      const likedDislikedComment = await request<unknown, SerializedComment>(
+        '/likeDislike',
+        'PUT',
+        {
+          type,
+          type_id,
+          reaction
+        }
+      );
+
+      if (likedDislikedComment) {
+        setCurrentComment(likedDislikedComment);
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error(error.message);
+      }
+    }
+  };
+
   const handleSubmit = async (e: FormEvent) => {
     try {
       e.preventDefault();
@@ -78,13 +104,13 @@ export const CommentCard = ({ comment }: { comment: SerializedComment }) => {
       }
 
       setIsComment(false);
-      setPage(0);
       setCommentDetails({
         comment: ''
       });
 
       setReplies(undefined);
-      await getReplies();
+      setPage(0);
+      await getReplies(0, true);
     } catch (error) {
       if (error instanceof Error) {
         console.error(error.message);
@@ -120,17 +146,21 @@ export const CommentCard = ({ comment }: { comment: SerializedComment }) => {
           )}
           <Button
             type="button"
-            onClick={() => {}}
+            onClick={async () =>
+              handleLikeDislike('comment', comment.comment_id, 'like')
+            }
             label="like"
-            className="buttonName buttonOutline buttonSmall"
+            className={`buttonName buttonOutline buttonSmall ${currentComment.hasLiked && 'buttonPrimary'}`}
             name={currentComment?.likes}
             SVG={<BiSolidLike />}
           />
           <Button
             type="button"
-            onClick={() => {}}
+            onClick={async () =>
+              handleLikeDislike('comment', comment.comment_id, 'dislike')
+            }
             label="dislike"
-            className="buttonName buttonOutline buttonSmall"
+            className={`buttonName buttonOutline buttonSmall ${currentComment.hasDisliked && 'buttonPrimary'}`}
             name={currentComment?.dislikes}
             SVG={<BiSolidDislike />}
           />

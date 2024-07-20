@@ -9,4 +9,6 @@ export type SerializedPost = {
   dislikes?: number;
   comments?: number;
   created_at?: string;
+  hasLiked?: boolean;
+  hasDisliked?: boolean;
 };
