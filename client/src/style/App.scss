@@ -13,7 +13,7 @@ $padSVG: 0.75rem;
 $padLarge: 1.75rem;
 $padSmall: 0.5rem;
 
-$round: 0.5rem;
+$round: 0.1rem;
 
 $fontLarge: 1.25rem;
 $font: 1rem;
@@ -25,7 +25,7 @@ $anim: 0.4s ease;
   --color: white;
   --primary: #5735ff;
   --background: rgba(0, 0, 0, 1);
-  --backgroundBlur: rgba(0, 0, 0, 0.65);
+  --backgroundBlur: rgba(0, 0, 0, 0.6);
   --outline: 0.075rem solid rgb(50, 50, 60);
   --background-outline: rgb(50, 50, 60);
   --outline-shadow: 0 0 0 0.15rem #5735ff;
@@ -35,7 +35,7 @@ $anim: 0.4s ease;
   --color: black;
   --primary: #5735ff;
   --background: white;
-  --backgroundBlur: rgba(255, 255, 255, 0.65);
+  --backgroundBlur: rgba(255, 255, 255, 0.6);
   --outline: 0.075rem solid rgb(150, 150, 160);
   --background-outline: rgb(150, 150, 160);
   --outline-shadow: 0 0 0 0.15rem #5735ff;
@@ -120,35 +120,4 @@ img {
   display: block;
   margin: auto;
   object-fit: cover;
-}
-
-.imgCon {
-  position: relative;
-  overflow: hidden;
-  border-radius: $round;
-}
-
-.imgCon > img:last-of-type {
-  transform: translate(0%);
-  width: auto;
-  z-index: 1;
-}
-
-.imgCon > img:first-of-type {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  min-height: 100%;
-  filter: blur(1rem);
-  object-position: 50% 50%;
-  object-fit: cover;
-  opacity: 75%;
-}
-
-.imgPost {
-  max-width: 100%;
-  max-height: 20rem;
-  display: block;
-  margin: auto;
 }

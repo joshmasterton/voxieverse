@@ -23,18 +23,18 @@ describe('/logout', () => {
       })
       .attach('file', profilePicture);
 
-    const responseLogin = await request(app).post('/login').send({
+    const login = await request(app).post('/login').send({
       username: 'testUser',
       password: 'Password'
     });
 
-    const responseLogout = await request(app)
+    const logout = await request(app)
       .get('/logout')
       .set('Cookie', [
-        responseLogin.headers['set-cookie'][0].split(/;/)[0],
-        responseLogin.headers['set-cookie'][1].split(/;/)[0]
+        login.headers['set-cookie'][0].split(/;/)[0],
+        login.headers['set-cookie'][1].split(/;/)[0]
       ]);
 
-    expect(responseLogout.body).toEqual({ message: 'Logout successful' });
+    expect(logout.body).toEqual({ message: 'Logout successful' });
   });
 });

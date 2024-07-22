@@ -1,6 +1,6 @@
 import { ReactNode, useEffect } from 'react';
-import { useUser } from '../context/User.context';
 import { useNavigate } from 'react-router-dom';
+import { useUser } from '../../context/User.context';
 
 export const Public = ({ children }: { children: ReactNode }) => {
   const { user } = useUser();

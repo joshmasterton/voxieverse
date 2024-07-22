@@ -23,15 +23,15 @@ describe('/login', () => {
       })
       .attach('file', profilePicture);
 
-    const response = await request(app).post('/login').send({
+    const login = await request(app).post('/login').send({
       username: 'testUser',
       password: 'Password'
     });
 
-    expect(response.body.user_id).toBe(1);
-    expect(response.body.username).toBe('testUser');
-    expect(response.headers['set-cookie'][0]).toBeDefined();
-    expect(response.headers['set-cookie'][1]).toBeDefined();
+    expect(login.body.user_id).toBe(1);
+    expect(login.body.username).toBe('testUser');
+    expect(login.headers['set-cookie'][0]).toBeDefined();
+    expect(login.headers['set-cookie'][1]).toBeDefined();
   });
 
   test('Should return error if user doesnt exist', async () => {
@@ -45,12 +45,12 @@ describe('/login', () => {
       })
       .attach('file', profilePicture);
 
-    const response = await request(app).post('/login').send({
+    const login = await request(app).post('/login').send({
       username: 'testUsr',
       password: 'Password'
     });
 
-    expect(response.body).toEqual({ error: 'Incorrect user details' });
+    expect(login.body).toEqual({ error: 'Incorrect user details' });
   });
 
   test('Should return error if password is incorrect', async () => {
@@ -64,11 +64,11 @@ describe('/login', () => {
       })
       .attach('file', profilePicture);
 
-    const response = await request(app).post('/login').send({
+    const login = await request(app).post('/login').send({
       username: 'testUser',
       password: 'Passwrd'
     });
 
-    expect(response.body).toEqual({ error: 'Incorrect user details' });
+    expect(login.body).toEqual({ error: 'Incorrect user details' });
   });
 });

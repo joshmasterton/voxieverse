@@ -1,0 +1,85 @@
+@use '../../App.scss';
+
+.postCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: App.$pad;
+  gap: App.$pad;
+  border-bottom: var(--outline);
+}
+
+.postCard > a {
+  position: absolute;
+  width: 100%;
+  height: calc(100% - (App.$height + App.$pad));
+  z-index: 1;
+}
+
+.postCard > a,
+.postCard > a:hover,
+.postCard > a:focus {
+  outline: 0;
+  box-shadow: none;
+}
+
+.postCard > header {
+  display: flex;
+  align-items: center;
+  gap: App.$pad;
+}
+
+.postCard > main {
+  display: flex;
+  flex-direction: column;
+  gap: App.$pad;
+}
+
+.postCard > main > div {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  min-width: 100%;
+  min-height: 10rem;
+  border-radius: App.$round;
+  overflow: hidden;
+}
+
+.postCard > main > div > img:first-of-type {
+  position: absolute;
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  opacity: 50%;
+  filter: blur(1rem);
+  -webkit-filter: blur(1rem);
+}
+
+.postCard > main > div > img:last-of-type {
+  object-fit: contain;
+  min-width: none;
+  width: 100%;
+  max-width: fit-content;
+  min-height: none;
+  height: auto;
+  max-height: 30rem;
+  z-index: 0;
+}
+
+.postCard > footer {
+  display: flex;
+  justify-content: end;
+  flex-wrap: wrap;
+  gap: App.$pad;
+}
+
+.postCard > form {
+  display: flex;
+  flex-direction: column;
+  gap: App.$pad;
+  align-items: end;
+}
+
+.postCard > form button {
+  padding: App.$pad;
+}

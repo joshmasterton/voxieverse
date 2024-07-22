@@ -15,8 +15,7 @@ class TableConfigManager {
   private defaultConfig() {
     return {
       usersTable: 'voxieverse_users',
-      postsTable: 'voxieverse_posts',
-      commentsTable: 'voxieverse_comments',
+      postsCommentsTable: 'voxieverse_posts_comments',
       likeDislikeTable: 'voxieverse_like_dislike'
     };
   }
@@ -80,40 +79,18 @@ export class Db {
     }
   }
 
-  async createPosts(postsTable = 'voxieverse_posts') {
+  async createPostsComments(postsCommentsTable = 'voxieverse_posts_comments') {
     try {
       await this.query(
         `
-					CREATE TABLE IF NOT EXISTS ${postsTable}(
-						post_id SERIAL PRIMARY KEY,
+					CREATE TABLE IF NOT EXISTS ${postsCommentsTable}(
+						id SERIAL PRIMARY KEY,
+						post_parent_id INT DEFAULT NULL,
+						comment_parent_id INT DEFAULT NULL,
 						user_id INT NOT NULL,
-						post VARCHAR(500),
-						post_picture VARCHAR(255),
-						likes INT DEFAULT 0,
-						dislikes INT DEFAULT 0,
-						comments INT DEFAULT 0,
-						created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
-					)
-				`,
-        []
-      );
-    } catch (error) {
-      if (error instanceof Error) {
-        throw error;
-      }
-    }
-  }
-
-  async createComments(commentsTable = 'voxieverse_comments') {
-    try {
-      await this.query(
-        `
-					CREATE TABLE IF NOT EXISTS ${commentsTable}(
-						comment_id SERIAL PRIMARY KEY,
-						comment_parent_id INT,
-						post_id INT NOT NULL,
-						user_id INT NOT NULL,
-						comment VARCHAR(500),
+						type VARCHAR(10),
+						text VARCHAR(500),
+						picture VARCHAR(255),
 						likes INT DEFAULT 0,
 						dislikes INT DEFAULT 0,
 						comments INT DEFAULT 0,
@@ -152,14 +129,12 @@ export class Db {
 
   async dropTables(
     usersTable = 'voxieverse_users',
-    postsTable = 'voxieverse_posts',
-    commentsTable = 'voxieverse_comments',
+    postsCommentsTable = 'voxieverse_posts_comments',
     likeDislikeTable = 'voxieverse_like_dislike'
   ) {
     try {
       await this.query(`DROP TABLE IF EXISTS ${usersTable}`, []);
-      await this.query(`DROP TABLE IF EXISTS ${postsTable}`, []);
-      await this.query(`DROP TABLE IF EXISTS ${commentsTable}`, []);
+      await this.query(`DROP TABLE IF EXISTS ${postsCommentsTable}`, []);
       await this.query(`DROP TABLE IF EXISTS ${likeDislikeTable}`, []);
     } catch (error) {
       if (error instanceof Error) {

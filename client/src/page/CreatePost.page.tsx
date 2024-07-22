@@ -12,7 +12,7 @@ import '../style/page/CreatePost.page.scss';
 export const CreatePost = () => {
   const navigate = useNavigate();
   const [postDetails, setPostDetails] = useState<PostDetails>({
-    post: '',
+    text: '',
     file: undefined
   });
 
@@ -21,13 +21,14 @@ export const CreatePost = () => {
       e.preventDefault();
       const formData = new FormData();
 
-      formData.append('post', postDetails.post);
+      formData.append('text', postDetails.text);
+      formData.append('type', 'post');
 
       if (postDetails.file) {
         formData.append('file', postDetails.file);
       }
 
-      const post = await request('/createPost', 'POST', formData);
+      const post = await request('/createPostComment', 'POST', formData);
 
       if (post) {
         navigate(-1);
@@ -53,9 +54,9 @@ export const CreatePost = () => {
         }}
       >
         <Input<PostDetails>
-          id="post"
+          id="text"
           type="text"
-          value={postDetails.post}
+          value={postDetails.text}
           setValue={setPostDetails}
           placeholder="How are you today?"
           isTextarea
@@ -69,7 +70,7 @@ export const CreatePost = () => {
             placeholder="Post picture"
             SVG={<BsImage />}
           />
-          <div>{postDetails.post.length}</div>
+          <div>{postDetails.text.length}</div>
           <Button
             type="submit"
             onClick={() => {}}

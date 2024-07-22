@@ -3,11 +3,11 @@ import { Auth } from './page/Auth.page';
 import { ThemeProvider } from './context/Theme.context';
 import { ForgotPassword } from './page/ForgotPassword.page';
 import { UserProvider } from './context/User.context';
-import { Public } from './comp/Public.comp';
-import { Private } from './comp/Private.comp';
 import { Home } from './page/Home.page';
 import { CreatePost } from './page/CreatePost.page';
 import { Post } from './page/Post.page';
+import { Private } from './comp/security/Private.comp';
+import { Public } from './comp/security/Public.comp';
 import './style/App.scss';
 
 export const routes = [
@@ -21,7 +21,11 @@ export const routes = [
   },
   {
     path: '/post/:post_id',
-    element: <Post />
+    element: (
+      <Private>
+        <Post />
+      </Private>
+    )
   },
   {
     path: '/createPost',

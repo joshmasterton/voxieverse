@@ -1,4 +1,4 @@
 export type PostDetails = {
-  post: string;
+  text: string;
   file?: File;
 };

@@ -1,3 +1,3 @@
 export type CommentDetails = {
-  comment: string;
+  text: string;
 };

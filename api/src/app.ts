@@ -7,13 +7,9 @@ import { login } from './router/auth/login.router';
 import { signup } from './router/auth/signup.router';
 import { authenticate } from './middleware/authenticate.middleware';
 import { logout } from './router/auth/logout.router';
-import { createPost } from './router/post/createPost.router';
-import { getPost } from './router/post/getPost.router';
-import { getPosts } from './router/post/getPosts.router';
-import { createComment } from './router/comment/createComment.router';
-import { getComment } from './router/comment/getComment.router';
-import { getComments } from './router/comment/getComments.router';
-import { likeDislike } from './router/postComment/likeDislike.router';
+import { createPostComment } from './router/postComment/createPostComment.router';
+import { getPostComment } from './router/postComment/getPostComment.router';
+import { getPostsComments } from './router/postComment/getPostsComments.router';
 dotenv.config({ path: './src/env/dev.env' });
 
 export const app = express();
@@ -22,8 +18,7 @@ const db = new Db();
 
 if (NODE_ENV !== 'test') {
   db.createUsers();
-  db.createPosts();
-  db.createComments();
+  db.createPostsComments();
   db.createLikeDislike();
 }
 
@@ -44,15 +39,9 @@ app.use(login());
 app.use(signup());
 app.use(logout());
 
-app.use(createPost());
-app.use(getPost());
-app.use(getPosts());
-
-app.use(createComment());
-app.use(getComment());
-app.use(getComments());
-
-app.use(likeDislike());
+app.use(createPostComment());
+app.use(getPostComment());
+app.use(getPostsComments());
 
 if (NODE_ENV !== 'test') {
   app.listen(9001, () => {

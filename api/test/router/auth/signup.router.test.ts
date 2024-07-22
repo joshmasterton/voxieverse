@@ -13,7 +13,7 @@ describe('/signup', () => {
   );
 
   test('Should return user upon successful signup', async () => {
-    const response = await request(app)
+    const signup = await request(app)
       .post('/signup')
       .field({
         username: 'testUser',
@@ -23,14 +23,14 @@ describe('/signup', () => {
       })
       .attach('file', profilePicture);
 
-    expect(response.body.user_id).toBe(1);
-    expect(response.body.username).toBe('testUser');
-    expect(response.headers['set-cookie'][0]).toBeDefined();
-    expect(response.headers['set-cookie'][1]).toBeDefined();
+    expect(signup.body.user_id).toBe(1);
+    expect(signup.body.username).toBe('testUser');
+    expect(signup.headers['set-cookie'][0]).toBeDefined();
+    expect(signup.headers['set-cookie'][1]).toBeDefined();
   });
 
   test('Should return error if no username', async () => {
-    const response = await request(app)
+    const signup = await request(app)
       .post('/signup')
       .field({
         email: 'test@email.com',
@@ -39,11 +39,11 @@ describe('/signup', () => {
       })
       .attach('file', profilePicture);
 
-    expect(response.body).toEqual({ error: 'Username required' });
+    expect(signup.body).toEqual({ error: 'Username required' });
   });
 
   test('Should return error if no email', async () => {
-    const response = await request(app)
+    const signup = await request(app)
       .post('/signup')
       .field({
         username: 'testUser',
@@ -52,11 +52,11 @@ describe('/signup', () => {
       })
       .attach('file', profilePicture);
 
-    expect(response.body).toEqual({ error: 'Email required' });
+    expect(signup.body).toEqual({ error: 'Email required' });
   });
 
   test('Should return error if no password', async () => {
-    const response = await request(app)
+    const signup = await request(app)
       .post('/signup')
       .field({
         username: 'testUser',
@@ -65,11 +65,11 @@ describe('/signup', () => {
       })
       .attach('file', profilePicture);
 
-    expect(response.body).toEqual({ error: 'Password required' });
+    expect(signup.body).toEqual({ error: 'Password required' });
   });
 
   test('Should return error if no confirm password', async () => {
-    const response = await request(app)
+    const signup = await request(app)
       .post('/signup')
       .field({
         username: 'testUser',
@@ -78,17 +78,17 @@ describe('/signup', () => {
       })
       .attach('file', profilePicture);
 
-    expect(response.body).toEqual({ error: 'Confirm password required' });
+    expect(signup.body).toEqual({ error: 'Confirm password required' });
   });
 
   test('Should return error if no profile picture', async () => {
-    const response = await request(app).post('/signup').field({
+    const signup = await request(app).post('/signup').field({
       username: 'testUser',
       email: 'test@email.com',
       password: 'Password',
       confirmPassword: 'Password'
     });
 
-    expect(response.body).toEqual({ error: 'Profile picture required' });
+    expect(signup.body).toEqual({ error: 'Profile picture required' });
   });
 });

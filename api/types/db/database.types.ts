@@ -1,6 +1,5 @@
 export type TableConfig = {
   usersTable: string;
-  postsTable: string;
-  commentsTable: string;
+  postsCommentsTable: string;
   likeDislikeTable: string;
 };
