@@ -3,15 +3,55 @@
 .commentCard {
   position: relative;
   display: flex;
-  flex-direction: column;
-  padding-bottom: App.$pad;
   gap: App.$pad;
-  border-bottom: var(--outline);
 }
 
-.commentCard > div {
-  padding-left: 1rem;
-  border-left: 0.25rem solid red;
+.commentCard > header {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.commentCard > header > img {
+  min-width: App.$heightSmall;
+  max-width: App.$heightSmall;
+  min-height: App.$heightSmall;
+  max-height: App.$heightSmall;
+}
+
+.commentCard > header > button:first-of-type {
+  position: absolute;
+  top: calc(App.$height + (App.$pad * 2.5));
+}
+
+.commentCard > header > button:last-of-type {
+  position: absolute;
+  bottom: 0;
+}
+
+.commentCard > header > button {
+  min-width: App.$heightSmall;
+  max-width: App.$heightSmall;
+  min-height: App.$heightSmall;
+  max-height: App.$heightSmall;
+  z-index: 1;
+  background: var(--background);
+}
+
+.commentCard > header > button svg {
+  min-width: App.$heightSmall;
+  max-width: App.$heightSmall;
+  min-height: App.$heightSmall;
+  max-height: App.$heightSmall;
+  padding: App.$padSmall;
+}
+
+.commentCard > header > p {
+  height: 100%;
+  width: 0.1rem;
+  background-color: var(--background-outline);
 }
 
 .commentCard > a {
@@ -21,6 +61,13 @@
   z-index: 1;
 }
 
+.commentCard > div {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: App.$pad;
+}
+
 .commentCard > a,
 .commentCard > a:hover,
 .commentCard > a:focus {
@@ -28,19 +75,18 @@
   box-shadow: none;
 }
 
-.commentCard > header {
+.commentCard > div > header {
   display: flex;
   align-items: center;
-  gap: App.$pad;
+  height: App.$heightSmall;
 }
 
-.commentCard > main {
+.commentCard > div > main {
   display: flex;
   flex-direction: column;
-  gap: App.$pad;
 }
 
-.commentCard > main > div {
+.commentCard > div > main > div {
   position: relative;
   display: flex;
   justify-content: center;
@@ -50,7 +96,7 @@
   overflow: hidden;
 }
 
-.commentCard > main > div > img:first-of-type {
+.commentCard > div > main > div > img:first-of-type {
   position: absolute;
   min-width: 100%;
   min-height: 100%;
@@ -60,7 +106,7 @@
   -webkit-filter: blur(1rem);
 }
 
-.commentCard > main > div > img:last-of-type {
+.commentCard > div > main > div > img:last-of-type {
   object-fit: contain;
   min-width: none;
   width: 100%;
@@ -71,20 +117,20 @@
   z-index: 0;
 }
 
-.commentCard > footer {
+.commentCard > div > footer {
   display: flex;
-  justify-content: end;
+  justify-content: start;
   flex-wrap: wrap;
   gap: App.$pad;
 }
 
-.commentCard > form {
+.commentCard > div > form {
   display: flex;
   flex-direction: column;
   gap: App.$pad;
   align-items: end;
 }
 
-.commentCard > form button {
+.commentCard > div > form button {
   padding: App.$pad;
 }

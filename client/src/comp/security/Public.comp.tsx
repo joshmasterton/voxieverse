@@ -1,16 +1,17 @@
 import { ReactNode, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useUser } from '../../context/User.context';
 
 export const Public = ({ children }: { children: ReactNode }) => {
   const { user } = useUser();
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     if (user) {
-      navigate('/');
+      navigate(location.state.pathname || '/');
     }
-  }, [user]);
+  }, [user, navigate, location]);
 
   if (!user) {
     return <>{children}</>;

@@ -3,11 +3,12 @@
 #side {
   display: none;
   position: fixed;
-  top: calc(App.$height * 1 + (App.$pad * 3));
-  right: 0;
-  height: calc(100% - (App.$height + App.$pad * 4));
+  top: calc(App.$height * 1 + (App.$pad * 2));
+  right: App.$pad;
+  height: calc(100% - (App.$height + App.$pad * 3));
   width: calc(App.$height * 8);
-  border-left: var(--outline);
+  border-radius: App.$round;
+  background: var(--background-shade);
 }
 
 #sideUser {
@@ -15,7 +16,7 @@
   display: none;
   top: 0;
   left: 0;
-  padding-top: calc(App.$height + (App.$pad * 3));
+  padding-top: calc(App.$height + (App.$padSmall * 4));
   width: calc(App.$height * 6);
   height: calc(100% - App.$pad);
 }

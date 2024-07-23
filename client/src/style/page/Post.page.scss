@@ -5,7 +5,7 @@
   flex-direction: column;
   width: 100%;
   gap: App.$pad;
-  margin-top: calc(App.$height + (App.$pad * 2));
+  margin-top: calc(App.$height + (App.$padSmall * 2));
 }
 
 @media screen and (min-width: App.$widthLarge) {
@@ -16,6 +16,6 @@
 
 @media screen and (min-width: App.$widthExtraLarge) {
   #postPage {
-    margin-right: calc(App.$height * 8);
+    margin-right: calc(App.$height * 8 + App.$pad);
   }
 }

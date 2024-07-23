@@ -7,6 +7,7 @@ import { request } from '../utilities/request.utilities';
 import { SerializedPostComment } from '../../types/utilities/request.utilities.types';
 import '../style/page/Home.page.scss';
 import { PostCard } from '../comp/card/PostCard.comp';
+import { Button } from '../comp/Button.comp';
 
 export const Home = () => {
   const [page, setPage] = useState(0);
@@ -14,7 +15,7 @@ export const Home = () => {
     undefined
   );
 
-  const getPosts = async (currentPage = page, incrememtPage = false) => {
+  const getPosts = async (currentPage = page, incrememtPage = true) => {
     try {
       const postsData = await request<unknown, SerializedPostComment[]>(
         `/getPostsComments?page=${currentPage}&type=post`,
@@ -37,10 +38,10 @@ export const Home = () => {
 
           return undefined;
         });
-      }
 
-      if (incrememtPage) {
-        setPage((prevPage) => prevPage + 1);
+        if (incrememtPage) {
+          setPage((prevPage) => prevPage + 1);
+        }
       }
     } catch (error) {
       if (error instanceof Error) {
@@ -58,7 +59,20 @@ export const Home = () => {
       <Nav />
       <SideUser />
       <div id="home">
-        {posts && posts.map((post) => <PostCard key={post.id} post={post} />)}
+        {posts && (
+          <>
+            {posts.map((post) => (
+              <PostCard key={post.id} post={post} />
+            ))}
+            <Button
+              type="button"
+              onClick={async () => getPosts()}
+              label="getMore"
+              className="buttonOutline"
+              name="More posts"
+            />
+          </>
+        )}
         <Navigate
           to="/createPost"
           onClick={() => {}}

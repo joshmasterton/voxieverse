@@ -20,6 +20,7 @@ export const PostCard = ({
   const navigate = useNavigate();
   const [page, setPage] = useState(0);
   const [isComment, setIsComment] = useState(false);
+  const [currentPost, setCurrentPost] = useState<SerializedPostComment>(post);
   const [comments, setComments] = useState<SerializedPostComment[] | undefined>(
     undefined
   );
@@ -27,7 +28,24 @@ export const PostCard = ({
     text: ''
   });
 
-  const getComments = async (currentPage = page, incrememtPage = false) => {
+  const getUpdatedPost = async () => {
+    try {
+      const postData = await request<unknown, SerializedPostComment>(
+        `/getPostComment?&type=post&type_id=${post.id}`,
+        'GET'
+      );
+
+      if (postData) {
+        setCurrentPost(postData);
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error(error.message);
+      }
+    }
+  };
+
+  const getComments = async (currentPage = page, incrememtPage = true) => {
     try {
       const commentsData = await request<unknown, SerializedPostComment[]>(
         `/getPostsComments?page=${currentPage}&type=comment&post_parent_id=${post.id}`,
@@ -35,7 +53,6 @@ export const PostCard = ({
       );
 
       if (commentsData) {
-        console.log(commentsData);
         setComments((prevComments) => {
           if (prevComments && commentsData.length > 0) {
             return [...prevComments, ...commentsData];
@@ -51,10 +68,10 @@ export const PostCard = ({
 
           return undefined;
         });
-      }
 
-      if (incrememtPage) {
-        setPage((prevPage) => prevPage + 1);
+        if (incrememtPage) {
+          setPage((prevPage) => prevPage + 1);
+        }
       }
     } catch (error) {
       if (error instanceof Error) {
@@ -70,12 +87,20 @@ export const PostCard = ({
 
       formData.append('text', commentDetails.text);
       formData.append('type', 'comment');
-      if (post?.id) {
-        formData.append('post_parent_id', post?.id?.toString());
+      if (currentPost?.id) {
+        formData.append('post_parent_id', currentPost?.id?.toString());
       }
 
-      const comment = await request('/createPostComment', 'POST', formData);
-      console.log(comment);
+      await request('/createPostComment', 'POST', formData);
+
+      setIsComment(false);
+      setCommentDetails({
+        text: ''
+      });
+      setPage(0);
+      setComments(undefined);
+      await getComments(0);
+      await getUpdatedPost();
     } catch (error) {
       if (error instanceof Error) {
         console.error(error.message);
@@ -94,18 +119,18 @@ export const PostCard = ({
       <div className="postCard">
         {!isPostPage && <Navigate to={`/post/${post.id}`} onClick={() => {}} />}
         <header>
-          <img alt="" src={post?.profile_picture} />
+          <img alt="" src={currentPost?.profile_picture} />
           <div>
-            {post?.username}
-            <p>{post?.created_at}</p>
+            {currentPost?.username}
+            <p>{currentPost?.created_at}</p>
           </div>
         </header>
         <main>
-          {post?.text}
-          {post?.picture && (
+          {currentPost?.text}
+          {currentPost?.picture && (
             <div>
-              <img alt="" src={post?.picture} />
-              <img alt="" src={post?.picture} />
+              <img alt="" src={currentPost?.picture} />
+              <img alt="" src={currentPost?.picture} />
             </div>
           )}
         </main>
@@ -115,7 +140,7 @@ export const PostCard = ({
             onClick={() => {}}
             label="like"
             className="buttonSmall buttonOutline"
-            name={post?.likes}
+            name={currentPost?.likes}
             SVG={<BiSolidLike />}
           />
           <Button
@@ -123,7 +148,7 @@ export const PostCard = ({
             onClick={() => {}}
             label="dislike"
             className="buttonSmall buttonOutline"
-            name={post?.likes}
+            name={currentPost?.dislikes}
             SVG={<BiSolidDislike />}
           />
           <Button
@@ -135,7 +160,7 @@ export const PostCard = ({
             }
             label="comment"
             className="buttonSmall buttonOutline"
-            name={post?.likes}
+            name={currentPost?.comments}
             SVG={<BiSolidComment />}
           />
         </footer>
@@ -151,7 +176,7 @@ export const PostCard = ({
               type="text"
               value={commentDetails.text}
               setValue={setCommentDetails}
-              placeholder="How are you today?"
+              placeholder="Comment..."
               isTextarea
             />
             <Button
@@ -164,10 +189,22 @@ export const PostCard = ({
           </form>
         )}
       </div>
-      {comments &&
-        comments.map((comment) => (
-          <CommentCard key={comment.id} comment={comment} />
-        ))}
+      {comments && (
+        <>
+          {comments.map((comment) => (
+            <CommentCard key={comment.id} comment={comment} />
+          ))}
+          {isPostPage && (
+            <Button
+              type="button"
+              onClick={async () => getComments()}
+              label="getMore"
+              className="buttonOutline"
+              name="More comments"
+            />
+          )}
+        </>
+      )}
     </>
   );
 };

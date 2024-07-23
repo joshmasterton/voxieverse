@@ -76,6 +76,100 @@ describe('/getPostsComments', () => {
         login.headers['set-cookie'][1].split(/;/)[0]
       ]);
 
-    console.log(getPostsComments.body);
+    expect(getPostsComments.body).toHaveLength(2);
+  });
+
+  test('Should return existing comments in a post', async () => {
+    const signup = await request(app)
+      .post('/signup')
+      .field({
+        username: 'testUser',
+        email: 'test@email.com',
+        password: 'Password',
+        confirmPassword: 'Password'
+      })
+      .attach('file', profilePicture);
+
+    const login = await request(app).post('/login').send({
+      username: signup.body.username,
+      password: 'Password'
+    });
+
+    await request(app)
+      .post('/createPostComment')
+      .field({
+        text: 'random text',
+        type: 'post'
+      })
+      .attach('file', profilePicture)
+      .set('Cookie', [
+        login.headers['set-cookie'][0].split(/;/)[0],
+        login.headers['set-cookie'][1].split(/;/)[0]
+      ]);
+
+    await request(app)
+      .post('/createPostComment')
+      .field({
+        text: 'random text',
+        type: 'post'
+      })
+      .attach('file', profilePicture)
+      .set('Cookie', [
+        login.headers['set-cookie'][0].split(/;/)[0],
+        login.headers['set-cookie'][1].split(/;/)[0]
+      ]);
+
+    await request(app)
+      .post('/createPostComment')
+      .field({
+        text: 'random text',
+        post_parent_id: 1,
+        type: 'comment'
+      })
+      .attach('file', profilePicture)
+      .set('Cookie', [
+        login.headers['set-cookie'][0].split(/;/)[0],
+        login.headers['set-cookie'][1].split(/;/)[0]
+      ]);
+
+    await request(app)
+      .post('/createPostComment')
+      .field({
+        text: 'random text',
+        post_parent_id: 1,
+        type: 'comment'
+      })
+      .attach('file', profilePicture)
+      .set('Cookie', [
+        login.headers['set-cookie'][0].split(/;/)[0],
+        login.headers['set-cookie'][1].split(/;/)[0]
+      ]);
+
+    await request(app)
+      .post('/createPostComment')
+      .field({
+        text: 'random text',
+        post_parent_id: 2,
+        type: 'comment'
+      })
+      .attach('file', profilePicture)
+      .set('Cookie', [
+        login.headers['set-cookie'][0].split(/;/)[0],
+        login.headers['set-cookie'][1].split(/;/)[0]
+      ]);
+
+    const getPostsComments = await request(app)
+      .get('/getPostsComments')
+      .query({
+        type_id: 1,
+        type: 'comment',
+        post_parent_id: 1
+      })
+      .set('Cookie', [
+        login.headers['set-cookie'][0].split(/;/)[0],
+        login.headers['set-cookie'][1].split(/;/)[0]
+      ]);
+
+    expect(getPostsComments.body).toHaveLength(2);
   });
 });

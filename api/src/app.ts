@@ -10,6 +10,7 @@ import { logout } from './router/auth/logout.router';
 import { createPostComment } from './router/postComment/createPostComment.router';
 import { getPostComment } from './router/postComment/getPostComment.router';
 import { getPostsComments } from './router/postComment/getPostsComments.router';
+import helmet from 'helmet';
 dotenv.config({ path: './src/env/dev.env' });
 
 export const app = express();
@@ -22,6 +23,7 @@ if (NODE_ENV !== 'test') {
   db.createLikeDislike();
 }
 
+app.use(helmet());
 app.use(cors({ origin: CLIENT_URL, credentials: true }));
 app.use(cookieParser());
 app.use(express.json());

@@ -7,7 +7,7 @@ export const getPostsCommentsController = async (
 ) => {
   try {
     const { user_id } = res.locals.user;
-    const { type, type_id, post_parent_id, comment_parent_id } =
+    const { type, type_id, post_parent_id, comment_parent_id, page, sort } =
       req.query as unknown as {
         type?: string;
         type_id?: number;
@@ -23,7 +23,7 @@ export const getPostsCommentsController = async (
       comment_parent_id,
       user_id,
       type
-    ).gets();
+    ).gets(page, sort);
 
     return res.status(200).json(postComment);
   } catch (error) {

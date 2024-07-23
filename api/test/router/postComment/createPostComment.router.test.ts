@@ -122,11 +122,23 @@ describe('/createPostComment', () => {
       password: 'Password'
     });
 
+    await request(app)
+      .post('/createPostComment')
+      .field({
+        type: 'post'
+      })
+      .attach('file', profilePicture)
+      .set('Cookie', [
+        login.headers['set-cookie'][0].split(/;/)[0],
+        login.headers['set-cookie'][1].split(/;/)[0]
+      ]);
+
     const createPostComment = await request(app)
       .post('/createPostComment')
       .field({
         text: 'random text',
-        type: 'comment'
+        type: 'comment',
+        post_parent_id: 1
       })
       .set('Cookie', [
         login.headers['set-cookie'][0].split(/;/)[0],
@@ -134,7 +146,7 @@ describe('/createPostComment', () => {
       ]);
 
     expect(createPostComment.body.id).toBe(1);
-    expect(createPostComment.body.post_parent_id).toBeNull();
+    expect(createPostComment.body.post_parent_id).toBe(1);
     expect(createPostComment.body.type).toBe('comment');
     expect(createPostComment.body.username).toBe('testUser');
   });

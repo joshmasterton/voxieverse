@@ -25,6 +25,11 @@ export class PostComment {
   async create() {
     const { postsCommentsTable } = tableConfigManager.getConfig();
 
+    const splitFirstLetterText = this.text?.slice(0, 1).toUpperCase() as string;
+    const splitRestText = this.text?.slice(1) as string;
+
+    const updatedText = splitFirstLetterText + splitRestText;
+
     try {
       const postComment = await db.query(
         `
@@ -37,10 +42,32 @@ export class PostComment {
           this.comment_parent_id,
           this.user_id,
           this.type,
-          this.text,
+          updatedText,
           this.picture
         ]
       );
+
+      if (this.post_parent_id) {
+        await db.query(
+          `
+						UPDATE ${postsCommentsTable}
+						SET comments = comments + 1
+						WHERE id = $1
+					`,
+          [this.post_parent_id]
+        );
+      }
+
+      if (this.comment_parent_id) {
+        await db.query(
+          `
+						UPDATE ${postsCommentsTable}
+						SET comments = comments + 1
+						WHERE id = $1
+					`,
+          [this.comment_parent_id]
+        );
+      }
 
       this.id = postComment?.rows[0].id;
 
@@ -168,7 +195,7 @@ export class PostComment {
       }
 
       if (!postsComments?.rows[0]) {
-        throw new Error('No posts');
+        return [];
       }
 
       const postsCommentsPromises = postsComments?.rows.map(
