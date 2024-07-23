@@ -23,7 +23,7 @@ export const getPostsCommentsController = async (
       comment_parent_id,
       user_id,
       type
-    ).gets(page, sort);
+    ).gets(page, sort, user_id);
 
     return res.status(200).json(postComment);
   } catch (error) {

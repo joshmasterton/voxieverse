@@ -79,8 +79,9 @@ export class PostComment {
     }
   }
 
-  async get() {
-    const { usersTable, postsCommentsTable } = tableConfigManager.getConfig();
+  async get(auth_user_id?: number) {
+    const { usersTable, postsCommentsTable, likesDislikesTable } =
+      tableConfigManager.getConfig();
 
     try {
       const postComment = await db.query(
@@ -100,11 +101,27 @@ export class PostComment {
 					SELECT username, profile_picture FROM ${usersTable}
 					WHERE user_id = $1
 				`,
-        [this.user_id]
+        [postComment.rows[0].user_id]
       );
 
       if (!user?.rows[0]) {
         throw new Error('No user found');
+      }
+
+      const likeDislike = await db.query(
+        `
+					SELECT * FROM ${likesDislikesTable}
+					WHERE type_id = $1 AND user_id = $2
+				`,
+        [this.id, auth_user_id]
+      );
+
+      if (likeDislike?.rows[0]) {
+        if (likeDislike.rows[0].reaction === 'like') {
+          this.has_liked = true;
+        } else if (likeDislike.rows[0].reaction === 'dislike') {
+          this.has_disliked = true;
+        }
       }
 
       this.id = postComment?.rows[0].id;
@@ -147,7 +164,7 @@ export class PostComment {
     }
   }
 
-  async gets(page = 0, sort = 'likes') {
+  async gets(page = 0, sort = 'likes', auth_user_id?: number) {
     const { postsCommentsTable } = tableConfigManager.getConfig();
 
     try {
@@ -160,7 +177,7 @@ export class PostComment {
 						WHERE type = $1
 						AND post_parent_id = $2
 						AND comment_parent_id = $3
-						ORDER BY ${sort}, created_at DESC
+						ORDER BY ${sort} DESC, created_at DESC
 						LIMIT $4 OFFSET $5
 					`,
           [
@@ -177,7 +194,7 @@ export class PostComment {
 						SELECT * FROM ${postsCommentsTable}
 						WHERE type = $1 AND post_parent_id = $2
 						AND comment_parent_id IS NULL
-						ORDER BY ${sort}, created_at DESC
+						ORDER BY ${sort} DESC, created_at DESC
 						LIMIT $3 OFFSET $4
 					`,
           [this.type, this.post_parent_id, 10, page * 10]
@@ -187,7 +204,7 @@ export class PostComment {
           `
 						SELECT * FROM ${postsCommentsTable}
 						WHERE type = $1
-						ORDER BY ${sort}, created_at DESC
+						ORDER BY ${sort} DESC, created_at DESC
 						LIMIT $2 OFFSET $3
 					`,
           [this.type, 10, page * 10]
@@ -205,7 +222,7 @@ export class PostComment {
             undefined,
             undefined,
             postComment.user_id
-          ).get();
+          ).get(auth_user_id);
         }
       );
 

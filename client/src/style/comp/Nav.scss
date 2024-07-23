@@ -5,7 +5,7 @@ nav {
   top: 0;
   left: 0;
   width: 100%;
-  min-height: calc(App.$height + (App.$padSmall * 2));
+  min-height: calc(App.$height + (App.$pad * 2));
   transition: height App.$anim;
   -webkit-backdrop-filter: blur(1rem);
   backdrop-filter: blur(1rem);
@@ -14,11 +14,11 @@ nav {
 }
 
 nav.active {
-  height: calc(App.$height * 9.1);
+  height: calc(App.$height * 9);
 }
 
 nav.hidden {
-  height: calc(App.$height + (App.$padSmall * 2));
+  height: calc(App.$height + (App.$pad * 2));
 }
 
 nav > header {
@@ -26,8 +26,8 @@ nav > header {
   top: 0;
   left: 0;
   width: 100%;
-  padding-left: App.$padSmall;
-  padding-right: App.$padSmall;
+  padding-left: App.$pad;
+  padding-right: App.$pad;
   z-index: 1;
 }
 
@@ -36,8 +36,8 @@ nav > header > div {
   justify-content: space-between;
   align-items: center;
   gap: App.$pad;
-  padding-top: App.$padSmall;
-  padding-bottom: App.$padSmall;
+  padding-top: App.$pad;
+  padding-bottom: App.$pad;
   border-bottom: var(--outline);
 }
 
@@ -57,7 +57,7 @@ nav > main {
   top: 0;
   left: 0;
   display: flex;
-  top: calc(App.$height + (App.$padSmall * 2));
+  top: calc(App.$height + (App.$pad * 2));
   left: 0;
   width: 100%;
   padding: App.$pad;
@@ -106,11 +106,11 @@ nav > main > div > ul > li > a {
 
 @media screen and (min-width: App.$widthLarge) {
   nav.active {
-    height: calc(App.$height + (App.$padSmall * 2));
+    height: calc(App.$height + (App.$pad * 2));
   }
 
   nav.hidden {
-    height: calc(App.$height + (App.$padSmall * 2));
+    height: calc(App.$height + (App.$pad * 2));
   }
 
   nav > header > div > button {

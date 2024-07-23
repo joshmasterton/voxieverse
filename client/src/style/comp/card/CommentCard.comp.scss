@@ -23,7 +23,7 @@
 
 .commentCard > header > button:first-of-type {
   position: absolute;
-  top: calc(App.$height + (App.$pad * 2.5));
+  top: calc(App.$height + (App.$padSmall * 5));
 }
 
 .commentCard > header > button:last-of-type {
@@ -36,8 +36,8 @@
   max-width: App.$heightSmall;
   min-height: App.$heightSmall;
   max-height: App.$heightSmall;
-  z-index: 1;
   background: var(--background);
+  z-index: 1;
 }
 
 .commentCard > header > button svg {
@@ -93,7 +93,6 @@
   min-width: 100%;
   min-height: 10rem;
   border-radius: App.$round;
-  overflow: hidden;
 }
 
 .commentCard > div > main > div > img:first-of-type {

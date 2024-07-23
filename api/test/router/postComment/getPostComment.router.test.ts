@@ -12,7 +12,7 @@ describe('/getPostComment', () => {
     'voxieverse_test.png'
   );
 
-  test('Should return existing post', async () => {
+  test('Should return existing post with user details and liked info', async () => {
     const signup = await request(app)
       .post('/signup')
       .field({
@@ -40,6 +40,18 @@ describe('/getPostComment', () => {
         login.headers['set-cookie'][1].split(/;/)[0]
       ]);
 
+    await request(app)
+      .post('/likeDislike')
+      .send({
+        type: 'post',
+        type_id: 1,
+        reaction: 'like'
+      })
+      .set('Cookie', [
+        login.headers['set-cookie'][0].split(/;/)[0],
+        login.headers['set-cookie'][1].split(/;/)[0]
+      ]);
+
     const getPostComment = await request(app)
       .get('/getPostComment')
       .query({
@@ -55,5 +67,6 @@ describe('/getPostComment', () => {
     expect(getPostComment.body.post_parent_id).toBeNull();
     expect(getPostComment.body.type).toBe('post');
     expect(getPostComment.body.username).toBe('testUser');
+    expect(getPostComment.body.has_liked).toBeTruthy();
   });
 });

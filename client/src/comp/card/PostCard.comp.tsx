@@ -7,8 +7,9 @@ import { Input } from '../Input.comp';
 import { FormEvent, useEffect, useState } from 'react';
 import { CommentDetails } from '../../../types/comp/card/PostCard.comp.types';
 import { request } from '../../utilities/request.utilities';
-import '../../style/comp/card/PostCard.comp.scss';
 import { CommentCard } from './CommentCard.comp';
+import { useUser } from '../../context/User.context';
+import '../../style/comp/card/PostCard.comp.scss';
 
 export const PostCard = ({
   post,
@@ -18,6 +19,7 @@ export const PostCard = ({
   isPostPage?: boolean;
 }) => {
   const navigate = useNavigate();
+  const { user } = useUser();
   const [page, setPage] = useState(0);
   const [isComment, setIsComment] = useState(false);
   const [currentPost, setCurrentPost] = useState<SerializedPostComment>(post);
@@ -108,6 +110,23 @@ export const PostCard = ({
     }
   };
 
+  const likeDislike = async (reaction: string) => {
+    try {
+      await request('/likeDislike', 'POST', {
+        user_id: user?.user_id,
+        type_id: currentPost.id,
+        type: 'post',
+        reaction
+      });
+
+      await getUpdatedPost();
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error(error.message);
+      }
+    }
+  };
+
   useEffect(() => {
     if (isPostPage) {
       getComments();
@@ -137,17 +156,17 @@ export const PostCard = ({
         <footer>
           <Button
             type="button"
-            onClick={() => {}}
+            onClick={async () => likeDislike('like')}
             label="like"
-            className="buttonSmall buttonOutline"
+            className={`buttonSmall buttonOutline ${currentPost.has_liked && 'buttonPrimary'}`}
             name={currentPost?.likes}
             SVG={<BiSolidLike />}
           />
           <Button
             type="button"
-            onClick={() => {}}
+            onClick={async () => likeDislike('dislike')}
             label="dislike"
-            className="buttonSmall buttonOutline"
+            className={`buttonSmall buttonOutline ${currentPost.has_disliked && 'buttonPrimary'}`}
             name={currentPost?.dislikes}
             SVG={<BiSolidDislike />}
           />

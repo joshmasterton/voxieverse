@@ -18,13 +18,13 @@ export const likeDislike = () => {
       .withMessage('type required')
       .isLength({ max: 10 })
       .withMessage('Exceeded max length'),
-    check('type_id').toInt().isInt().withMessage('post_parent_id required'),
+    check('type_id').toInt().isInt().withMessage('type_id required'),
     check('reaction')
       .trim()
       .escape()
       .isString()
       .notEmpty()
-      .withMessage('Cannot be empty')
+      .withMessage('Reaction required')
       .isLength({ max: 10 })
       .withMessage('Exceeded max length'),
     validator,

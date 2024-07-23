@@ -3,10 +3,10 @@
 #side {
   display: none;
   position: fixed;
-  top: calc(App.$height * 1 + (App.$pad * 2));
+  top: calc(App.$height + (App.$pad * 3));
   right: App.$pad;
-  height: calc(100% - (App.$height + App.$pad * 3));
-  width: calc(App.$height * 8);
+  height: calc(100% - (App.$height + (App.$pad * 4)));
+  width: calc(App.$height * 9);
   border-radius: App.$round;
   background: var(--background-shade);
 }
@@ -16,8 +16,8 @@
   display: none;
   top: 0;
   left: 0;
-  padding-top: calc(App.$height + (App.$padSmall * 4));
-  width: calc(App.$height * 6);
+  padding-top: calc(App.$height + (App.$pad * 3));
+  width: calc(App.$height * 7);
   height: calc(100% - App.$pad);
 }
 

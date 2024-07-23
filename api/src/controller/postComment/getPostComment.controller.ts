@@ -16,9 +16,9 @@ export const getPostCommentController = async (req: Request, res: Response) => {
       type_id,
       post_parent_id,
       comment_parent_id,
-      user_id,
+      undefined,
       type
-    ).get();
+    ).get(user_id);
 
     return res.status(200).json(postComment);
   } catch (error) {

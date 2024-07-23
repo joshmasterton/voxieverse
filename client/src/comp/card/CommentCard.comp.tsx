@@ -11,6 +11,7 @@ import { Input } from '../Input.comp';
 import { FormEvent, useState } from 'react';
 import { CommentDetails } from '../../../types/comp/card/PostCard.comp.types';
 import { request } from '../../utilities/request.utilities';
+import { useUser } from '../../context/User.context';
 import '../../style/comp/card/CommentCard.comp.scss';
 
 export const CommentCard = ({
@@ -18,6 +19,7 @@ export const CommentCard = ({
 }: {
   comment: SerializedPostComment;
 }) => {
+  const { user } = useUser();
   const [page, setPage] = useState(0);
   const [isReply, setIsReply] = useState(false);
   const [currentComment, setCurrentComment] =
@@ -121,6 +123,23 @@ export const CommentCard = ({
     }
   };
 
+  const likeDislike = async (reaction: string) => {
+    try {
+      await request('/likeDislike', 'POST', {
+        user_id: user?.user_id,
+        type_id: currentComment.id,
+        type: 'comment',
+        reaction
+      });
+
+      await getUpdatedParentComment();
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error(error.message);
+      }
+    }
+  };
+
   return (
     <>
       <div className="commentCard">
@@ -163,17 +182,17 @@ export const CommentCard = ({
           <footer>
             <Button
               type="button"
-              onClick={() => {}}
+              onClick={async () => likeDislike('like')}
               label="like"
-              className="buttonSmall buttonOutline"
+              className={`buttonSmall buttonOutline ${currentComment.has_liked && 'buttonPrimary'}`}
               name={currentComment?.likes}
               SVG={<BiSolidLike />}
             />
             <Button
               type="button"
-              onClick={() => {}}
+              onClick={async () => likeDislike('dislike')}
               label="dislike"
-              className="buttonSmall buttonOutline"
+              className={`buttonSmall buttonOutline ${currentComment.has_disliked && 'buttonPrimary'}`}
               name={currentComment?.dislikes}
               SVG={<BiSolidDislike />}
             />

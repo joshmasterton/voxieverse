@@ -9,7 +9,7 @@ export const Public = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     if (user) {
-      navigate(location.state.pathname || '/');
+      navigate(location?.state?.pathname || '/');
     }
   }, [user, navigate, location]);
 

@@ -11,6 +11,7 @@ import { createPostComment } from './router/postComment/createPostComment.router
 import { getPostComment } from './router/postComment/getPostComment.router';
 import { getPostsComments } from './router/postComment/getPostsComments.router';
 import helmet from 'helmet';
+import { likeDislike } from './router/likeDislike/createLikeDislike.router';
 dotenv.config({ path: './src/env/dev.env' });
 
 export const app = express();
@@ -20,7 +21,7 @@ const db = new Db();
 if (NODE_ENV !== 'test') {
   db.createUsers();
   db.createPostsComments();
-  db.createLikeDislike();
+  db.createLikesDislikes();
 }
 
 app.use(helmet());
@@ -44,6 +45,8 @@ app.use(logout());
 app.use(createPostComment());
 app.use(getPostComment());
 app.use(getPostsComments());
+
+app.use(likeDislike());
 
 if (NODE_ENV !== 'test') {
   app.listen(9001, () => {
