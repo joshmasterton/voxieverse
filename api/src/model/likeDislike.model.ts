@@ -12,7 +12,7 @@ export class LikeDislike {
   ) {}
 
   async create() {
-    const { likesDislikesTable, postsCommentsTable } =
+    const { likesDislikesTable, postsCommentsTable, usersTable } =
       tableConfigManager.getConfig();
     try {
       const existingLikeDislike = await db.query(
@@ -22,6 +22,18 @@ export class LikeDislike {
 				`,
         [this.type, this.type_id, this.user_id]
       );
+
+      const postComment = await db.query(
+        `
+					SELECT user_id from ${postsCommentsTable}
+					WHERE id = $1
+				`,
+        [this.type_id]
+      );
+
+      if (!postComment?.rows[0]) {
+        throw new Error(`No ${this.type} found`);
+      }
 
       if (existingLikeDislike?.rows[0]) {
         if (existingLikeDislike?.rows[0].reaction === this.reaction) {
@@ -40,6 +52,15 @@ export class LikeDislike {
 							WHERE id = $1
 						`,
             [this.type_id]
+          );
+
+          await db.query(
+            `
+							UPDATE ${usersTable}
+							SET ${this.reaction}s = ${this.reaction}s - 1
+							WHERE user_id = $1
+						`,
+            [postComment.rows[0].user_id]
           );
         } else {
           const oppositeReaction =
@@ -65,11 +86,29 @@ export class LikeDislike {
 
           await db.query(
             `
+							UPDATE ${usersTable}
+							SET ${oppositeReaction}s = ${oppositeReaction}s - 1
+							WHERE user_id = $1
+						`,
+            [postComment.rows[0].user_id]
+          );
+
+          await db.query(
+            `
 							UPDATE ${postsCommentsTable}
 							SET ${this.reaction}s = ${this.reaction}s + 1
 							WHERE id = $1
 						`,
             [this.type_id]
+          );
+
+          await db.query(
+            `
+							UPDATE ${usersTable}
+							SET ${this.reaction}s = ${this.reaction}s + 1
+							WHERE user_id = $1
+						`,
+            [postComment.rows[0].user_id]
           );
         }
 
@@ -91,6 +130,15 @@ export class LikeDislike {
 					WHERE id = $1
 				`,
         [this.type_id]
+      );
+
+      await db.query(
+        `
+					UPDATE ${usersTable}
+					SET ${this.reaction}s = ${this.reaction}s + 1
+					WHERE user_id = $1
+				`,
+        [postComment.rows[0].user_id]
       );
 
       return this;

@@ -8,6 +8,7 @@ import { CreatePost } from './page/CreatePost.page';
 import { Post } from './page/Post.page';
 import { Private } from './comp/security/Private.comp';
 import { Public } from './comp/security/Public.comp';
+import { User } from './page/User.page';
 import './style/App.scss';
 
 export const routes = [
@@ -16,6 +17,14 @@ export const routes = [
     element: (
       <Private>
         <Home />
+      </Private>
+    )
+  },
+  {
+    path: '/profile/:user_id',
+    element: (
+      <Private>
+        <User />
       </Private>
     )
   },

@@ -19,13 +19,6 @@ export const SideUser = () => {
   return (
     <div id="sideUser">
       <div>
-        <header>
-          <img alt="" src={user?.profile_picture} className="imgUser" />
-          <div>
-            <div>{user?.username}</div>
-            <p>{user?.email}</p>
-          </div>
-        </header>
         <main>
           <ul>
             <li>
@@ -39,7 +32,7 @@ export const SideUser = () => {
             </li>
             <li>
               <Navigate
-                to="/"
+                to={`/profile/${user?.user_id}`}
                 className="transparent"
                 onClick={() => {}}
                 SVG={<BiSolidUser />}

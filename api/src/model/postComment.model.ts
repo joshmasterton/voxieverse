@@ -23,7 +23,7 @@ export class PostComment {
   ) {}
 
   async create() {
-    const { postsCommentsTable } = tableConfigManager.getConfig();
+    const { postsCommentsTable, usersTable } = tableConfigManager.getConfig();
 
     const splitFirstLetterText = this.text?.slice(0, 1).toUpperCase() as string;
     const splitRestText = this.text?.slice(1) as string;
@@ -45,6 +45,15 @@ export class PostComment {
           updatedText,
           this.picture
         ]
+      );
+
+      await db.query(
+        `
+					UPDATE ${usersTable}
+					SET comments = comments + 1
+					WHERE user_id = $1
+				`,
+        [this.user_id]
       );
 
       if (this.post_parent_id) {
@@ -124,6 +133,28 @@ export class PostComment {
         }
       }
 
+      const seconds = Math.floor(
+        (Date.now() - new Date(postComment?.rows[0].created_at).getTime()) /
+          1000
+      );
+
+      this.created_at = 'Just now';
+
+      let interval = Math.floor(seconds / 86400);
+      if (interval >= 1) {
+        this.created_at = `${interval}d`;
+      } else {
+        interval = Math.floor(seconds / 3600);
+        if (interval >= 1) {
+          this.created_at = `${interval}hr`;
+        } else {
+          interval = Math.floor(seconds / 60);
+          if (interval >= 1) {
+            this.created_at = `${interval}m`;
+          }
+        }
+      }
+
       this.id = postComment?.rows[0].id;
       this.post_parent_id = postComment?.rows[0].post_parent_id;
       this.comment_parent_id = postComment?.rows[0].comment_parent_id;
@@ -134,9 +165,6 @@ export class PostComment {
       this.likes = postComment?.rows[0].likes;
       this.dislikes = postComment?.rows[0].dislikes;
       this.comments = postComment?.rows[0].comments;
-      this.created_at = new Date(
-        postComment?.rows[0].created_at
-      ).toLocaleString();
       this.username = user.rows[0].username;
       this.profile_picture = user.rows[0].profile_picture;
 
@@ -164,20 +192,36 @@ export class PostComment {
     }
   }
 
-  async gets(page = 0, sort = 'likes', auth_user_id?: number) {
+  async gets(
+    page = 0,
+    sort = 'created_at',
+    auth_user_id?: number,
+    profile_id?: number
+  ) {
     const { postsCommentsTable } = tableConfigManager.getConfig();
 
     try {
       let postsComments: QueryResult | undefined;
 
-      if (this.post_parent_id && this.comment_parent_id) {
+      if (profile_id) {
+        postsComments = await db.query(
+          `
+						SELECT * FROM ${postsCommentsTable}
+						WHERE type = $1
+						AND user_id = $2
+						ORDER BY ${sort} DESC
+						LIMIT $3 OFFSET $4
+					`,
+          [this.type, profile_id, 10, page * 10]
+        );
+      } else if (this.post_parent_id && this.comment_parent_id) {
         postsComments = await db.query(
           `
 						SELECT * FROM ${postsCommentsTable}
 						WHERE type = $1
 						AND post_parent_id = $2
 						AND comment_parent_id = $3
-						ORDER BY ${sort} DESC, created_at DESC
+						ORDER BY ${sort} DESC
 						LIMIT $4 OFFSET $5
 					`,
           [
@@ -194,7 +238,7 @@ export class PostComment {
 						SELECT * FROM ${postsCommentsTable}
 						WHERE type = $1 AND post_parent_id = $2
 						AND comment_parent_id IS NULL
-						ORDER BY ${sort} DESC, created_at DESC
+						ORDER BY ${sort} DESC
 						LIMIT $3 OFFSET $4
 					`,
           [this.type, this.post_parent_id, 10, page * 10]
@@ -204,7 +248,7 @@ export class PostComment {
           `
 						SELECT * FROM ${postsCommentsTable}
 						WHERE type = $1
-						ORDER BY ${sort} DESC, created_at DESC
+						ORDER BY ${sort} DESC
 						LIMIT $2 OFFSET $3
 					`,
           [this.type, 10, page * 10]

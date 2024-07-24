@@ -40,7 +40,7 @@ export const Nav = () => {
             </li>
             <li>
               <Navigate
-                to="/"
+                to={`/profile/${user?.user_id}`}
                 className="transparent"
                 onClick={() => {}}
                 SVG={<BiSolidUser />}
@@ -88,7 +88,7 @@ export const Nav = () => {
             </li>
             <li>
               <Navigate
-                to="/"
+                to={`/profile/${user?.user_id}`}
                 className="transparent"
                 onClick={() => {}}
                 SVG={<BiSolidUser />}

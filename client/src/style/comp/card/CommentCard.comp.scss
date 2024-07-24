@@ -23,7 +23,7 @@
 
 .commentCard > header > button:first-of-type {
   position: absolute;
-  top: calc(App.$height + (App.$padSmall * 5));
+  top: calc(App.$heightSmall + (App.$pad * 3));
 }
 
 .commentCard > header > button:last-of-type {
@@ -79,6 +79,24 @@
   display: flex;
   align-items: center;
   height: App.$heightSmall;
+}
+
+.commentCard > div > header > div {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 0.2rem;
+}
+
+.commentCard > header > a {
+  z-index: 1;
+}
+
+.commentCard > header > a > img {
+  min-width: App.$heightSmall;
+  max-width: App.$heightSmall;
+  min-height: App.$heightSmall;
+  max-height: App.$heightSmall;
 }
 
 .commentCard > div > main {

@@ -3,10 +3,10 @@
 #side {
   display: none;
   position: fixed;
-  top: calc(App.$height + (App.$pad * 3));
+  top: calc(App.$height + (App.$padSVG * 3.4));
   right: App.$pad;
-  height: calc(100% - (App.$height + (App.$pad * 4)));
-  width: calc(App.$height * 9);
+  height: calc(100% - (App.$height + (App.$padSVG * 6)));
+  width: calc(App.$height * 12);
   border-radius: App.$round;
   background: var(--background-shade);
 }
@@ -16,8 +16,8 @@
   display: none;
   top: 0;
   left: 0;
-  padding-top: calc(App.$height + (App.$pad * 3));
-  width: calc(App.$height * 7);
+  padding-top: calc(App.$height + (App.$padSVG * 3.4));
+  width: calc(App.$height * 8);
   height: calc(100% - App.$pad);
 }
 
@@ -28,7 +28,7 @@
   width: 100%;
   gap: App.$pad;
   padding: App.$pad;
-  padding-top: 0;
+  padding-top: 0.15rem;
   padding-bottom: 0;
   border-right: var(--outline);
 }

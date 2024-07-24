@@ -23,6 +23,7 @@
   display: flex;
   flex-direction: column;
   gap: App.$pad;
+  text-align: end;
 }
 
 #auth > main > button {

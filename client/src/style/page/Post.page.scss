@@ -5,17 +5,17 @@
   flex-direction: column;
   width: 100%;
   gap: App.$pad;
-  margin-top: calc(App.$height + (App.$pad * 2));
+  margin-top: calc(App.$height + (App.$padSVG * 2));
 }
 
 @media screen and (min-width: App.$widthLarge) {
   #postPage {
-    margin-left: calc(App.$height * 7);
+    margin-left: calc(App.$height * 8);
   }
 }
 
 @media screen and (min-width: App.$widthExtraLarge) {
   #postPage {
-    margin-right: calc(App.$height * 9 + App.$pad);
+    margin-right: calc(App.$height * 12 + App.$pad);
   }
 }

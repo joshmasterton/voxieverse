@@ -1,19 +1,19 @@
 @use './reset.scss';
 
-$height: 2rem;
+$height: 2.25rem;
 $heightSmall: 1.5rem;
-$widthLarge: 35rem;
-$widthExtraLarge: 57.5rem;
+$widthLarge: 40rem;
+$widthExtraLarge: 67.5rem;
 $widthMedium: 25rem;
 $width: 5rem;
 
-$pad: 0.75rem;
-$padSVG: 0.4rem;
+$pad: 1rem;
+$padSVG: 0.7rem;
 
 $padLarge: 1.25rem;
 $padSmall: 0.4rem;
 
-$round: 0.25rem;
+$round: 0.2rem;
 
 $fontLarge: 1.25rem;
 $font: 1rem;
@@ -23,24 +23,24 @@ $anim: 0.4s ease;
 
 [data-theme='dark'] {
   --color: white;
-  --primary: #5735ff;
+  --primary: #5921ff;
   --background: rgba(0, 0, 0, 1);
   --backgroundBlur: rgba(0, 0, 0, 0.6);
   --outline: 0.075rem solid rgb(50, 50, 60);
   --background-outline: rgb(50, 50, 60);
   --background-shade: rgba(30, 30, 38, 0.6);
-  --outline-shadow: 0 0 0 0.15rem #5735ff;
+  --outline-shadow: 0 0 0 0.15rem #5921ff;
 }
 
 [data-theme='light'] {
   --color: black;
-  --primary: #5735ff;
+  --primary: #5921ff;
   --background: rgb(255, 255, 255);
   --backgroundBlur: rgba(255, 255, 255, 0.6);
   --outline: 0.075rem solid rgb(150, 150, 160);
   --background-outline: rgb(150, 150, 160);
   --background-shade: rgba(235, 235, 240, 0.6);
-  --outline-shadow: 0 0 0 0.15rem #5735ff;
+  --outline-shadow: 0 0 0 0.15rem #5921ff;
 }
 
 * {
@@ -111,15 +111,5 @@ img {
   max-height: $height;
   border-radius: $round;
   object-fit: cover;
-  object-position: 0% 0%;
-}
-
-.imgUser {
-  min-width: 100%;
-  max-width: 100%;
-  min-height: 12rem;
-  max-height: 12rem;
-  display: block;
-  margin: auto;
-  object-fit: cover;
+  object-position: center;
 }

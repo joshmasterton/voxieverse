@@ -29,6 +29,17 @@
   gap: App.$pad;
 }
 
+.postCard > header > a {
+  z-index: 1;
+}
+
+.postCard > header > div {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 0.2rem;
+}
+
 .postCard > main {
   display: flex;
   flex-direction: column;
@@ -62,7 +73,7 @@
   max-width: fit-content;
   min-height: none;
   height: auto;
-  max-height: 30rem;
+  max-height: 25rem;
   z-index: 0;
 }
 

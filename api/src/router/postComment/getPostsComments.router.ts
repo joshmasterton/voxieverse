@@ -31,6 +31,7 @@ export const getPostsComments = () => {
       .toInt()
       .isInt()
       .withMessage('comment_parent_id required'),
+    query('profile_id').optional().toInt().isInt().withMessage('page required'),
     query('page').optional().toInt().isInt().withMessage('page required'),
     query('sort')
       .optional()

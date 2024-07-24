@@ -42,6 +42,26 @@ button.buttonSmall > svg {
   padding: App.$padSmall;
 }
 
+button.buttonLarge {
+  display: flex;
+  flex: 1;
+  padding: 0;
+  padding-right: App.$pad;
+  padding-left: 0.2rem;
+  min-width: none;
+  min-height: App.$height;
+  max-height: App.$height;
+  font-size: App.$fontSmall;
+}
+
+button.buttonLarge > svg {
+  min-width: none;
+  max-width: App.$height;
+  min-height: App.$height;
+  max-height: App.$height;
+  padding: App.$padSVG;
+}
+
 button:hover,
 button:focus {
   outline: var(--outline);
@@ -51,6 +71,10 @@ button:focus {
 .buttonPrimary {
   color: white;
   background: var(--primary);
+}
+
+.buttonPrimarySVG svg {
+  color: var(--primary);
 }
 
 div.buttonTheme {

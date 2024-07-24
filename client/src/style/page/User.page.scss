@@ -1,0 +1,89 @@
+@use '../App.scss';
+
+#userPage {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: App.$pad;
+  margin-top: calc(App.$height + (App.$padSVG * 2));
+}
+
+#userPage > #userPageCon {
+  display: flex;
+  width: 100%;
+  min-width: 100%;
+  gap: App.$pad;
+  padding-bottom: App.$pad;
+  border-bottom: var(--outline);
+}
+
+#userPage > #userPageCon > header {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: App.$round;
+}
+
+#userPage > #userPageCon > header > img {
+  object-fit: contain;
+  min-width: calc(App.$height * 4 + (App.$padLarge));
+  max-width: calc(App.$height * 4 + (App.$padLarge));
+  min-height: calc(App.$height * 4 + (App.$padLarge));
+  max-height: calc(App.$height * 4 + (App.$padLarge));
+  object-fit: cover;
+  border-radius: App.$round;
+  z-index: 0;
+}
+
+#userPage > #userPageCon > main {
+  display: flex;
+  flex: 1;
+  max-height: calc(App.$height * 4 + (App.$padLarge));
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: App.$pad;
+}
+
+#userPage > #userPageCon > main > footer {
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
+  width: 100%;
+  max-height: calc(App.$height + (App.$pad * 2));
+  padding: App.$pad;
+  gap: App.$pad + 0.1rem;
+  border-radius: App.$round;
+  outline: var(--outline);
+}
+
+#userPage > #userPageCon > main > div {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+#userPage > #userPageCon > main > div:first-of-type {
+  display: flex;
+  align-items: end;
+  gap: App.$padSmall;
+  overflow: hidden;
+}
+
+#userPage > #userPageCon > main > div > button {
+  min-width: 100%;
+  max-width: 100%;
+}
+
+@media screen and (min-width: App.$widthLarge) {
+  #userPage {
+    margin-left: calc(App.$height * 8);
+  }
+}
+
+@media screen and (min-width: App.$widthExtraLarge) {
+  #userPage {
+    margin-right: calc(App.$height * 12 + App.$pad);
+  }
+}

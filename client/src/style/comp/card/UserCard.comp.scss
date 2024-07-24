@@ -1,0 +1,24 @@
+@use '../../App.scss';
+
+.userCard {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: App.$pad;
+  padding-bottom: App.$pad;
+  gap: App.$pad;
+  border-bottom: var(--outline);
+}
+
+.userCard > header {
+  display: flex;
+  align-items: center;
+  gap: App.$pad;
+}
+
+.userCard > footer {
+  display: flex;
+  justify-content: end;
+  flex: 1;
+  gap: App.$pad;
+}

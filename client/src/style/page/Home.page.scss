@@ -6,7 +6,7 @@
   gap: App.$pad;
   width: 100%;
   min-height: 100%;
-  margin-top: calc(App.$height + (App.$pad * 2));
+  margin-top: calc(App.$height + (App.$padSVG * 2));
 }
 
 #home > a {
@@ -18,12 +18,12 @@
 
 @media screen and (min-width: App.$widthLarge) {
   #home {
-    margin-left: calc(App.$height * 7);
+    margin-left: calc(App.$height * 8);
   }
 }
 
 @media screen and (min-width: App.$widthExtraLarge) {
   #home {
-    margin-right: calc(App.$height * 9 + App.$pad);
+    margin-right: calc(App.$height * 12 + App.$pad);
   }
 }

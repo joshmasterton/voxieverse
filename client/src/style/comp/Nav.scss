@@ -5,7 +5,7 @@ nav {
   top: 0;
   left: 0;
   width: 100%;
-  min-height: calc(App.$height + (App.$pad * 2));
+  min-height: calc(App.$height + (App.$padSVG * 2));
   transition: height App.$anim;
   -webkit-backdrop-filter: blur(1rem);
   backdrop-filter: blur(1rem);
@@ -14,11 +14,11 @@ nav {
 }
 
 nav.active {
-  height: calc(App.$height * 9);
+  height: calc(App.$height * 9.15);
 }
 
 nav.hidden {
-  height: calc(App.$height + (App.$pad * 2));
+  height: calc(App.$height + (App.$padSVG * 2));
 }
 
 nav > header {
@@ -26,8 +26,8 @@ nav > header {
   top: 0;
   left: 0;
   width: 100%;
-  padding-left: App.$pad;
-  padding-right: App.$pad;
+  padding-left: App.$padSVG;
+  padding-right: App.$padSVG;
   z-index: 1;
 }
 
@@ -35,9 +35,9 @@ nav > header > div {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: App.$pad;
-  padding-top: App.$pad;
-  padding-bottom: App.$pad;
+  gap: App.$padSVG;
+  padding-top: App.$padSVG;
+  padding-bottom: App.$padSVG;
   border-bottom: var(--outline);
 }
 
@@ -49,7 +49,7 @@ nav > header > div > ul {
   display: none;
   justify-content: end;
   flex: 1;
-  gap: App.$pad;
+  gap: App.$padSVG;
 }
 
 nav > main {
@@ -57,10 +57,10 @@ nav > main {
   top: 0;
   left: 0;
   display: flex;
-  top: calc(App.$height + (App.$pad * 2));
+  top: calc(App.$height + (App.$padSVG * 2));
   left: 0;
   width: 100%;
-  padding: App.$pad;
+  padding: App.$padSVG;
   padding-bottom: 0;
 }
 
@@ -76,7 +76,7 @@ nav.hidden > main {
   transform: translateY(-23.1rem);
   transition:
     transform App.$anim,
-    opacity 0.05s ease;
+    opacity 0.025s ease;
 }
 
 nav > main > div {
@@ -106,11 +106,11 @@ nav > main > div > ul > li > a {
 
 @media screen and (min-width: App.$widthLarge) {
   nav.active {
-    height: calc(App.$height + (App.$pad * 2));
+    height: calc(App.$height + (App.$padSVG * 2));
   }
 
   nav.hidden {
-    height: calc(App.$height + (App.$pad * 2));
+    height: calc(App.$height + (App.$padSVG * 2));
   }
 
   nav > header > div > button {

@@ -138,10 +138,13 @@ export const PostCard = ({
       <div className="postCard">
         {!isPostPage && <Navigate to={`/post/${post.id}`} onClick={() => {}} />}
         <header>
-          <img alt="" src={currentPost?.profile_picture} />
+          <Navigate
+            to={`/profile/${post.user_id}`}
+            onClick={() => {}}
+            SVG={<img alt="" src={currentPost?.profile_picture} />}
+          />
           <div>
-            {currentPost?.username}
-            <p>{currentPost?.created_at}</p>
+            {currentPost?.username} -<p>{currentPost?.created_at}</p>
           </div>
         </header>
         <main>
@@ -158,7 +161,7 @@ export const PostCard = ({
             type="button"
             onClick={async () => likeDislike('like')}
             label="like"
-            className={`buttonSmall buttonOutline ${currentPost.has_liked && 'buttonPrimary'}`}
+            className={`buttonSmall buttonOutline ${currentPost.has_liked && 'buttonPrimarySVG'}`}
             name={currentPost?.likes}
             SVG={<BiSolidLike />}
           />
@@ -166,7 +169,7 @@ export const PostCard = ({
             type="button"
             onClick={async () => likeDislike('dislike')}
             label="dislike"
-            className={`buttonSmall buttonOutline ${currentPost.has_disliked && 'buttonPrimary'}`}
+            className={`buttonSmall buttonOutline ${currentPost.has_disliked && 'buttonPrimarySVG'}`}
             name={currentPost?.dislikes}
             SVG={<BiSolidDislike />}
           />

@@ -1,6 +1,7 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
+import helmet from 'helmet';
 import cors from 'cors';
 import { Db } from './database/db.database';
 import { login } from './router/auth/login.router';
@@ -10,8 +11,9 @@ import { logout } from './router/auth/logout.router';
 import { createPostComment } from './router/postComment/createPostComment.router';
 import { getPostComment } from './router/postComment/getPostComment.router';
 import { getPostsComments } from './router/postComment/getPostsComments.router';
-import helmet from 'helmet';
 import { likeDislike } from './router/likeDislike/createLikeDislike.router';
+import { getUser } from './router/user/getUser.router';
+import { getUsers } from './router/user/getUsers.router';
 dotenv.config({ path: './src/env/dev.env' });
 
 export const app = express();
@@ -45,6 +47,9 @@ app.use(logout());
 app.use(createPostComment());
 app.use(getPostComment());
 app.use(getPostsComments());
+
+app.use(getUser());
+app.use(getUsers());
 
 app.use(likeDislike());
 

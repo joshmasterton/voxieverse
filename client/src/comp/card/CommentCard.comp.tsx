@@ -13,6 +13,7 @@ import { CommentDetails } from '../../../types/comp/card/PostCard.comp.types';
 import { request } from '../../utilities/request.utilities';
 import { useUser } from '../../context/User.context';
 import '../../style/comp/card/CommentCard.comp.scss';
+import { Navigate } from '../Navigate.comp';
 
 export const CommentCard = ({
   comment
@@ -153,7 +154,11 @@ export const CommentCard = ({
               SVG={<BiMinus />}
             />
           )}
-          <img alt="" src={currentComment?.profile_picture} />
+          <Navigate
+            to={`/profile/${currentComment.user_id}`}
+            onClick={() => {}}
+            SVG={<img alt="" src={currentComment?.profile_picture} />}
+          />
           <p />
           <Button
             type="button"
@@ -166,8 +171,7 @@ export const CommentCard = ({
         <div>
           <header>
             <div>
-              {currentComment?.username}
-              <p>{currentComment?.created_at}</p>
+              {currentComment?.username} -<p>{currentComment?.created_at}</p>
             </div>
           </header>
           <main>
@@ -184,7 +188,7 @@ export const CommentCard = ({
               type="button"
               onClick={async () => likeDislike('like')}
               label="like"
-              className={`buttonSmall buttonOutline ${currentComment.has_liked && 'buttonPrimary'}`}
+              className={`buttonSmall buttonOutline ${currentComment.has_liked && 'buttonPrimarySVG'}`}
               name={currentComment?.likes}
               SVG={<BiSolidLike />}
             />
@@ -192,7 +196,7 @@ export const CommentCard = ({
               type="button"
               onClick={async () => likeDislike('dislike')}
               label="dislike"
-              className={`buttonSmall buttonOutline ${currentComment.has_disliked && 'buttonPrimary'}`}
+              className={`buttonSmall buttonOutline ${currentComment.has_disliked && 'buttonPrimarySVG'}`}
               name={currentComment?.dislikes}
               SVG={<BiSolidDislike />}
             />
