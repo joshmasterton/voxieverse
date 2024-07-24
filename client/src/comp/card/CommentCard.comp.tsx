@@ -12,8 +12,9 @@ import { FormEvent, useState } from 'react';
 import { CommentDetails } from '../../../types/comp/card/PostCard.comp.types';
 import { request } from '../../utilities/request.utilities';
 import { useUser } from '../../context/User.context';
-import '../../style/comp/card/CommentCard.comp.scss';
 import { Navigate } from '../Navigate.comp';
+import { Loading } from '../Loading.comp';
+import '../../style/comp/card/CommentCard.comp.scss';
 
 export const CommentCard = ({
   comment
@@ -21,6 +22,11 @@ export const CommentCard = ({
   comment: SerializedPostComment;
 }) => {
   const { user } = useUser();
+  const [loading, setLoading] = useState(false);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [loadingLike, setLoadingLike] = useState(false);
+  const [loadingDislike, setLoadingDislike] = useState(false);
+  const [loadingSubmit, setLoadingSubmit] = useState(false);
   const [page, setPage] = useState(0);
   const [isReply, setIsReply] = useState(false);
   const [currentComment, setCurrentComment] =
@@ -51,6 +57,8 @@ export const CommentCard = ({
 
   const getReplies = async (currentPage = page, incrememtPage = true) => {
     try {
+      setLoadingMore(true);
+
       const commentsData = await request<unknown, SerializedPostComment[]>(
         `/getPostsComments?page=${currentPage}&type=comment&post_parent_id=${comment.post_parent_id}&comment_parent_id=${comment.id}`,
         'GET'
@@ -81,6 +89,8 @@ export const CommentCard = ({
       if (error instanceof Error) {
         console.error(error.message);
       }
+    } finally {
+      setLoadingMore(false);
     }
   };
 
@@ -92,6 +102,8 @@ export const CommentCard = ({
   const handleSubmit = async (e: FormEvent) => {
     try {
       e.preventDefault();
+      setLoadingSubmit(true);
+
       const formData = new FormData();
 
       formData.append('text', commentDetails.text);
@@ -107,25 +119,36 @@ export const CommentCard = ({
         formData.append('comment_parent_id', currentComment?.id?.toString());
       }
 
-      await request('/createPostComment', 'POST', formData);
+      const reply = await request('/createPostComment', 'POST', formData);
 
-      setIsReply(false);
-      setCommentDetails({
-        text: ''
-      });
-      setPage(0);
-      setReplies(undefined);
-      await getReplies(0);
-      await getUpdatedParentComment();
+      if (reply) {
+        setIsReply(false);
+        setCommentDetails({
+          text: ''
+        });
+        setPage(0);
+        setReplies(undefined);
+        setLoading(true);
+        await getReplies(0);
+        await getUpdatedParentComment();
+      }
     } catch (error) {
       if (error instanceof Error) {
         console.error(error.message);
       }
+    } finally {
+      setLoading(false);
+      setLoadingSubmit(false);
     }
   };
 
   const likeDislike = async (reaction: string) => {
     try {
+      if (reaction === 'like') {
+        setLoadingLike(true);
+      } else {
+        setLoadingDislike(true);
+      }
       await request('/likeDislike', 'POST', {
         user_id: user?.user_id,
         type_id: currentComment.id,
@@ -138,6 +161,9 @@ export const CommentCard = ({
       if (error instanceof Error) {
         console.error(error.message);
       }
+    } finally {
+      setLoadingLike(false);
+      setLoadingDislike(false);
     }
   };
 
@@ -145,28 +171,29 @@ export const CommentCard = ({
     <>
       <div className="commentCard">
         <header>
-          {comments && comments?.length > 0 && (
-            <Button
-              type="button"
-              onClick={() => lessReplies()}
-              label="like"
-              className="buttonOutline"
-              SVG={<BiMinus />}
-            />
-          )}
+          <Button
+            type="button"
+            onClick={() => lessReplies()}
+            label="lessReplies"
+            className="buttonOutline"
+            SVG={<BiMinus />}
+          />
           <Navigate
             to={`/profile/${currentComment.user_id}`}
             onClick={() => {}}
             SVG={<img alt="" src={currentComment?.profile_picture} />}
           />
           <p />
-          <Button
-            type="button"
-            onClick={async () => await getReplies()}
-            label="like"
-            className="buttonOutline"
-            SVG={<BiPlus />}
-          />
+          {!loading && (
+            <Button
+              type="button"
+              loading={loadingMore}
+              onClick={async () => await getReplies()}
+              label="getMore"
+              className="buttonOutline"
+              SVG={<BiPlus />}
+            />
+          )}
         </header>
         <div>
           <header>
@@ -186,6 +213,7 @@ export const CommentCard = ({
           <footer>
             <Button
               type="button"
+              loading={loadingLike}
               onClick={async () => likeDislike('like')}
               label="like"
               className={`buttonSmall buttonOutline ${currentComment.has_liked && 'buttonPrimarySVG'}`}
@@ -194,6 +222,7 @@ export const CommentCard = ({
             />
             <Button
               type="button"
+              loading={loadingDislike}
               onClick={async () => likeDislike('dislike')}
               label="dislike"
               className={`buttonSmall buttonOutline ${currentComment.has_disliked && 'buttonPrimarySVG'}`}
@@ -226,6 +255,7 @@ export const CommentCard = ({
               />
               <Button
                 type="submit"
+                loading={loadingSubmit}
                 onClick={() => {}}
                 label="createComment"
                 className="buttonPrimary"
@@ -233,10 +263,14 @@ export const CommentCard = ({
               />
             </form>
           )}
-          {comments &&
+          {loading ? (
+            <Loading />
+          ) : (
+            comments &&
             comments.map((comment) => (
               <CommentCard key={comment.id} comment={comment} />
-            ))}
+            ))
+          )}
         </div>
       </div>
     </>

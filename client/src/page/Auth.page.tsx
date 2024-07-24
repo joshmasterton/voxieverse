@@ -13,6 +13,7 @@ import '../style/page/Auth.page.scss';
 
 export const Auth = ({ isSignup = false }: AuthProps) => {
   const { setUser } = useUser();
+  const [loading, setLoading] = useState(false);
   const [userDetails, setUserDetails] = useState<UserDetails>({
     username: '',
     email: '',
@@ -34,6 +35,8 @@ export const Auth = ({ isSignup = false }: AuthProps) => {
   const handleOnSubmit = async (e: FormEvent) => {
     try {
       e?.preventDefault();
+      setLoading(true);
+
       if (isSignup) {
         const formData = new FormData();
         formData.append('username', userDetails.username);
@@ -63,6 +66,8 @@ export const Auth = ({ isSignup = false }: AuthProps) => {
       if (error instanceof Error) {
         console.error(error.message);
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -136,6 +141,7 @@ export const Auth = ({ isSignup = false }: AuthProps) => {
         )}
         <Button
           type="submit"
+          loading={loading}
           onClick={() => {}}
           label={isSignup ? 'signup' : 'login'}
           className="buttonPrimary"

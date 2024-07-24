@@ -7,6 +7,7 @@ import { BsSunFill } from 'react-icons/bs';
 import { MouseEvent } from 'react';
 import { PiMoonFill } from 'react-icons/pi';
 import '../style/comp/Button.comp.scss';
+import { Loading } from './Loading.comp';
 
 export const Button = ({
   type,
@@ -14,11 +15,13 @@ export const Button = ({
   label,
   className,
   name,
+  loading,
   SVG
 }: ButtonProps) => {
   return (
     <button
       type={type}
+      disabled={loading}
       aria-label={label}
       className={className ?? undefined}
       onClick={(e?: MouseEvent<HTMLButtonElement>) => {
@@ -26,8 +29,14 @@ export const Button = ({
         onClick();
       }}
     >
-      {SVG}
-      {name}
+      {loading ? (
+        <Loading className={className ?? undefined} />
+      ) : (
+        <>
+          {SVG}
+          {name}
+        </>
+      )}
     </button>
   );
 };

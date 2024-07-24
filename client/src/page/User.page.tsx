@@ -8,12 +8,14 @@ import {
 import { ReturnNav } from '../comp/ReturnNav';
 import { Side, SideUser } from '../comp/Side.comp';
 import { Button } from '../comp/Button.comp';
-import { BiSolidComment, BiSolidDislike, BiSolidLike } from 'react-icons/bi';
-import '../style/page/User.page.scss';
 import { PostCard } from '../comp/card/PostCard.comp';
+import { Loading } from '../comp/Loading.comp';
+import '../style/page/User.page.scss';
 
 export const User = () => {
   const [page, setPage] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
   const [posts, setPosts] = useState<SerializedPostComment[] | undefined>(
     undefined
   );
@@ -23,9 +25,15 @@ export const User = () => {
 
   const getUser = async () => {
     try {
+      setLoading(true);
+      setUser(undefined);
+      setPosts(undefined);
+      setPage(0);
+
       const userFromDb = await request(`/getUser?user_id=${user_id}`, 'GET');
       if (userFromDb) {
         setUser(userFromDb);
+        await getPosts(0);
       } else {
         throw new Error('No user found');
       }
@@ -33,11 +41,15 @@ export const User = () => {
       if (error instanceof Error) {
         console.error(error.message);
       }
+    } finally {
+      setLoading(false);
     }
   };
 
   const getPosts = async (currentPage = page, incrememtPage = true) => {
     try {
+      setLoadingMore(true);
+
       const postsData = await request<unknown, SerializedPostComment[]>(
         `/getPostsComments?page=${currentPage}&type=post&profile_id=${user_id}`,
         'GET'
@@ -68,15 +80,13 @@ export const User = () => {
       if (error instanceof Error) {
         console.error(error.message);
       }
+    } finally {
+      setLoadingMore(false);
     }
   };
 
   useEffect(() => {
-    setUser(undefined);
-    setPosts(undefined);
-    setPage(0);
     getUser();
-    getPosts(0);
   }, [location]);
 
   return (
@@ -84,60 +94,48 @@ export const User = () => {
       <ReturnNav />
       <SideUser />
       <div id="userPage">
-        {user && (
-          <div id="userPageCon">
-            <header>
-              <img alt="" src={user?.profile_picture} />
-            </header>
-            <main>
-              <div>
-                <div>{user?.username}</div> - <p>{user?.created_at}</p>
-              </div>
-              <footer>
-                <Button
-                  type="button"
-                  onClick={() => {}}
-                  label="like"
-                  className="buttonOutline buttonLarge"
-                  name={user?.likes}
-                  SVG={<BiSolidLike />}
-                />
-                <Button
-                  type="button"
-                  onClick={() => {}}
-                  label="dislike"
-                  className="buttonOutline buttonLarge"
-                  name={user?.dislikes}
-                  SVG={<BiSolidDislike />}
-                />
-                <Button
-                  type="button"
-                  onClick={() => {}}
-                  label="comment"
-                  className="buttonOutline buttonLarge"
-                  name={user?.comments}
-                  SVG={<BiSolidComment />}
-                />
-              </footer>
-              <div>
-                <Button
-                  type="button"
-                  onClick={() => {}}
-                  label="comment"
-                  className={`buttonOutline`}
-                  name="Add"
-                />
-              </div>
-            </main>
-          </div>
-        )}
-        {posts && (
+        {loading ? (
+          <Loading />
+        ) : (
           <>
-            {posts.map((post) => (
-              <PostCard key={post.id} post={post} />
-            ))}
+            {user && (
+              <div id="userPageCon">
+                <header>
+                  <img alt="" src={user?.profile_picture} />
+                  <img alt="" src={user?.profile_picture} />
+                </header>
+                <main>
+                  <div>
+                    <div>{user?.username}</div>
+                    <p>{user?.created_at}</p>
+                  </div>
+                  <footer>
+                    <div>
+                      <div>Karma</div>
+                      <p>{user?.likes}</p>
+                    </div>
+                    <div>
+                      <div>Posts</div>
+                      <p>{user?.posts}</p>
+                    </div>
+                    <div>
+                      <div>Friends</div>
+                      <p>{user?.friends}</p>
+                    </div>
+                  </footer>
+                </main>
+              </div>
+            )}
+            {posts && (
+              <>
+                {posts.map((post) => (
+                  <PostCard key={post.id} post={post} />
+                ))}
+              </>
+            )}
             <Button
               type="button"
+              loading={loadingMore}
               onClick={async () => getPosts()}
               label="getMore"
               className="buttonOutline"

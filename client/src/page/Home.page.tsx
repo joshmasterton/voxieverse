@@ -5,11 +5,14 @@ import { Side, SideUser } from '../comp/Side.comp';
 import { useEffect, useState } from 'react';
 import { request } from '../utilities/request.utilities';
 import { SerializedPostComment } from '../../types/utilities/request.utilities.types';
-import '../style/page/Home.page.scss';
 import { PostCard } from '../comp/card/PostCard.comp';
 import { Button } from '../comp/Button.comp';
+import { Loading } from '../comp/Loading.comp';
+import '../style/page/Home.page.scss';
 
 export const Home = () => {
+  const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
   const [page, setPage] = useState(0);
   const [posts, setPosts] = useState<SerializedPostComment[] | undefined>(
     undefined
@@ -17,6 +20,8 @@ export const Home = () => {
 
   const getPosts = async (currentPage = page, incrememtPage = true) => {
     try {
+      setLoadingMore(true);
+
       const postsData = await request<unknown, SerializedPostComment[]>(
         `/getPostsComments?page=${currentPage}&type=post`,
         'GET'
@@ -47,11 +52,15 @@ export const Home = () => {
       if (error instanceof Error) {
         console.error(error.message);
       }
+    } finally {
+      setLoadingMore(false);
     }
   };
 
   useEffect(() => {
-    getPosts();
+    getPosts().finally(() => {
+      setLoading(false);
+    });
   }, []);
 
   return (
@@ -59,19 +68,24 @@ export const Home = () => {
       <Nav />
       <SideUser />
       <div id="home">
-        {posts && (
-          <>
-            {posts.map((post) => (
-              <PostCard key={post.id} post={post} />
-            ))}
-            <Button
-              type="button"
-              onClick={async () => getPosts()}
-              label="getMore"
-              className="buttonOutline"
-              name="More posts"
-            />
-          </>
+        {loading ? (
+          <Loading />
+        ) : (
+          posts && (
+            <>
+              {posts.map((post) => (
+                <PostCard key={post.id} post={post} />
+              ))}
+              <Button
+                type="button"
+                loading={loadingMore}
+                onClick={async () => getPosts()}
+                label="getMore"
+                className="buttonOutline"
+                name="More posts"
+              />
+            </>
+          )
         )}
         <Navigate
           to="/createPost"

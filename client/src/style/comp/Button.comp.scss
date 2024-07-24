@@ -44,13 +44,11 @@ button.buttonSmall > svg {
 
 button.buttonLarge {
   display: flex;
-  flex: 1;
-  padding: 0;
-  padding-right: App.$pad;
-  padding-left: 0.2rem;
+  flex-direction: column;
+  padding-bottom: App.$padSVG;
   min-width: none;
-  min-height: App.$height;
-  max-height: App.$height;
+  min-height: fit-content;
+  max-height: fit-content;
   font-size: App.$fontSmall;
 }
 

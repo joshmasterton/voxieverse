@@ -10,6 +10,8 @@
 
 #userPage > #userPageCon {
   display: flex;
+  flex-direction: column;
+  justify-content: center;
   width: 100%;
   min-width: 100%;
   gap: App.$pad;
@@ -25,55 +27,74 @@
   border-radius: App.$round;
 }
 
-#userPage > #userPageCon > header > img {
-  object-fit: contain;
-  min-width: calc(App.$height * 4 + (App.$padLarge));
-  max-width: calc(App.$height * 4 + (App.$padLarge));
-  min-height: calc(App.$height * 4 + (App.$padLarge));
-  max-height: calc(App.$height * 4 + (App.$padLarge));
-  object-fit: cover;
+#userPage > #userPageCon > header {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 100%;
+  min-height: 10rem;
   border-radius: App.$round;
+  overflow: hidden;
+}
+
+#userPage > #userPageCon > header > img:first-of-type {
+  position: absolute;
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  opacity: 50%;
+  filter: blur(1rem);
+  -webkit-filter: blur(1rem);
+}
+
+#userPage > #userPageCon > header > img:last-of-type {
+  min-width: 15rem;
+  max-width: 15rem;
+  min-height: 15rem;
+  max-height: 15rem;
+  object-fit: cover;
   z-index: 0;
 }
 
 #userPage > #userPageCon > main {
   display: flex;
   flex: 1;
-  max-height: calc(App.$height * 4 + (App.$padLarge));
   flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
   gap: App.$pad;
 }
 
 #userPage > #userPageCon > main > footer {
   display: flex;
   flex-wrap: wrap;
-  overflow: hidden;
+  justify-content: center;
+  align-items: center;
   width: 100%;
-  max-height: calc(App.$height + (App.$pad * 2));
-  padding: App.$pad;
-  gap: App.$pad + 0.1rem;
   border-radius: App.$round;
-  outline: var(--outline);
+}
+
+#userPage > #userPageCon > main > footer > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: calc(App.$height * 2);
+  gap: App.$padSmall;
+  border-radius: App.$round;
 }
 
 #userPage > #userPageCon > main > div {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   width: 100%;
-}
-
-#userPage > #userPageCon > main > div:first-of-type {
-  display: flex;
-  align-items: end;
   gap: App.$padSmall;
-  overflow: hidden;
 }
 
 #userPage > #userPageCon > main > div > button {
-  min-width: 100%;
-  max-width: 100%;
+  padding: App.$pad;
 }
 
 @media screen and (min-width: App.$widthLarge) {

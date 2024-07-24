@@ -9,6 +9,7 @@ import { CommentDetails } from '../../../types/comp/card/PostCard.comp.types';
 import { request } from '../../utilities/request.utilities';
 import { CommentCard } from './CommentCard.comp';
 import { useUser } from '../../context/User.context';
+import { Loading } from '../Loading.comp';
 import '../../style/comp/card/PostCard.comp.scss';
 
 export const PostCard = ({
@@ -20,6 +21,11 @@ export const PostCard = ({
 }) => {
   const navigate = useNavigate();
   const { user } = useUser();
+  const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [loadingLike, setLoadingLike] = useState(false);
+  const [loadingDislike, setLoadingDislike] = useState(false);
+  const [loadingSubmit, setLoadingSubmit] = useState(false);
   const [page, setPage] = useState(0);
   const [isComment, setIsComment] = useState(false);
   const [currentPost, setCurrentPost] = useState<SerializedPostComment>(post);
@@ -49,6 +55,8 @@ export const PostCard = ({
 
   const getComments = async (currentPage = page, incrememtPage = true) => {
     try {
+      setLoadingMore(true);
+
       const commentsData = await request<unknown, SerializedPostComment[]>(
         `/getPostsComments?page=${currentPage}&type=comment&post_parent_id=${post.id}`,
         'GET'
@@ -79,12 +87,16 @@ export const PostCard = ({
       if (error instanceof Error) {
         console.error(error.message);
       }
+    } finally {
+      setLoadingMore(false);
     }
   };
 
   const handleSubmit = async (e: FormEvent) => {
     try {
       e.preventDefault();
+      setLoadingSubmit(true);
+
       const formData = new FormData();
 
       formData.append('text', commentDetails.text);
@@ -93,25 +105,37 @@ export const PostCard = ({
         formData.append('post_parent_id', currentPost?.id?.toString());
       }
 
-      await request('/createPostComment', 'POST', formData);
+      const create = await request('/createPostComment', 'POST', formData);
 
-      setIsComment(false);
-      setCommentDetails({
-        text: ''
-      });
-      setPage(0);
-      setComments(undefined);
-      await getComments(0);
-      await getUpdatedPost();
+      if (create) {
+        setIsComment(false);
+        setCommentDetails({
+          text: ''
+        });
+        setPage(0);
+        setComments(undefined);
+        setLoading(true);
+        await getComments(0);
+        await getUpdatedPost();
+      }
     } catch (error) {
       if (error instanceof Error) {
         console.error(error.message);
       }
+    } finally {
+      setLoadingSubmit(false);
+      setLoading(false);
     }
   };
 
   const likeDislike = async (reaction: string) => {
     try {
+      if (reaction === 'like') {
+        setLoadingLike(true);
+      } else {
+        setLoadingDislike(true);
+      }
+
       await request('/likeDislike', 'POST', {
         user_id: user?.user_id,
         type_id: currentPost.id,
@@ -124,12 +148,17 @@ export const PostCard = ({
       if (error instanceof Error) {
         console.error(error.message);
       }
+    } finally {
+      setLoadingLike(false);
+      setLoadingDislike(false);
     }
   };
 
   useEffect(() => {
     if (isPostPage) {
-      getComments();
+      getComments().finally(() => {
+        setLoading(false);
+      });
     }
   }, []);
 
@@ -159,6 +188,7 @@ export const PostCard = ({
         <footer>
           <Button
             type="button"
+            loading={loadingLike}
             onClick={async () => likeDislike('like')}
             label="like"
             className={`buttonSmall buttonOutline ${currentPost.has_liked && 'buttonPrimarySVG'}`}
@@ -167,6 +197,7 @@ export const PostCard = ({
           />
           <Button
             type="button"
+            loading={loadingDislike}
             onClick={async () => likeDislike('dislike')}
             label="dislike"
             className={`buttonSmall buttonOutline ${currentPost.has_disliked && 'buttonPrimarySVG'}`}
@@ -203,6 +234,7 @@ export const PostCard = ({
             />
             <Button
               type="submit"
+              loading={loadingSubmit}
               onClick={() => {}}
               label="createComment"
               className="buttonPrimary"
@@ -211,22 +243,28 @@ export const PostCard = ({
           </form>
         )}
       </div>
-      {comments && (
-        <>
-          {comments.map((comment) => (
-            <CommentCard key={comment.id} comment={comment} />
-          ))}
-          {isPostPage && (
-            <Button
-              type="button"
-              onClick={async () => getComments()}
-              label="getMore"
-              className="buttonOutline"
-              name="More comments"
-            />
-          )}
-        </>
-      )}
+      {isPostPage &&
+        (loading ? (
+          <Loading />
+        ) : (
+          comments && (
+            <>
+              {comments.map((comment) => (
+                <CommentCard key={comment.id} comment={comment} />
+              ))}
+              {isPostPage && (
+                <Button
+                  type="button"
+                  loading={loadingMore}
+                  onClick={async () => getComments()}
+                  label="getMore"
+                  className="buttonOutline"
+                  name="More comments"
+                />
+              )}
+            </>
+          )
+        ))}
     </>
   );
 };

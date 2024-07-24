@@ -143,27 +143,6 @@ export class User {
 
       const user = userFromDb?.rows[0] as User;
 
-      const seconds = Math.floor(
-        (Date.now() - new Date(user.created_at!).getTime()) / 1000
-      );
-
-      this.created_at = 'Just now';
-
-      let interval = Math.floor(seconds / 86400);
-      if (interval >= 1) {
-        this.created_at = `${interval}d`;
-      } else {
-        interval = Math.floor(seconds / 3600);
-        if (interval >= 1) {
-          this.created_at = `${interval}hr`;
-        } else {
-          interval = Math.floor(seconds / 60);
-          if (interval >= 1) {
-            this.created_at = `${interval}m`;
-          }
-        }
-      }
-
       this.user_id = user.user_id;
       this.username = user.username;
       this.email = user.email;
@@ -173,6 +152,9 @@ export class User {
       this.posts = user.posts;
       this.comments = user.comments;
       this.friends = user.friends;
+      this.created_at = user.created_at
+        ? new Date(user.created_at).toLocaleString()
+        : undefined;
       this.last_online = user.last_online
         ? new Date(user.last_online).toLocaleString()
         : undefined;

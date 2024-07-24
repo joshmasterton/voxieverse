@@ -11,6 +11,7 @@ import {
   UserContext,
   UserProviderProps
 } from '../../types/context/User.context.types';
+import { Loading } from '../comp/Loading.comp';
 
 const User = createContext<UserContext | undefined>(undefined);
 
@@ -63,7 +64,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
   }, []);
 
   if (loading) {
-    return <div>Loading</div>;
+    return <Loading />;
   } else {
     return (
       <User.Provider value={{ user, setUser, logout }}>

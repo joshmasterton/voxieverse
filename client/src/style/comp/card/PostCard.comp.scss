@@ -73,7 +73,7 @@
   max-width: fit-content;
   min-height: none;
   height: auto;
-  max-height: 25rem;
+  max-height: 20rem;
   z-index: 0;
 }
 
@@ -93,4 +93,5 @@
 
 .postCard > form button {
   padding: App.$pad;
+  min-width: calc(App.$height * 3);
 }

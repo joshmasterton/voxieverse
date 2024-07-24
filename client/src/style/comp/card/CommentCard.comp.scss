@@ -78,7 +78,7 @@
 .commentCard > div > header {
   display: flex;
   align-items: center;
-  height: App.$heightSmall;
+  min-height: App.$heightSmall;
 }
 
 .commentCard > div > header > div {
@@ -149,5 +149,10 @@
 }
 
 .commentCard > div > form button {
+  min-width: calc(App.$height * 2);
   padding: App.$pad;
+}
+
+.commentCard > div > .loading {
+  padding: App.$padSVG;
 }

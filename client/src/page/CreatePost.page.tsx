@@ -11,6 +11,7 @@ import '../style/page/CreatePost.page.scss';
 
 export const CreatePost = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const [postDetails, setPostDetails] = useState<PostDetails>({
     text: '',
     file: undefined
@@ -18,6 +19,7 @@ export const CreatePost = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     try {
+      setLoading(true);
       e.preventDefault();
       const formData = new FormData();
 
@@ -37,6 +39,8 @@ export const CreatePost = () => {
       if (error instanceof Error) {
         console.error(error.message);
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -73,6 +77,7 @@ export const CreatePost = () => {
           <div>{postDetails.text.length}</div>
           <Button
             type="submit"
+            loading={loading}
             onClick={() => {}}
             label="createPost"
             className="buttonPrimary"

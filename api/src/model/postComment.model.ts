@@ -50,7 +50,7 @@ export class PostComment {
       await db.query(
         `
 					UPDATE ${usersTable}
-					SET comments = comments + 1
+					SET ${this.type}s = ${this.type}s + 1
 					WHERE user_id = $1
 				`,
         [this.user_id]

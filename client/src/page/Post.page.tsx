@@ -6,8 +6,10 @@ import { Side, SideUser } from '../comp/Side.comp';
 import { SerializedPostComment } from '../../types/utilities/request.utilities.types';
 import { PostCard } from '../comp/card/PostCard.comp';
 import '../style/page/Post.page.scss';
+import { Loading } from '../comp/Loading.comp';
 
 export const Post = () => {
+  const [loading, setLoading] = useState(true);
   const location = useLocation();
   const post_id = location.pathname.split('/').pop();
   const [post, setPost] = useState<SerializedPostComment | undefined>(
@@ -28,6 +30,8 @@ export const Post = () => {
       if (error instanceof Error) {
         console.error(error.message);
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -39,7 +43,9 @@ export const Post = () => {
     <>
       <ReturnNav />
       <SideUser />
-      <div id="postPage">{post && <PostCard post={post} isPostPage />}</div>
+      <div id="postPage">
+        {loading ? <Loading /> : post && <PostCard post={post} isPostPage />}
+      </div>
       <Side />
     </>
   );
