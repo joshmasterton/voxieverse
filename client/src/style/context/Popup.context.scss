@@ -10,7 +10,7 @@
   width: 100%;
   height: 100%;
   text-align: center;
-  padding: App.$padLarge;
+  padding: App.$padLarge * 1.35;
   z-index: 2;
 }
 
@@ -38,6 +38,11 @@
 #popup.active > button {
   opacity: 100%;
   transition: opacity App.$anim;
+}
+
+#popup > button {
+  opacity: 0;
+  background: transparent;
 }
 
 #popup > button:hover,

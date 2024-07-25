@@ -18,7 +18,7 @@ import { getUsers } from './router/user/getUsers.router';
 dotenv.config({ path: './src/env/dev.env' });
 
 export const app = express();
-const { NODE_ENV, CLIENT_URL } = process.env;
+const { NODE_ENV, CLIENT_URL, PORT } = process.env;
 const db = new Db();
 
 if (NODE_ENV !== 'test') {
@@ -63,7 +63,7 @@ app.use(getUsers());
 app.use(likeDislike());
 
 if (NODE_ENV !== 'test') {
-  app.listen(9001, () => {
-    console.log('Listening to server in dev mode on port 9001');
+  app.listen(PORT, () => {
+    console.log(`Listening to server in dev mode on port ${PORT}`);
   });
 }

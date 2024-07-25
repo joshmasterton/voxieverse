@@ -15,7 +15,7 @@ import { getPostsComments } from './router/postComment/getPostsComments.router.j
 import { likeDislike } from './router/likeDislike/createLikeDislike.router.js';
 import { getUser } from './router/user/getUser.router.js';
 import { getUsers } from './router/user/getUsers.router.js';
-dotenv.config({ path: './src/env/dev.env' });
+dotenv.config();
 export const app = express();
 const { NODE_ENV, CLIENT_URL } = process.env;
 const db = new Db();
