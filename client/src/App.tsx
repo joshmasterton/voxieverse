@@ -9,16 +9,19 @@ import { Post } from './page/Post.page';
 import { Private } from './comp/security/Private.comp';
 import { Public } from './comp/security/Public.comp';
 import { User } from './page/User.page';
+import { Popup, PopupProvider } from './context/Popup.context';
+import { Error } from './comp/security/Error.comp';
 import './style/App.scss';
 
 export const routes = [
   {
-    path: '/*',
+    path: '/',
     element: (
       <Private>
         <Home />
       </Private>
-    )
+    ),
+    errorElement: <Error />
   },
   {
     path: '/profile/:user_id',
@@ -26,7 +29,8 @@ export const routes = [
       <Private>
         <User />
       </Private>
-    )
+    ),
+    errorElement: <Error />
   },
   {
     path: '/post/:post_id',
@@ -34,7 +38,8 @@ export const routes = [
       <Private>
         <Post />
       </Private>
-    )
+    ),
+    errorElement: <Error />
   },
   {
     path: '/createPost',
@@ -42,7 +47,8 @@ export const routes = [
       <Private>
         <CreatePost />
       </Private>
-    )
+    ),
+    errorElement: <Error />
   },
   {
     path: '/login',
@@ -50,7 +56,8 @@ export const routes = [
       <Public>
         <Auth />
       </Public>
-    )
+    ),
+    errorElement: <Error />
   },
   {
     path: '/signup',
@@ -58,7 +65,8 @@ export const routes = [
       <Public>
         <Auth isSignup />
       </Public>
-    )
+    ),
+    errorElement: <Error />
   },
   {
     path: '/forgotPassword',
@@ -66,7 +74,8 @@ export const routes = [
       <Public>
         <ForgotPassword />
       </Public>
-    )
+    ),
+    errorElement: <Error />
   },
   {
     path: '/resetPassword',
@@ -74,7 +83,8 @@ export const routes = [
       <Public>
         <ForgotPassword isReset />
       </Public>
-    )
+    ),
+    errorElement: <Error />
   }
 ];
 
@@ -84,7 +94,10 @@ export const App = () => {
   return (
     <ThemeProvider>
       <UserProvider>
-        <RouterProvider router={router} />
+        <PopupProvider>
+          <RouterProvider router={router} />
+          <Popup />
+        </PopupProvider>
       </UserProvider>
     </ThemeProvider>
   );

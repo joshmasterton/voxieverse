@@ -9,10 +9,12 @@ import { useUser } from '../context/User.context';
 import { BsImage } from 'react-icons/bs';
 import { MdEmail } from 'react-icons/md';
 import { RiLockPasswordFill } from 'react-icons/ri';
+import { usePopup } from '../context/Popup.context';
 import '../style/page/Auth.page.scss';
 
 export const Auth = ({ isSignup = false }: AuthProps) => {
   const { setUser } = useUser();
+  const { setPopup } = usePopup();
   const [loading, setLoading] = useState(false);
   const [userDetails, setUserDetails] = useState<UserDetails>({
     username: '',
@@ -51,20 +53,17 @@ export const Auth = ({ isSignup = false }: AuthProps) => {
         const signup = await request('/signup', 'POST', formData);
         if (signup) {
           setUser(signup);
-        } else {
-          throw new Error('Signup failure');
         }
       } else {
         const login = await request('/login', 'POST', userDetails);
         if (login) {
           setUser(login);
-        } else {
-          throw new Error('Login failure');
         }
       }
     } catch (error) {
       if (error instanceof Error) {
         console.error(error.message);
+        setPopup(error.message);
       }
     } finally {
       setLoading(false);

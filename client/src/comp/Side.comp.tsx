@@ -3,18 +3,22 @@ import { useUser } from '../context/User.context';
 import { Navigate } from './Navigate.comp';
 import { Button, ButtonTheme } from './Button.comp';
 import { IoLogOut } from 'react-icons/io5';
+import { useState } from 'react';
 import '../style/comp/Side.comp.scss';
 
 export const Side = () => {
   return (
     <div id="side">
-      <div />
+      <div>
+        <div />
+      </div>
     </div>
   );
 };
 
 export const SideUser = () => {
   const { user, logout } = useUser();
+  const [loading, setLoading] = useState(false);
 
   return (
     <div id="sideUser">
@@ -51,7 +55,11 @@ export const SideUser = () => {
             <li>
               <Button
                 type="button"
-                onClick={logout}
+                loading={loading}
+                onClick={async () => {
+                  setLoading(true);
+                  await logout();
+                }}
                 label="logout"
                 name="Logout"
                 SVG={<IoLogOut />}

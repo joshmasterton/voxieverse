@@ -3,10 +3,30 @@
 #side {
   display: none;
   position: fixed;
-  top: calc(App.$height + (App.$padSVG * 3.4));
   right: App.$pad;
-  height: calc(100% - (App.$height + (App.$padSVG * 4.75)));
+  overflow: scroll;
+  height: 100%;
   width: calc(App.$height * 12);
+  padding: App.$pad;
+  padding-right: 0;
+  margin-bottom: 2rem;
+  padding-top: calc(App.$height + (App.$padSVG * 2));
+  border-left: var(--outline);
+}
+
+#side > div {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100%;
+  height: 100%;
+  gap: App.$pad;
+  padding-bottom: App.$pad;
+}
+
+#side > div > div {
+  min-width: 100%;
+  min-height: 100%;
   border-radius: App.$round;
   background: var(--background-shade);
 }
@@ -14,22 +34,22 @@
 #sideUser {
   position: fixed;
   display: none;
+  overflow: scroll;
   top: 0;
   left: 0;
-  padding-top: calc(App.$height + (App.$padSVG * 3.4));
+  padding-top: calc(App.$height + (App.$padSVG * 2));
   width: calc(App.$height * 8);
-  height: calc(100% - App.$pad);
+  height: 100%;
 }
 
 #sideUser > div {
   display: flex;
   flex-direction: column;
-  overflow: scroll;
   width: 100%;
+  min-height: 100%;
+  height: fit-content;
   gap: App.$pad;
   padding: App.$pad;
-  padding-top: 0.15rem;
-  padding-bottom: 0;
   border-right: var(--outline);
 }
 

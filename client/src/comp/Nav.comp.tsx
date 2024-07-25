@@ -8,6 +8,7 @@ import '../style/comp/Nav.scss';
 
 export const Nav = () => {
   const { user, logout } = useUser();
+  const [loading, setLoading] = useState(false);
   const [isMenu, setIsMenu] = useState(false);
 
   const handleMenuChange = () => {
@@ -57,7 +58,11 @@ export const Nav = () => {
             <li>
               <Button
                 type="button"
-                onClick={logout}
+                loading={loading}
+                onClick={async () => {
+                  setLoading(true);
+                  await logout();
+                }}
                 label="logout"
                 SVG={<IoLogOut />}
               />
@@ -107,7 +112,11 @@ export const Nav = () => {
             <li>
               <Button
                 type="button"
-                onClick={logout}
+                loading={loading}
+                onClick={async () => {
+                  setLoading(true);
+                  await logout();
+                }}
                 label="logout"
                 name="Logout"
                 SVG={<IoLogOut />}

@@ -3,6 +3,7 @@ import { createMemoryRouter } from 'react-router-dom';
 import { routes } from '../../src/App';
 import { ReactNode } from 'react';
 import { UserProvider } from '../../src/context/User.context';
+import { PopupProvider } from '../../src/context/Popup.context';
 
 export const mockUser = {
   comments: 0,
@@ -47,7 +48,9 @@ export const createTestRouter = (initalEntry: string) => {
 export const ContextWrapper = ({ children }: { children: ReactNode }) => {
   return (
     <ThemeProvider>
-      <UserProvider>{children}</UserProvider>
+      <UserProvider>
+        <PopupProvider>{children}</PopupProvider>
+      </UserProvider>
     </ThemeProvider>
   );
 };

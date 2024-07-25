@@ -7,10 +7,12 @@ import { PostDetails } from '../../types/page/CreatePost.page.types';
 import { BsImage } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
 import { request } from '../utilities/request.utilities';
+import { usePopup } from '../context/Popup.context';
 import '../style/page/CreatePost.page.scss';
 
 export const CreatePost = () => {
   const navigate = useNavigate();
+  const { setPopup } = usePopup();
   const [loading, setLoading] = useState(false);
   const [postDetails, setPostDetails] = useState<PostDetails>({
     text: '',
@@ -37,6 +39,7 @@ export const CreatePost = () => {
       }
     } catch (error) {
       if (error instanceof Error) {
+        setPopup(error.message);
         console.error(error.message);
       }
     } finally {

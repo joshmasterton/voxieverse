@@ -1,7 +1,7 @@
 import bcryptjs from 'bcryptjs';
 import { Db, tableConfigManager } from '../database/db.database';
 import { generateToken } from '../utilities/generateToken.utilities';
-import { SerializedUser } from '../../types/model/user.model.types';
+import { SerializedUser } from '../types/model/user.model.types';
 
 const db = new Db();
 

@@ -41,6 +41,11 @@
   stroke: white;
 }
 
+nav .loading,
+#sideUser .loading {
+  width: fit-content;
+}
+
 @keyframes spinner {
   from {
     transform: rotate(0deg);
