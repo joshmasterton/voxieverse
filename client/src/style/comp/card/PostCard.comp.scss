@@ -61,7 +61,7 @@
   min-width: 100%;
   min-height: 100%;
   object-fit: cover;
-  opacity: 50%;
+  opacity: var(--opacity);
   filter: blur(1rem);
   -webkit-filter: blur(1rem);
 }

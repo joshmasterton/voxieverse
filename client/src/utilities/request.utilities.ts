@@ -30,7 +30,7 @@ export const request = async <T, D>(
     return data;
   } catch (error) {
     if (error instanceof Error) {
-      console.error(error.message);
+      throw error;
     }
   }
 };

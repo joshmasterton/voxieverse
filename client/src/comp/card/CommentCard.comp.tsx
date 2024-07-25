@@ -14,6 +14,7 @@ import { request } from '../../utilities/request.utilities';
 import { useUser } from '../../context/User.context';
 import { Navigate } from '../Navigate.comp';
 import { Loading } from '../Loading.comp';
+import { usePopup } from '../../context/Popup.context';
 import '../../style/comp/card/CommentCard.comp.scss';
 
 export const CommentCard = ({
@@ -22,6 +23,7 @@ export const CommentCard = ({
   comment: SerializedPostComment;
 }) => {
   const { user } = useUser();
+  const { setPopup } = usePopup();
   const [loading, setLoading] = useState(false);
   const [loadingMore, setLoadingMore] = useState(false);
   const [loadingLike, setLoadingLike] = useState(false);
@@ -134,6 +136,7 @@ export const CommentCard = ({
       }
     } catch (error) {
       if (error instanceof Error) {
+        setPopup(error.message);
         console.error(error.message);
       }
     } finally {

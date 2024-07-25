@@ -10,6 +10,7 @@ import { request } from '../../utilities/request.utilities';
 import { CommentCard } from './CommentCard.comp';
 import { useUser } from '../../context/User.context';
 import { Loading } from '../Loading.comp';
+import { usePopup } from '../../context/Popup.context';
 import '../../style/comp/card/PostCard.comp.scss';
 
 export const PostCard = ({
@@ -21,6 +22,7 @@ export const PostCard = ({
 }) => {
   const navigate = useNavigate();
   const { user } = useUser();
+  const { setPopup } = usePopup();
   const [canLoadMore, setCanLoadMore] = useState(true);
   const [loading, setLoading] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
@@ -126,6 +128,7 @@ export const PostCard = ({
       }
     } catch (error) {
       if (error instanceof Error) {
+        setPopup(error.message);
         console.error(error.message);
       }
     } finally {

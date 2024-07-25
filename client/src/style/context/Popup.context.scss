@@ -1,0 +1,74 @@
+@use '../App.scss';
+
+#popup {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  padding: App.$padLarge;
+  z-index: 2;
+}
+
+#popup.hidden {
+  transform: scale(0);
+  transition: transform 0s ease 0.4s;
+}
+
+#popup.hidden > div {
+  transform: scale(0);
+}
+
+#popup > button {
+  position: absolute;
+  width: 100%;
+  min-height: 100%;
+  backdrop-filter: blur(1rem);
+  -webkit-backdrop-filter: blur(1rem);
+  opacity: 0%;
+  border-radius: 0;
+  transition: opacity App.$anim;
+  background: transparent;
+}
+
+#popup.active > button {
+  opacity: 100%;
+  transition: opacity App.$anim;
+}
+
+#popup > button:hover,
+#popup > button:focus {
+  outline: 0;
+  box-shadow: none;
+}
+
+#popup > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: App.$widthMedium;
+  min-height: calc(App.$height * 3);
+  border-radius: App.$round;
+  outline: var(--outline);
+  padding: App.$pad;
+  gap: App.$pad;
+  background: var(--background);
+  z-index: 1;
+}
+
+#popup > div > footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+#popup > div > footer > button {
+  flex: 1;
+}

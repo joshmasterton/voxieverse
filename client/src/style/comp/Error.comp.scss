@@ -1,0 +1,45 @@
+@use '../App.scss';
+
+#error {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  padding: App.$padLarge;
+  z-index: 2;
+}
+
+#error > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: App.$widthMedium;
+  min-height: calc(App.$height * 3);
+  border-radius: App.$round;
+  padding: App.$pad;
+  gap: App.$pad;
+  background: var(--background);
+  z-index: 1;
+}
+
+#error > div > footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+#error > div > footer > a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-height: App.$height;
+  padding: App.$pad;
+}

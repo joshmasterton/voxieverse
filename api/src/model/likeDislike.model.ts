@@ -1,5 +1,5 @@
 import { Db, tableConfigManager } from '../database/db.database';
-import { SerializedLikeDislike } from '../../types/model/likeDislike.model.types';
+import { SerializedLikeDislike } from '../types/model/likeDislike.model.types';
 
 const db = new Db();
 

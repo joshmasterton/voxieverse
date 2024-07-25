@@ -13,7 +13,7 @@ $padSVG: 0.6rem;
 $padLarge: 1.5rem;
 $padSmall: 0.4rem;
 
-$round: 0.1rem;
+$round: 0.3rem;
 
 $fontLarge: 1.25rem;
 $font: 1rem;
@@ -30,6 +30,7 @@ $anim: 0.4s ease;
   --background-outline: rgb(50, 50, 60);
   --background-shade: rgba(30, 30, 38, 0.6);
   --outline-shadow: 0 0 0 0.15rem #5921ff;
+  --opacity: 85%;
 }
 
 [data-theme='light'] {
@@ -41,6 +42,7 @@ $anim: 0.4s ease;
   --background-outline: rgb(150, 150, 160);
   --background-shade: rgba(235, 235, 240, 0.6);
   --outline-shadow: 0 0 0 0.15rem #5921ff;
+  --opacity: 85%;
 }
 
 * {
