@@ -45,7 +45,7 @@
   max-width: App.$heightSmall;
   min-height: App.$heightSmall;
   max-height: App.$heightSmall;
-  padding: App.$padSmall;
+  padding: 0.15rem;
 }
 
 .commentCard > header > p {
@@ -148,11 +148,11 @@
   align-items: end;
 }
 
+.commentCard > div > .loading {
+  padding: 0.75rem;
+}
+
 .commentCard > div > form button {
   min-width: calc(App.$height * 2);
   padding: App.$pad;
-}
-
-.commentCard > div > .loading {
-  padding: App.$padSVG;
 }

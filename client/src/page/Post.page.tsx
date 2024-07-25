@@ -9,9 +9,9 @@ import '../style/page/Post.page.scss';
 import { Loading } from '../comp/Loading.comp';
 
 export const Post = () => {
-  const [loading, setLoading] = useState(true);
   const location = useLocation();
   const post_id = location.pathname.split('/').pop();
+  const [loading, setLoading] = useState(true);
   const [post, setPost] = useState<SerializedPostComment | undefined>(
     undefined
   );

@@ -13,15 +13,16 @@ import { Loading } from '../comp/Loading.comp';
 import '../style/page/User.page.scss';
 
 export const User = () => {
+  const location = useLocation();
+  const user_id = location.pathname.split('/').pop();
   const [page, setPage] = useState(0);
+  const [canLoadMore, setCanLoadMore] = useState(true);
   const [loading, setLoading] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
+  const [user, setUser] = useState<SerializedUser | undefined>(undefined);
   const [posts, setPosts] = useState<SerializedPostComment[] | undefined>(
     undefined
   );
-  const [user, setUser] = useState<SerializedUser | undefined>(undefined);
-  const location = useLocation();
-  const user_id = location.pathname.split('/').pop();
 
   const getUser = async () => {
     try {
@@ -30,7 +31,10 @@ export const User = () => {
       setPosts(undefined);
       setPage(0);
 
-      const userFromDb = await request(`/getUser?user_id=${user_id}`, 'GET');
+      const userFromDb = await request<unknown, SerializedUser>(
+        `/getUser?user_id=${user_id}`,
+        'GET'
+      );
       if (userFromDb) {
         setUser(userFromDb);
         await getPosts(0);
@@ -56,6 +60,10 @@ export const User = () => {
       );
 
       if (postsData) {
+        if (postsData.length < 10) {
+          setCanLoadMore(false);
+        }
+
         setPosts((prevPosts) => {
           if (prevPosts && postsData.length > 0) {
             return [...prevPosts, ...postsData];
@@ -79,6 +87,7 @@ export const User = () => {
     } catch (error) {
       if (error instanceof Error) {
         console.error(error.message);
+        setCanLoadMore(false);
       }
     } finally {
       setLoadingMore(false);
@@ -107,7 +116,7 @@ export const User = () => {
                 <main>
                   <div>
                     <div>{user?.username}</div>
-                    <p>{user?.created_at}</p>
+                    <p>{user?.email}</p>
                   </div>
                   <footer>
                     <div>
@@ -123,6 +132,10 @@ export const User = () => {
                       <p>{user?.friends}</p>
                     </div>
                   </footer>
+                  <div>
+                    <div>Creation</div>
+                    <p>{user?.created_at}</p>
+                  </div>
                 </main>
               </div>
             )}
@@ -131,16 +144,18 @@ export const User = () => {
                 {posts.map((post) => (
                   <PostCard key={post.id} post={post} />
                 ))}
+                {canLoadMore && (
+                  <Button
+                    type="button"
+                    loading={loadingMore}
+                    onClick={async () => getPosts()}
+                    label="getMore"
+                    className="buttonOutline"
+                    name="More posts"
+                  />
+                )}
               </>
             )}
-            <Button
-              type="button"
-              loading={loadingMore}
-              onClick={async () => getPosts()}
-              label="getMore"
-              className="buttonOutline"
-              name="More posts"
-            />
           </>
         )}
       </div>

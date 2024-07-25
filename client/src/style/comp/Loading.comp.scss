@@ -1,49 +1,44 @@
 @use '../App.scss';
 
-div.loading {
+.loading {
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   align-self: center;
+  min-width: App.$height;
   width: 100%;
   height: 100%;
 }
 
 .loading.buttonSmall {
-  padding-left: App.$padSmall;
+  margin-left: App.$padSmall;
 }
 
-.loading > div:first-of-type {
+.loading > svg {
   position: absolute;
-  width: calc(App.$pad * 1.25);
-  height: calc(App.$pad * 1.25);
-  border: 0.2rem solid var(--primary);
-  opacity: 50%;
+  min-width: calc(App.$height + (App.$pad));
+  max-width: calc(App.$height + (App.$pad));
+  min-height: calc(App.$height + (App.$pad));
+  max-height: calc(App.$height + (App.$pad));
+  animation: 2s infinite spinner linear;
   border-radius: 10rem;
 }
 
-.loading.buttonPrimary > div:first-of-type {
-  border: 0.2rem solid white;
+.loading > svg > circle {
+  transform: scale(2);
+  transform-origin: center;
+  stroke: var(--primary);
+  stroke-linecap: round;
+  animation: 2s infinite dash linear;
 }
 
-.loading > div:last-of-type {
-  position: absolute;
-  min-width: calc(App.$pad * 1.25);
-  min-height: calc(App.$pad * 1.25);
-  border-left: 0.2rem solid transparent;
-  border-top: 0.2rem solid var(--primary);
-  border-bottom: 0.2rem solid var(--primary);
-  border-right: 0.2rem solid var(--primary);
-  border-radius: 10rem;
-  animation: 1s infinite spinner;
+.loading.buttonSmall > svg > circle {
+  transform: scale(1.25);
 }
 
-.loading.buttonPrimary > div:last-of-type {
-  border-left: 0.2rem solid transparent;
-  border-top: 0.2rem solid white;
-  border-bottom: 0.2rem solid white;
-  border-right: 0.2rem solid white;
+.loading.buttonPrimary > svg > circle {
+  stroke: white;
 }
 
 @keyframes spinner {
@@ -52,5 +47,20 @@ div.loading {
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1, 150;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -20;
+  }
+  100% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -90;
   }
 }

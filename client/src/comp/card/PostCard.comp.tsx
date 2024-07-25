@@ -21,6 +21,7 @@ export const PostCard = ({
 }) => {
   const navigate = useNavigate();
   const { user } = useUser();
+  const [canLoadMore, setCanLoadMore] = useState(true);
   const [loading, setLoading] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
   const [loadingLike, setLoadingLike] = useState(false);
@@ -63,6 +64,10 @@ export const PostCard = ({
       );
 
       if (commentsData) {
+        if (commentsData.length < 10) {
+          setCanLoadMore(false);
+        }
+
         setComments((prevComments) => {
           if (prevComments && commentsData.length > 0) {
             return [...prevComments, ...commentsData];
@@ -86,6 +91,7 @@ export const PostCard = ({
     } catch (error) {
       if (error instanceof Error) {
         console.error(error.message);
+        setCanLoadMore(false);
       }
     } finally {
       setLoadingMore(false);
@@ -252,7 +258,7 @@ export const PostCard = ({
               {comments.map((comment) => (
                 <CommentCard key={comment.id} comment={comment} />
               ))}
-              {isPostPage && (
+              {isPostPage && canLoadMore && (
                 <Button
                   type="button"
                   loading={loadingMore}

@@ -13,6 +13,7 @@ import '../style/page/Home.page.scss';
 export const Home = () => {
   const [loading, setLoading] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
+  const [canLoadMore, setCanLoadMore] = useState(true);
   const [page, setPage] = useState(0);
   const [posts, setPosts] = useState<SerializedPostComment[] | undefined>(
     undefined
@@ -28,6 +29,10 @@ export const Home = () => {
       );
 
       if (postsData) {
+        if (postsData.length < 10) {
+          setCanLoadMore(false);
+        }
+
         setPosts((prevPosts) => {
           if (prevPosts && postsData.length > 0) {
             return [...prevPosts, ...postsData];
@@ -51,6 +56,7 @@ export const Home = () => {
     } catch (error) {
       if (error instanceof Error) {
         console.error(error.message);
+        setCanLoadMore(false);
       }
     } finally {
       setLoadingMore(false);
@@ -76,14 +82,16 @@ export const Home = () => {
               {posts.map((post) => (
                 <PostCard key={post.id} post={post} />
               ))}
-              <Button
-                type="button"
-                loading={loadingMore}
-                onClick={async () => getPosts()}
-                label="getMore"
-                className="buttonOutline"
-                name="More posts"
-              />
+              {canLoadMore && (
+                <Button
+                  type="button"
+                  loading={loadingMore}
+                  onClick={async () => getPosts()}
+                  label="getMore"
+                  className="buttonOutline"
+                  name="More posts"
+                />
+              )}
             </>
           )
         )}
