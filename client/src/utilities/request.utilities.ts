@@ -1,6 +1,6 @@
 import { ErrorResponse } from '../../types/utilities/request.utilities.types';
 
-// const API_URL = 'http://ec2-3-10-51-74.eu-west-2.compute.amazonaws.com:9001';
+// const API_URL = 'https://api.voxieverse.com';
 const API_URL = 'http://localhost:9001';
 
 export const request = async <T, D>(

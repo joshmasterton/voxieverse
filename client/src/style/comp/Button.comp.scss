@@ -76,26 +76,39 @@ button:focus {
 }
 
 div.buttonTheme {
+  position: relative;
   display: flex;
+  align-items: center;
   justify-content: center;
   width: calc(App.$height * 2);
+  height: calc(App.$height);
+  overflow: hidden;
   border-radius: App.$round;
-  outline: var(--outline);
+  padding: 0;
+  margin: 0;
+  background: var(--primary);
 }
 
 div.buttonTheme > button {
+  position: absolute;
   transition:
     transform App.$anim,
     box-shadow App.$anim,
     outline-color App.$anim;
-  color: white;
-  background: var(--primary);
+  min-width: calc(App.$height / 1.25);
+  max-width: calc(App.$height / 1.25);
+  min-height: calc(App.$height / 1.25);
+  max-height: calc(App.$height / 1.25);
+  padding: 0;
+  margin: 0;
+  outline: none;
+  background: var(--background);
 }
 
 div.buttonTheme > button.dark {
-  transform: translateX(-50%);
+  transform: translateX(calc(App.$height / 2));
 }
 
 div.buttonTheme > button.light {
-  transform: translateX(50%);
+  transform: translateX(- calc(App.$height / 2));
 }

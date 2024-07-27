@@ -15,7 +15,11 @@ export const ReturnNav = () => {
             SVG={<IoIosArrowBack />}
             className="transparent"
           />
-          <img alt="" src={user?.profile_picture} />
+          <Navigate
+            to={`/profile/${user?.user_id}`}
+            onClick={() => {}}
+            SVG={<img alt="" src={user?.profile_picture} />}
+          />
         </div>
       </header>
     </nav>

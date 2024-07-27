@@ -15,8 +15,19 @@
 }
 
 #auth > header {
+  position: relative;
   display: flex;
   justify-content: space-between;
+}
+
+#auth > header > img {
+  position: absolute;
+  transform: translateX(-50%);
+  left: 50%;
+  top: - calc(App.$padSVG * 4.5);
+  background: var(--background);
+  outline: var(--outline);
+  border-radius: App.$round;
 }
 
 #auth > main {

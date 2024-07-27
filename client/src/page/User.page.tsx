@@ -109,14 +109,27 @@ export const User = () => {
           <>
             {user && (
               <div id="userPageCon">
+                <div>
+                  <img alt="" src={user?.profile_picture} />
+                </div>
                 <header>
                   <img alt="" src={user?.profile_picture} />
-                  <img alt="" src={user?.profile_picture} />
+                  {/* <Button
+                    type="button"
+                    onClick={() => {}}
+                    label="editProfile"
+                    name="Edit profile"
+                    className="buttonPrimary"
+                  /> */}
                 </header>
                 <main>
                   <div>
                     <div>{user?.username}</div>
                     <p>{user?.email}</p>
+                  </div>
+                  <div>
+                    <div>Joined</div>
+                    <p>{user?.created_at}</p>
                   </div>
                   <footer>
                     <div>
@@ -132,10 +145,6 @@ export const User = () => {
                       <p>{user?.friends}</p>
                     </div>
                   </footer>
-                  <div>
-                    <div>Creation</div>
-                    <p>{user?.created_at}</p>
-                  </div>
                 </main>
               </div>
             )}

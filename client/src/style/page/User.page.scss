@@ -9,6 +9,7 @@
 }
 
 #userPage > #userPageCon {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -19,47 +20,42 @@
   border-bottom: var(--outline);
 }
 
-#userPage > #userPageCon > header {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  overflow: hidden;
-  border-radius: App.$round;
-}
-
-#userPage > #userPageCon > header {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-width: 100%;
-  min-height: 10rem;
-  border-radius: App.$round;
-  overflow: hidden;
-}
-
-#userPage > #userPageCon > header > img:first-of-type {
+#userPage > #userPageCon > div {
   position: absolute;
-  min-width: 100%;
-  min-height: 100%;
-  object-fit: cover;
-  opacity: var(--opacity);
-  filter: blur(1rem);
-  -webkit-filter: blur(1rem);
+  top: - calc(App.$pad);
+  left: - calc(App.$pad);
+  height: calc(App.$height * 3);
+  width: calc(100% + (App.$pad * 2));
+  background: var(--background-shade);
 }
 
-#userPage > #userPageCon > header > img:last-of-type {
-  min-width: 10rem;
-  max-width: 10rem;
-  min-height: 10rem;
-  max-height: 10rem;
-  object-fit: cover;
-  z-index: 0;
+#userPage > #userPageCon > div > img {
+  display: none;
+}
+
+#userPage > #userPageCon > header {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: start;
+  min-width: 100%;
+  gap: App.$pad;
+  border-radius: App.$round;
+}
+
+#userPage > #userPageCon > header > img {
+  min-width: calc(App.$height * 4);
+  min-height: calc(App.$height * 4);
+  background: var(--background);
+}
+
+#userPage > #userPageCon button {
+  padding: App.$pad;
 }
 
 #userPage > #userPageCon > main {
   display: flex;
-  flex: 1;
   flex-direction: column;
   gap: App.$pad;
 }
@@ -67,18 +63,15 @@
 #userPage > #userPageCon > main > footer {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
   width: 100%;
+  gap: App.$pad;
   border-radius: App.$round;
 }
 
 #userPage > #userPageCon > main > footer > div {
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  align-items: center;
-  min-width: calc(App.$height * 2);
+  align-items: end;
   gap: App.$padSmall;
   border-radius: App.$round;
 }
@@ -86,9 +79,7 @@
 #userPage > #userPageCon > main > div {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+  justify-content: start;
   width: 100%;
   gap: App.$padSmall;
 }

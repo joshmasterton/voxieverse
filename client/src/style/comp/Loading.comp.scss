@@ -21,14 +21,14 @@
   max-width: calc(App.$height + (App.$pad));
   min-height: calc(App.$height + (App.$pad));
   max-height: calc(App.$height + (App.$pad));
-  animation: 2s infinite spinner linear;
+  animation: 1.2s infinite spinner linear;
   border-radius: 10rem;
 }
 
 .loading > svg > circle {
   transform: scale(2);
   transform-origin: center;
-  stroke: var(--primary);
+  stroke: var(--primaryOutline);
   stroke-linecap: round;
   animation: 2s infinite dash linear;
 }

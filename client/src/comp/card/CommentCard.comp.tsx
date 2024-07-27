@@ -163,6 +163,7 @@ export const CommentCard = ({
     } catch (error) {
       if (error instanceof Error) {
         console.error(error.message);
+        await getUpdatedParentComment();
       }
     } finally {
       setLoadingLike(false);

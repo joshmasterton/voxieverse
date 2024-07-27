@@ -29,7 +29,11 @@ export const Nav = () => {
     <nav className={isMenu ? 'active' : 'hidden'}>
       <header>
         <div>
-          <img alt="" src={user?.profile_picture} />
+          <Navigate
+            to={`/profile/${user?.user_id}`}
+            onClick={() => {}}
+            SVG={<img alt="" src={user?.profile_picture} />}
+          />
           <ul>
             <li>
               <Navigate

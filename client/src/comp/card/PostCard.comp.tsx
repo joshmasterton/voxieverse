@@ -156,6 +156,7 @@ export const PostCard = ({
     } catch (error) {
       if (error instanceof Error) {
         console.error(error.message);
+        await getUpdatedPost();
       }
     } finally {
       setLoadingLike(false);

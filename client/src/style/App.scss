@@ -2,8 +2,8 @@
 
 $height: 2.25rem;
 $heightSmall: 1.5rem;
-$widthLarge: 40rem;
-$widthExtraLarge: 67.5rem;
+$widthLarge: 45rem;
+$widthExtraLarge: 75rem;
 $widthMedium: 25rem;
 $width: 5rem;
 
@@ -13,7 +13,7 @@ $padSVG: 0.6rem;
 $padLarge: 1.5rem;
 $padSmall: 0.4rem;
 
-$round: 0.3rem;
+$round: 0.1rem;
 
 $fontLarge: 1.25rem;
 $font: 1rem;
@@ -23,25 +23,27 @@ $anim: 0.4s ease;
 
 [data-theme='dark'] {
   --color: white;
-  --primary: #5921ff;
+  --primary: linear-gradient(45deg, #235fbe, #6543e0);
+  --primaryOutline: #235fbe;
   --background: rgba(0, 0, 0, 1);
-  --backgroundBlur: rgba(0, 0, 0, 0.6);
+  --backgroundBlur: rgba(0, 0, 0, 0.75);
   --outline: 0.075rem solid rgb(50, 50, 60);
   --background-outline: rgb(50, 50, 60);
   --background-shade: rgba(30, 30, 38, 0.6);
-  --outline-shadow: 0 0 0 0.15rem #5921ff;
+  --outline-shadow: 0 0 0 0.15rem #235fbe;
   --opacity: 85%;
 }
 
 [data-theme='light'] {
   --color: black;
-  --primary: #5921ff;
+  --primary: linear-gradient(45deg, #226de6, #6a43f7);
+  --primaryOutline: #226de6;
   --background: rgb(255, 255, 255);
-  --backgroundBlur: rgba(255, 255, 255, 0.6);
+  --backgroundBlur: rgba(255, 255, 255, 0.75);
   --outline: 0.075rem solid rgb(150, 150, 160);
   --background-outline: rgb(150, 150, 160);
   --background-shade: rgba(235, 235, 240, 0.6);
-  --outline-shadow: 0 0 0 0.15rem #5921ff;
+  --outline-shadow: 0 0 0 0.15rem #226de6;
   --opacity: 85%;
 }
 
@@ -114,4 +116,5 @@ img {
   border-radius: $round;
   object-fit: cover;
   object-position: center;
+  outline: var(--outline);
 }

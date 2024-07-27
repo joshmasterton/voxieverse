@@ -1,5 +1,4 @@
 import { useRouteError } from 'react-router-dom';
-import { Navigate } from '../Navigate.comp';
 import '../../style/comp/Error.comp.scss';
 
 export const Error = () => {
@@ -11,19 +10,11 @@ export const Error = () => {
     <div id="error">
       <div>
         <header>
-          <h1>{error.status}</h1>
+          <h1>404</h1>
         </header>
         <main>
-          <div>{error.statusText}</div>
+          <div>Error</div>
         </main>
-        <footer>
-          <Navigate
-            to=".."
-            onClick={() => {}}
-            name="Okay"
-            className="buttonPrimary"
-          />
-        </footer>
       </div>
     </div>
   );

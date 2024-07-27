@@ -54,6 +54,7 @@
   min-height: 10rem;
   border-radius: App.$round;
   overflow: hidden;
+  outline: var(--outline);
 }
 
 .postCard > main > div > img:first-of-type {
@@ -68,8 +69,9 @@
 
 .postCard > main > div > img:last-of-type {
   object-fit: contain;
-  min-width: none;
+  min-width: 10rem;
   width: 100%;
+  flex: 1;
   max-width: fit-content;
   min-height: none;
   height: auto;

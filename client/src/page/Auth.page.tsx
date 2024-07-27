@@ -10,10 +10,14 @@ import { BsImage } from 'react-icons/bs';
 import { MdEmail } from 'react-icons/md';
 import { RiLockPasswordFill } from 'react-icons/ri';
 import { usePopup } from '../context/Popup.context';
+import logoDark from '../../public/voxieverse_logo_dark.png';
+import logoLight from '../../public/voxieverse_logo_light.png';
+import { useTheme } from '../context/Theme.context';
 import '../style/page/Auth.page.scss';
 
 export const Auth = ({ isSignup = false }: AuthProps) => {
   const { setUser } = useUser();
+  const { theme } = useTheme();
   const { setPopup } = usePopup();
   const [loading, setLoading] = useState(false);
   const [userDetails, setUserDetails] = useState<UserDetails>({
@@ -79,6 +83,7 @@ export const Auth = ({ isSignup = false }: AuthProps) => {
       onSubmit={(e) => handleOnSubmit(e)}
     >
       <header>
+        <img alt="" src={theme === 'dark' ? logoLight : logoDark} />
         <h1>{isSignup ? 'Signup' : 'Login'}</h1>
         <ButtonTheme />
       </header>
@@ -120,13 +125,13 @@ export const Auth = ({ isSignup = false }: AuthProps) => {
           placeholder="Password"
           SVG={<RiLockPasswordFill />}
         />
-        {!isSignup && (
+        {/* {!isSignup && (
           <Navigate
             to="/forgotPassword"
             name="Forgot password?"
             onClick={() => {}}
           />
-        )}
+        )} */}
         {isSignup && (
           <Input<UserDetails>
             id="confirmPassword"

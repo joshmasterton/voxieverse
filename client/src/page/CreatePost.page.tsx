@@ -65,7 +65,7 @@ export const CreatePost = () => {
           type="text"
           value={postDetails.text}
           setValue={setPostDetails}
-          placeholder="How are you today?"
+          placeholder="New post here..."
           isTextarea
         />
         <div>
