@@ -199,7 +199,7 @@ export const PostCard = ({
           <Button
             type="button"
             loading={loadingLike}
-            onClick={async () => likeDislike('like')}
+            onClick={async () => await likeDislike('like')}
             label="like"
             className={`buttonSmall buttonOutline ${currentPost.has_liked && 'buttonPrimarySVG'}`}
             name={currentPost?.likes}
@@ -208,7 +208,7 @@ export const PostCard = ({
           <Button
             type="button"
             loading={loadingDislike}
-            onClick={async () => likeDislike('dislike')}
+            onClick={async () => await likeDislike('dislike')}
             label="dislike"
             className={`buttonSmall buttonOutline ${currentPost.has_disliked && 'buttonPrimarySVG'}`}
             name={currentPost?.dislikes}

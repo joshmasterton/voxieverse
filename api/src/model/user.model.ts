@@ -2,6 +2,7 @@ import bcryptjs from 'bcryptjs';
 import { Db, tableConfigManager } from '../database/db.database';
 import { generateToken } from '../utilities/generateToken.utilities';
 import { SerializedUser } from '../types/model/user.model.types';
+import { Friend } from './friend.model';
 
 const db = new Db();
 
@@ -18,7 +19,8 @@ export class User {
     private comments?: number,
     private friends?: number,
     private created_at?: string,
-    private last_online?: string
+    private last_online?: string,
+    private friend_status?: boolean
   ) {}
 
   async signup(): Promise<User | undefined> {
@@ -123,7 +125,7 @@ export class User {
     }
   }
 
-  async get() {
+  async get(auth_user_id?: number) {
     const { usersTable } = tableConfigManager.getConfig();
 
     try {
@@ -142,6 +144,18 @@ export class User {
       }
 
       const user = userFromDb?.rows[0] as User;
+
+      if (auth_user_id) {
+        const friend_status = await new Friend(
+          undefined,
+          auth_user_id,
+          this.user_id
+        ).get();
+
+        if (friend_status) {
+          this.friend_status = friend_status.friend_accepted;
+        }
+      }
 
       this.user_id = user.user_id;
       this.username = user.username;
@@ -167,7 +181,7 @@ export class User {
     }
   }
 
-  async gets(page = 0, sort = `created_at`) {
+  async gets(page = 0, sort = `created_at`, auth_user_id?: number) {
     const { usersTable } = tableConfigManager.getConfig();
 
     try {
@@ -176,10 +190,11 @@ export class User {
 					SELECT user_id, username, email, profile_picture, likes, dislikes,
 					posts, comments, friends, created_at, last_online
 					FROM ${usersTable}
+					WHERE user_id != $1
 					ORDER BY ${sort} DESC
-					LIMIT $1 OFFSET $2
+					LIMIT $2 OFFSET $3
 				`,
-        [10, page * 10]
+        [this.user_id, 10, page * 10]
       );
 
       if (!usersFromDb?.rows[0]) {
@@ -193,7 +208,7 @@ export class User {
           undefined,
           undefined,
           user.user_id
-        ).get();
+        ).get(auth_user_id);
       });
 
       return Promise.all(usersPromises);
@@ -233,7 +248,8 @@ export class User {
       comments: this.comments,
       friends: this.friends,
       created_at: this.created_at,
-      last_online: this.last_online
+      last_online: this.last_online,
+      friend_status: this.friend_status
     };
 
     return serializeUser;

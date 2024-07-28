@@ -218,7 +218,7 @@ export const CommentCard = ({
             <Button
               type="button"
               loading={loadingLike}
-              onClick={async () => likeDislike('like')}
+              onClick={async () => await likeDislike('like')}
               label="like"
               className={`buttonSmall buttonOutline ${currentComment.has_liked && 'buttonPrimarySVG'}`}
               name={currentComment?.likes}
@@ -227,7 +227,7 @@ export const CommentCard = ({
             <Button
               type="button"
               loading={loadingDislike}
-              onClick={async () => likeDislike('dislike')}
+              onClick={async () => await likeDislike('dislike')}
               label="dislike"
               className={`buttonSmall buttonOutline ${currentComment.has_disliked && 'buttonPrimarySVG'}`}
               name={currentComment?.dislikes}

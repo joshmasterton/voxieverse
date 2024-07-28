@@ -1,7 +1,7 @@
 import pg from 'pg';
 import dotenv from 'dotenv';
 import { TableConfig } from '../types/db/database.types';
-dotenv.config({ path: './src/env/dev.env' });
+dotenv.config();
 
 const { DB_URL } = process.env;
 
@@ -16,7 +16,8 @@ class TableConfigManager {
     return {
       usersTable: 'voxieverse_users',
       postsCommentsTable: 'voxieverse_posts_comments',
-      likesDislikesTable: 'voxieverse_likes_dislikes'
+      likesDislikesTable: 'voxieverse_likes_dislikes',
+      friendsTable: 'voxieverse_friends'
     };
   }
 
@@ -114,8 +115,30 @@ export class Db {
 						id SERIAL PRIMARY KEY,
 						type VARCHAR(10),
 						type_id INT NOT NULL,
-						useR_id INT NOT NULL,
+						user_id INT NOT NULL,
 						reaction VARCHAR(10)
+					)
+				`,
+        []
+      );
+    } catch (error) {
+      if (error instanceof Error) {
+        throw error;
+      }
+    }
+  }
+
+  async createFriends(friendsTable = 'voxieverse_friends') {
+    try {
+      await this.query(
+        `
+					CREATE TABLE IF NOT EXISTS ${friendsTable}(
+						id SERIAL PRIMARY KEY,
+						friend_initiator_id INT NOT NULL,
+						friend_one_id INT NOT NULL,
+						friend_two_id INT NOT NULL,
+						friend_accepted boolean DEFAULT false,
+						created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
 					)
 				`,
         []
@@ -130,12 +153,14 @@ export class Db {
   async dropTables(
     usersTable = 'voxieverse_users',
     postsCommentsTable = 'voxieverse_posts_comments',
-    likesDislikesTable = 'voxieverse_likes_dislikes'
+    likesDislikesTable = 'voxieverse_likes_dislikes',
+    friendsTable = 'voxieverse_friends'
   ) {
     try {
       await this.query(`DROP TABLE IF EXISTS ${usersTable}`, []);
       await this.query(`DROP TABLE IF EXISTS ${postsCommentsTable}`, []);
       await this.query(`DROP TABLE IF EXISTS ${likesDislikesTable}`, []);
+      await this.query(`DROP TABLE IF EXISTS ${friendsTable}`, []);
     } catch (error) {
       if (error instanceof Error) {
         throw error;

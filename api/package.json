@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "tsx watch ./src/app.ts",
     "prod": "node ./dist/app.js",
-    "build": "tsc",
+    "build": "tsc && tsc-alias --resolve-full-paths",
     "test": "SET NODE_ENV=test&&vitest"
   },
   "type": "module",
@@ -38,6 +38,7 @@
     "@types/supertest": "^6.0.2",
     "@types/uuid": "^10.0.0",
     "supertest": "^7.0.0",
+    "tsc-alias": "^1.8.10",
     "tsx": "^4.16.2",
     "typescript": "^5.5.3",
     "vitest": "^1.6.0"

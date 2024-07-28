@@ -3,7 +3,7 @@ import { app } from '../../../src/app';
 import request from 'supertest';
 import path from 'path';
 
-describe('/getUsers', () => {
+describe('/removeFriend', () => {
   const profilePicture = path.join(
     __dirname,
     '..',
@@ -12,7 +12,7 @@ describe('/getUsers', () => {
     'voxieverse_test.png'
   );
 
-  test('Should return users', async () => {
+  test('Should return success on removed friendship', async () => {
     const signup = await request(app)
       .post('/signup')
       .field({
@@ -33,54 +33,31 @@ describe('/getUsers', () => {
       })
       .attach('file', profilePicture);
 
+    const login = await request(app).post('/login').send({
+      username: signup.body.username,
+      password: 'Password'
+    });
+
     await request(app)
-      .post('/signup')
-      .field({
-        username: 'testUserThree',
-        email: 'test@email.com',
-        password: 'Password',
-        confirmPassword: 'Password'
+      .post('/addFriend')
+      .send({
+        friend_id: 2
       })
-      .attach('file', profilePicture);
-
-    const login = await request(app).post('/login').send({
-      username: signup.body.username,
-      password: 'Password'
-    });
-
-    const getUsers = await request(app)
-      .get('/getUsers')
       .set('Cookie', [
         login.headers['set-cookie'][0].split(/;/)[0],
         login.headers['set-cookie'][1].split(/;/)[0]
       ]);
 
-    expect(getUsers.body).toHaveLength(2);
-  });
-
-  test('Should reutrn empty if no users', async () => {
-    const signup = await request(app)
-      .post('/signup')
-      .field({
-        username: 'testUser',
-        email: 'test@email.com',
-        password: 'Password',
-        confirmPassword: 'Password'
+    const removeFriend = await request(app)
+      .delete('/removeFriend')
+      .send({
+        friend_id: 2
       })
-      .attach('file', profilePicture);
-
-    const login = await request(app).post('/login').send({
-      username: signup.body.username,
-      password: 'Password'
-    });
-
-    const getUsers = await request(app)
-      .get('/getUsers')
       .set('Cookie', [
         login.headers['set-cookie'][0].split(/;/)[0],
         login.headers['set-cookie'][1].split(/;/)[0]
       ]);
 
-    expect(getUsers.body).toHaveLength(0);
+    expect(removeFriend.body).toBe('Friend removed');
   });
 });

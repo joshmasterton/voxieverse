@@ -3,7 +3,6 @@ import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import helmet from 'helmet';
 import cors from 'cors';
-import { rateLimit } from 'express-rate-limit';
 import { Db } from './database/db.database';
 import { login } from './router/auth/login.router';
 import { signup } from './router/auth/signup.router';
@@ -15,7 +14,10 @@ import { getPostsComments } from './router/postComment/getPostsComments.router';
 import { likeDislike } from './router/likeDislike/createLikeDislike.router';
 import { getUser } from './router/user/getUser.router';
 import { getUsers } from './router/user/getUsers.router';
-dotenv.config({ path: './src/env/dev.env' });
+import { addFriend } from './router/friend/addFriend.router';
+import { getFriend } from './router/friend/getFriend.router';
+import { removeFriend } from './router/friend/removeFriend.router';
+dotenv.config();
 
 export const app = express();
 const { NODE_ENV, CLIENT_URL, PORT } = process.env;
@@ -25,15 +27,9 @@ if (NODE_ENV !== 'test') {
   db.createUsers();
   db.createPostsComments();
   db.createLikesDislikes();
+  db.createFriends();
 }
 
-// Security
-app.use(
-  rateLimit({
-    windowMs: 15 * 60 * 1000,
-    limit: 100
-  })
-);
 app.disable('x-powered-by');
 app.use(helmet());
 app.use(cors({ origin: CLIENT_URL, credentials: true }));
@@ -59,6 +55,10 @@ app.use(getPostsComments());
 
 app.use(getUser());
 app.use(getUsers());
+
+app.use(addFriend());
+app.use(getFriend());
+app.use(removeFriend());
 
 app.use(likeDislike());
 

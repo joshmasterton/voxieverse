@@ -60,6 +60,12 @@
   gap: App.$pad;
 }
 
+#userPage > #userPageCon > main button {
+  width: fit-content;
+  text-align: start;
+  min-width: calc(App.$height * 2);
+}
+
 #userPage > #userPageCon > main > footer {
   display: flex;
   flex-wrap: wrap;

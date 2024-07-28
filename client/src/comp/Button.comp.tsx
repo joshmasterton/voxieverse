@@ -6,8 +6,8 @@ import { useTheme } from '../context/Theme.context';
 import { BsSunFill } from 'react-icons/bs';
 import { MouseEvent } from 'react';
 import { PiMoonFill } from 'react-icons/pi';
-import '../style/comp/Button.comp.scss';
 import { Loading } from './Loading.comp';
+import '../style/comp/Button.comp.scss';
 
 export const Button = ({
   type,
@@ -24,7 +24,7 @@ export const Button = ({
       disabled={loading}
       aria-label={label}
       className={className ?? undefined}
-      onClick={(e?: MouseEvent<HTMLButtonElement>) => {
+      onClick={async (e?: MouseEvent<HTMLButtonElement>) => {
         e?.currentTarget.blur();
         onClick();
       }}
