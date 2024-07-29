@@ -3,17 +3,28 @@
 #createPost {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   align-self: stretch;
   width: 100%;
   margin-top: calc(App.$height + (App.$padSVG * 2));
   gap: App.$pad;
+  padding: App.$pad;
+  border-radius: App.$round;
+  outline: var(--outline);
+  background: var(--background);
 }
 
 #createPost > div {
   display: flex;
   justify-content: stretch;
   align-items: center;
+  width: 100%;
+  max-width: App.$widthMedium;
   gap: App.$pad;
+  padding: App.$pad;
+  border-radius: App.$round;
+  background: var(--background-shade);
 }
 
 #createPost > div:first-of-type {
@@ -45,12 +56,13 @@
 
 @media screen and (min-width: App.$widthLarge) {
   #createPost {
-    margin-left: calc(App.$height * 8);
+    padding-left: calc((App.$height * 7));
   }
 }
 
 @media screen and (min-width: App.$widthExtraLarge) {
   #createPost {
-    margin-right: calc(App.$height * 12 + App.$pad);
+    padding-right: calc((App.$height * 2 + (App.$padSVG * 3)));
+    padding-left: 0;
   }
 }

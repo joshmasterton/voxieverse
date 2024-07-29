@@ -5,8 +5,8 @@ import { ReturnNav } from '../comp/ReturnNav';
 import { Side, SideUser } from '../comp/Side.comp';
 import { SerializedPostComment } from '../../types/utilities/request.utilities.types';
 import { PostCard } from '../comp/card/PostCard.comp';
-import '../style/page/Post.page.scss';
 import { Loading } from '../comp/Loading.comp';
+import '../style/page/Post.page.scss';
 
 export const Post = () => {
   const location = useLocation();
@@ -44,7 +44,11 @@ export const Post = () => {
       <ReturnNav />
       <SideUser />
       <div id="postPage">
-        {loading ? <Loading /> : post && <PostCard post={post} isPostPage />}
+        {loading ? (
+          <Loading className="full" />
+        ) : (
+          post && <PostCard post={post} isPostPage />
+        )}
       </div>
       <Side />
     </>

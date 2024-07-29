@@ -2,50 +2,59 @@
 
 #auth {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100%;
+  background: var(--background);
+}
+
+#auth > form {
+  display: flex;
   flex-direction: column;
   align-self: center;
   width: 100%;
-  min-height: 100%;
   max-width: App.$widthMedium;
   padding: App.$padLarge;
   margin: App.$pad;
   gap: App.$padLarge;
   outline: var(--outline);
   border-radius: App.$round;
+  background: var(--background-shade);
 }
 
-#auth > header {
+#auth > form > header {
   position: relative;
   display: flex;
   justify-content: space-between;
 }
 
-#auth > header > img {
+#auth > form > header > img {
   position: absolute;
   transform: translateX(-50%);
   left: 50%;
   top: - calc(App.$padSVG * 4.5);
-  background: var(--background);
+  background: var(--background-shade);
   outline: var(--outline);
   border-radius: App.$round;
 }
 
-#auth > main {
+#auth > form > main {
   display: flex;
   flex-direction: column;
   gap: App.$pad;
   text-align: end;
 }
 
-#auth > main > button {
+#auth > form > main > button {
   margin-top: App.$pad;
 }
 
-#auth > main > a {
+#auth > form > main > a {
   align-self: end;
 }
 
-#auth > footer {
+#auth > form > footer {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

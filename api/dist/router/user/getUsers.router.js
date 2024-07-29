@@ -5,7 +5,22 @@ import { validator } from '../../middleware/validator.middleware.js';
 import { getUsersController } from '../../controller/user/getUsers.controller.js';
 export const getUsers = () => {
     const router = express.Router();
-    router.get('/getUsers', authenticate, query('page').optional().toInt().isInt().withMessage('page required'), query('sort')
+    router.get('/getUsers', authenticate, query('search')
+        .optional()
+        .trim()
+        .escape()
+        .isString()
+        .notEmpty()
+        .isLength({ max: 500 })
+        .withMessage('Exceeded max length'), query('friends')
+        .optional()
+        .trim()
+        .escape()
+        .isString()
+        .notEmpty()
+        .withMessage('Friend status required')
+        .isLength({ max: 500 })
+        .withMessage('Exceeded max length'), query('page').optional().toInt().isInt().withMessage('page required'), query('sort')
         .optional()
         .trim()
         .escape()

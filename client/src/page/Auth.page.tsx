@@ -75,104 +75,98 @@ export const Auth = ({ isSignup = false }: AuthProps) => {
   };
 
   return (
-    <form
-      id="auth"
-      method="POST"
-      autoComplete="off"
-      noValidate
-      onSubmit={(e) => handleOnSubmit(e)}
-    >
-      <header>
-        <img alt="" src={theme === 'dark' ? logoLight : logoDark} />
-        <h1>{isSignup ? 'Signup' : 'Login'}</h1>
-        <ButtonTheme />
-      </header>
-      <main>
-        <Input<UserDetails>
-          id="username"
-          type="text"
-          value={userDetails.username}
-          setValue={setUserDetails}
-          placeholder="Username"
-          SVG={<BiSolidUser />}
-        />
-        {isSignup && (
-          <>
-            <Input<UserDetails>
-              id="email"
-              type="email"
-              value={userDetails.email}
-              setValue={setUserDetails}
-              placeholder="Email"
-              SVG={<MdEmail />}
-            />
-            <Input<UserDetails>
-              id="file"
-              type="file"
-              className="file"
-              setValue={setUserDetails}
-              placeholder="Profile picture"
-              SVG={<BsImage />}
-            />
-          </>
-        )}
-        <Input<UserDetails>
-          id="password"
-          className="labelPassword"
-          type="password"
-          value={userDetails.password}
-          setValue={setUserDetails}
-          placeholder="Password"
-          SVG={<RiLockPasswordFill />}
-        />
-        {/* {!isSignup && (
-          <Navigate
-            to="/forgotPassword"
-            name="Forgot password?"
-            onClick={() => {}}
-          />
-        )} */}
-        {isSignup && (
+    <div id="auth">
+      <form
+        method="POST"
+        autoComplete="off"
+        noValidate
+        onSubmit={(e) => handleOnSubmit(e)}
+      >
+        <header>
+          <img alt="" src={theme === 'dark' ? logoLight : logoDark} />
+          <h1>{isSignup ? 'Signup' : 'Login'}</h1>
+          <ButtonTheme />
+        </header>
+        <main>
           <Input<UserDetails>
-            id="confirmPassword"
+            id="username"
+            type="text"
+            value={userDetails.username}
+            setValue={setUserDetails}
+            placeholder="Username"
+            SVG={<BiSolidUser />}
+          />
+          {isSignup && (
+            <>
+              <Input<UserDetails>
+                id="email"
+                type="email"
+                value={userDetails.email}
+                setValue={setUserDetails}
+                placeholder="Email"
+                SVG={<MdEmail />}
+              />
+              <Input<UserDetails>
+                id="file"
+                type="file"
+                className="file"
+                setValue={setUserDetails}
+                placeholder="Profile picture"
+                SVG={<BsImage />}
+              />
+            </>
+          )}
+          <Input<UserDetails>
+            id="password"
             className="labelPassword"
             type="password"
-            value={userDetails.confirmPassword}
+            value={userDetails.password}
             setValue={setUserDetails}
-            placeholder="Confirm password"
+            placeholder="Password"
             SVG={<RiLockPasswordFill />}
           />
-        )}
-        <Button
-          type="submit"
-          loading={loading}
-          onClick={() => {}}
-          label={isSignup ? 'signup' : 'login'}
-          className="buttonPrimary"
-          name={isSignup ? 'Signup' : 'Login'}
-        />
-      </main>
-      <footer>
-        {isSignup ? (
-          <>
-            <div>Already have an account?</div>
-            <Navigate
-              to="/login"
-              name="Login"
-              onClick={() => handleOnNavigate()}
+          {isSignup && (
+            <Input<UserDetails>
+              id="confirmPassword"
+              className="labelPassword"
+              type="password"
+              value={userDetails.confirmPassword}
+              setValue={setUserDetails}
+              placeholder="Confirm password"
+              SVG={<RiLockPasswordFill />}
             />
-          </>
-        ) : (
-          <>
-            <div>Dont have an account?</div>
-            <Navigate
-              to="/signup"
-              name="Signup"
-              onClick={() => handleOnNavigate()}
-            />
-          </>
-        )}
-      </footer>
-    </form>
+          )}
+          <Button
+            type="submit"
+            loading={loading}
+            onClick={() => {}}
+            label={isSignup ? 'signup' : 'login'}
+            className="buttonPrimary"
+            name={isSignup ? 'Signup' : 'Login'}
+          />
+        </main>
+        <footer>
+          {isSignup ? (
+            <>
+              <div>Already have an account?</div>
+              <Navigate
+                to="/login"
+                name="Login"
+                onClick={() => handleOnNavigate()}
+              />
+            </>
+          ) : (
+            <>
+              <div>Dont have an account?</div>
+              <Navigate
+                to="/signup"
+                name="Signup"
+                onClick={() => handleOnNavigate()}
+              />
+            </>
+          )}
+        </footer>
+      </form>
+    </div>
   );
 };

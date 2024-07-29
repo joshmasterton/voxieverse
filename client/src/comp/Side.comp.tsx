@@ -1,4 +1,9 @@
-import { BiSolidGroup, BiSolidHome, BiSolidUser } from 'react-icons/bi';
+import {
+  BiSolidGroup,
+  BiSolidHome,
+  BiSolidUser,
+  BiUserPlus
+} from 'react-icons/bi';
 import { useUser } from '../context/User.context';
 import { Navigate } from './Navigate.comp';
 import { Button, ButtonTheme } from './Button.comp';
@@ -45,11 +50,20 @@ export const SideUser = () => {
             </li>
             <li>
               <Navigate
-                to="/"
+                to="/friends"
                 className="transparent"
                 onClick={() => {}}
                 SVG={<BiSolidGroup />}
                 name="Friends"
+              />
+            </li>
+            <li>
+              <Navigate
+                to="/requests"
+                className="transparent"
+                onClick={() => {}}
+                SVG={<BiUserPlus />}
+                name="Requests"
               />
             </li>
             <li>

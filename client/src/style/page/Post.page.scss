@@ -3,19 +3,24 @@
 #postPage {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   gap: App.$pad;
-  margin-top: calc(App.$height + (App.$padSVG * 2));
+  padding: App.$pad;
+  padding-top: calc(App.$height * 2);
+  background: var(--background);
 }
 
 @media screen and (min-width: App.$widthLarge) {
   #postPage {
-    margin-left: calc(App.$height * 8);
+    padding-left: calc((App.$height * 7 + (App.$padSVG)));
   }
 }
 
 @media screen and (min-width: App.$widthExtraLarge) {
   #postPage {
-    margin-right: calc(App.$height * 12 + App.$pad);
+    padding-right: calc((App.$height * 2 + (App.$padSVG * 3)));
+    padding-left: 0;
   }
 }

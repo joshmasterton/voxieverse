@@ -9,12 +9,12 @@ nav {
   transition: height App.$anim;
   -webkit-backdrop-filter: blur(1rem);
   backdrop-filter: blur(1rem);
-  background: var(--backgroundBlur);
+  background: var(--background-shade);
   z-index: 2;
 }
 
 nav.active {
-  height: calc(App.$height * 9.025);
+  height: calc((App.$height * 8) + (App.$padSVG * 5.3));
 }
 
 nav.hidden {
@@ -26,8 +26,6 @@ nav > header {
   top: 0;
   left: 0;
   width: 100%;
-  padding-left: App.$padSVG;
-  padding-right: App.$padSVG;
   z-index: 1;
 }
 
@@ -36,8 +34,7 @@ nav > header > div {
   justify-content: space-between;
   align-items: center;
   gap: App.$padSVG;
-  padding-top: App.$padSVG;
-  padding-bottom: App.$padSVG;
+  padding: App.$padSVG;
   border-bottom: var(--outline);
 }
 
@@ -60,8 +57,6 @@ nav > main {
   top: calc(App.$height + (App.$padSVG * 2));
   left: 0;
   width: 100%;
-  padding: App.$padSVG;
-  padding-bottom: 0;
 }
 
 nav.active > main {
@@ -81,14 +76,16 @@ nav.hidden > main {
 
 nav > main > div {
   width: 100%;
+  padding: App.$padSVG;
+  padding-bottom: 0;
   border-bottom: var(--outline);
 }
 
 nav > main > div > ul {
   display: flex;
   flex-direction: column;
-  gap: App.$pad;
-  padding-bottom: App.$pad;
+  gap: App.$padSVG;
+  padding-bottom: App.$padSVG;
 }
 
 nav > main > div > ul > li {

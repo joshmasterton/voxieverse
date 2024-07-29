@@ -9,7 +9,7 @@ export const generateToken = (user_id, type) => {
         }
         else if (type === 'refresh') {
             return jwt.sign({ user_id }, REFRESH_TOKEN_SECRET, {
-                expiresIn: '1d'
+                expiresIn: '7d'
             });
         }
     }

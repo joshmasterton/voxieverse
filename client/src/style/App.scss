@@ -2,9 +2,9 @@
 
 $height: 2.25rem;
 $heightSmall: 1.5rem;
-$widthLarge: 45rem;
-$widthExtraLarge: 75rem;
-$widthMedium: 25rem;
+$widthLarge: 48rem;
+$widthExtraLarge: 69rem;
+$widthMedium: 30rem;
 $width: 5rem;
 
 $pad: 1rem;
@@ -23,14 +23,14 @@ $anim: 0.4s ease;
 
 [data-theme='dark'] {
   --color: white;
-  --primary: linear-gradient(45deg, #235fbe, #6543e0);
-  --primaryOutline: #235fbe;
-  --background: rgba(0, 0, 0, 1);
-  --backgroundBlur: rgba(0, 0, 0, 0.75);
-  --outline: 0.075rem solid rgb(50, 50, 60);
-  --background-outline: rgb(50, 50, 60);
-  --background-shade: rgba(30, 30, 38, 0.6);
-  --outline-shadow: 0 0 0 0.15rem #235fbe;
+  --primary: linear-gradient(45deg, #194da0, #482fa5);
+  --primaryOutline: #194da0;
+  --background: rgba(18, 18, 20, 1);
+  --backgroundBlur: rgba(18, 18, 20, 1);
+  --outline: 0.075rem solid rgb(50, 50, 55);
+  --background-outline: rgb(50, 50, 55);
+  --background-shade: rgba(24, 24, 29, 1);
+  --outline-shadow: 0 0 0 0.15rem #194da0;
   --opacity: 85%;
 }
 
@@ -38,11 +38,11 @@ $anim: 0.4s ease;
   --color: black;
   --primary: linear-gradient(45deg, #226de6, #6a43f7);
   --primaryOutline: #226de6;
-  --background: rgb(255, 255, 255);
-  --backgroundBlur: rgba(255, 255, 255, 0.75);
-  --outline: 0.075rem solid rgb(150, 150, 160);
-  --background-outline: rgb(150, 150, 160);
-  --background-shade: rgba(235, 235, 240, 0.6);
+  --background: rgb(235, 235, 240);
+  --backgroundBlur: rgba(255, 255, 255, 1);
+  --outline: 0.075rem solid rgb(200, 200, 210);
+  --background-outline: rgb(200, 200, 210);
+  --background-shade: rgba(255, 255, 255, 1);
   --outline-shadow: 0 0 0 0.15rem #226de6;
   --opacity: 85%;
 }
@@ -74,14 +74,14 @@ body {
   width: 100%;
   height: 100%;
   color: var(--color);
-  background: var(--background);
+  background: var(--background-shade);
 }
 
 #root {
   display: flex;
   justify-content: center;
   align-items: stretch;
-  padding: $pad;
+  gap: $pad;
   min-height: 100%;
 }
 

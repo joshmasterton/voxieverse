@@ -3,10 +3,15 @@
 #home {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: App.$pad;
   gap: App.$pad;
   width: 100%;
   min-height: 100%;
-  margin-top: calc(App.$height + (App.$padSVG * 2));
+  padding: App.$pad;
+  padding-top: calc(App.$height * 2);
+  background: var(--background);
 }
 
 #home > a {
@@ -18,12 +23,13 @@
 
 @media screen and (min-width: App.$widthLarge) {
   #home {
-    margin-left: calc(App.$height * 8);
+    padding-left: calc((App.$height * 7 + (App.$padSVG)));
   }
 }
 
 @media screen and (min-width: App.$widthExtraLarge) {
   #home {
-    margin-right: calc(App.$height * 12 + App.$pad);
+    padding-right: calc((App.$height * 2 + (App.$padSVG * 3)));
+    padding-left: 0;
   }
 }

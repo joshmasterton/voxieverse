@@ -1,8 +1,9 @@
 import { User } from '../../model/user.model.js';
 export const getUsersController = async (req, res) => {
     try {
-        const { page, sort } = req.query;
-        const users = await new User().gets(page, sort);
+        const { user_id } = res.locals.user;
+        const { page, sort, search, friends } = req.query;
+        const users = await new User(undefined, undefined, undefined, undefined, user_id).gets(page, sort, user_id, search, friends);
         return res.status(200).json(users);
     }
     catch (error) {

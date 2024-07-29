@@ -1,6 +1,12 @@
 import { useUser } from '../context/User.context';
 import { Button, ButtonTheme } from './Button.comp';
-import { BiMenu, BiSolidGroup, BiSolidHome, BiSolidUser } from 'react-icons/bi';
+import {
+  BiMenu,
+  BiSolidGroup,
+  BiSolidHome,
+  BiSolidUser,
+  BiUserPlus
+} from 'react-icons/bi';
 import { IoLogOut } from 'react-icons/io5';
 import { Navigate } from './Navigate.comp';
 import { useEffect, useState } from 'react';
@@ -53,10 +59,18 @@ export const Nav = () => {
             </li>
             <li>
               <Navigate
-                to="/"
+                to="/friends"
                 className="transparent"
                 onClick={() => {}}
                 SVG={<BiSolidGroup />}
+              />
+            </li>
+            <li>
+              <Navigate
+                to="/requests"
+                className="transparent"
+                onClick={() => {}}
+                SVG={<BiUserPlus />}
               />
             </li>
             <li>
@@ -106,11 +120,20 @@ export const Nav = () => {
             </li>
             <li>
               <Navigate
-                to="/"
+                to="/friends"
                 className="transparent"
                 onClick={() => {}}
                 SVG={<BiSolidGroup />}
                 name="Friends"
+              />
+            </li>
+            <li>
+              <Navigate
+                to="/requests"
+                className="transparent"
+                onClick={() => {}}
+                SVG={<BiUserPlus />}
+                name="Requests"
               />
             </li>
             <li>

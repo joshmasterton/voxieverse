@@ -49,12 +49,13 @@ export const Popup = () => {
 
   return (
     <div id="popup" className={isPopup ? 'active' : 'hidden'}>
-      <Button
+      {/* <Button
         type="button"
         onClick={() => setIsPopup(false)}
         label="popupClose"
         className="buttonPrimary"
-      />
+      /> */}
+      <header id="blur" />
       <div>
         <header>
           <h1>Oops!</h1>

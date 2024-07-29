@@ -1,6 +1,7 @@
 import bcryptjs from 'bcryptjs';
 import { Db, tableConfigManager } from '../database/db.database.js';
 import { generateToken } from '../utilities/generateToken.utilities.js';
+import { Friend } from './friend.model.js';
 const db = new Db();
 export class User {
     username;
@@ -15,7 +16,8 @@ export class User {
     friends;
     created_at;
     last_online;
-    constructor(username, password, email, profile_picture, user_id, likes, dislikes, posts, comments, friends, created_at, last_online) {
+    friend_status;
+    constructor(username, password, email, profile_picture, user_id, likes, dislikes, posts, comments, friends, created_at, last_online, friend_status) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -28,6 +30,7 @@ export class User {
         this.friends = friends;
         this.created_at = created_at;
         this.last_online = last_online;
+        this.friend_status = friend_status;
     }
     async signup() {
         const { usersTable } = tableConfigManager.getConfig();
@@ -110,7 +113,7 @@ export class User {
             }
         }
     }
-    async get() {
+    async get(auth_user_id) {
         const { usersTable } = tableConfigManager.getConfig();
         try {
             const userFromDb = await db.query(`
@@ -123,6 +126,17 @@ export class User {
                 return undefined;
             }
             const user = userFromDb?.rows[0];
+            if (auth_user_id) {
+                const friend_status = await new Friend(undefined, auth_user_id, this.user_id).get();
+                if (friend_status) {
+                    this.friend_status = friend_status.friend_accepted
+                        ? 'friend'
+                        : 'waiting';
+                }
+                else {
+                    this.friend_status = undefined;
+                }
+            }
             this.user_id = user.user_id;
             this.username = user.username;
             this.email = user.email;
@@ -146,21 +160,44 @@ export class User {
             }
         }
     }
-    async gets(page = 0, sort = `created_at`) {
-        const { usersTable } = tableConfigManager.getConfig();
+    async gets(page = 0, sort = `created_at`, auth_user_id, search, friends) {
+        const { usersTable, friendsTable } = tableConfigManager.getConfig();
         try {
-            const usersFromDb = await db.query(`
-					SELECT user_id, username, email, profile_picture, likes, dislikes,
-					posts, comments, friends, created_at, last_online
-					FROM ${usersTable}
-					ORDER BY ${sort} DESC
-					LIMIT $1 OFFSET $2
-				`, [10, page * 10]);
+            let usersFromDb;
+            const queryParams = search
+                ? [this.user_id, `%${search.toLowerCase()}%`, 10, page * 10]
+                : [this.user_id, 10, page * 10];
+            if (friends) {
+                usersFromDb = await db.query(`
+						SELECT u.user_id, u.username, u.email, u.profile_picture, u.likes, u.dislikes,
+						u.posts, u.comments, u.friends, u.created_at, u.last_online
+						FROM ${usersTable} u
+						JOIN ${friendsTable} f
+						ON (f.friend_one_id = u.user_id OR friend_two_id = u.user_id)
+						WHERE (f.friend_one_id = $1 OR f.friend_two_id = $1)
+						${friends === 'friend' ? 'AND f.friend_accepted = true' : 'AND f.friend_accepted = false'}
+						AND user_id != $1
+						${search ? 'AND username_lower_case LIKE $2' : ''}
+						ORDER BY ${sort} DESC
+						LIMIT $${search ? 3 : 2} OFFSET $${search ? 4 : 3}
+					`, queryParams);
+            }
+            else {
+                usersFromDb = await db.query(`
+						SELECT user_id, username, email, profile_picture, likes, dislikes,
+						posts, comments, friends, created_at, last_online
+						FROM ${usersTable}
+						WHERE user_id != $1
+						${search ? 'AND username_lower_case LIKE $2' : ''}
+						ORDER BY ${sort} DESC
+						LIMIT $${search ? 3 : 2} OFFSET $${search ? 4 : 3}
+					`, queryParams);
+            }
             if (!usersFromDb?.rows[0]) {
-                return undefined;
+                return [];
             }
             const usersPromises = usersFromDb?.rows.map(async (user) => {
-                return await new User(undefined, undefined, undefined, undefined, user.user_id).get();
+                return await new User(undefined, undefined, undefined, undefined, user.user_id).get(auth_user_id);
             });
             return Promise.all(usersPromises);
         }
@@ -199,7 +236,8 @@ export class User {
             comments: this.comments,
             friends: this.friends,
             created_at: this.created_at,
-            last_online: this.last_online
+            last_online: this.last_online,
+            friend_status: this.friend_status
         };
         return serializeUser;
     }

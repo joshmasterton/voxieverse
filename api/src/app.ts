@@ -17,6 +17,7 @@ import { getUsers } from './router/user/getUsers.router';
 import { addFriend } from './router/friend/addFriend.router';
 import { getFriend } from './router/friend/getFriend.router';
 import { removeFriend } from './router/friend/removeFriend.router';
+import rateLimit from 'express-rate-limit';
 dotenv.config();
 
 export const app = express();
@@ -30,6 +31,14 @@ if (NODE_ENV !== 'test') {
   db.createFriends();
 }
 
+app.set('trust proxy', 1);
+app.use(
+  rateLimit({
+    windowMs: 15 * 60 * 1000,
+    limit: 1000,
+    legacyHeaders: false
+  })
+);
 app.disable('x-powered-by');
 app.use(helmet());
 app.use(cors({ origin: CLIENT_URL, credentials: true }));
