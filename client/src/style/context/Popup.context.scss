@@ -23,7 +23,7 @@
   transform: scale(0);
 }
 
-#popup > button {
+#popup > #blur {
   position: absolute;
   width: 100%;
   min-height: 100%;
@@ -35,12 +35,12 @@
   background: transparent;
 }
 
-#popup.active > button {
+#popup.active > #blur {
   opacity: 100%;
   transition: opacity App.$anim;
 }
 
-#popup > button {
+#popup > #blur {
   opacity: 0;
   background: transparent;
 }
@@ -63,7 +63,7 @@
   outline: var(--outline);
   padding: App.$pad;
   gap: App.$pad;
-  background: var(--background);
+  background: var(--background-shade);
   z-index: 1;
 }
 

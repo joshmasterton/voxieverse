@@ -11,6 +11,9 @@ import { Public } from './comp/security/Public.comp';
 import { User } from './page/User.page';
 import { Popup, PopupProvider } from './context/Popup.context';
 import { Error } from './comp/security/Error.comp';
+import { Friend } from './page/Friend.page';
+import { Users } from './page/Users.page';
+import { Requests } from './page/Requests.page';
 import './style/App.scss';
 
 export const routes = [
@@ -19,6 +22,33 @@ export const routes = [
     element: (
       <Private>
         <Home />
+      </Private>
+    ),
+    errorElement: <Error />
+  },
+  {
+    path: '/friends',
+    element: (
+      <Private>
+        <Friend />
+      </Private>
+    ),
+    errorElement: <Error />
+  },
+  {
+    path: '/users',
+    element: (
+      <Private>
+        <Users />
+      </Private>
+    ),
+    errorElement: <Error />
+  },
+  {
+    path: '/requests',
+    element: (
+      <Private>
+        <Requests />
       </Private>
     ),
     errorElement: <Error />

@@ -75,7 +75,7 @@ export const Home = () => {
       <SideUser />
       <div id="home">
         {loading ? (
-          <Loading />
+          <Loading className="full" />
         ) : (
           posts && (
             <>

@@ -19,14 +19,14 @@ export const User = () => {
   const user_id = location.pathname.split('/').pop();
   const { user } = useUser();
   const [page, setPage] = useState(0);
-  const [friendship, setFriendship] = useState<FriendType | undefined>(
-    undefined
-  );
   const [canLoadMore, setCanLoadMore] = useState(true);
   const [loading, setLoading] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
   const [profile, setProfile] = useState<SerializedUser | undefined>(undefined);
   const [posts, setPosts] = useState<SerializedPostComment[] | undefined>(
+    undefined
+  );
+  const [friendship, setFriendship] = useState<FriendType | undefined>(
     undefined
   );
 
@@ -42,7 +42,6 @@ export const User = () => {
         'GET'
       );
 
-      console.log(userFromDb);
       if (userFromDb) {
         setProfile(userFromDb);
         await getPosts(0);
@@ -167,7 +166,7 @@ export const User = () => {
       <SideUser />
       <div id="userPage">
         {loading ? (
-          <Loading />
+          <Loading className="full" />
         ) : (
           <>
             {profile && (
@@ -250,23 +249,27 @@ export const User = () => {
                 </main>
               </div>
             )}
-            {posts && (
-              <>
-                {posts.map((post) => (
-                  <PostCard key={post.id} post={post} />
-                ))}
-                {canLoadMore && (
-                  <Button
-                    type="button"
-                    loading={loadingMore}
-                    onClick={async () => getPosts()}
-                    label="getMore"
-                    className="buttonOutline"
-                    name="More posts"
-                  />
-                )}
-              </>
-            )}
+            <>
+              {posts ? (
+                <>
+                  {posts.map((post) => (
+                    <PostCard key={post.id} post={post} />
+                  ))}
+                  {canLoadMore && (
+                    <Button
+                      type="button"
+                      loading={loadingMore}
+                      onClick={async () => getPosts()}
+                      label="getMore"
+                      className="buttonOutline"
+                      name="More posts"
+                    />
+                  )}
+                </>
+              ) : (
+                <div className="empty" />
+              )}
+            </>
           </>
         )}
       </div>

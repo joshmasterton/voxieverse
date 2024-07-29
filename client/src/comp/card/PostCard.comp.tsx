@@ -253,28 +253,31 @@ export const PostCard = ({
           </form>
         )}
       </div>
-      {isPostPage &&
-        (loading ? (
-          <Loading />
-        ) : (
-          comments && (
-            <>
-              {comments.map((comment) => (
-                <CommentCard key={comment.id} comment={comment} />
-              ))}
-              {isPostPage && canLoadMore && (
-                <Button
-                  type="button"
-                  loading={loadingMore}
-                  onClick={async () => getComments()}
-                  label="getMore"
-                  className="buttonOutline"
-                  name="More comments"
-                />
-              )}
-            </>
-          )
-        ))}
+      {isPostPage && (
+        <div className="commentsCon">
+          {loading ? (
+            <Loading />
+          ) : (
+            comments && (
+              <>
+                {comments.map((comment) => (
+                  <CommentCard key={comment.id} comment={comment} />
+                ))}
+                {isPostPage && canLoadMore && (
+                  <Button
+                    type="button"
+                    loading={loadingMore}
+                    onClick={async () => getComments()}
+                    label="getMore"
+                    className="buttonOutline"
+                    name="More comments"
+                  />
+                )}
+              </>
+            )
+          )}
+        </div>
+      )}
     </>
   );
 };

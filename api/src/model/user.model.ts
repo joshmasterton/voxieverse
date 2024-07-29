@@ -3,6 +3,7 @@ import { Db, tableConfigManager } from '../database/db.database';
 import { generateToken } from '../utilities/generateToken.utilities';
 import { SerializedUser } from '../types/model/user.model.types';
 import { Friend } from './friend.model';
+import { QueryResult } from 'pg';
 
 const db = new Db();
 
@@ -20,7 +21,7 @@ export class User {
     private friends?: number,
     private created_at?: string,
     private last_online?: string,
-    private friend_status?: boolean
+    private friend_status?: 'friend' | 'waiting'
   ) {}
 
   async signup(): Promise<User | undefined> {
@@ -153,7 +154,11 @@ export class User {
         ).get();
 
         if (friend_status) {
-          this.friend_status = friend_status.friend_accepted;
+          this.friend_status = friend_status.friend_accepted
+            ? 'friend'
+            : 'waiting';
+        } else {
+          this.friend_status = undefined;
         }
       }
 
@@ -181,24 +186,55 @@ export class User {
     }
   }
 
-  async gets(page = 0, sort = `created_at`, auth_user_id?: number) {
-    const { usersTable } = tableConfigManager.getConfig();
+  async gets(
+    page = 0,
+    sort = `created_at`,
+    auth_user_id?: number,
+    search?: string,
+    friends?: 'friend' | 'waiting'
+  ) {
+    const { usersTable, friendsTable } = tableConfigManager.getConfig();
 
     try {
-      const usersFromDb = await db.query(
-        `
-					SELECT user_id, username, email, profile_picture, likes, dislikes,
-					posts, comments, friends, created_at, last_online
-					FROM ${usersTable}
-					WHERE user_id != $1
-					ORDER BY ${sort} DESC
-					LIMIT $2 OFFSET $3
-				`,
-        [this.user_id, 10, page * 10]
-      );
+      let usersFromDb: QueryResult | undefined;
+      const queryParams = search
+        ? [this.user_id, `%${search.toLowerCase()}%`, 10, page * 10]
+        : [this.user_id, 10, page * 10];
+
+      if (friends) {
+        usersFromDb = await db.query(
+          `
+						SELECT u.user_id, u.username, u.email, u.profile_picture, u.likes, u.dislikes,
+						u.posts, u.comments, u.friends, u.created_at, u.last_online
+						FROM ${usersTable} u
+						JOIN ${friendsTable} f
+						ON (f.friend_one_id = u.user_id OR friend_two_id = u.user_id)
+						WHERE (f.friend_one_id = $1 OR f.friend_two_id = $1)
+						${friends === 'friend' ? 'AND f.friend_accepted = true' : 'AND f.friend_accepted = false'}
+						AND user_id != $1
+						${search ? 'AND username_lower_case LIKE $2' : ''}
+						ORDER BY ${sort} DESC
+						LIMIT $${search ? 3 : 2} OFFSET $${search ? 4 : 3}
+					`,
+          queryParams
+        );
+      } else {
+        usersFromDb = await db.query(
+          `
+						SELECT user_id, username, email, profile_picture, likes, dislikes,
+						posts, comments, friends, created_at, last_online
+						FROM ${usersTable}
+						WHERE user_id != $1
+						${search ? 'AND username_lower_case LIKE $2' : ''}
+						ORDER BY ${sort} DESC
+						LIMIT $${search ? 3 : 2} OFFSET $${search ? 4 : 3}
+					`,
+          queryParams
+        );
+      }
 
       if (!usersFromDb?.rows[0]) {
-        return undefined;
+        return [];
       }
 
       const usersPromises = usersFromDb?.rows.map(async (user) => {

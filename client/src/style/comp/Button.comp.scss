@@ -10,13 +10,17 @@ button {
   padding: 0;
   background: transparent;
   cursor: pointer;
+  overflow: hidden;
   transition:
     box-shadow App.$anim,
     outline-color App.$anim;
 }
 
 button.buttonOutline {
+  width: 100%;
+  max-width: App.$widthMedium;
   outline: var(--outline);
+  background: var(--background-shade);
 }
 
 button.buttonName {
@@ -102,7 +106,7 @@ div.buttonTheme > button {
   padding: 0;
   margin: 0;
   outline: none;
-  background: var(--background);
+  background: var(--background-shade);
 }
 
 div.buttonTheme > button.dark {

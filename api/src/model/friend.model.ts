@@ -116,10 +116,10 @@ export class Friend {
       if (existingFriend?.rows[0]) {
         await db.query(
           `
-							DELETE FROM ${friendsTable}
-							WHERE (friend_one_id = $1 AND friend_two_id = $2)
-							OR (friend_two_id = $1 AND friend_one_id = $2)
-						`,
+						DELETE FROM ${friendsTable}
+						WHERE (friend_one_id = $1 AND friend_two_id = $2)
+						OR (friend_two_id = $1 AND friend_one_id = $2)
+					`,
           [this.friend_one_id, this.friend_two_id]
         );
 

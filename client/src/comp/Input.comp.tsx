@@ -150,6 +150,19 @@ export const Input = <T,>({
           />
         )}
       </label>
+      {className === 'search' && (
+        <Button
+          type="button"
+          onClick={() =>
+            setValue((prevState) => ({
+              ...prevState,
+              search: ''
+            }))
+          }
+          label="removeFile"
+          SVG={<CgClose />}
+        />
+      )}
       {type === 'file' && (
         <Button
           type="button"

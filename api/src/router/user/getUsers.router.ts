@@ -10,6 +10,23 @@ export const getUsers = () => {
   router.get(
     '/getUsers',
     authenticate,
+    query('search')
+      .optional()
+      .trim()
+      .escape()
+      .isString()
+      .notEmpty()
+      .isLength({ max: 500 })
+      .withMessage('Exceeded max length'),
+    query('friends')
+      .optional()
+      .trim()
+      .escape()
+      .isString()
+      .notEmpty()
+      .withMessage('Friend status required')
+      .isLength({ max: 500 })
+      .withMessage('Exceeded max length'),
     query('page').optional().toInt().isInt().withMessage('page required'),
     query('sort')
       .optional()

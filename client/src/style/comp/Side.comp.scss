@@ -1,36 +1,33 @@
 @use '../App.scss';
 
 #side {
-  display: none;
   position: fixed;
-  top: 0;
-  right: App.$pad;
+  display: none;
   overflow: scroll;
-  height: 100%;
-  width: calc(App.$height * 12);
+  top: 0;
   padding: App.$pad;
-  padding-right: 0;
-  margin-bottom: 2rem;
-  padding-top: calc(App.$height + (App.$padSVG * 2));
-  border-left: var(--outline);
+  padding-top: calc((App.$height * 2));
+  width: calc(App.$height * 10);
+  min-height: 100%;
+  height: 100%;
 }
 
 #side > div {
   display: flex;
   flex-direction: column;
   width: 100%;
-  min-height: 100%;
   height: fit-content;
+  min-height: 100%;
   gap: App.$pad;
-  padding-top: App.$pad;
 }
 
 #side > div > div {
-  flex: 1;
   min-width: 100%;
   min-height: 10rem;
+  flex: 1;
   height: 100%;
   border-radius: App.$round;
+  outline: var(--outline);
   background: var(--background-shade);
 }
 
@@ -39,9 +36,10 @@
   display: none;
   overflow: scroll;
   top: 0;
-  left: 0;
-  padding-top: calc(App.$height + (App.$padSVG * 2));
-  width: calc(App.$height * 8);
+  padding: App.$pad;
+  padding-top: calc((App.$height * 2));
+  width: calc(App.$height * 6 + (App.$pad * 3));
+  min-height: 100%;
   height: 100%;
 }
 
@@ -53,7 +51,9 @@
   height: fit-content;
   gap: App.$pad;
   padding: App.$pad;
-  border-right: var(--outline);
+  border-radius: App.$round;
+  outline: var(--outline);
+  background: var(--background-shade);
 }
 
 #sideUser > div > header {
@@ -114,11 +114,18 @@
 @media screen and (min-width: App.$widthLarge) {
   #sideUser {
     display: flex;
+    margin-right: calc((App.$height * 13) + (App.$padSVG * 3));
   }
 }
 
 @media screen and (min-width: App.$widthExtraLarge) {
   #side {
     display: flex;
+    margin-left: calc((App.$height * 21) - (App.$padSVG * 2));
+  }
+
+  #sideUser {
+    display: flex;
+    margin-right: calc((App.$height * 21) + (App.$padSVG * 9));
   }
 }

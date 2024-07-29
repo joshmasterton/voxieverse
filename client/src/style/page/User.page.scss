@@ -3,9 +3,14 @@
 #userPage {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 100%;
+  min-height: 100%;
   gap: App.$pad;
-  margin-top: calc(App.$height + (App.$padSVG * 2));
+  padding: App.$pad;
+  padding-top: calc(App.$height * 2);
+  background: var(--background);
 }
 
 #userPage > #userPageCon {
@@ -14,18 +19,30 @@
   flex-direction: column;
   justify-content: center;
   width: 100%;
-  min-width: 100%;
+  max-width: App.$widthMedium;
   gap: App.$pad;
-  padding-bottom: App.$pad;
-  border-bottom: var(--outline);
+  padding: App.$pad;
+  border-radius: App.$round;
+  outline: var(--outline);
+  overflow: hidden;
+  background: var(--background-shade);
 }
 
 #userPage > #userPageCon > div {
   position: absolute;
-  top: - calc(App.$pad);
-  left: - calc(App.$pad);
+  top: 0;
+  left: 0;
   height: calc(App.$height * 3);
-  width: calc(100% + (App.$pad * 2));
+  width: 100%;
+  background: var(--background-shade);
+}
+
+#userPage > .empty {
+  width: 100%;
+  flex: 1;
+  max-width: App.$widthMedium;
+  border-radius: App.$round;
+  outline: var(--outline);
   background: var(--background-shade);
 }
 
@@ -96,12 +113,13 @@
 
 @media screen and (min-width: App.$widthLarge) {
   #userPage {
-    margin-left: calc(App.$height * 8);
+    padding-left: calc((App.$height * 7 + (App.$padSVG)));
   }
 }
 
 @media screen and (min-width: App.$widthExtraLarge) {
   #userPage {
-    margin-right: calc(App.$height * 12 + App.$pad);
+    padding-right: calc((App.$height * 2 + (App.$padSVG * 3)));
+    padding-left: 0;
   }
 }

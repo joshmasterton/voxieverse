@@ -3,10 +3,14 @@
 .postCard {
   position: relative;
   display: flex;
+  width: 100%;
+  max-width: App.$widthMedium;
   flex-direction: column;
-  padding-bottom: App.$pad;
+  padding: App.$pad;
   gap: App.$pad;
-  border-bottom: var(--outline);
+  border-radius: App.$round;
+  outline: var(--outline);
+  background: var(--background-shade);
 }
 
 .postCard > a {
@@ -14,6 +18,36 @@
   width: 100%;
   height: calc(100% - (App.$height + App.$pad));
   z-index: 1;
+}
+
+.commentsCon {
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: stretch;
+  flex: 1;
+  gap: App.$pad;
+  width: 100%;
+  max-width: App.$widthMedium;
+  padding: App.$pad;
+  padding-bottom: 0;
+  border-radius: App.$round;
+  outline: var(--outline);
+  background: var(--background-shade);
+}
+
+.commentsCon > div {
+  padding-bottom: App.$pad;
+  border-bottom: var(--outline);
+}
+
+.commentsCon > div:last-child {
+  border-bottom: none;
+}
+
+.commentsCon > div:first-child {
+  padding-bottom: App.$pad;
+  border-bottom: var(--outline);
 }
 
 .postCard > a,
@@ -75,7 +109,7 @@
   max-width: fit-content;
   min-height: none;
   height: auto;
-  max-height: 20rem;
+  max-height: 50rem;
   border-radius: 0;
   z-index: 0;
 }
