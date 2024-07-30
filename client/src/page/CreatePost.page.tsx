@@ -1,8 +1,7 @@
 import { FormEvent, useState } from 'react';
 import { Input } from '../comp/Input.comp';
-import { ReturnNav } from '../comp/ReturnNav';
 import { Button } from '../comp/Button.comp';
-import { Side, SideUser } from '../comp/Side.comp';
+import { Side } from '../comp/Side.comp';
 import { PostDetails } from '../../types/page/CreatePost.page.types';
 import { BsImage } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
@@ -49,8 +48,6 @@ export const CreatePost = () => {
 
   return (
     <>
-      <ReturnNav />
-      <SideUser />
       <form
         id="createPost"
         method="POST"

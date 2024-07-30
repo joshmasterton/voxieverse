@@ -43,6 +43,7 @@
 #friendPage > form > div {
   flex: 1;
   width: 100%;
+  border-radius: App.$round;
   background: var(--background-shade);
 }
 
@@ -51,6 +52,7 @@
   max-width: App.$widthMedium;
   flex: 1;
   border-radius: App.$round;
+  padding: App.$pad;
   outline: var(--outline);
   background: var(--background-shade);
 }

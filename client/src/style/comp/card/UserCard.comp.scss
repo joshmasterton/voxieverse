@@ -40,7 +40,8 @@
 
 .userCard > footer button {
   padding: App.$padSVG;
-  width: 100%;
+  font-size: App.$fontSmall;
+  min-width: calc(App.$height * 2);
 }
 
 .userCard > header > div {

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { NavigateProps } from '../../types/comp/Navigate.comp.types';
-import '../style/comp/Navigate.comp.scss';
 import { MouseEvent } from 'react';
+import '../style/comp/Navigate.comp.scss';
 
 export const Navigate = ({
   to,
@@ -15,7 +15,7 @@ export const Navigate = ({
       to={to}
       onClick={(e?: MouseEvent<HTMLAnchorElement>) => {
         e?.currentTarget.blur();
-        onClick;
+        onClick();
       }}
       className={className}
     >

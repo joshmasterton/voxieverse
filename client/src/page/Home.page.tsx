@@ -1,7 +1,6 @@
 import { PiPlus } from 'react-icons/pi';
-import { Nav } from '../comp/Nav.comp';
 import { Navigate } from '../comp/Navigate.comp';
-import { Side, SideUser } from '../comp/Side.comp';
+import { Side } from '../comp/Side.comp';
 import { useEffect, useState } from 'react';
 import { request } from '../utilities/request.utilities';
 import { SerializedPostComment } from '../../types/utilities/request.utilities.types';
@@ -71,8 +70,6 @@ export const Home = () => {
 
   return (
     <>
-      <Nav />
-      <SideUser />
       <div id="home">
         {loading ? (
           <Loading className="full" />

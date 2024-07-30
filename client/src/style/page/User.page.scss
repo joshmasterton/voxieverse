@@ -40,6 +40,7 @@
 #userPage > .empty {
   width: 100%;
   flex: 1;
+  padding: App.$pad;
   max-width: App.$widthMedium;
   border-radius: App.$round;
   outline: var(--outline);
@@ -67,10 +68,6 @@
   background: var(--background);
 }
 
-#userPage > #userPageCon button {
-  padding: App.$pad;
-}
-
 #userPage > #userPageCon > main {
   display: flex;
   flex-direction: column;
@@ -80,6 +77,7 @@
 #userPage > #userPageCon > main button {
   width: fit-content;
   text-align: start;
+  padding: App.$padSVG;
   min-width: calc(App.$height * 2);
 }
 

@@ -11,6 +11,33 @@ a {
     outline-color App.$anim;
 }
 
+a > div {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  align-self: center;
+  flex: 1;
+  height: App.$height;
+}
+
+a > div > div {
+  flex: 1;
+}
+
+a > div > p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: start;
+  width: calc(App.$heightSmall / 1.5);
+  height: calc(App.$heightSmall / 1.5);
+  border-radius: App.$round;
+  background: red;
+  color: white;
+  opacity: 100%;
+  animation: 0.5s cubic-bezier(0.645, 0.045, 0.355, 1) pop;
+}
+
 a.transparent {
   color: inherit;
 }

@@ -1,9 +1,9 @@
-import { MouseEvent, ReactNode } from 'react';
+import { ReactNode } from 'react';
 
 export type NavigateProps = {
   to: string;
-  name?: string;
-  onClick: (e: MouseEvent<HTMLAnchorElement>) => void;
+  name?: ReactNode;
+  onClick: () => void;
   className?: string;
   SVG?: ReactNode;
 };

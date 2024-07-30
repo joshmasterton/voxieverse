@@ -114,6 +114,10 @@ nav > main > div > ul > li > a {
     display: none;
   }
 
+  nav > header#returnNav > div > button {
+    display: flex;
+  }
+
   nav > header > div > ul {
     display: flex;
   }

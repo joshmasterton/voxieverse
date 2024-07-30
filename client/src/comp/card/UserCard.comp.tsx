@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { request } from '../../utilities/request.utilities';
 import { Button } from '../Button.comp';
 import { useUser } from '../../context/User.context';
+import { useNotification } from '../../context/Notification.context';
 import '../../style/comp/card/UserCard.comp.scss';
 
 export const UserCard = ({
@@ -17,6 +18,8 @@ export const UserCard = ({
   isRequest?: boolean;
 }) => {
   const { user } = useUser();
+  const { getRequests } = useNotification();
+  const [loadingFriend, setLoadingFriend] = useState(true);
   const [friendship, setFriendship] = useState<FriendType | undefined>(
     undefined
   );
@@ -35,11 +38,14 @@ export const UserCard = ({
       if (error instanceof Error) {
         console.error(error.message);
       }
+    } finally {
+      setLoadingFriend(false);
     }
   };
 
   const addFriend = async () => {
     try {
+      setLoadingFriend(true);
       const friend = await request<unknown, FriendType>('/addFriend', 'POST', {
         friend_id: profile?.user_id
       });
@@ -51,11 +57,15 @@ export const UserCard = ({
       if (error instanceof Error) {
         console.error(error.message);
       }
+    } finally {
+      await getRequests();
+      setLoadingFriend(false);
     }
   };
 
   const removeFriend = async () => {
     try {
+      setLoadingFriend(true);
       const friend = await request<unknown, FriendType>(
         '/removeFriend',
         'DELETE',
@@ -71,6 +81,9 @@ export const UserCard = ({
       if (error instanceof Error) {
         console.error(error.message);
       }
+    } finally {
+      await getRequests();
+      setLoadingFriend(false);
     }
   };
 
@@ -104,9 +117,10 @@ export const UserCard = ({
             {friendship?.friend_accepted && (
               <Button
                 type="button"
+                loading={loadingFriend}
                 onClick={async () => await removeFriend()}
                 label="removeFriend"
-                className="buttonPrimary"
+                className="buttonOutline"
                 name="Remove"
               />
             )}
@@ -114,28 +128,31 @@ export const UserCard = ({
               friendship.friend_initiator_id === user?.user_id && (
                 <Button
                   type="button"
+                  loading={loadingFriend}
                   onClick={async () => await removeFriend()}
                   label="addFriend"
-                  className="buttonPrimary"
-                  name="Cancel friend request"
+                  className="buttonOutline"
+                  name="Cancel request"
                 />
               )}
             {friendship?.friend_accepted === false &&
               friendship.friend_initiator_id !== user?.user_id && (
                 <Button
                   type="button"
+                  loading={loadingFriend}
                   onClick={async () => await addFriend()}
                   label="addFriend"
-                  className="buttonPrimary"
-                  name="Accept friend request"
+                  className="buttonOutline"
+                  name="Accept request"
                 />
               )}
             {!friendship && (
               <Button
                 type="button"
+                loading={loadingFriend}
                 onClick={async () => await addFriend()}
                 label="addFriend"
-                className="buttonPrimary"
+                className="buttonOutline"
                 name="Add"
               />
             )}

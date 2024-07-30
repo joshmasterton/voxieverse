@@ -4,6 +4,7 @@ import { routes } from '../../src/App';
 import { ReactNode } from 'react';
 import { UserProvider } from '../../src/context/User.context';
 import { PopupProvider } from '../../src/context/Popup.context';
+import { NotificationProvider } from '../../src/context/Notification.context';
 
 export const mockUser = {
   comments: 0,
@@ -49,7 +50,9 @@ export const ContextWrapper = ({ children }: { children: ReactNode }) => {
   return (
     <ThemeProvider>
       <UserProvider>
-        <PopupProvider>{children}</PopupProvider>
+        <PopupProvider>
+          <NotificationProvider>{children}</NotificationProvider>
+        </PopupProvider>
       </UserProvider>
     </ThemeProvider>
   );

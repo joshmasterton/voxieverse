@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import { request } from '../utilities/request.utilities';
 import { useLocation } from 'react-router-dom';
-import { ReturnNav } from '../comp/ReturnNav';
-import { Side, SideUser } from '../comp/Side.comp';
+import { Side } from '../comp/Side.comp';
 import { SerializedPostComment } from '../../types/utilities/request.utilities.types';
 import { PostCard } from '../comp/card/PostCard.comp';
 import { Loading } from '../comp/Loading.comp';
@@ -41,8 +40,6 @@ export const Post = () => {
 
   return (
     <>
-      <ReturnNav />
-      <SideUser />
       <div id="postPage">
         {loading ? (
           <Loading className="full" />

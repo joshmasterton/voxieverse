@@ -14,13 +14,16 @@ import { Error } from './comp/security/Error.comp';
 import { Friend } from './page/Friend.page';
 import { Users } from './page/Users.page';
 import { Requests } from './page/Requests.page';
+import { Nav } from './comp/Nav.comp';
 import './style/App.scss';
+import { NotificationProvider } from './context/Notification.context';
 
 export const routes = [
   {
     path: '/',
     element: (
       <Private>
+        <Nav />
         <Home />
       </Private>
     ),
@@ -30,6 +33,7 @@ export const routes = [
     path: '/friends',
     element: (
       <Private>
+        <Nav />
         <Friend />
       </Private>
     ),
@@ -39,6 +43,7 @@ export const routes = [
     path: '/users',
     element: (
       <Private>
+        <Nav isReturn />
         <Users />
       </Private>
     ),
@@ -48,6 +53,7 @@ export const routes = [
     path: '/requests',
     element: (
       <Private>
+        <Nav />
         <Requests />
       </Private>
     ),
@@ -57,6 +63,7 @@ export const routes = [
     path: '/profile/:user_id',
     element: (
       <Private>
+        <Nav isReturn />
         <User />
       </Private>
     ),
@@ -66,6 +73,7 @@ export const routes = [
     path: '/post/:post_id',
     element: (
       <Private>
+        <Nav isReturn />
         <Post />
       </Private>
     ),
@@ -75,6 +83,7 @@ export const routes = [
     path: '/createPost',
     element: (
       <Private>
+        <Nav isReturn />
         <CreatePost />
       </Private>
     ),
@@ -125,7 +134,9 @@ export const App = () => {
     <ThemeProvider>
       <UserProvider>
         <PopupProvider>
-          <RouterProvider router={router} />
+          <NotificationProvider>
+            <RouterProvider router={router} />
+          </NotificationProvider>
           <Popup />
         </PopupProvider>
       </UserProvider>

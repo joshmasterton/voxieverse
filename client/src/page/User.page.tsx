@@ -1,23 +1,25 @@
 import { useLocation } from 'react-router-dom';
 import { request } from '../utilities/request.utilities';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   FriendType,
   SerializedPostComment,
   SerializedUser
 } from '../../types/utilities/request.utilities.types';
-import { ReturnNav } from '../comp/ReturnNav';
-import { Side, SideUser } from '../comp/Side.comp';
+import { Side } from '../comp/Side.comp';
 import { Button } from '../comp/Button.comp';
 import { PostCard } from '../comp/card/PostCard.comp';
 import { Loading } from '../comp/Loading.comp';
 import { useUser } from '../context/User.context';
+import { useNotification } from '../context/Notification.context';
 import '../style/page/User.page.scss';
 
 export const User = () => {
   const location = useLocation();
   const user_id = location.pathname.split('/').pop();
   const { user } = useUser();
+  const { getRequests } = useNotification();
+  const [loadingFriend, setLoadingFriend] = useState(true);
   const [page, setPage] = useState(0);
   const [canLoadMore, setCanLoadMore] = useState(true);
   const [loading, setLoading] = useState(true);
@@ -29,6 +31,8 @@ export const User = () => {
   const [friendship, setFriendship] = useState<FriendType | undefined>(
     undefined
   );
+
+  const userIdRef = useRef(user_id);
 
   const getUser = async () => {
     try {
@@ -103,6 +107,7 @@ export const User = () => {
 
   const addFriend = async () => {
     try {
+      setLoadingFriend(true);
       const friend = await request<unknown, FriendType>('/addFriend', 'POST', {
         friend_id: profile?.user_id
       });
@@ -114,11 +119,15 @@ export const User = () => {
       if (error instanceof Error) {
         console.error(error.message);
       }
+    } finally {
+      await getRequests();
+      setLoadingFriend(false);
     }
   };
 
   const removeFriend = async () => {
     try {
+      setLoadingFriend(true);
       const friend = await request<unknown, FriendType>(
         '/removeFriend',
         'DELETE',
@@ -134,6 +143,9 @@ export const User = () => {
       if (error instanceof Error) {
         console.error(error.message);
       }
+    } finally {
+      await getRequests();
+      setLoadingFriend(false);
     }
   };
 
@@ -151,19 +163,26 @@ export const User = () => {
       if (error instanceof Error) {
         console.error(error.message);
       }
+    } finally {
+      setLoadingFriend(false);
     }
   };
 
   useEffect(() => {
-    getUser().then(async () => {
-      await getFriend();
-    });
-  }, [location]);
+    if (userIdRef.current !== user_id) {
+      userIdRef.current = user_id;
+      getUser().then(async () => {
+        await getFriend();
+      });
+    } else if (!profile) {
+      getUser().then(async () => {
+        await getFriend();
+      });
+    }
+  }, [user_id]);
 
   return (
     <>
-      <ReturnNav />
-      <SideUser />
       <div id="userPage">
         {loading ? (
           <Loading className="full" />
@@ -205,10 +224,10 @@ export const User = () => {
                       {friendship?.friend_accepted && (
                         <Button
                           type="button"
-                          loading={loadingMore}
+                          loading={loadingFriend}
                           onClick={async () => await removeFriend()}
                           label="removeFriend"
-                          className="buttonPrimary"
+                          className="buttonOutline"
                           name="Remove"
                         />
                       )}
@@ -216,31 +235,31 @@ export const User = () => {
                         friendship.friend_initiator_id === user?.user_id && (
                           <Button
                             type="button"
-                            loading={loadingMore}
+                            loading={loadingFriend}
                             onClick={async () => await removeFriend()}
                             label="addFriend"
-                            className="buttonPrimary"
-                            name="Cancel friend request"
+                            className="buttonOutline"
+                            name="Cancel request"
                           />
                         )}
                       {friendship?.friend_accepted === false &&
                         friendship.friend_initiator_id !== user?.user_id && (
                           <Button
                             type="button"
-                            loading={loadingMore}
+                            loading={loadingFriend}
                             onClick={async () => await addFriend()}
                             label="addFriend"
-                            className="buttonPrimary"
-                            name="Accept friend request"
+                            className="buttonOutline"
+                            name="Accept request"
                           />
                         )}
                       {!friendship && (
                         <Button
                           type="button"
-                          loading={loadingMore}
+                          loading={loadingFriend}
                           onClick={async () => await addFriend()}
                           label="addFriend"
-                          className="buttonPrimary"
+                          className="buttonOutline"
                           name="Add"
                         />
                       )}
@@ -267,7 +286,7 @@ export const User = () => {
                   )}
                 </>
               ) : (
-                <div className="empty" />
+                <div className="empty">No posts</div>
               )}
             </>
           </>

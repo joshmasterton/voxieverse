@@ -1,4 +1,4 @@
-import { Side, SideUser } from '../comp/Side.comp';
+import { Side } from '../comp/Side.comp';
 import { FormEvent, useEffect, useState } from 'react';
 import { request } from '../utilities/request.utilities';
 import { SerializedUser } from '../../types/utilities/request.utilities.types';
@@ -7,11 +7,11 @@ import { Loading } from '../comp/Loading.comp';
 import { UserCard } from '../comp/card/UserCard.comp';
 import { Input } from '../comp/Input.comp';
 import { BiSearch } from 'react-icons/bi';
-import { ReturnNav } from '../comp/ReturnNav';
 import '../style/page/Friend.page.scss';
 
 export const Users = () => {
   const [loading, setLoading] = useState(true);
+  const [loadingSearch, setLoadingSearch] = useState(false);
   const [loadingMore, setLoadingMore] = useState(false);
   const [canLoadMore, setCanLoadMore] = useState(true);
   const [page, setPage] = useState(0);
@@ -26,6 +26,7 @@ export const Users = () => {
     try {
       setPage(0);
       setUsers(undefined);
+      setLoadingSearch(true);
       setLoading(true);
       await getUsers(0, true, search.search);
     } catch (error) {
@@ -34,6 +35,7 @@ export const Users = () => {
       }
     } finally {
       setLoading(false);
+      setLoadingSearch(false);
     }
   };
 
@@ -93,8 +95,6 @@ export const Users = () => {
 
   return (
     <>
-      <ReturnNav />
-      <SideUser />
       <div id="friendPage">
         <form
           method="GET"
@@ -105,7 +105,7 @@ export const Users = () => {
           <Input
             id="search"
             type="text"
-            placeholder="Search friends..."
+            placeholder="Search users..."
             className="search"
             SVG={<BiSearch />}
             setValue={setSearch}
@@ -113,7 +113,7 @@ export const Users = () => {
           />
           <Button
             type="submit"
-            loading={loadingMore}
+            loading={loadingSearch}
             onClick={() => {}}
             label="getUsers"
             SVG={<BiSearch />}
@@ -125,13 +125,13 @@ export const Users = () => {
         ) : users ? (
           <div id="friendPageCon">
             {users.map((user) => (
-              <UserCard key={user.user_id} profile={user} />
+              <UserCard key={user.user_id} profile={user} isRequest />
             ))}
             {canLoadMore && (
               <Button
                 type="button"
                 loading={loadingMore}
-                onClick={async () => getUsers()}
+                onClick={async () => await getUsers()}
                 label="getMore"
                 className="buttonOutline"
                 name="More users"
@@ -139,7 +139,7 @@ export const Users = () => {
             )}
           </div>
         ) : (
-          <div className="empty" />
+          <div className="empty">No users</div>
         )}
       </div>
       <Side />

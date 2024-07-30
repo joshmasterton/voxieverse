@@ -21,7 +21,7 @@ export const Side = () => {
   );
 };
 
-export const SideUser = () => {
+export const SideUser = ({ requests }: { requests: number }) => {
   const { user, logout } = useUser();
   const [loading, setLoading] = useState(false);
 
@@ -63,7 +63,12 @@ export const SideUser = () => {
                 className="transparent"
                 onClick={() => {}}
                 SVG={<BiUserPlus />}
-                name="Requests"
+                name={
+                  <div>
+                    <div>Requests</div>
+                    {requests > 0 && <p>{requests}</p>}
+                  </div>
+                }
               />
             </li>
             <li>

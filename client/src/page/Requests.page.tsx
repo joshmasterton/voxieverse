@@ -1,5 +1,4 @@
-import { Nav } from '../comp/Nav.comp';
-import { Side, SideUser } from '../comp/Side.comp';
+import { Side } from '../comp/Side.comp';
 import { useEffect, useState } from 'react';
 import { request } from '../utilities/request.utilities';
 import { SerializedUser } from '../../types/utilities/request.utilities.types';
@@ -8,16 +7,18 @@ import { Loading } from '../comp/Loading.comp';
 import { UserCard } from '../comp/card/UserCard.comp';
 import { BiUserPlus } from 'react-icons/bi';
 import { Navigate } from '../comp/Navigate.comp';
+import { useNotification } from '../context/Notification.context';
 import '../style/page/Friend.page.scss';
 
 export const Requests = () => {
+  const { requests } = useNotification();
   const [loading, setLoading] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
   const [canLoadMore, setCanLoadMore] = useState(true);
   const [page, setPage] = useState(0);
-  const [requests, setRequests] = useState<SerializedUser[] | undefined>(
-    undefined
-  );
+  const [requestsFriends, setRequestsFriends] = useState<
+    SerializedUser[] | undefined
+  >(undefined);
 
   const getRequests = async (currentPage = page, incrememtPage = true) => {
     try {
@@ -33,7 +34,7 @@ export const Requests = () => {
           setCanLoadMore(false);
         }
 
-        setRequests((prevRequests) => {
+        setRequestsFriends((prevRequests) => {
           if (prevRequests && requestsData.length > 0) {
             return [...prevRequests, ...requestsData];
           }
@@ -64,28 +65,31 @@ export const Requests = () => {
   };
 
   useEffect(() => {
-    getRequests().finally(() => {
-      setLoading(false);
-    });
-  }, []);
+    if (requests > 0) {
+      setLoading(true);
+      setPage(0);
+      setRequestsFriends(undefined);
+      getRequests(0).finally(() => {
+        setLoading(false);
+      });
+    }
+  }, [requests]);
 
   return (
     <>
-      <Nav />
-      <SideUser />
       <div id="friendPage">
         {loading ? (
           <Loading className="full" />
         ) : requests ? (
           <div id="friendPageCon">
-            {requests.map((request) => (
+            {requestsFriends?.map((request) => (
               <UserCard key={request.user_id} profile={request} isRequest />
             ))}
             {canLoadMore && (
               <Button
                 type="button"
                 loading={loadingMore}
-                onClick={async () => getRequests()}
+                onClick={async () => await getRequests()}
                 label="getMore"
                 className="buttonOutline"
                 name="More requests"
@@ -93,7 +97,7 @@ export const Requests = () => {
             )}
           </div>
         ) : (
-          <div className="empty" />
+          <div className="empty">No friend requests</div>
         )}
         <Navigate
           to="/users"

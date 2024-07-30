@@ -6,7 +6,7 @@ export type ButtonProps = {
   label: string;
   loading?: boolean;
   className?: string;
-  name?: string | number;
+  name?: ReactNode | string | number;
   SVG?: ReactNode;
 };
 

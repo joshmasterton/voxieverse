@@ -1,5 +1,4 @@
-import { Nav } from '../comp/Nav.comp';
-import { Side, SideUser } from '../comp/Side.comp';
+import { Side } from '../comp/Side.comp';
 import { FormEvent, useEffect, useState } from 'react';
 import { request } from '../utilities/request.utilities';
 import { SerializedUser } from '../../types/utilities/request.utilities.types';
@@ -13,6 +12,7 @@ import '../style/page/Friend.page.scss';
 
 export const Friend = () => {
   const [loading, setLoading] = useState(true);
+  const [loadingSearch, setLoadingSearch] = useState(false);
   const [loadingMore, setLoadingMore] = useState(false);
   const [canLoadMore, setCanLoadMore] = useState(true);
   const [page, setPage] = useState(0);
@@ -29,6 +29,7 @@ export const Friend = () => {
     try {
       setPage(0);
       setFriends(undefined);
+      setLoadingSearch(true);
       setLoading(true);
       await getFriends(0, true, search.search);
     } catch (error) {
@@ -37,6 +38,7 @@ export const Friend = () => {
       }
     } finally {
       setLoading(false);
+      setLoadingSearch(false);
     }
   };
 
@@ -96,8 +98,6 @@ export const Friend = () => {
 
   return (
     <>
-      <Nav />
-      <SideUser />
       <div id="friendPage">
         <form
           method="GET"
@@ -116,7 +116,7 @@ export const Friend = () => {
           />
           <Button
             type="submit"
-            loading={loadingMore}
+            loading={loadingSearch}
             onClick={() => {}}
             label="getFriends"
             SVG={<BiSearch />}
@@ -134,7 +134,7 @@ export const Friend = () => {
               <Button
                 type="button"
                 loading={loadingMore}
-                onClick={async () => getFriends()}
+                onClick={async () => await getFriends()}
                 label="getMore"
                 className="buttonOutline"
                 name="More friends"
@@ -142,7 +142,7 @@ export const Friend = () => {
             )}
           </div>
         ) : (
-          <div className="empty" />
+          <div className="empty">No friends</div>
         )}
         <Navigate
           to="/users"
