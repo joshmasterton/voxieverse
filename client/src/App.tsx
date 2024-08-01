@@ -15,8 +15,8 @@ import { Friend } from './page/Friend.page';
 import { Users } from './page/Users.page';
 import { Requests } from './page/Requests.page';
 import { Nav } from './comp/Nav.comp';
-import './style/App.scss';
 import { NotificationProvider } from './context/Notification.context';
+import './style/App.scss';
 
 export const routes = [
   {
@@ -80,7 +80,7 @@ export const routes = [
     errorElement: <Error />
   },
   {
-    path: '/createPost',
+    path: '/new',
     element: (
       <Private>
         <Nav isReturn />

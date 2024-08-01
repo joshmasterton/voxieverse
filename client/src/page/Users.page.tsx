@@ -125,17 +125,19 @@ export const Users = () => {
         ) : users ? (
           <div id="friendPageCon">
             {users.map((user) => (
-              <UserCard key={user.user_id} profile={user} isRequest />
+              <UserCard key={user.user_id} profile={user} />
             ))}
             {canLoadMore && (
-              <Button
-                type="button"
-                loading={loadingMore}
-                onClick={async () => await getUsers()}
-                label="getMore"
-                className="buttonOutline"
-                name="More users"
-              />
+              <div className="buttonMore">
+                <Button
+                  type="button"
+                  loading={loadingMore}
+                  onClick={async () => await getUsers()}
+                  label="getMore"
+                  className="buttonOutline"
+                  name="More users"
+                />
+              </div>
             )}
           </div>
         ) : (

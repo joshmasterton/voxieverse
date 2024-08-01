@@ -1,4 +1,7 @@
+import { SerializedUser } from '../utilities/request.utilities.types';
+
 export type NotificationContextType = {
-  requests: number;
+  loading: boolean;
+  requests: SerializedUser[] | undefined;
   getRequests: () => Promise<void>;
 };

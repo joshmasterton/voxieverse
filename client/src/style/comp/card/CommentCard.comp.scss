@@ -36,7 +36,7 @@
   max-width: App.$heightSmall;
   min-height: App.$heightSmall;
   max-height: App.$heightSmall;
-  background: var(--background-shade);
+  background: var(--background);
   z-index: 1;
 }
 
@@ -146,6 +146,10 @@
   flex-direction: column;
   gap: App.$pad;
   align-items: end;
+}
+
+.commentCard > div > form textarea {
+  padding: App.$padSVG;
 }
 
 .commentCard > div > .loading {

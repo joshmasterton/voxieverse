@@ -32,7 +32,7 @@ a > div > p {
   width: calc(App.$heightSmall / 1.5);
   height: calc(App.$heightSmall / 1.5);
   border-radius: App.$round;
-  background: red;
+  background: var(--danger);
   color: white;
   opacity: 100%;
   animation: 0.5s cubic-bezier(0.645, 0.045, 0.355, 1) pop;

@@ -24,21 +24,27 @@ export const useNotification = () => {
 };
 
 export const NotificationProvider = ({ children }: { children: ReactNode }) => {
-  const [requests, setRequests] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [requests, setRequests] = useState<SerializedUser[] | undefined>(
+    undefined
+  );
 
   const getRequests = async () => {
     try {
+      setLoading(true);
       const requestsData = await request<unknown, SerializedUser[]>(
         `/getUsers?friends=waiting`,
         'GET'
       );
       if (requestsData) {
-        setRequests(requestsData.length);
+        setRequests(requestsData);
       }
     } catch (error) {
       if (error instanceof Error) {
         console.error(error.message);
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -47,7 +53,7 @@ export const NotificationProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   return (
-    <NotificationContext.Provider value={{ requests, getRequests }}>
+    <NotificationContext.Provider value={{ loading, requests, getRequests }}>
       {children}
     </NotificationContext.Provider>
   );

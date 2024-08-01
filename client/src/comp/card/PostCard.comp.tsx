@@ -187,7 +187,7 @@ export const PostCard = ({
           </div>
         </header>
         <main>
-          {currentPost?.text}
+          <p>{currentPost?.text}</p>
           {currentPost?.picture && (
             <div>
               <img alt="" src={currentPost?.picture} />

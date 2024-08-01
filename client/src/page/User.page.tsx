@@ -13,6 +13,7 @@ import { Loading } from '../comp/Loading.comp';
 import { useUser } from '../context/User.context';
 import { useNotification } from '../context/Notification.context';
 import '../style/page/User.page.scss';
+import { CgUserAdd, CgUserRemove } from 'react-icons/cg';
 
 export const User = () => {
   const location = useLocation();
@@ -190,11 +191,11 @@ export const User = () => {
           <>
             {profile && (
               <div id="userPageCon">
-                <div>
-                  <img alt="" src={profile?.profile_picture} />
-                </div>
                 <header>
                   <img alt="" src={profile?.profile_picture} />
+                  <div>
+                    <img alt="" src={profile?.profile_picture} />
+                  </div>
                 </header>
                 <main>
                   <div>
@@ -220,48 +221,69 @@ export const User = () => {
                     </div>
                   </footer>
                   {user?.user_id !== profile.user_id && (
-                    <div>
+                    <div className="friends">
                       {friendship?.friend_accepted && (
-                        <Button
-                          type="button"
-                          loading={loadingFriend}
-                          onClick={async () => await removeFriend()}
-                          label="removeFriend"
-                          className="buttonOutline"
-                          name="Remove"
-                        />
-                      )}
-                      {friendship?.friend_accepted === false &&
-                        friendship.friend_initiator_id === user?.user_id && (
+                        <>
                           <Button
                             type="button"
                             loading={loadingFriend}
                             onClick={async () => await removeFriend()}
-                            label="addFriend"
+                            label="removeFriend"
                             className="buttonOutline"
-                            name="Cancel request"
+                            SVG={<CgUserRemove />}
+                            name={<p>Remove friend</p>}
                           />
+                        </>
+                      )}
+                      {friendship?.friend_accepted === false &&
+                        friendship.friend_initiator_id === user?.user_id && (
+                          <>
+                            <Button
+                              type="button"
+                              loading={loadingFriend}
+                              onClick={async () => await removeFriend()}
+                              label="cancelFriend"
+                              className="buttonOutline"
+                              SVG={<CgUserRemove />}
+                              name={<p>Waiting</p>}
+                            />
+                          </>
                         )}
                       {friendship?.friend_accepted === false &&
                         friendship.friend_initiator_id !== user?.user_id && (
+                          <>
+                            <Button
+                              type="button"
+                              loading={loadingFriend}
+                              onClick={async () => await addFriend()}
+                              label="acceptFriend"
+                              className="buttonOutline"
+                              SVG={<CgUserAdd />}
+                              name={<p>Accept</p>}
+                            />
+                            <Button
+                              type="button"
+                              loading={loadingFriend}
+                              onClick={async () => await addFriend()}
+                              label="declineFriend"
+                              className="buttonOutline"
+                              SVG={<CgUserRemove />}
+                              name={<p>Decline</p>}
+                            />
+                          </>
+                        )}
+                      {!friendship && (
+                        <>
                           <Button
                             type="button"
                             loading={loadingFriend}
                             onClick={async () => await addFriend()}
                             label="addFriend"
                             className="buttonOutline"
-                            name="Accept request"
+                            SVG={<CgUserAdd />}
+                            name={<p>Add friend</p>}
                           />
-                        )}
-                      {!friendship && (
-                        <Button
-                          type="button"
-                          loading={loadingFriend}
-                          onClick={async () => await addFriend()}
-                          label="addFriend"
-                          className="buttonOutline"
-                          name="Add"
-                        />
+                        </>
                       )}
                     </div>
                   )}
@@ -275,14 +297,16 @@ export const User = () => {
                     <PostCard key={post.id} post={post} />
                   ))}
                   {canLoadMore && (
-                    <Button
-                      type="button"
-                      loading={loadingMore}
-                      onClick={async () => getPosts()}
-                      label="getMore"
-                      className="buttonOutline"
-                      name="More posts"
-                    />
+                    <div className="buttonMore">
+                      <Button
+                        type="button"
+                        loading={loadingMore}
+                        onClick={async () => getPosts()}
+                        label="getMore"
+                        className="buttonOutline"
+                        name="More posts"
+                      />
+                    </div>
                   )}
                 </>
               ) : (

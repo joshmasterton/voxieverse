@@ -9,6 +9,7 @@ import { Button } from '../Button.comp';
 import { useUser } from '../../context/User.context';
 import { useNotification } from '../../context/Notification.context';
 import '../../style/comp/card/UserCard.comp.scss';
+import { CgUserAdd, CgUserRemove } from 'react-icons/cg';
 
 export const UserCard = ({
   profile,
@@ -113,48 +114,69 @@ export const UserCard = ({
       </header>
       <footer>
         {isRequest && (
-          <div>
+          <div className="friends">
             {friendship?.friend_accepted && (
-              <Button
-                type="button"
-                loading={loadingFriend}
-                onClick={async () => await removeFriend()}
-                label="removeFriend"
-                className="buttonOutline"
-                name="Remove"
-              />
-            )}
-            {friendship?.friend_accepted === false &&
-              friendship.friend_initiator_id === user?.user_id && (
+              <>
                 <Button
                   type="button"
                   loading={loadingFriend}
                   onClick={async () => await removeFriend()}
-                  label="addFriend"
+                  label="removeFriend"
                   className="buttonOutline"
-                  name="Cancel request"
+                  SVG={<CgUserRemove />}
+                  name={<p>Remove friend</p>}
                 />
+              </>
+            )}
+            {friendship?.friend_accepted === false &&
+              friendship.friend_initiator_id === user?.user_id && (
+                <>
+                  <Button
+                    type="button"
+                    loading={loadingFriend}
+                    onClick={async () => await removeFriend()}
+                    label="waitingFriend"
+                    className="buttonOutline"
+                    SVG={<CgUserRemove />}
+                    name={<p>Waiting</p>}
+                  />
+                </>
               )}
             {friendship?.friend_accepted === false &&
               friendship.friend_initiator_id !== user?.user_id && (
+                <>
+                  <Button
+                    type="button"
+                    loading={loadingFriend}
+                    onClick={async () => await addFriend()}
+                    label="acceptFriend"
+                    className="buttonOutline"
+                    SVG={<CgUserAdd />}
+                    name={<p>Accept</p>}
+                  />{' '}
+                  <Button
+                    type="button"
+                    loading={loadingFriend}
+                    onClick={async () => await addFriend()}
+                    label="declineFriend"
+                    className="buttonOutline"
+                    SVG={<CgUserRemove />}
+                    name={<p>Decline</p>}
+                  />
+                </>
+              )}
+            {!friendship && (
+              <>
                 <Button
                   type="button"
                   loading={loadingFriend}
                   onClick={async () => await addFriend()}
                   label="addFriend"
                   className="buttonOutline"
-                  name="Accept request"
+                  SVG={<CgUserAdd />}
+                  name={<p>Add friend</p>}
                 />
-              )}
-            {!friendship && (
-              <Button
-                type="button"
-                loading={loadingFriend}
-                onClick={async () => await addFriend()}
-                label="addFriend"
-                className="buttonOutline"
-                name="Add"
-              />
+              </>
             )}
           </div>
         )}

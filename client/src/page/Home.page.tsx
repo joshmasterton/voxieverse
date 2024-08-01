@@ -73,13 +73,13 @@ export const Home = () => {
       <div id="home">
         {loading ? (
           <Loading className="full" />
-        ) : (
-          posts && (
-            <>
-              {posts.map((post) => (
-                <PostCard key={post.id} post={post} />
-              ))}
-              {canLoadMore && (
+        ) : posts && posts.length > 0 ? (
+          <>
+            {posts.map((post) => (
+              <PostCard key={post.id} post={post} />
+            ))}
+            {canLoadMore && (
+              <div className="buttonMore">
                 <Button
                   type="button"
                   loading={loadingMore}
@@ -88,12 +88,14 @@ export const Home = () => {
                   className="buttonOutline"
                   name="More posts"
                 />
-              )}
-            </>
-          )
+              </div>
+            )}
+          </>
+        ) : (
+          <div className="empty"></div>
         )}
         <Navigate
-          to="/createPost"
+          to="/new"
           onClick={() => {}}
           SVG={<PiPlus />}
           className="buttonPrimary"

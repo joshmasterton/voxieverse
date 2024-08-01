@@ -5,13 +5,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: App.$pad;
-  gap: App.$pad;
+  padding-bottom: App.$pad;
   width: 100%;
   min-height: 100%;
-  padding: App.$pad;
-  padding-top: calc(App.$height * 2);
-  background: var(--background);
+  padding-top: calc(App.$height + (App.$padSVG * 2));
 }
 
 #home > a {
@@ -23,13 +20,13 @@
 
 @media screen and (min-width: App.$widthLarge) {
   #home {
-    padding-left: calc((App.$height * 7 + (App.$padSVG)));
+    padding-left: calc((App.$height * 6) + (App.$padSVG * 3));
   }
 }
 
 @media screen and (min-width: App.$widthExtraLarge) {
   #home {
-    padding-right: calc((App.$height * 2 + (App.$padSVG * 3)));
     padding-left: 0;
+    padding-right: calc((App.$height * 1) + (App.$padSVG * 2));
   }
 }

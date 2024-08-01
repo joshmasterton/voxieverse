@@ -6,8 +6,10 @@
   overflow: scroll;
   top: 0;
   padding: App.$pad;
-  padding-top: calc((App.$height * 2));
-  width: calc(App.$height * 10);
+  padding-left: 0;
+  padding-top: calc(App.$height + (App.$padSVG * 2));
+  width: calc(App.$height * 9);
+  border-left: var(--outline);
   min-height: 100%;
   height: 100%;
 }
@@ -27,8 +29,7 @@
   flex: 1;
   height: 100%;
   border-radius: App.$round;
-  outline: var(--outline);
-  background: var(--background-shade);
+  background: var(--background);
 }
 
 #sideUser {
@@ -36,11 +37,11 @@
   display: none;
   overflow: scroll;
   top: 0;
-  padding: App.$pad;
-  padding-top: calc((App.$height * 2));
-  width: calc(App.$height * 6 + (App.$pad * 3));
+  padding-top: calc(App.$height + (App.$padSVG * 2));
+  width: calc(App.$height * 6 + (App.$pad * 2));
   min-height: 100%;
   height: 100%;
+  border-right: var(--outline);
 }
 
 #sideUser > div {
@@ -51,9 +52,9 @@
   height: fit-content;
   gap: App.$pad;
   padding: App.$pad;
+  padding-top: 0.15rem;
   border-radius: App.$round;
-  outline: var(--outline);
-  background: var(--background-shade);
+  background: var(--background);
 }
 
 #sideUser > div > header {
@@ -114,18 +115,18 @@
 @media screen and (min-width: App.$widthLarge) {
   #sideUser {
     display: flex;
-    margin-right: calc((App.$height * 13) + (App.$padSVG * 3));
+    margin-right: calc((App.$height * 13) + (App.$padSVG * 4));
   }
 }
 
 @media screen and (min-width: App.$widthExtraLarge) {
   #side {
     display: flex;
-    margin-left: calc((App.$height * 21) - (App.$padSVG * 2));
+    margin-left: calc((App.$height * 22) - (App.$padSVG * 1));
   }
 
   #sideUser {
     display: flex;
-    margin-right: calc((App.$height * 21) + (App.$padSVG * 9));
+    margin-right: calc((App.$height * 21) + (App.$padSVG * 6));
   }
 }

@@ -3,14 +3,16 @@
 .userCard {
   position: relative;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   width: 100%;
   max-width: App.$widthMedium;
   padding: App.$pad;
-  gap: App.$pad;
-  border-radius: App.$round;
-  outline: var(--outline);
-  background: var(--background-shade);
+  background: var(--background);
+  border-bottom: var(--outline);
+}
+
+.userCard:first-child {
+  padding-top: 0;
 }
 
 .userCard > a {
@@ -32,21 +34,32 @@
   z-index: 1;
 }
 
-.userCard > footer {
-  display: flex;
-  justify-content: end;
-  flex: 1;
-}
-
-.userCard > footer button {
-  padding: App.$padSVG;
-  font-size: App.$fontSmall;
-  min-width: calc(App.$height * 2);
-}
-
 .userCard > header > div {
   display: flex;
   flex-direction: column;
   align-items: start;
   gap: 0.2rem;
+}
+
+.userCard > footer {
+  display: flex;
+}
+
+.userCard > footer > div {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: App.$pad;
+  margin-top: App.$pad;
+}
+
+.userCard > footer > div > button {
+  width: calc((App.$height * 2) + App.$padLarge);
+}
+
+@media screen and (min-width: App.$widthMedium) {
+  .userCard {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }

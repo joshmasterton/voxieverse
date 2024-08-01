@@ -8,12 +8,12 @@ $widthMedium: 30rem;
 $width: 5rem;
 
 $pad: 1rem;
-$padSVG: 0.6rem;
+$padSVG: 0.7rem;
 
 $padLarge: 1.5rem;
 $padSmall: 0.4rem;
 
-$round: 0.1rem;
+$round: 1rem;
 
 $fontLarge: 1.25rem;
 $font: 1rem;
@@ -23,27 +23,31 @@ $anim: 0.4s ease;
 
 [data-theme='dark'] {
   --color: white;
-  --primary: linear-gradient(45deg, #194da0, #482fa5);
-  --primaryOutline: #194da0;
-  --background: rgba(18, 18, 20, 1);
-  --backgroundBlur: rgba(18, 18, 20, 1);
-  --outline: 0.075rem solid rgb(50, 50, 55);
-  --background-outline: rgb(50, 50, 55);
-  --background-shade: rgba(24, 24, 29, 1);
-  --outline-shadow: 0 0 0 0.15rem #194da0;
+  --danger: rgb(214, 54, 54);
+  --success: rgb(72, 147, 51);
+  --primary: linear-gradient(45deg, #2d5daa, #553bb5);
+  --primaryOutline: #2d5daa;
+  --background: rgba(4, 4, 7, 1);
+  --backgroundBlur: rgba(4, 4, 7, 1);
+  --outline: 0.075rem solid rgb(50, 50, 60);
+  --background-outline: rgb(50, 50, 60);
+  --background-shade: rgba(4, 4, 7);
+  --outline-shadow: 0 0 0 0.15rem #2d5daa;
   --opacity: 85%;
 }
 
 [data-theme='light'] {
   --color: black;
-  --primary: linear-gradient(45deg, #226de6, #6a43f7);
-  --primaryOutline: #226de6;
-  --background: rgb(235, 235, 240);
+  --danger: rgb(233, 54, 54);
+  --success: rgb(73, 183, 42);
+  --primary: linear-gradient(45deg, #3377e4, #7250ec);
+  --primaryOutline: #3377e4;
+  --background: rgb(255, 255, 255);
   --backgroundBlur: rgba(255, 255, 255, 1);
-  --outline: 0.075rem solid rgb(200, 200, 210);
-  --background-outline: rgb(200, 200, 210);
+  --outline: 0.075rem solid rgb(160, 160, 165);
+  --background-outline: rgb(160, 160, 165);
   --background-shade: rgba(255, 255, 255, 1);
-  --outline-shadow: 0 0 0 0.15rem #226de6;
+  --outline-shadow: 0 0 0 0.15rem #3377e4;
   --opacity: 85%;
 }
 
@@ -74,7 +78,7 @@ body {
   width: 100%;
   height: 100%;
   color: var(--color);
-  background: var(--background-shade);
+  background: var(--background);
 }
 
 #root {
@@ -116,7 +120,22 @@ img {
   border-radius: $round;
   object-fit: cover;
   object-position: center;
-  outline: var(--outline);
+}
+
+.empty {
+  width: 100%;
+  max-width: $widthMedium;
+  flex: 1;
+  border-radius: $round;
+  padding: $pad;
+  padding-top: 0;
+  background: var(--background);
+}
+
+@media screen and (min-width: $widthMedium) {
+  .empty {
+    padding: 0;
+  }
 }
 
 @keyframes pop {

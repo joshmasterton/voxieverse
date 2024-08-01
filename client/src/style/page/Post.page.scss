@@ -7,20 +7,19 @@
   justify-content: center;
   width: 100%;
   gap: App.$pad;
-  padding: App.$pad;
-  padding-top: calc(App.$height * 2);
-  background: var(--background);
+  padding-bottom: App.$pad;
+  padding-top: calc(App.$height + (App.$padSVG * 2));
 }
 
 @media screen and (min-width: App.$widthLarge) {
   #postPage {
-    padding-left: calc((App.$height * 7 + (App.$padSVG)));
+    padding-left: calc((App.$height * 6) + (App.$padSVG * 3));
   }
 }
 
 @media screen and (min-width: App.$widthExtraLarge) {
   #postPage {
-    padding-right: calc((App.$height * 2 + (App.$padSVG * 3)));
     padding-left: 0;
+    padding-right: calc((App.$height * 1) + (App.$padSVG * 2));
   }
 }

@@ -16,6 +16,21 @@ button {
     outline-color App.$anim;
 }
 
+button > p {
+  opacity: 100%;
+  padding-right: App.$padSVG;
+}
+
+.buttonDanger {
+  color: white;
+  background: var(--danger);
+}
+
+.buttonSuccess {
+  color: white;
+  background: var(--success);
+}
+
 button.buttonNotification {
   flex-direction: row-reverse;
   opacity: 100%;
@@ -38,7 +53,7 @@ button.buttonNotification > div > p {
   width: calc(App.$heightSmall / 1.5);
   height: calc(App.$heightSmall / 1.5);
   border-radius: App.$round;
-  background: red;
+  background: var(--danger);
   color: white;
   opacity: 100%;
   animation: 0.5s cubic-bezier(0.645, 0.045, 0.355, 1) pop;
@@ -47,12 +62,32 @@ button.buttonNotification > div > p {
 button.buttonOutline {
   width: 100%;
   max-width: App.$widthMedium;
-  outline: var(--outline);
-  background: var(--background-shade);
+  border: var(--outline);
+  background: var(--background);
 }
 
 button.buttonName {
   padding-right: App.$pad;
+}
+
+.buttonMore {
+  width: 100%;
+  max-width: App.$widthMedium;
+  padding: App.$pad;
+  padding-bottom: 0;
+  margin: 0;
+}
+
+@media screen and (min-width: App.$widthMedium) {
+  .buttonMore {
+    width: 100%;
+    max-width: App.$widthMedium;
+    padding: App.$pad;
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    margin: 0;
+  }
 }
 
 button.buttonSmall {
@@ -72,6 +107,12 @@ button.buttonSmall > svg {
   min-height: App.$heightSmall;
   max-height: App.$heightSmall;
   padding: App.$padSmall;
+}
+
+button.buttonShade {
+  width: 100%;
+  max-width: App.$widthMedium;
+  background: var(--background-shade);
 }
 
 button.buttonLarge {

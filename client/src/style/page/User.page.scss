@@ -7,10 +7,8 @@
   align-items: center;
   width: 100%;
   min-height: 100%;
-  gap: App.$pad;
-  padding: App.$pad;
-  padding-top: calc(App.$height * 2);
-  background: var(--background);
+  padding-bottom: App.$pad;
+  padding-top: calc(App.$height + (App.$padSVG * 2));
 }
 
 #userPage > #userPageCon {
@@ -22,33 +20,13 @@
   max-width: App.$widthMedium;
   gap: App.$pad;
   padding: App.$pad;
-  border-radius: App.$round;
-  outline: var(--outline);
-  overflow: hidden;
-  background: var(--background-shade);
+  padding-top: 0;
+  background: var(--background);
+  border-bottom: var(--outline);
 }
 
-#userPage > #userPageCon > div {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: calc(App.$height * 3);
-  width: 100%;
-  background: var(--background-shade);
-}
-
-#userPage > .empty {
-  width: 100%;
-  flex: 1;
-  padding: App.$pad;
-  max-width: App.$widthMedium;
-  border-radius: App.$round;
-  outline: var(--outline);
-  background: var(--background-shade);
-}
-
-#userPage > #userPageCon > div > img {
-  display: none;
+#userPage .empty {
+  padding-top: App.$pad;
 }
 
 #userPage > #userPageCon > header {
@@ -62,23 +40,30 @@
   border-radius: App.$round;
 }
 
+#userPage > #userPageCon > header > div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: calc(App.$height * 4);
+  width: 100%;
+  border-radius: App.$round;
+}
+
+#userPage > #userPageCon > header > div > img {
+  display: none;
+}
+
 #userPage > #userPageCon > header > img {
   min-width: calc(App.$height * 4);
   min-height: calc(App.$height * 4);
   background: var(--background);
+  z-index: 1;
 }
 
 #userPage > #userPageCon > main {
   display: flex;
   flex-direction: column;
   gap: App.$pad;
-}
-
-#userPage > #userPageCon > main button {
-  width: fit-content;
-  text-align: start;
-  padding: App.$padSVG;
-  min-width: calc(App.$height * 2);
 }
 
 #userPage > #userPageCon > main > footer {
@@ -105,19 +90,49 @@
   gap: App.$padSmall;
 }
 
-#userPage > #userPageCon > main > div > button {
-  padding: App.$pad;
+#userPage > #userPageCon > main > .friends {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: App.$pad;
+}
+
+#userPage > #userPageCon > main > .friends > p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 100%;
+  flex: 1;
+  min-width: calc(App.$height * 3);
+  max-height: App.$height;
+  border-radius: App.$round;
+  background: var(--background);
+  outline: var(--outline);
+  text-align: center;
+}
+
+#userPage > #userPageCon > main > .friends > button {
+  flex: 1;
+  min-width: fit-content;
+}
+
+@media screen and (min-width: App.$widthMedium) {
+  #userPage > #userPageCon {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 
 @media screen and (min-width: App.$widthLarge) {
   #userPage {
-    padding-left: calc((App.$height * 7 + (App.$padSVG)));
+    padding-left: calc((App.$height * 6) + (App.$padSVG * 3));
   }
 }
 
 @media screen and (min-width: App.$widthExtraLarge) {
   #userPage {
-    padding-right: calc((App.$height * 2 + (App.$padSVG * 3)));
     padding-left: 0;
+    padding-right: calc((App.$height * 1) + (App.$padSVG * 2));
   }
 }

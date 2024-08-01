@@ -131,14 +131,16 @@ export const Friend = () => {
               <UserCard key={friend.user_id} profile={friend} />
             ))}
             {canLoadMore && (
-              <Button
-                type="button"
-                loading={loadingMore}
-                onClick={async () => await getFriends()}
-                label="getMore"
-                className="buttonOutline"
-                name="More friends"
-              />
+              <div className="buttonMore">
+                <Button
+                  type="button"
+                  loading={loadingMore}
+                  onClick={async () => await getFriends()}
+                  label="getMore"
+                  className="buttonOutline"
+                  name="More friends"
+                />
+              </div>
             )}
           </div>
         ) : (

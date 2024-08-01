@@ -6,11 +6,8 @@
   width: 100%;
   max-width: App.$widthMedium;
   flex-direction: column;
-  padding: App.$pad;
-  gap: App.$pad;
-  border-radius: App.$round;
-  outline: var(--outline);
-  background: var(--background-shade);
+  background: var(--background);
+  border-bottom: var(--outline);
 }
 
 .postCard > a {
@@ -31,23 +28,8 @@
   max-width: App.$widthMedium;
   padding: App.$pad;
   padding-bottom: 0;
+  padding-top: 0;
   border-radius: App.$round;
-  outline: var(--outline);
-  background: var(--background-shade);
-}
-
-.commentsCon > div {
-  padding-bottom: App.$pad;
-  border-bottom: var(--outline);
-}
-
-.commentsCon > div:last-child {
-  border-bottom: none;
-}
-
-.commentsCon > div:first-child {
-  padding-bottom: App.$pad;
-  border-bottom: var(--outline);
 }
 
 .postCard > a,
@@ -61,6 +43,11 @@
   display: flex;
   align-items: center;
   gap: App.$pad;
+  padding: App.$pad;
+}
+
+.postCard:first-child > header {
+  padding-top: 0;
 }
 
 .postCard > header > a {
@@ -88,7 +75,13 @@
   min-height: 10rem;
   border-radius: App.$round;
   overflow: hidden;
-  outline: var(--outline);
+}
+
+.postCard > main > p {
+  opacity: 100%;
+  font-size: App.$font;
+  padding-left: App.$pad;
+  padding-right: App.$pad;
 }
 
 .postCard > main > div > img:first-of-type {
@@ -119,6 +112,7 @@
   justify-content: end;
   flex-wrap: wrap;
   gap: App.$pad;
+  padding: App.$pad;
 }
 
 .postCard > form {
@@ -131,4 +125,14 @@
 .postCard > form button {
   padding: App.$pad;
   min-width: calc(App.$height * 3);
+}
+
+@media screen and (min-width: App.$widthMedium) {
+  .postCard > header,
+  .postCard > main > p,
+  .postCard > footer,
+  .commentsCon {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }

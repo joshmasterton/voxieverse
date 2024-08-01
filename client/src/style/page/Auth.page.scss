@@ -6,7 +6,7 @@
   align-items: center;
   width: 100%;
   min-height: 100%;
-  background: var(--background);
+  padding-top: calc(App.$padSmall * 7);
 }
 
 #auth > form {
@@ -18,8 +18,8 @@
   padding: App.$padLarge;
   margin: App.$pad;
   gap: App.$padLarge;
-  outline: var(--outline);
   border-radius: App.$round;
+  outline: var(--outline);
   background: var(--background-shade);
 }
 
@@ -33,9 +33,8 @@
   position: absolute;
   transform: translateX(-50%);
   left: 50%;
-  top: - calc(App.$padSVG * 4.5);
-  background: var(--background-shade);
-  outline: var(--outline);
+  top: - calc(App.$height * 2);
+  outline: none;
   border-radius: App.$round;
 }
 

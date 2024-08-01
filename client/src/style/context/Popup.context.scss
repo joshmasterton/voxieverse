@@ -60,10 +60,10 @@
   max-width: App.$widthMedium;
   min-height: calc(App.$height * 3);
   border-radius: App.$round;
-  outline: var(--outline);
   padding: App.$pad;
   gap: App.$pad;
-  background: var(--background-shade);
+  background: var(--background);
+  outline: var(--outline);
   z-index: 1;
 }
 
