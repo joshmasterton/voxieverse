@@ -6,6 +6,8 @@
   justify-content: center;
   align-items: center;
   width: 100%;
+  gap: App.$pad;
+  padding: App.$pad;
   min-height: 100%;
   padding-bottom: App.$pad;
   padding-top: calc(App.$height + (App.$padSVG * 2));
@@ -20,9 +22,8 @@
   max-width: App.$widthMedium;
   gap: App.$pad;
   padding: App.$pad;
-  padding-top: 0;
-  background: var(--background);
-  border-bottom: var(--outline);
+  border-radius: App.$round;
+  background: var(--background-shade);
 }
 
 #userPage .empty {
@@ -30,7 +31,6 @@
 }
 
 #userPage > #userPageCon > header {
-  position: relative;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -44,19 +44,29 @@
   position: absolute;
   top: 0;
   left: 0;
-  height: calc(App.$height * 4);
+  height: calc(App.$height * 3.5);
   width: 100%;
+  overflow: hidden;
   border-radius: App.$round;
 }
 
-#userPage > #userPageCon > header > div > img {
-  display: none;
+#userPage > #userPageCon > header > div > img:first-of-type {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  min-height: 100%;
+  filter: blur(3rem);
+  opacity: 75%;
+  object-position: center;
+  object-fit: cover;
+  transform: scale(3);
 }
 
 #userPage > #userPageCon > header > img {
   min-width: calc(App.$height * 4);
   min-height: calc(App.$height * 4);
-  background: var(--background);
+  background: var(--background-shade);
   z-index: 1;
 }
 
@@ -117,22 +127,15 @@
   min-width: fit-content;
 }
 
-@media screen and (min-width: App.$widthMedium) {
-  #userPage > #userPageCon {
-    padding-left: 0;
-    padding-right: 0;
-  }
-}
-
 @media screen and (min-width: App.$widthLarge) {
   #userPage {
-    padding-left: calc((App.$height * 6) + (App.$padSVG * 3));
+    padding-left: calc((App.$height * 6) + (App.$padSVG * 7));
   }
 }
 
 @media screen and (min-width: App.$widthExtraLarge) {
   #userPage {
     padding-left: 0;
-    padding-right: calc((App.$height * 1) + (App.$padSVG * 2));
+    padding-right: calc((App.$height * 1) + (App.$padSVG * 2.5));
   }
 }

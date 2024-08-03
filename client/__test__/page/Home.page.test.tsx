@@ -1,9 +1,10 @@
-import { describe, expect, Mock, test, vi } from 'vitest';
+import { describe, expect, test, vi } from 'vitest';
 import {
   ContextWrapper,
   createTestRouter,
   mockPosts,
-  mockUser
+  mockUser,
+  mockUsers
 } from '../helper/test.helper';
 import { act } from 'react';
 import { render, screen } from '@testing-library/react';
@@ -15,10 +16,15 @@ vi.mock('../../src/utilities/request.utilities', () => ({
   request: vi.fn()
 }));
 
+const mockRequest = vi.mocked(request);
+
 describe('Home', () => {
   test('Should render posts and navigate to post page on comment click', async () => {
-    (request as Mock).mockResolvedValueOnce(mockUser);
-    (request as Mock).mockResolvedValueOnce(mockPosts);
+    mockRequest.mockResolvedValueOnce(mockUser);
+    mockRequest.mockResolvedValueOnce(mockUsers);
+    mockRequest.mockResolvedValueOnce(mockPosts);
+    mockRequest.mockResolvedValueOnce(undefined);
+
     const testRouter = createTestRouter('/');
     await act(async () => {
       render(

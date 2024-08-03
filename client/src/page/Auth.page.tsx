@@ -10,9 +10,9 @@ import { BsImage } from 'react-icons/bs';
 import { MdEmail } from 'react-icons/md';
 import { RiLockPasswordFill } from 'react-icons/ri';
 import { usePopup } from '../context/Popup.context';
+import { useTheme } from '../context/Theme.context';
 import logoDark from '../../public/voxieverse_logo_dark.png';
 import logoLight from '../../public/voxieverse_logo_light.png';
-import { useTheme } from '../context/Theme.context';
 import '../style/page/Auth.page.scss';
 
 export const Auth = ({ isSignup = false }: AuthProps) => {

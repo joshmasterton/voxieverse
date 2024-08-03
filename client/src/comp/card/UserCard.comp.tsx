@@ -21,6 +21,7 @@ export const UserCard = ({
   const { user } = useUser();
   const { getRequests } = useNotification();
   const [loadingFriend, setLoadingFriend] = useState(true);
+  const [loadingRemoveFriend, setLoadingRemoveFriend] = useState(false);
   const [friendship, setFriendship] = useState<FriendType | undefined>(
     undefined
   );
@@ -66,7 +67,7 @@ export const UserCard = ({
 
   const removeFriend = async () => {
     try {
-      setLoadingFriend(true);
+      setLoadingRemoveFriend(true);
       const friend = await request<unknown, FriendType>(
         '/removeFriend',
         'DELETE',
@@ -84,7 +85,7 @@ export const UserCard = ({
       }
     } finally {
       await getRequests();
-      setLoadingFriend(false);
+      setLoadingRemoveFriend(false);
     }
   };
 
@@ -100,7 +101,7 @@ export const UserCard = ({
       <header>
         {isRequest ? (
           <Navigate
-            to={`/profile/${profile.user_id}`}
+            to={`/profile/${profile?.user_id}`}
             onClick={() => {}}
             SVG={<img alt="" src={profile?.profile_picture} />}
           />
@@ -108,8 +109,10 @@ export const UserCard = ({
           <img alt="" src={profile?.profile_picture} />
         )}
         <div>
-          <div>{profile.username}</div>
-          <p>{profile.created_at}</p>
+          <div>
+            {profile?.username} - <p>{profile?.created_at}</p>
+          </div>
+          <p>{profile?.email}</p>
         </div>
       </header>
       <footer>
@@ -119,10 +122,10 @@ export const UserCard = ({
               <>
                 <Button
                   type="button"
-                  loading={loadingFriend}
+                  loading={loadingRemoveFriend}
                   onClick={async () => await removeFriend()}
                   label="removeFriend"
-                  className="buttonOutline"
+                  className="buttonPrimary"
                   SVG={<CgUserRemove />}
                   name={<p>Remove friend</p>}
                 />
@@ -133,10 +136,10 @@ export const UserCard = ({
                 <>
                   <Button
                     type="button"
-                    loading={loadingFriend}
+                    loading={loadingRemoveFriend}
                     onClick={async () => await removeFriend()}
                     label="waitingFriend"
-                    className="buttonOutline"
+                    className="buttonPrimary"
                     SVG={<CgUserRemove />}
                     name={<p>Waiting</p>}
                   />
@@ -150,16 +153,16 @@ export const UserCard = ({
                     loading={loadingFriend}
                     onClick={async () => await addFriend()}
                     label="acceptFriend"
-                    className="buttonOutline"
+                    className="buttonPrimary"
                     SVG={<CgUserAdd />}
                     name={<p>Accept</p>}
                   />{' '}
                   <Button
                     type="button"
-                    loading={loadingFriend}
-                    onClick={async () => await addFriend()}
+                    loading={loadingRemoveFriend}
+                    onClick={async () => await removeFriend()}
                     label="declineFriend"
-                    className="buttonOutline"
+                    className="buttonPrimary"
                     SVG={<CgUserRemove />}
                     name={<p>Decline</p>}
                   />
@@ -172,7 +175,7 @@ export const UserCard = ({
                   loading={loadingFriend}
                   onClick={async () => await addFriend()}
                   label="addFriend"
-                  className="buttonOutline"
+                  className="buttonPrimary"
                   SVG={<CgUserAdd />}
                   name={<p>Add friend</p>}
                 />

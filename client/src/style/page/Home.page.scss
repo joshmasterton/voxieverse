@@ -3,9 +3,10 @@
 #home {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
-  padding-bottom: App.$pad;
+  padding: App.$pad;
+  gap: App.$pad;
   width: 100%;
   min-height: 100%;
   padding-top: calc(App.$height + (App.$padSVG * 2));
@@ -20,13 +21,13 @@
 
 @media screen and (min-width: App.$widthLarge) {
   #home {
-    padding-left: calc((App.$height * 6) + (App.$padSVG * 3));
+    padding-left: calc((App.$height * 6) + (App.$padSVG * 7));
   }
 }
 
 @media screen and (min-width: App.$widthExtraLarge) {
   #home {
     padding-left: 0;
-    padding-right: calc((App.$height * 1) + (App.$padSVG * 2));
+    padding-right: calc((App.$height * 1) + (App.$padSVG * 2.5));
   }
 }

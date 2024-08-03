@@ -1,7 +1,7 @@
 import { ErrorResponse } from '../../types/utilities/request.utilities.types';
 
-const API_URL = 'https://api.voxieverse.com';
-// const API_URL = 'http://localhost:9001';
+const API_URL = 'https://api.zonomaly/voxieverse.com';
+// const API_URL = 'http://localhost:9001/voxieverse';
 
 export const request = async <T, D>(
   url: string,

@@ -17,8 +17,9 @@ export const Requests = () => {
         ) : requests && requests?.length > 0 ? (
           <div id="friendPageCon">
             {requests?.map((request) => (
-              <UserCard key={request.user_id} profile={request} isRequest />
+              <UserCard key={request?.user_id} profile={request} isRequest />
             ))}
+            <div className="empty" />
           </div>
         ) : (
           <div className="empty">No friend requests</div>

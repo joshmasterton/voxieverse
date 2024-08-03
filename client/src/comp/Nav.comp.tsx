@@ -14,13 +14,16 @@ import { SideUser } from './Side.comp';
 import { IoIosArrowBack } from 'react-icons/io';
 import { useNotification } from '../context/Notification.context';
 import { CgClose } from 'react-icons/cg';
-import { HiOutlineMenuAlt3 } from 'react-icons/hi';
 import { useLocation } from 'react-router-dom';
+import logoDark from '../../public/voxieverse_logo_dark.png';
+import logoLight from '../../public/voxieverse_logo_light.png';
+import { useTheme } from '../context/Theme.context';
 import '../style/comp/Nav.scss';
 
 export const Nav = ({ isReturn = false }: { isReturn?: boolean }) => {
   const location = useLocation();
   const { user, logout } = useUser();
+  const { theme } = useTheme();
   const { requests } = useNotification();
   const [loading, setLoading] = useState(false);
   const [isMenu, setIsMenu] = useState(false);
@@ -86,7 +89,7 @@ export const Nav = ({ isReturn = false }: { isReturn?: boolean }) => {
               />
               <div>
                 {getCurrentTitle()}
-                <HiOutlineMenuAlt3 />
+                <img alt="" src={theme === 'dark' ? logoLight : logoDark} />
               </div>
             </div>
           </header>
@@ -94,7 +97,7 @@ export const Nav = ({ isReturn = false }: { isReturn?: boolean }) => {
           <header>
             <div>
               <div>
-                <HiOutlineMenuAlt3 />
+                <img alt="" src={theme === 'dark' ? logoLight : logoDark} />
                 {getCurrentTitle()}
               </div>
               <ul>
@@ -166,7 +169,7 @@ export const Nav = ({ isReturn = false }: { isReturn?: boolean }) => {
                     )}
                   </div>
                 }
-                SVG={isMenu ? <CgClose /> : <BiMenu />}
+                SVG={<BiMenu />}
               />
             </div>
           </header>
@@ -238,7 +241,7 @@ export const Nav = ({ isReturn = false }: { isReturn?: boolean }) => {
               onClick={handleMenuChange}
               label="menu"
               className="buttonNotification"
-              SVG={isMenu ? <CgClose /> : <BiMenu />}
+              SVG={<CgClose />}
             />
           </ul>
         </main>

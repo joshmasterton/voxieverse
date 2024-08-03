@@ -21,6 +21,23 @@ export const mockUser = {
   username: 'Zonomaly'
 };
 
+export const mockUsers = [
+  {
+    comments: 0,
+    created_at: '23/07/2024, 13:59:12',
+    dislikes: 0,
+    email: 'z@email.com',
+    friends: 0,
+    last_online: '23/07/2024, 13:59:12',
+    likes: 0,
+    posts: 0,
+    profile_picture:
+      'https://voxieverse.s3.amazonaws.com/HD-wallpaper-halo-covenant-covenant-elite-halo.jpg',
+    user_id: 1,
+    username: 'Zonomaly'
+  }
+];
+
 export const mockPosts = [
   {
     id: 6,

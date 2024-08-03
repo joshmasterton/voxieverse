@@ -137,11 +137,12 @@ export const Friend = () => {
                   loading={loadingMore}
                   onClick={async () => await getFriends()}
                   label="getMore"
-                  className="buttonOutline"
+                  className="buttonShade"
                   name="More friends"
                 />
               </div>
             )}
+            <div className="empty" />
           </div>
         ) : (
           <div className="empty">No friends</div>

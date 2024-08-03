@@ -134,11 +134,12 @@ export const Users = () => {
                   loading={loadingMore}
                   onClick={async () => await getUsers()}
                   label="getMore"
-                  className="buttonOutline"
+                  className="buttonShade"
                   name="More users"
                 />
               </div>
             )}
+            <div className="empty" />
           </div>
         ) : (
           <div className="empty">No users</div>

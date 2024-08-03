@@ -127,7 +127,7 @@ export const routes = [
   }
 ];
 
-const router = createBrowserRouter(routes);
+const router = createBrowserRouter(routes, { basename: '/voxieverse' });
 
 export const App = () => {
   return (

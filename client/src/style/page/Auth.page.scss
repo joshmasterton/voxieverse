@@ -6,6 +6,7 @@
   align-items: center;
   width: 100%;
   min-height: 100%;
+  padding: App.$pad;
   padding-top: calc(App.$padSmall * 7);
 }
 
@@ -16,10 +17,8 @@
   width: 100%;
   max-width: App.$widthMedium;
   padding: App.$padLarge;
-  margin: App.$pad;
   gap: App.$padLarge;
   border-radius: App.$round;
-  outline: var(--outline);
   background: var(--background-shade);
 }
 

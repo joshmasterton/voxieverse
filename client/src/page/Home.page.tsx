@@ -78,14 +78,14 @@ export const Home = () => {
             {posts.map((post) => (
               <PostCard key={post.id} post={post} />
             ))}
-            {canLoadMore && (
+            {posts && canLoadMore && (
               <div className="buttonMore">
                 <Button
                   type="button"
                   loading={loadingMore}
                   onClick={async () => getPosts()}
                   label="getMore"
-                  className="buttonOutline"
+                  className="buttonShade"
                   name="More posts"
                 />
               </div>

@@ -107,6 +107,8 @@ label.file > p {
   overflow: hidden;
   justify-content: center;
   align-items: center;
+  opacity: 100%;
+  font-size: App.$font;
 }
 
 div.labelPassword {

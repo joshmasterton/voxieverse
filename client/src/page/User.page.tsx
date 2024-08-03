@@ -20,6 +20,7 @@ export const User = () => {
   const user_id = location.pathname.split('/').pop();
   const { user } = useUser();
   const { getRequests } = useNotification();
+  const [loadingRemoveFriend, setLoadingRemoveFriend] = useState(false);
   const [loadingFriend, setLoadingFriend] = useState(true);
   const [page, setPage] = useState(0);
   const [canLoadMore, setCanLoadMore] = useState(true);
@@ -128,7 +129,7 @@ export const User = () => {
 
   const removeFriend = async () => {
     try {
-      setLoadingFriend(true);
+      setLoadingRemoveFriend(true);
       const friend = await request<unknown, FriendType>(
         '/removeFriend',
         'DELETE',
@@ -146,7 +147,7 @@ export const User = () => {
       }
     } finally {
       await getRequests();
-      setLoadingFriend(false);
+      setLoadingRemoveFriend(false);
     }
   };
 
@@ -226,10 +227,10 @@ export const User = () => {
                         <>
                           <Button
                             type="button"
-                            loading={loadingFriend}
+                            loading={loadingRemoveFriend}
                             onClick={async () => await removeFriend()}
                             label="removeFriend"
-                            className="buttonOutline"
+                            className="buttonPrimary"
                             SVG={<CgUserRemove />}
                             name={<p>Remove friend</p>}
                           />
@@ -240,10 +241,10 @@ export const User = () => {
                           <>
                             <Button
                               type="button"
-                              loading={loadingFriend}
+                              loading={loadingRemoveFriend}
                               onClick={async () => await removeFriend()}
                               label="cancelFriend"
-                              className="buttonOutline"
+                              className="buttonPrimary"
                               SVG={<CgUserRemove />}
                               name={<p>Waiting</p>}
                             />
@@ -257,16 +258,16 @@ export const User = () => {
                               loading={loadingFriend}
                               onClick={async () => await addFriend()}
                               label="acceptFriend"
-                              className="buttonOutline"
+                              className="buttonPrimary"
                               SVG={<CgUserAdd />}
                               name={<p>Accept</p>}
                             />
                             <Button
                               type="button"
-                              loading={loadingFriend}
-                              onClick={async () => await addFriend()}
+                              loading={loadingRemoveFriend}
+                              onClick={async () => await removeFriend()}
                               label="declineFriend"
-                              className="buttonOutline"
+                              className="buttonPrimary"
                               SVG={<CgUserRemove />}
                               name={<p>Decline</p>}
                             />
@@ -279,7 +280,7 @@ export const User = () => {
                             loading={loadingFriend}
                             onClick={async () => await addFriend()}
                             label="addFriend"
-                            className="buttonOutline"
+                            className="buttonPrimary"
                             SVG={<CgUserAdd />}
                             name={<p>Add friend</p>}
                           />
@@ -296,14 +297,14 @@ export const User = () => {
                   {posts.map((post) => (
                     <PostCard key={post.id} post={post} />
                   ))}
-                  {canLoadMore && (
+                  {posts && canLoadMore && (
                     <div className="buttonMore">
                       <Button
                         type="button"
                         loading={loadingMore}
                         onClick={async () => getPosts()}
                         label="getMore"
-                        className="buttonOutline"
+                        className="buttonShade"
                         name="More posts"
                       />
                     </div>

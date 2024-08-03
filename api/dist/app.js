@@ -40,7 +40,7 @@ app.use(cors({ origin: CLIENT_URL, credentials: true }));
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.get('/', authenticate, (_req, res) => {
+app.get('/voxieverse', authenticate, (_req, res) => {
     if (res.locals.user) {
         return res.json(res.locals.user);
     }
@@ -48,18 +48,18 @@ app.get('/', authenticate, (_req, res) => {
         return res.status(403).json({ error: 'Unauthorized' });
     }
 });
-app.use(login());
-app.use(signup());
-app.use(logout());
-app.use(createPostComment());
-app.use(getPostComment());
-app.use(getPostsComments());
-app.use(getUser());
-app.use(getUsers());
-app.use(addFriend());
-app.use(getFriend());
-app.use(removeFriend());
-app.use(likeDislike());
+app.use('/voxieverse', login());
+app.use('/voxieverse', signup());
+app.use('/voxieverse', logout());
+app.use('/voxieverse', createPostComment());
+app.use('/voxieverse', getPostComment());
+app.use('/voxieverse', getPostsComments());
+app.use('/voxieverse', getUser());
+app.use('/voxieverse', getUsers());
+app.use('/voxieverse', addFriend());
+app.use('/voxieverse', getFriend());
+app.use('/voxieverse', removeFriend());
+app.use('/voxieverse', likeDislike());
 if (NODE_ENV !== 'test') {
     app.listen(PORT, () => {
         console.log(`Listening to server in dev mode on port ${PORT}`);

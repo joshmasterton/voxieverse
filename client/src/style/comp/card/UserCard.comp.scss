@@ -7,12 +7,8 @@
   width: 100%;
   max-width: App.$widthMedium;
   padding: App.$pad;
-  background: var(--background);
-  border-bottom: var(--outline);
-}
-
-.userCard:first-child {
-  padding-top: 0;
+  border-radius: App.$round;
+  background: var(--background-shade);
 }
 
 .userCard > a {
@@ -37,8 +33,17 @@
 .userCard > header > div {
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
   align-items: start;
-  gap: 0.2rem;
+  gap: calc(App.$padSmall / 2);
+}
+
+.userCard > header > div > div {
+  display: flex;
+  flex-direction: row;
+  align-items: end;
+  flex-wrap: wrap;
+  gap: calc(App.$padSmall / 2);
 }
 
 .userCard > footer {
@@ -55,11 +60,4 @@
 
 .userCard > footer > div > button {
   width: calc((App.$height * 2) + App.$padLarge);
-}
-
-@media screen and (min-width: App.$widthMedium) {
-  .userCard {
-    padding-left: 0;
-    padding-right: 0;
-  }
 }

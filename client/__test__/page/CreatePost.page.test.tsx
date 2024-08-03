@@ -19,7 +19,7 @@ describe('CreatePost', () => {
   test('Should render CreatePost page', async () => {
     (request as Mock).mockResolvedValueOnce(mockUser);
     (request as Mock).mockResolvedValueOnce(mockPosts);
-    const testRouter = createTestRouter('/createPost');
+    const testRouter = createTestRouter('/new');
     await act(async () => {
       render(
         <ContextWrapper>

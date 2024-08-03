@@ -9,8 +9,8 @@
   left: 0;
   width: 100%;
   height: 100%;
+  padding: App.$pad;
   text-align: center;
-  padding: App.$padLarge * 1.35;
   z-index: 2;
 }
 
@@ -62,9 +62,14 @@
   border-radius: App.$round;
   padding: App.$pad;
   gap: App.$pad;
-  background: var(--background);
-  outline: var(--outline);
+  background: var(--background-shade);
+  background: var(--primary);
   z-index: 1;
+}
+
+#popup > div > main,
+#popup > div > header {
+  color: white;
 }
 
 #popup > div > footer {

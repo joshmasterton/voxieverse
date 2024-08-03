@@ -263,20 +263,20 @@ export const PostCard = ({
                 {comments.map((comment) => (
                   <CommentCard key={comment.id} comment={comment} />
                 ))}
-                {isPostPage && canLoadMore && (
-                  <Button
-                    type="button"
-                    loading={loadingMore}
-                    onClick={async () => getComments()}
-                    label="getMore"
-                    className="buttonOutline"
-                    name="More comments"
-                  />
-                )}
               </>
             )
           )}
         </div>
+      )}
+      {isPostPage && comments && canLoadMore && (
+        <Button
+          type="button"
+          loading={loadingMore}
+          onClick={async () => getComments()}
+          label="getMore"
+          className="buttonShade"
+          name="More comments"
+        />
       )}
     </>
   );

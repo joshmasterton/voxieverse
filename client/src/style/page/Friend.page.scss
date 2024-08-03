@@ -6,7 +6,8 @@
   align-items: center;
   justify-content: start;
   width: 100%;
-  padding-bottom: App.$pad;
+  gap: App.$pad;
+  padding: App.$pad;
   padding-top: calc(App.$height + (App.$padSVG * 2));
 }
 
@@ -24,6 +25,7 @@
   width: 100%;
   max-width: App.$widthMedium;
   height: 100%;
+  gap: App.$pad;
   border-radius: App.$round;
 }
 
@@ -31,13 +33,14 @@
   display: flex;
   gap: App.$pad;
   width: 100%;
-  padding: App.$pad;
-  padding-bottom: App.$pad;
-  padding-top: 0.15rem;
   overflow: visible;
+  padding-top: 0.15rem;
   border-radius: App.$round;
   max-width: App.$widthMedium;
-  background: var(--background);
+}
+
+#friendPage input {
+  outline: none;
 }
 
 #friendPage > form > div {
@@ -45,33 +48,18 @@
   width: 100%;
   overflow: visible;
   border-radius: App.$round;
-}
-
-#friendPage .empty {
-  padding-left: App.$padLarge;
-  padding-right: App.$padLarge;
-}
-
-@media screen and (min-width: App.$widthMedium) {
-  #friendPage > form {
-    padding-left: 0;
-    padding-right: 0;
-  }
-
-  #friendPage .empty {
-    padding: 0;
-  }
+  background: var(--background-shade);
 }
 
 @media screen and (min-width: App.$widthLarge) {
   #friendPage {
-    padding-left: calc((App.$height * 6) + (App.$padSVG * 3));
+    padding-left: calc((App.$height * 6) + (App.$padSVG * 7));
   }
 }
 
 @media screen and (min-width: App.$widthExtraLarge) {
   #friendPage {
     padding-left: 0;
-    padding-right: calc((App.$height * 1) + (App.$padSVG * 2));
+    padding-right: calc((App.$height * 1) + (App.$padSVG * 2.5));
   }
 }

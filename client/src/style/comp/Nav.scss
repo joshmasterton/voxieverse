@@ -13,6 +13,13 @@ nav {
     opacity App.$anim 0.25s;
 }
 
+nav img {
+  min-width: App.$heightSmall;
+  max-width: App.$heightSmall;
+  min-height: App.$heightSmall;
+  max-height: App.$heightSmall;
+}
+
 nav > header {
   position: fixed;
   top: 0;
@@ -37,6 +44,9 @@ nav > header > div > div {
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: calc(App.$padSmall / 2);
+  padding: App.$padSmall;
+  max-height: App.$height;
 }
 
 nav > header > div > button {

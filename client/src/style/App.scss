@@ -2,13 +2,13 @@
 
 $height: 2.25rem;
 $heightSmall: 1.5rem;
-$widthLarge: 48rem;
+$widthLarge: 49rem;
 $widthExtraLarge: 69rem;
 $widthMedium: 30rem;
 $width: 5rem;
 
 $pad: 1rem;
-$padSVG: 0.7rem;
+$padSVG: 0.6rem;
 
 $padLarge: 1.5rem;
 $padSmall: 0.4rem;
@@ -27,11 +27,11 @@ $anim: 0.4s ease;
   --success: rgb(72, 147, 51);
   --primary: linear-gradient(45deg, #2d5daa, #553bb5);
   --primaryOutline: #2d5daa;
-  --background: rgba(4, 4, 7, 1);
-  --backgroundBlur: rgba(4, 4, 7, 1);
+  --background: rgba(20, 20, 24, 1);
+  --backgroundBlur: rgba(20, 20, 24, 1);
   --outline: 0.075rem solid rgb(50, 50, 60);
   --background-outline: rgb(50, 50, 60);
-  --background-shade: rgba(4, 4, 7);
+  --background-shade: rgba(28, 28, 34);
   --outline-shadow: 0 0 0 0.15rem #2d5daa;
   --opacity: 85%;
 }
@@ -42,8 +42,8 @@ $anim: 0.4s ease;
   --success: rgb(73, 183, 42);
   --primary: linear-gradient(45deg, #3377e4, #7250ec);
   --primaryOutline: #3377e4;
-  --background: rgb(255, 255, 255);
-  --backgroundBlur: rgba(255, 255, 255, 1);
+  --background: rgb(245, 245, 250);
+  --backgroundBlur: rgba(245, 245, 250, 1);
   --outline: 0.075rem solid rgb(160, 160, 165);
   --background-outline: rgb(160, 160, 165);
   --background-shade: rgba(255, 255, 255, 1);
@@ -128,14 +128,7 @@ img {
   flex: 1;
   border-radius: $round;
   padding: $pad;
-  padding-top: 0;
-  background: var(--background);
-}
-
-@media screen and (min-width: $widthMedium) {
-  .empty {
-    padding: 0;
-  }
+  background: var(--background-shade);
 }
 
 @keyframes pop {

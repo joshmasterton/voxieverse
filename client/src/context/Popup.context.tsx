@@ -49,12 +49,6 @@ export const Popup = () => {
 
   return (
     <div id="popup" className={isPopup ? 'active' : 'hidden'}>
-      {/* <Button
-        type="button"
-        onClick={() => setIsPopup(false)}
-        label="popupClose"
-        className="buttonPrimary"
-      /> */}
       <header id="blur" />
       <div>
         <header>
@@ -66,7 +60,7 @@ export const Popup = () => {
             type="button"
             onClick={() => setIsPopup(false)}
             label="popupClose"
-            className="buttonPrimary"
+            className="buttonShade"
             name="Okay"
           />
         </footer>

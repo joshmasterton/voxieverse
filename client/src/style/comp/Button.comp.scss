@@ -63,7 +63,6 @@ button.buttonOutline {
   width: 100%;
   max-width: App.$widthMedium;
   border: var(--outline);
-  background: var(--background);
 }
 
 button.buttonName {
@@ -73,21 +72,6 @@ button.buttonName {
 .buttonMore {
   width: 100%;
   max-width: App.$widthMedium;
-  padding: App.$pad;
-  padding-bottom: 0;
-  margin: 0;
-}
-
-@media screen and (min-width: App.$widthMedium) {
-  .buttonMore {
-    width: 100%;
-    max-width: App.$widthMedium;
-    padding: App.$pad;
-    padding-left: 0;
-    padding-right: 0;
-    padding-bottom: 0;
-    margin: 0;
-  }
 }
 
 button.buttonSmall {

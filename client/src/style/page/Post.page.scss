@@ -7,13 +7,13 @@
   justify-content: center;
   width: 100%;
   gap: App.$pad;
-  padding-bottom: App.$pad;
+  padding: App.$pad;
   padding-top: calc(App.$height + (App.$padSVG * 2));
 }
 
 @media screen and (min-width: App.$widthLarge) {
   #postPage {
-    padding-left: calc((App.$height * 6) + (App.$padSVG * 3));
+    padding-left: calc((App.$height * 6) + (App.$padSVG * 7));
   }
 }
 
