@@ -28,6 +28,7 @@ export const getUsers = () => {
       .isLength({ max: 500 })
       .withMessage('Exceeded max length'),
     query('page').optional().toInt().isInt().withMessage('page required'),
+    query('profile_id').optional().toInt().isInt().withMessage('page required'),
     query('sort')
       .optional()
       .trim()

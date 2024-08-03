@@ -24,22 +24,22 @@ $anim: 0.4s ease;
 [data-theme='dark'] {
   --color: white;
   --danger: rgb(214, 54, 54);
-  --success: rgb(72, 147, 51);
+  --success: rgb(96, 181, 35);
   --primary: linear-gradient(45deg, #2d5daa, #553bb5);
-  --primaryOutline: #2d5daa;
+  --primaryOutline: #2f6dd0;
   --background: rgba(20, 20, 24, 1);
   --backgroundBlur: rgba(20, 20, 24, 1);
   --outline: 0.075rem solid rgb(50, 50, 60);
   --background-outline: rgb(50, 50, 60);
   --background-shade: rgba(28, 28, 34);
-  --outline-shadow: 0 0 0 0.15rem #2d5daa;
+  --outline-shadow: 0 0 0 0.15rem #2f6dd0;
   --opacity: 85%;
 }
 
 [data-theme='light'] {
   --color: black;
   --danger: rgb(233, 54, 54);
-  --success: rgb(73, 183, 42);
+  --success: rgb(96, 181, 35);
   --primary: linear-gradient(45deg, #3377e4, #7250ec);
   --primaryOutline: #3377e4;
   --background: rgb(245, 245, 250);

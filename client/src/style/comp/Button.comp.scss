@@ -74,6 +74,20 @@ button.buttonName {
   max-width: App.$widthMedium;
 }
 
+button.buttonFlat {
+  overflow: visible;
+  min-height: App.$pad;
+  max-height: App.$pad;
+}
+
+button.buttonFlat > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: end;
+  gap: App.$padSmall;
+}
+
 button.buttonSmall {
   display: flex;
   padding: 0;

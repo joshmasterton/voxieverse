@@ -23,6 +23,11 @@
   outline: none;
 }
 
+.loading.buttonFlat {
+  min-height: fit-content;
+  min-width: calc(App.$height * 1.75);
+}
+
 .loading > svg {
   position: absolute;
   min-width: calc(App.$height + (App.$pad));
@@ -33,16 +38,20 @@
   border-radius: 10rem;
 }
 
+.loading.buttonFlat > svg {
+  top: -0.75rem;
+  min-width: calc(App.$heightSmall + (App.$pad));
+  max-width: calc(App.$heightSmall + (App.$pad));
+  min-height: calc(App.$heightSmall + (App.$pad));
+  max-height: calc(App.$heightSmall + (App.$pad));
+}
+
 .loading > svg > circle {
   transform: scale(2);
   transform-origin: center;
   stroke: var(--primaryOutline);
   stroke-linecap: round;
   animation: 2s infinite dash linear;
-}
-
-.loading.buttonSmall > svg > circle {
-  transform: scale(1.25);
 }
 
 .loading.buttonPrimary > svg > circle {

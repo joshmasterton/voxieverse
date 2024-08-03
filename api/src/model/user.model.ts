@@ -216,8 +216,13 @@ export class User {
     try {
       let usersFromDb: QueryResult | undefined;
       const queryParams = search
-        ? [this.user_id, `%${search.toLowerCase()}%`, 10, page * 10]
-        : [this.user_id, 10, page * 10];
+        ? [
+            auth_user_id ?? this.user_id,
+            `%${search.toLowerCase()}%`,
+            10,
+            page * 10
+          ]
+        : [auth_user_id ?? this.user_id, 10, page * 10];
 
       if (friends) {
         usersFromDb = await db.query(

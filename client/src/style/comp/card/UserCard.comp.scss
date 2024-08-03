@@ -46,6 +46,12 @@
   gap: calc(App.$padSmall / 2);
 }
 
+.userCard > svg {
+  position: absolute;
+  top: App.$pad;
+  right: App.$pad;
+}
+
 .userCard > footer {
   display: flex;
 }
@@ -53,6 +59,8 @@
 .userCard > footer > div {
   display: flex;
   flex-wrap: wrap;
+  justify-content: end;
+  align-items: end;
   width: 100%;
   gap: App.$pad;
   margin-top: App.$pad;

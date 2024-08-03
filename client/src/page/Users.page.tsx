@@ -53,6 +53,7 @@ export const Users = () => {
       );
 
       if (usersData) {
+        console.log(usersData);
         if (usersData.length < 10) {
           setCanLoadMore(false);
         }

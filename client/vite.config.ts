@@ -8,7 +8,7 @@ export default defineConfig({
   server: {
     port: 9000
   },
-  base: '/voxieverse',
+  base: '/voxieverse/',
   test: {
     globals: true,
     environment: 'jsdom',
