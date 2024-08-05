@@ -10,6 +10,7 @@ export const Input = <T,>({
   type,
   value,
   setValue,
+  disabled,
   placeholder,
   className,
   SVG,
@@ -98,6 +99,7 @@ export const Input = <T,>({
             type={showPassword ? 'text' : type}
             name={id}
             max={300}
+            disabled={disabled}
             value={value}
             aria-label={id}
             onChange={(e) => handleOnChange(e)}
@@ -131,6 +133,7 @@ export const Input = <T,>({
             value={value}
             name={id}
             ref={textareaRef}
+            disabled={disabled}
             maxLength={500}
             aria-label={id}
             onChange={(e) => handleTextareaChange(e)}
@@ -143,6 +146,7 @@ export const Input = <T,>({
             value={value}
             name={id}
             max={300}
+            disabled={disabled}
             ref={inputRef}
             aria-label={id}
             onChange={(e) => handleOnChange(e)}

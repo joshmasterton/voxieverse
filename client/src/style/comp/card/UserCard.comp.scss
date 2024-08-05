@@ -20,6 +20,13 @@
   z-index: 1;
 }
 
+.userCard > div {
+  position: absolute;
+  right: App.$pad;
+  border-radius: App.$round;
+  background: var(--background-shade);
+}
+
 .userCard > header {
   display: flex;
   align-items: center;

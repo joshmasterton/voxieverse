@@ -217,6 +217,7 @@ export const CommentCard = ({
           <footer>
             <Button
               type="button"
+              disabled={loadingLike || loadingDislike}
               loading={loadingLike}
               onClick={async () => await likeDislike('like')}
               label="like"
@@ -226,6 +227,7 @@ export const CommentCard = ({
             />
             <Button
               type="button"
+              disabled={loadingLike || loadingDislike}
               loading={loadingDislike}
               onClick={async () => await likeDislike('dislike')}
               label="dislike"

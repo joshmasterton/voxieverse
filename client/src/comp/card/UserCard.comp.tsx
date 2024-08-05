@@ -11,6 +11,7 @@ import { useNotification } from '../../context/Notification.context';
 import { CgUserAdd, CgUserRemove } from 'react-icons/cg';
 import { FaUserFriends } from 'react-icons/fa';
 import '../../style/comp/card/UserCard.comp.scss';
+import { Loading } from '../Loading.comp';
 
 export const UserCard = ({
   profile,
@@ -116,7 +117,13 @@ export const UserCard = ({
           <p>{profile?.email}</p>
         </div>
       </header>
-      {profile?.friend_status === 'friend' && <FaUserFriends />}
+      <div>
+        {loadingFriend ? (
+          <Loading />
+        ) : (
+          friendship?.friend_accepted && <FaUserFriends />
+        )}
+      </div>
       <footer>
         {isRequest && (
           <div className="friends">

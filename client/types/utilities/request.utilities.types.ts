@@ -43,3 +43,11 @@ export type FriendType = {
   friend_accepted: boolean;
   created_at: string;
 };
+
+export type EditDetails = {
+  username: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  file?: File;
+};

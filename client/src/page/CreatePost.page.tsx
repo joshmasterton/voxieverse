@@ -69,6 +69,7 @@ export const CreatePost = () => {
           <Input<PostDetails>
             id="file"
             type="file"
+            disabled={loading}
             className="file"
             setValue={setPostDetails}
             placeholder="Post picture"

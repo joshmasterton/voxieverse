@@ -5,6 +5,7 @@ export type InputProps<T> = {
   type: string;
   value?: string;
   placeholder: string;
+  disabled?: boolean;
   className?: string;
   setValue: Dispatch<SetStateAction<T>>;
   SVG?: ReactNode;

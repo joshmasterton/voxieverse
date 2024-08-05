@@ -3,7 +3,7 @@
 #userPage {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   width: 100%;
   gap: App.$pad;
@@ -26,15 +26,24 @@
   background: var(--background-shade);
 }
 
+#userPage .edit {
+  position: absolute;
+  top: App.$pad;
+  right: App.$pad;
+  width: fit-content;
+}
+
 #userPage .empty {
   padding-top: App.$pad;
 }
 
 #userPage > #userPageCon > div {
   position: fixed;
+  overflow: scroll;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   padding: App.$pad;
   top: 0;
   left: 0;
@@ -48,6 +57,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+  height: fit-content;
   max-width: App.$widthMedium;
   padding: App.$pad;
   gap: App.$pad;

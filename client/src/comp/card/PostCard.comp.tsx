@@ -198,6 +198,7 @@ export const PostCard = ({
         <footer>
           <Button
             type="button"
+            disabled={loadingLike || loadingDislike}
             loading={loadingLike}
             onClick={async () => await likeDislike('like')}
             label="like"
@@ -207,6 +208,7 @@ export const PostCard = ({
           />
           <Button
             type="button"
+            disabled={loadingLike || loadingDislike}
             loading={loadingDislike}
             onClick={async () => await likeDislike('dislike')}
             label="dislike"

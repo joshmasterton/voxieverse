@@ -92,6 +92,7 @@ export const Auth = ({ isSignup = false }: AuthProps) => {
             id="username"
             type="text"
             value={userDetails.username}
+            disabled={loading}
             setValue={setUserDetails}
             placeholder="Username"
             SVG={<BiSolidUser />}
@@ -101,6 +102,7 @@ export const Auth = ({ isSignup = false }: AuthProps) => {
               <Input<UserDetails>
                 id="email"
                 type="email"
+                disabled={loading}
                 value={userDetails.email}
                 setValue={setUserDetails}
                 placeholder="Email"
@@ -109,6 +111,7 @@ export const Auth = ({ isSignup = false }: AuthProps) => {
               <Input<UserDetails>
                 id="file"
                 type="file"
+                disabled={loading}
                 className="file"
                 setValue={setUserDetails}
                 placeholder="Profile picture"
@@ -120,6 +123,7 @@ export const Auth = ({ isSignup = false }: AuthProps) => {
             id="password"
             className="labelPassword"
             type="password"
+            disabled={loading}
             value={userDetails.password}
             setValue={setUserDetails}
             placeholder="Password"
@@ -129,6 +133,7 @@ export const Auth = ({ isSignup = false }: AuthProps) => {
             <Input<UserDetails>
               id="confirmPassword"
               className="labelPassword"
+              disabled={loading}
               type="password"
               value={userDetails.confirmPassword}
               setValue={setUserDetails}

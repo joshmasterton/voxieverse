@@ -13,6 +13,7 @@ export const Button = ({
   type,
   onClick,
   label,
+  disabled,
   className,
   name,
   loading,
@@ -21,12 +22,18 @@ export const Button = ({
   return (
     <button
       type={type}
-      disabled={loading}
+      disabled={disabled || loading}
       aria-label={label}
       className={className ?? undefined}
+      onTouchEnd={(e) => {
+        e.currentTarget.blur();
+      }}
       onClick={async (e?: MouseEvent<HTMLButtonElement>) => {
         e?.currentTarget.blur();
-        onClick();
+
+        setTimeout(() => {
+          onClick();
+        }, 0);
       }}
     >
       {loading ? (

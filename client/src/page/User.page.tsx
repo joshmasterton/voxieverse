@@ -16,6 +16,7 @@ import { CgClose, CgUserAdd, CgUserRemove } from 'react-icons/cg';
 import { UserCard } from '../comp/card/UserCard.comp';
 import { FaUserFriends } from 'react-icons/fa';
 import '../style/page/User.page.scss';
+import { BiEdit } from 'react-icons/bi';
 
 export const User = () => {
   const location = useLocation();
@@ -23,6 +24,12 @@ export const User = () => {
   const { user } = useUser();
   const { getRequests } = useNotification();
   const [showFriends, setShowFriends] = useState(false);
+  // const [editDetails, setEditDetails] = useState({
+  //   username: '',
+  //   email: '',
+  //   password: '',
+  //   confirmPassword: ''
+  // });
   const [friends, setFriends] = useState<SerializedUser[] | undefined>(
     undefined
   );
@@ -60,7 +67,7 @@ export const User = () => {
 
       if (userFromDb) {
         setProfile(userFromDb);
-        await getPosts(0);
+        await getPostsComments(0);
       } else {
         throw new Error('No user found');
       }
@@ -73,7 +80,7 @@ export const User = () => {
     }
   };
 
-  const getPosts = async (currentPage = page, incrememtPage = true) => {
+  const getPostsComments = async (currentPage = page, incrememtPage = true) => {
     try {
       setLoadingMore(true);
 
@@ -251,6 +258,14 @@ export const User = () => {
     }
   }, [user_id]);
 
+  useEffect(() => {
+    if (showFriends) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+  }, [showFriends]);
+
   return (
     <>
       <div id="userPage">
@@ -312,7 +327,7 @@ export const User = () => {
                   <footer>
                     <div>
                       <div>Karma</div>
-                      <p>{profile?.likes}</p>
+                      <p>{(profile?.likes ?? 0) - (profile?.dislikes ?? 0)}</p>
                     </div>
                     <div>
                       <div>Posts</div>
@@ -331,6 +346,15 @@ export const User = () => {
                         </div>
                       }
                     />
+                    {profile?.user_id === user?.user_id && (
+                      <Button
+                        type="button"
+                        onClick={() => {}}
+                        label="editProfile"
+                        className="buttonShade edit"
+                        SVG={<BiEdit />}
+                      />
+                    )}
                     {profile?.friend_status === 'friend' && <FaUserFriends />}
                   </footer>
                   {user?.user_id !== profile.user_id && (
@@ -414,7 +438,7 @@ export const User = () => {
                       <Button
                         type="button"
                         loading={loadingMore}
-                        onClick={async () => await getPosts()}
+                        onClick={async () => await getPostsComments()}
                         label="getMore"
                         className="buttonShade"
                         name="More posts"
