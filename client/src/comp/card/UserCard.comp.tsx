@@ -57,8 +57,7 @@ export const UserCard = ({
           </div>
           <p>{profile?.email}</p>
         </div>
-        {(Date.now() - new Date(profile.last_online ?? 0).getTime()) / 1000 <
-          60 && (
+        {profile.is_online && (
           <div className="online">
             <div />
             <div />
@@ -92,7 +91,7 @@ export const UserCard = ({
                     )
                   }
                   label="removeFriend"
-                  className="buttonOutline"
+                  className="buttonShade"
                   SVG={<CgUserRemove />}
                   name={<p>Remove friend</p>}
                 />
@@ -114,7 +113,7 @@ export const UserCard = ({
                       )
                     }
                     label="waitingFriend"
-                    className="buttonOutline"
+                    className="buttonShade"
                     SVG={<CgUserRemove />}
                     name={<p>Waiting</p>}
                   />
@@ -136,7 +135,7 @@ export const UserCard = ({
                       )
                     }
                     label="acceptFriend"
-                    className="buttonOutline"
+                    className="buttonShade"
                     SVG={<CgUserAdd />}
                     name={<p>Accept</p>}
                   />{' '}
@@ -153,7 +152,7 @@ export const UserCard = ({
                       )
                     }
                     label="declineFriend"
-                    className="buttonOutline"
+                    className="buttonShade"
                     SVG={<CgUserRemove />}
                     name={<p>Decline</p>}
                   />
@@ -174,7 +173,7 @@ export const UserCard = ({
                     )
                   }
                   label="addFriend"
-                  className="buttonOutline"
+                  className="buttonShade"
                   SVG={<CgUserAdd />}
                   name={<p>Add friend</p>}
                 />

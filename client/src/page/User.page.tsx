@@ -52,7 +52,6 @@ export const User = () => {
   const [loadingFriend, setLoadingFriend] = useState(true);
   const [loadingFriends, setLoadingFriends] = useState(false);
   const [page, setPage] = useState(0);
-  const [isOnline, setIsOnline] = useState(false);
   const [pageFriends, setPageFriends] = useState(0);
   const [canLoadMore, setCanLoadMore] = useState(true);
   const [loading, setLoading] = useState(true);
@@ -83,11 +82,6 @@ export const User = () => {
       );
 
       if (userFromDb) {
-        setIsOnline(
-          (Date.now() - new Date(userFromDb.last_online ?? 0).getTime()) /
-            1000 <
-            60
-        );
         setProfile(userFromDb);
         await getPosts(
           0,
@@ -283,7 +277,7 @@ export const User = () => {
                         }
                       />
                       <div>
-                        {isOnline && (
+                        {profile?.is_online && (
                           <div className="online">
                             <div />
                             <div />
@@ -367,7 +361,7 @@ export const User = () => {
                     <header>
                       <img alt="" src={profile?.profile_picture} />
                       <div>
-                        {isOnline && (
+                        {profile.is_online && (
                           <div className="online">
                             <div />
                             <div />

@@ -21,6 +21,7 @@ export class User {
     private friends?: number,
     private created_at?: string,
     private last_online?: string,
+    private is_online?: boolean,
     private friend_status?: 'friend' | 'waiting'
   ) {}
 
@@ -73,6 +74,8 @@ export class User {
           ? new Date(user.created_at).toLocaleString()
           : undefined;
         this.last_online = user.last_online;
+        this.is_online =
+          (Date.now() - new Date(this.last_online ?? 0).getTime()) / 1000 < 60;
 
         return this;
       } else {
@@ -266,6 +269,8 @@ export class User {
       this.comments = user.comments;
       this.friends = user.friends;
       this.last_online = user.last_online;
+      this.is_online =
+        (Date.now() - new Date(this.last_online ?? 0).getTime()) / 1000 < 60;
 
       return this;
     } catch (error) {
@@ -398,6 +403,7 @@ export class User {
       friends: this.friends,
       created_at: this.created_at,
       last_online: this.last_online,
+      is_online: this.is_online,
       friend_status: this.friend_status
     };
 

@@ -13,6 +13,9 @@ export const Navigate = ({
   return (
     <Link
       to={to}
+      onTouchStart={(e) => {
+        e.currentTarget.blur();
+      }}
       onClick={(e?: MouseEvent<HTMLAnchorElement>) => {
         e?.currentTarget.blur();
         onClick();

@@ -14,6 +14,12 @@
   align-items: center;
 }
 
+.commentCard > header .online {
+  top: -0.1rem;
+
+  left: -0.1rem;
+}
+
 .commentCard > header > img {
   min-width: App.$heightSmall;
   max-width: App.$heightSmall;

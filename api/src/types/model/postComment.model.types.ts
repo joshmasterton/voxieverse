@@ -12,6 +12,7 @@ export type SerializedPostComment = {
   created_at?: string;
   username?: string;
   profile_picture?: string;
+  is_online?: boolean;
   has_liked?: boolean;
   has_disliked?: boolean;
 };

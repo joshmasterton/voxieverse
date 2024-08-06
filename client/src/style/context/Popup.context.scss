@@ -62,6 +62,7 @@
   border-radius: App.$round;
   padding: App.$pad;
   gap: App.$pad;
+  outline: 0.075rem solid var(--primaryOutline);
   background: var(--background-shade);
   z-index: 1;
 }

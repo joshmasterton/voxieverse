@@ -10,5 +10,6 @@ export type SerializedUser = {
   friends?: number;
   created_at?: string;
   last_online?: string;
+  is_online?: boolean;
   friend_status?: 'friend' | 'waiting';
 };

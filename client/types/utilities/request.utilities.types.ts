@@ -14,6 +14,7 @@ export type SerializedUser = {
   friends?: number;
   created_at?: string;
   last_online?: string;
+  is_online?: boolean;
   friend_status?: 'friend' | 'waiting';
 };
 
@@ -31,6 +32,7 @@ export type SerializedPostComment = {
   created_at?: string;
   username?: string;
   profile_picture?: string;
+  is_online?: boolean;
   has_liked?: boolean;
   has_disliked?: boolean;
 };

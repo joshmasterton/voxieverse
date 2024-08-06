@@ -177,6 +177,12 @@ export const PostCard = ({
       <div className="postCard">
         {!isPostPage && <Navigate to={`/post/${post.id}`} onClick={() => {}} />}
         <header>
+          {post.is_online && (
+            <div className="online">
+              <div />
+              <div />
+            </div>
+          )}
           <Navigate
             to={`/profile/${post.user_id}`}
             onClick={() => {}}

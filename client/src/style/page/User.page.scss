@@ -68,6 +68,7 @@
   padding: App.$pad;
   gap: App.$pad;
   border-radius: App.$round;
+  outline: var(--outline);
   background: var(--background-shade);
 }
 

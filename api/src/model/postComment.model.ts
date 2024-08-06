@@ -18,6 +18,7 @@ export class PostComment {
     private created_at?: string,
     private username?: string,
     private profile_picture?: string,
+    private is_online?: boolean,
     private has_liked?: boolean,
     private has_disliked?: boolean
   ) {}
@@ -107,7 +108,7 @@ export class PostComment {
 
       const user = await db.query(
         `
-					SELECT username, profile_picture FROM ${usersTable}
+					SELECT username, profile_picture, last_online FROM ${usersTable}
 					WHERE user_id = $1
 				`,
         [postComment.rows[0].user_id]
@@ -167,6 +168,10 @@ export class PostComment {
       this.comments = postComment?.rows[0].comments;
       this.username = user.rows[0].username;
       this.profile_picture = user.rows[0].profile_picture;
+      this.is_online =
+        (Date.now() - new Date(user.rows[0].last_online ?? 0).getTime()) /
+          1000 <
+        60;
 
       return {
         id: this.id,
@@ -182,6 +187,7 @@ export class PostComment {
         created_at: this.created_at,
         username: this.username,
         profile_picture: this.profile_picture,
+        is_online: this.is_online,
         has_liked: this.has_liked,
         has_disliked: this.has_disliked
       };

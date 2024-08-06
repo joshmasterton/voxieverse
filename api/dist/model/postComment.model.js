@@ -14,9 +14,10 @@ export class PostComment {
     created_at;
     username;
     profile_picture;
+    is_online;
     has_liked;
     has_disliked;
-    constructor(id, post_parent_id, comment_parent_id, user_id, type, text, picture, likes, dislikes, comments, created_at, username, profile_picture, has_liked, has_disliked) {
+    constructor(id, post_parent_id, comment_parent_id, user_id, type, text, picture, likes, dislikes, comments, created_at, username, profile_picture, is_online, has_liked, has_disliked) {
         this.id = id;
         this.post_parent_id = post_parent_id;
         this.comment_parent_id = comment_parent_id;
@@ -30,6 +31,7 @@ export class PostComment {
         this.created_at = created_at;
         this.username = username;
         this.profile_picture = profile_picture;
+        this.is_online = is_online;
         this.has_liked = has_liked;
         this.has_disliked = has_disliked;
     }
@@ -90,7 +92,7 @@ export class PostComment {
                 throw new Error(`No ${this.type} found`);
             }
             const user = await db.query(`
-					SELECT username, profile_picture FROM ${usersTable}
+					SELECT username, profile_picture, last_online FROM ${usersTable}
 					WHERE user_id = $1
 				`, [postComment.rows[0].user_id]);
             if (!user?.rows[0]) {
@@ -139,6 +141,10 @@ export class PostComment {
             this.comments = postComment?.rows[0].comments;
             this.username = user.rows[0].username;
             this.profile_picture = user.rows[0].profile_picture;
+            this.is_online =
+                (Date.now() - new Date(user.rows[0].last_online ?? 0).getTime()) /
+                    1000 <
+                    60;
             return {
                 id: this.id,
                 post_parent_id: this.post_parent_id,
@@ -153,6 +159,7 @@ export class PostComment {
                 created_at: this.created_at,
                 username: this.username,
                 profile_picture: this.profile_picture,
+                is_online: this.is_online,
                 has_liked: this.has_liked,
                 has_disliked: this.has_disliked
             };

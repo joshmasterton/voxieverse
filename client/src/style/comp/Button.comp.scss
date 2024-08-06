@@ -136,6 +136,11 @@ button:focus {
   box-shadow: var(--outline-shadow);
 }
 
+button:focus:not(:focus-visible) {
+  outline: none;
+  box-shadow: none;
+}
+
 .buttonPrimary {
   color: white;
   background: var(--primary);

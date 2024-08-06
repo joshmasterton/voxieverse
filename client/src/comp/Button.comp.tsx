@@ -25,7 +25,7 @@ export const Button = ({
       disabled={disabled || loading}
       aria-label={label}
       className={className ?? undefined}
-      onTouchEnd={(e) => {
+      onTouchStart={(e) => {
         e.currentTarget.blur();
       }}
       onClick={async (e?: MouseEvent<HTMLButtonElement>) => {

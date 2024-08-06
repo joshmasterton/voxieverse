@@ -26,14 +26,14 @@ $anim: 0.4s ease;
   --color-placeholder: rgb(240, 240, 250);
   --danger: rgb(214, 54, 54);
   --success: rgb(96, 181, 35);
-  --primary: linear-gradient(45deg, #d73349, #d7327a);
-  --primaryOutline: #d7327a;
-  --background: rgba(20, 20, 24, 1);
+  --primary: linear-gradient(45deg, #3953a8, #6624c4);
+  --primaryOutline: #4657f0;
+  --background: rgba(24, 24, 29, 1);
   --outline: 0.075rem solid rgb(50, 50, 60);
   --background-outline: rgb(50, 50, 60);
-  --background-shade: rgba(28, 28, 34);
-  --background-shade-extra: rgba(34, 34, 42);
-  --outline-shadow: 0 0 0 0.15rem #d7327a;
+  --background-shade: rgba(30, 30, 37);
+  --background-shade-extra: rgba(36, 36, 45);
+  --outline-shadow: 0 0 0 0.15rem #4657f0;
   --opacity: 85%;
 }
 
@@ -42,14 +42,14 @@ $anim: 0.4s ease;
   --color-placeholder: rgba(20, 20, 24);
   --danger: rgb(233, 54, 54);
   --success: rgb(96, 181, 35);
-  --primary: linear-gradient(45deg, #4d5ded, #852efe);
-  --primaryOutline: #4d5ded;
+  --primary: linear-gradient(45deg, #5162f5, #7a33ff);
+  --primaryOutline: #5162f5;
   --background: rgb(245, 245, 250);
   --outline: 0.075rem solid rgb(160, 160, 165);
   --background-outline: rgb(160, 160, 165);
   --background-shade: rgba(255, 255, 255, 1);
   --background-shade-extra: rgba(245, 245, 250);
-  --outline-shadow: 0 0 0 0.15rem #4d5ded;
+  --outline-shadow: 0 0 0 0.15rem #5162f5;
   --opacity: 85%;
 }
 

@@ -175,6 +175,12 @@ export const CommentCard = ({
     <>
       <div className="commentCard">
         <header>
+          {comment.is_online && (
+            <div className="online">
+              <div />
+              <div />
+            </div>
+          )}
           <Button
             type="button"
             onClick={() => lessReplies()}
