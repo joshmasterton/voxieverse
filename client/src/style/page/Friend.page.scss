@@ -11,14 +11,26 @@
   padding-top: calc(App.$height + (App.$padSVG * 2));
 }
 
-#friendPage > a {
+#friendPage > div > a {
   position: fixed;
   bottom: App.$pad;
   right: App.$pad;
   z-index: 1;
 }
 
-#friendPage > #friendPageCon {
+#friendPage > div {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: App.$widthMedium;
+  border-radius: App.$round;
+  padding: App.$pad;
+  gap: App.$pad;
+  flex: 1;
+  background-color: var(--background-shade);
+}
+
+#friendPage > div > #friendPageCon {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -29,21 +41,17 @@
   border-radius: App.$round;
 }
 
-#friendPage > form {
+#friendPage > div > form {
   display: flex;
   gap: App.$pad;
   width: 100%;
   overflow: visible;
-  padding-top: 0.15rem;
   border-radius: App.$round;
   max-width: App.$widthMedium;
+  background: var(--background-shade);
 }
 
-#friendPage input {
-  outline: none;
-}
-
-#friendPage > form > div {
+#friendPage > div > form > div {
   flex: 1;
   width: 100%;
   overflow: visible;

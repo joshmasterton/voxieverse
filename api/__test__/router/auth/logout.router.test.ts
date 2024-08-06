@@ -14,7 +14,7 @@ describe('/logout', () => {
 
   test('Should logout user', async () => {
     await request(app)
-      .post('/signup')
+      .post('/voxieverse/signup')
       .field({
         username: 'testUser',
         email: 'test@email.com',
@@ -23,13 +23,13 @@ describe('/logout', () => {
       })
       .attach('file', profilePicture);
 
-    const login = await request(app).post('/login').send({
+    const login = await request(app).post('/voxieverse/login').send({
       username: 'testUser',
       password: 'Password'
     });
 
     const logout = await request(app)
-      .get('/logout')
+      .get('/voxieverse/logout')
       .set('Cookie', [
         login.headers['set-cookie'][0].split(/;/)[0],
         login.headers['set-cookie'][1].split(/;/)[0]

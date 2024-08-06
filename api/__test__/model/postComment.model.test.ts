@@ -14,7 +14,7 @@ describe('PostComment model', () => {
 
   test('Should return new post on successful model create', async () => {
     const signup = await request(app)
-      .post('/signup')
+      .post('/voxieverse/signup')
       .field({
         username: 'testUser',
         email: 'test@email.com',
@@ -23,7 +23,7 @@ describe('PostComment model', () => {
       })
       .attach('file', profilePicture);
 
-    await request(app).post('/login').send({
+    await request(app).post('/voxieverse/login').send({
       username: signup.body.username,
       password: 'Password'
     });

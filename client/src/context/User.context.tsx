@@ -29,9 +29,11 @@ export const UserProvider = ({ children }: UserProviderProps) => {
   const [user, setUser] = useState<SerializedUser | undefined>(undefined);
   const [loading, setLoading] = useState(false);
 
-  const getUser = async () => {
+  const getUser = async (isLoading = true) => {
     try {
-      setLoading(true);
+      if (isLoading) {
+        setLoading(true);
+      }
       const userData = await request<unknown, SerializedUser>('/', 'GET');
       if (userData) {
         setUser(userData);
@@ -41,7 +43,9 @@ export const UserProvider = ({ children }: UserProviderProps) => {
         console.error(error.message);
       }
     } finally {
-      setLoading(false);
+      if (isLoading) {
+        setLoading(false);
+      }
     }
   };
 
@@ -61,6 +65,14 @@ export const UserProvider = ({ children }: UserProviderProps) => {
 
   useEffect(() => {
     getUser();
+
+    const getUserInterval = setInterval(async () => {
+      await getUser(false);
+    }, 60000);
+
+    return () => {
+      clearInterval(getUserInterval);
+    };
   }, []);
 
   if (loading) {

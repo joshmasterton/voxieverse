@@ -8,6 +8,7 @@ import { login } from './router/auth/login.router.js';
 import { signup } from './router/auth/signup.router.js';
 import { authenticate } from './middleware/authenticate.middleware.js';
 import { logout } from './router/auth/logout.router.js';
+import { updateUser } from './router/auth/updateUser.router.js';
 import { createPostComment } from './router/postComment/createPostComment.router.js';
 import { getPostComment } from './router/postComment/getPostComment.router.js';
 import { getPostsComments } from './router/postComment/getPostsComments.router.js';
@@ -51,6 +52,7 @@ app.get('/voxieverse', authenticate, (_req, res) => {
 app.use('/voxieverse', login());
 app.use('/voxieverse', signup());
 app.use('/voxieverse', logout());
+app.use('/voxieverse', updateUser());
 app.use('/voxieverse', createPostComment());
 app.use('/voxieverse', getPostComment());
 app.use('/voxieverse', getPostsComments());

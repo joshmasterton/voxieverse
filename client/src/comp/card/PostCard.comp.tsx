@@ -202,7 +202,7 @@ export const PostCard = ({
             loading={loadingLike}
             onClick={async () => await likeDislike('like')}
             label="like"
-            className={`buttonSmall buttonOutline ${currentPost.has_liked && 'buttonPrimarySVG'}`}
+            className={`buttonSmall buttonShadeExtra ${currentPost.has_liked && 'buttonPrimarySVG'}`}
             name={currentPost?.likes}
             SVG={<BiSolidLike />}
           />
@@ -212,7 +212,7 @@ export const PostCard = ({
             loading={loadingDislike}
             onClick={async () => await likeDislike('dislike')}
             label="dislike"
-            className={`buttonSmall buttonOutline ${currentPost.has_disliked && 'buttonPrimarySVG'}`}
+            className={`buttonSmall buttonShadeExtra ${currentPost.has_disliked && 'buttonPrimarySVG'}`}
             name={currentPost?.dislikes}
             SVG={<BiSolidDislike />}
           />
@@ -224,7 +224,7 @@ export const PostCard = ({
                 : navigate(`/post/${post.id}`)
             }
             label="comment"
-            className="buttonSmall buttonOutline"
+            className="buttonSmall buttonShadeExtra"
             name={currentPost?.comments}
             SVG={<BiSolidComment />}
           />

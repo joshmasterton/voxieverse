@@ -14,7 +14,7 @@ describe('/createLikeDislike', () => {
 
   test('Should return successful like on post', async () => {
     const signup = await request(app)
-      .post('/signup')
+      .post('/voxieverse/signup')
       .field({
         username: 'testUser',
         email: 'test@email.com',
@@ -23,13 +23,13 @@ describe('/createLikeDislike', () => {
       })
       .attach('file', profilePicture);
 
-    const login = await request(app).post('/login').send({
+    const login = await request(app).post('/voxieverse/login').send({
       username: signup.body.username,
       password: 'Password'
     });
 
     await request(app)
-      .post('/createPostComment')
+      .post('/voxieverse/createPostComment')
       .field({
         text: 'random text',
         type: 'post'
@@ -41,7 +41,7 @@ describe('/createLikeDislike', () => {
       ]);
 
     const likeDislike = await request(app)
-      .post('/likeDislike')
+      .post('/voxieverse/likeDislike')
       .send({
         type: 'post',
         type_id: 1,
@@ -59,7 +59,7 @@ describe('/createLikeDislike', () => {
 
   test('Should return remove like if liked already', async () => {
     const signup = await request(app)
-      .post('/signup')
+      .post('/voxieverse/signup')
       .field({
         username: 'testUser',
         email: 'test@email.com',
@@ -68,13 +68,13 @@ describe('/createLikeDislike', () => {
       })
       .attach('file', profilePicture);
 
-    const login = await request(app).post('/login').send({
+    const login = await request(app).post('/voxieverse/login').send({
       username: signup.body.username,
       password: 'Password'
     });
 
     await request(app)
-      .post('/createPostComment')
+      .post('/voxieverse/createPostComment')
       .field({
         text: 'random text',
         type: 'post'
@@ -86,7 +86,7 @@ describe('/createLikeDislike', () => {
       ]);
 
     await request(app)
-      .post('/likeDislike')
+      .post('/voxieverse/likeDislike')
       .send({
         type: 'post',
         type_id: 1,
@@ -98,7 +98,7 @@ describe('/createLikeDislike', () => {
       ]);
 
     const likeDislike = await request(app)
-      .post('/likeDislike')
+      .post('/voxieverse/likeDislike')
       .send({
         type: 'post',
         type_id: 1,
@@ -114,7 +114,7 @@ describe('/createLikeDislike', () => {
 
   test('Should return dislike if liked already', async () => {
     const signup = await request(app)
-      .post('/signup')
+      .post('/voxieverse/signup')
       .field({
         username: 'testUser',
         email: 'test@email.com',
@@ -123,13 +123,13 @@ describe('/createLikeDislike', () => {
       })
       .attach('file', profilePicture);
 
-    const login = await request(app).post('/login').send({
+    const login = await request(app).post('/voxieverse/login').send({
       username: signup.body.username,
       password: 'Password'
     });
 
     await request(app)
-      .post('/createPostComment')
+      .post('/voxieverse/createPostComment')
       .field({
         text: 'random text',
         type: 'post'
@@ -141,7 +141,7 @@ describe('/createLikeDislike', () => {
       ]);
 
     await request(app)
-      .post('/likeDislike')
+      .post('/voxieverse/likeDislike')
       .send({
         type: 'post',
         type_id: 1,
@@ -153,7 +153,7 @@ describe('/createLikeDislike', () => {
       ]);
 
     const likeDislike = await request(app)
-      .post('/likeDislike')
+      .post('/voxieverse/likeDislike')
       .send({
         type: 'post',
         type_id: 1,

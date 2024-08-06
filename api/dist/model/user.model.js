@@ -69,9 +69,7 @@ export class User {
                 this.created_at = user.created_at
                     ? new Date(user.created_at).toLocaleString()
                     : undefined;
-                this.last_online = user.last_online
-                    ? new Date(user.last_online).toLocaleString()
-                    : undefined;
+                this.last_online = user.last_online;
                 return this;
             }
             else {
@@ -106,6 +104,53 @@ export class User {
             else {
                 throw new Error('Missing username and password');
             }
+        }
+        catch (error) {
+            if (error instanceof Error) {
+                throw error;
+            }
+        }
+    }
+    async update(username, email, password, profile_picture) {
+        try {
+            const { usersTable } = tableConfigManager.getConfig();
+            if (username) {
+                const existingUser = await db.query(`
+						SELECT user_id from ${usersTable}
+						WHERE username_lower_case = $1	
+					`, [username.toLowerCase()]);
+                if (existingUser?.rows[0]) {
+                    throw new Error('Username taken');
+                }
+                await db.query(`
+						UPDATE ${usersTable}
+						SET username = $1, username_lower_case = $2
+						WHERE user_id = $3
+					`, [username, username.toLowerCase(), this.user_id]);
+            }
+            if (email) {
+                await db.query(`
+						UPDATE ${usersTable}
+						SET email = $1
+						WHERE user_id = $2
+					`, [email, this.user_id]);
+            }
+            if (password) {
+                const hashedPassword = await bcryptjs.hash(password, 10);
+                await db.query(`
+      			UPDATE ${usersTable}
+      			SET password = $1
+      			WHERE user_id = $2
+      		`, [hashedPassword, this.user_id]);
+            }
+            if (profile_picture) {
+                await db.query(`
+      			UPDATE ${usersTable}
+      			SET profile_picture = $1
+      			WHERE user_id = $2
+      		`, [profile_picture, this.user_id]);
+            }
+            return this.get();
         }
         catch (error) {
             if (error instanceof Error) {
@@ -164,9 +209,7 @@ export class User {
             this.posts = user.posts;
             this.comments = user.comments;
             this.friends = user.friends;
-            this.last_online = user.last_online
-                ? new Date(user.last_online).toLocaleString()
-                : undefined;
+            this.last_online = user.last_online;
             return this;
         }
         catch (error) {
@@ -220,6 +263,21 @@ export class User {
                 return await new User(undefined, undefined, undefined, undefined, user.user_id).get(auth_user_id);
             });
             return Promise.all(usersPromises);
+        }
+        catch (error) {
+            if (error instanceof Error) {
+                throw error;
+            }
+        }
+    }
+    async updateLastOnline() {
+        const { usersTable } = tableConfigManager.getConfig();
+        try {
+            await db.query(`
+					UPDATE ${usersTable}
+					SET last_online = $1
+					WHERE user_id = $2
+				`, [new Date(Date.now()).toISOString(), this.user_id]);
         }
         catch (error) {
             if (error instanceof Error) {

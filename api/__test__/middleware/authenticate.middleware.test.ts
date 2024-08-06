@@ -13,7 +13,7 @@ describe('Authenticate', () => {
 
   test('Should return Voxieverse with authorized user', async () => {
     const response = await request(app)
-      .post('/signup')
+      .post('/voxieverse/signup')
       .field({
         username: 'testUser',
         email: 'test@email.com',
@@ -23,7 +23,7 @@ describe('Authenticate', () => {
       .attach('file', profilePicture);
 
     const responseAuth = await request(app)
-      .get('/')
+      .get('/voxieverse')
       .set('Cookie', [
         response.headers['set-cookie'][0].split(/;/)[0],
         response.headers['set-cookie'][1].split(/;/)[0]
@@ -35,7 +35,7 @@ describe('Authenticate', () => {
 
   test('Should generate new access token if previous one expired', async () => {
     const response = await request(app)
-      .post('/signup')
+      .post('/voxieverse/signup')
       .field({
         username: 'testUser',
         email: 'test@email.com',
@@ -45,7 +45,7 @@ describe('Authenticate', () => {
       .attach('file', profilePicture);
 
     const responseAuth = await request(app)
-      .get('/')
+      .get('/voxieverse')
       .set('Cookie', [response.headers['set-cookie'][1].split(/;/)[0]]);
 
     expect(responseAuth.body.user_id).toBe(1);
@@ -54,14 +54,14 @@ describe('Authenticate', () => {
 
   test('Should return error if invalid token', async () => {
     const responseAuth = await request(app)
-      .get('/')
+      .get('/voxieverse')
       .set('Cookie', [`accessToken=incorrect_token`]);
 
     expect(responseAuth.body).toEqual({ error: 'No tokens' });
   });
 
   test('Should throw error if no tokens', async () => {
-    const response = await request(app).get('/');
+    const response = await request(app).get('/voxieverse');
     expect(response.body).toEqual({ error: 'No tokens' });
   });
 });

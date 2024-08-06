@@ -28,9 +28,15 @@
 
 #userPage .edit {
   position: absolute;
-  top: App.$pad;
-  right: App.$pad;
+  top: App.$padLarge;
+  right: App.$padLarge;
   width: fit-content;
+}
+
+#userPage form {
+  display: flex;
+  flex-direction: column;
+  gap: App.$pad;
 }
 
 #userPage .empty {
@@ -62,7 +68,7 @@
   padding: App.$pad;
   gap: App.$pad;
   border-radius: App.$round;
-  background: var(--background);
+  background: var(--background-shade);
 }
 
 #userPage > #userPageCon > div > div > div:first-of-type {
@@ -97,6 +103,7 @@
 }
 
 #userPage > #userPageCon > header {
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;

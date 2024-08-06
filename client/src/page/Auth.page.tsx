@@ -80,7 +80,7 @@ export const Auth = ({ isSignup = false }: AuthProps) => {
         method="POST"
         autoComplete="off"
         noValidate
-        onSubmit={(e) => handleOnSubmit(e)}
+        onSubmit={async (e) => await handleOnSubmit(e)}
       >
         <header>
           <img alt="" src={theme === 'dark' ? logoLight : logoDark} />

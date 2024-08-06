@@ -12,24 +12,26 @@ export const Requests = () => {
   return (
     <>
       <div id="friendPage">
-        {loading ? (
-          <Loading className="full" />
-        ) : requests && requests?.length > 0 ? (
-          <div id="friendPageCon">
-            {requests?.map((request) => (
-              <UserCard key={request?.user_id} profile={request} isRequest />
-            ))}
-            <div className="empty" />
-          </div>
-        ) : (
-          <div className="empty">No friend requests</div>
-        )}
-        <Navigate
-          to="/users"
-          onClick={() => {}}
-          SVG={<BiUserPlus />}
-          className="buttonPrimary"
-        />
+        <div>
+          {loading ? (
+            <Loading className="full" />
+          ) : requests && requests?.length > 0 ? (
+            <div id="friendPageCon">
+              {requests?.map((request) => (
+                <UserCard key={request?.user_id} profile={request} isRequest />
+              ))}
+              <div className="empty" />
+            </div>
+          ) : (
+            <div className="emptyExtra">No friend requests</div>
+          )}
+          <Navigate
+            to="/users"
+            onClick={() => {}}
+            SVG={<BiUserPlus />}
+            className="buttonPrimary"
+          />
+        </div>
       </div>
       <Side />
     </>

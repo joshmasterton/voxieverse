@@ -14,7 +14,7 @@ describe('/addFriend', () => {
 
   test('Should return new friendship on success', async () => {
     const signup = await request(app)
-      .post('/signup')
+      .post('/voxieverse/signup')
       .field({
         username: 'testUser',
         email: 'test@email.com',
@@ -24,7 +24,7 @@ describe('/addFriend', () => {
       .attach('file', profilePicture);
 
     await request(app)
-      .post('/signup')
+      .post('/voxieverse/signup')
       .field({
         username: 'testUserTwo',
         email: 'test@email.com',
@@ -33,13 +33,13 @@ describe('/addFriend', () => {
       })
       .attach('file', profilePicture);
 
-    const login = await request(app).post('/login').send({
+    const login = await request(app).post('/voxieverse/login').send({
       username: signup.body.username,
       password: 'Password'
     });
 
     const addFriend = await request(app)
-      .post('/addFriend')
+      .post('/voxieverse/addFriend')
       .send({
         friend_id: 2
       })
@@ -57,7 +57,7 @@ describe('/addFriend', () => {
 
   test('Should return updated friendship if friend_two accepts', async () => {
     const signup = await request(app)
-      .post('/signup')
+      .post('/voxieverse/signup')
       .field({
         username: 'testUser',
         email: 'test@email.com',
@@ -67,7 +67,7 @@ describe('/addFriend', () => {
       .attach('file', profilePicture);
 
     const signupTwo = await request(app)
-      .post('/signup')
+      .post('/voxieverse/signup')
       .field({
         username: 'testUserTwo',
         email: 'test@email.com',
@@ -76,13 +76,13 @@ describe('/addFriend', () => {
       })
       .attach('file', profilePicture);
 
-    const login = await request(app).post('/login').send({
+    const login = await request(app).post('/voxieverse/login').send({
       username: signup.body.username,
       password: 'Password'
     });
 
     await request(app)
-      .post('/addFriend')
+      .post('/voxieverse/addFriend')
       .send({
         friend_id: 2
       })
@@ -91,13 +91,13 @@ describe('/addFriend', () => {
         login.headers['set-cookie'][1].split(/;/)[0]
       ]);
 
-    const loginTwo = await request(app).post('/login').send({
+    const loginTwo = await request(app).post('/voxieverse/login').send({
       username: signupTwo.body.username,
       password: 'Password'
     });
 
     const addFriend = await request(app)
-      .post('/addFriend')
+      .post('/voxieverse/addFriend')
       .send({
         friend_id: 1
       })
@@ -115,7 +115,7 @@ describe('/addFriend', () => {
 
   test('Should throw error in no friend_id provided', async () => {
     const signup = await request(app)
-      .post('/signup')
+      .post('/voxieverse/signup')
       .field({
         username: 'testUser',
         email: 'test@email.com',
@@ -125,7 +125,7 @@ describe('/addFriend', () => {
       .attach('file', profilePicture);
 
     await request(app)
-      .post('/signup')
+      .post('/voxieverse/signup')
       .field({
         username: 'testUserTwo',
         email: 'test@email.com',
@@ -134,13 +134,13 @@ describe('/addFriend', () => {
       })
       .attach('file', profilePicture);
 
-    const login = await request(app).post('/login').send({
+    const login = await request(app).post('/voxieverse/login').send({
       username: signup.body.username,
       password: 'Password'
     });
 
     const addFriend = await request(app)
-      .post('/addFriend')
+      .post('/voxieverse/addFriend')
       .send({})
       .set('Cookie', [
         login.headers['set-cookie'][0].split(/;/)[0],

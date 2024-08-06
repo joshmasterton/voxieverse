@@ -14,6 +14,7 @@ export const authenticate = async (req, res, next) => {
                 throw new Error('Failed to verify access token');
             }
             const user = new User(undefined, undefined, undefined, undefined, decodedAccessToken.user_id);
+            await user.updateLastOnline();
             await user.get();
             res.locals.user = user.serializeUser();
             next();
@@ -36,6 +37,7 @@ export const authenticate = async (req, res, next) => {
                     }
                     const user = new User(undefined, undefined, undefined, undefined, decodedRefreshToken.user_id);
                     const newAccessToken = generateToken(decodedRefreshToken.user_id, 'access');
+                    await user.updateLastOnline();
                     await user.get();
                     res.locals.user = user.serializeUser();
                     res.cookie('accessToken', newAccessToken, {

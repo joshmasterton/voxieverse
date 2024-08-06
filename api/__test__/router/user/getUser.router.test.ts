@@ -3,7 +3,7 @@ import { app } from '../../../src/app';
 import request from 'supertest';
 import path from 'path';
 
-describe('/getUser', () => {
+describe('/voxieverse/getUser', () => {
   const profilePicture = path.join(
     __dirname,
     '..',
@@ -14,7 +14,7 @@ describe('/getUser', () => {
 
   test('Should return user', async () => {
     const signup = await request(app)
-      .post('/signup')
+      .post('/voxieverse/signup')
       .field({
         username: 'testUser',
         email: 'test@email.com',
@@ -23,13 +23,13 @@ describe('/getUser', () => {
       })
       .attach('file', profilePicture);
 
-    const login = await request(app).post('/login').send({
+    const login = await request(app).post('/voxieverse/login').send({
       username: signup.body.username,
       password: 'Password'
     });
 
     const getUser = await request(app)
-      .get('/getUser')
+      .get('/voxieverse/getUser')
       .query({ user_id: 1 })
       .set('Cookie', [
         login.headers['set-cookie'][0].split(/;/)[0],
@@ -43,7 +43,7 @@ describe('/getUser', () => {
 
   test('Should return error if no user id provided', async () => {
     const signup = await request(app)
-      .post('/signup')
+      .post('/voxieverse/signup')
       .field({
         username: 'testUser',
         email: 'test@email.com',
@@ -52,13 +52,13 @@ describe('/getUser', () => {
       })
       .attach('file', profilePicture);
 
-    const login = await request(app).post('/login').send({
+    const login = await request(app).post('/voxieverse/login').send({
       username: signup.body.username,
       password: 'Password'
     });
 
     const getUser = await request(app)
-      .get('/getUser')
+      .get('/voxieverse/getUser')
       .set('Cookie', [
         login.headers['set-cookie'][0].split(/;/)[0],
         login.headers['set-cookie'][1].split(/;/)[0]

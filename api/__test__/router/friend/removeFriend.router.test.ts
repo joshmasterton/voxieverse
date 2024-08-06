@@ -14,7 +14,7 @@ describe('/removeFriend', () => {
 
   test('Should return success on removed friendship', async () => {
     const signup = await request(app)
-      .post('/signup')
+      .post('/voxieverse/signup')
       .field({
         username: 'testUser',
         email: 'test@email.com',
@@ -24,7 +24,7 @@ describe('/removeFriend', () => {
       .attach('file', profilePicture);
 
     await request(app)
-      .post('/signup')
+      .post('/voxieverse/signup')
       .field({
         username: 'testUserTwo',
         email: 'test@email.com',
@@ -33,13 +33,13 @@ describe('/removeFriend', () => {
       })
       .attach('file', profilePicture);
 
-    const login = await request(app).post('/login').send({
+    const login = await request(app).post('/voxieverse/login').send({
       username: signup.body.username,
       password: 'Password'
     });
 
     await request(app)
-      .post('/addFriend')
+      .post('/voxieverse/addFriend')
       .send({
         friend_id: 2
       })
@@ -49,7 +49,7 @@ describe('/removeFriend', () => {
       ]);
 
     const removeFriend = await request(app)
-      .delete('/removeFriend')
+      .delete('/voxieverse/removeFriend')
       .send({
         friend_id: 2
       })

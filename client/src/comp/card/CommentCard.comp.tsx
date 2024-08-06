@@ -179,7 +179,7 @@ export const CommentCard = ({
             type="button"
             onClick={() => lessReplies()}
             label="lessReplies"
-            className="buttonOutline"
+            className="buttonShadeExtra"
             SVG={<BiMinus />}
           />
           <Navigate
@@ -194,7 +194,7 @@ export const CommentCard = ({
               loading={loadingMore}
               onClick={async () => await getReplies()}
               label="getMore"
-              className="buttonOutline"
+              className="buttonShadeExtra"
               SVG={<BiPlus />}
             />
           )}
@@ -221,7 +221,7 @@ export const CommentCard = ({
               loading={loadingLike}
               onClick={async () => await likeDislike('like')}
               label="like"
-              className={`buttonSmall buttonOutline ${currentComment.has_liked && 'buttonPrimarySVG'}`}
+              className={`buttonSmall buttonShadeExtra ${currentComment.has_liked && 'buttonPrimarySVG'}`}
               name={currentComment?.likes}
               SVG={<BiSolidLike />}
             />
@@ -231,7 +231,7 @@ export const CommentCard = ({
               loading={loadingDislike}
               onClick={async () => await likeDislike('dislike')}
               label="dislike"
-              className={`buttonSmall buttonOutline ${currentComment.has_disliked && 'buttonPrimarySVG'}`}
+              className={`buttonSmall buttonShadeExtra ${currentComment.has_disliked && 'buttonPrimarySVG'}`}
               name={currentComment?.dislikes}
               SVG={<BiSolidDislike />}
             />
@@ -239,7 +239,7 @@ export const CommentCard = ({
               type="button"
               onClick={() => setIsReply(!isReply)}
               label="comment"
-              className="buttonSmall buttonOutline"
+              className="buttonSmall buttonShadeExtra"
               name={currentComment?.comments}
               SVG={<BiSolidComment />}
             />

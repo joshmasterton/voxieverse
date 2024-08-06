@@ -99,60 +99,62 @@ export const Friend = () => {
   return (
     <>
       <div id="friendPage">
-        <form
-          method="GET"
-          noValidate
-          autoComplete="off"
-          onSubmit={async (e) => handleSearch(e)}
-        >
-          <Input
-            id="search"
-            type="text"
-            placeholder="Search friends..."
-            className="search"
-            SVG={<BiSearch />}
-            setValue={setSearch}
-            value={search.search}
-          />
-          <Button
-            type="submit"
-            loading={loadingSearch}
+        <div>
+          <form
+            method="GET"
+            noValidate
+            autoComplete="off"
+            onSubmit={async (e) => handleSearch(e)}
+          >
+            <Input
+              id="search"
+              type="text"
+              placeholder="Search friends..."
+              className="search"
+              SVG={<BiSearch />}
+              setValue={setSearch}
+              value={search.search}
+            />
+            <Button
+              type="submit"
+              loading={loadingSearch}
+              onClick={() => {}}
+              label="getFriends"
+              SVG={<BiSearch />}
+              className="buttonPrimary"
+            />
+          </form>
+          {loading ? (
+            <Loading className="full" />
+          ) : friends ? (
+            <div id="friendPageCon">
+              {friends.map((friend) => (
+                <UserCard key={friend.user_id} profile={friend} />
+              ))}
+              {canLoadMore && (
+                <div className="buttonMore">
+                  <Button
+                    type="button"
+                    loading={loadingMore}
+                    onClick={async () => await getFriends()}
+                    label="getMore"
+                    className="buttonShadeExtra"
+                    name="More friends"
+                  />
+                </div>
+              )}
+              <div className="empty" />
+            </div>
+          ) : (
+            <div className="emptyExtra">No friends</div>
+          )}
+          <Navigate
+            to="/users"
             onClick={() => {}}
-            label="getFriends"
-            SVG={<BiSearch />}
+            SVG={<BiUserPlus />}
             className="buttonPrimary"
           />
-        </form>
-        {loading ? (
-          <Loading className="full" />
-        ) : friends ? (
-          <div id="friendPageCon">
-            {friends.map((friend) => (
-              <UserCard key={friend.user_id} profile={friend} />
-            ))}
-            {canLoadMore && (
-              <div className="buttonMore">
-                <Button
-                  type="button"
-                  loading={loadingMore}
-                  onClick={async () => await getFriends()}
-                  label="getMore"
-                  className="buttonShade"
-                  name="More friends"
-                />
-              </div>
-            )}
-            <div className="empty" />
-          </div>
-        ) : (
-          <div className="empty">No friends</div>
-        )}
-        <Navigate
-          to="/users"
-          onClick={() => {}}
-          SVG={<BiUserPlus />}
-          className="buttonPrimary"
-        />
+        </div>
       </div>
       <Side />
     </>

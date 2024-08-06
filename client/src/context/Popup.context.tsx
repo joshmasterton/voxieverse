@@ -60,7 +60,7 @@ export const Popup = () => {
             type="button"
             onClick={() => setIsPopup(false)}
             label="popupClose"
-            className="buttonShade"
+            className="buttonPrimary"
             name="Okay"
           />
         </footer>

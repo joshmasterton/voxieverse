@@ -14,7 +14,7 @@ describe('/signup', () => {
 
   test('Should return user upon successful signup', async () => {
     const signup = await request(app)
-      .post('/signup')
+      .post('/voxieverse/signup')
       .field({
         username: 'testUser',
         email: 'test@email.com',
@@ -31,7 +31,7 @@ describe('/signup', () => {
 
   test('Should return error if no username', async () => {
     const signup = await request(app)
-      .post('/signup')
+      .post('/voxieverse/signup')
       .field({
         email: 'test@email.com',
         password: 'Password',
@@ -44,7 +44,7 @@ describe('/signup', () => {
 
   test('Should return error if no email', async () => {
     const signup = await request(app)
-      .post('/signup')
+      .post('/voxieverse/signup')
       .field({
         username: 'testUser',
         password: 'Password',
@@ -57,7 +57,7 @@ describe('/signup', () => {
 
   test('Should return error if no password', async () => {
     const signup = await request(app)
-      .post('/signup')
+      .post('/voxieverse/signup')
       .field({
         username: 'testUser',
         email: 'test@email.com',
@@ -70,7 +70,7 @@ describe('/signup', () => {
 
   test('Should return error if no confirm password', async () => {
     const signup = await request(app)
-      .post('/signup')
+      .post('/voxieverse/signup')
       .field({
         username: 'testUser',
         email: 'test@email.com',
@@ -82,7 +82,7 @@ describe('/signup', () => {
   });
 
   test('Should return error if no profile picture', async () => {
-    const signup = await request(app).post('/signup').field({
+    const signup = await request(app).post('/voxieverse/signup').field({
       username: 'testUser',
       email: 'test@email.com',
       password: 'Password',

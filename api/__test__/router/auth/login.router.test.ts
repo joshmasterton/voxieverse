@@ -3,7 +3,7 @@ import { app } from '../../../src/app';
 import request from 'supertest';
 import path from 'path';
 
-describe('/login', () => {
+describe('/voxieverse/login', () => {
   const profilePicture = path.join(
     __dirname,
     '..',
@@ -14,7 +14,7 @@ describe('/login', () => {
 
   test('Should return logged in user', async () => {
     await request(app)
-      .post('/signup')
+      .post('/voxieverse/signup')
       .field({
         username: 'testUser',
         email: 'test@email.com',
@@ -23,7 +23,7 @@ describe('/login', () => {
       })
       .attach('file', profilePicture);
 
-    const login = await request(app).post('/login').send({
+    const login = await request(app).post('/voxieverse/login').send({
       username: 'testUser',
       password: 'Password'
     });
@@ -36,7 +36,7 @@ describe('/login', () => {
 
   test('Should return error if user doesnt exist', async () => {
     await request(app)
-      .post('/signup')
+      .post('/voxieverse/signup')
       .field({
         username: 'testUser',
         email: 'test@email.com',
@@ -45,7 +45,7 @@ describe('/login', () => {
       })
       .attach('file', profilePicture);
 
-    const login = await request(app).post('/login').send({
+    const login = await request(app).post('/voxieverse/login').send({
       username: 'testUsr',
       password: 'Password'
     });
@@ -55,7 +55,7 @@ describe('/login', () => {
 
   test('Should return error if password is incorrect', async () => {
     await request(app)
-      .post('/signup')
+      .post('/voxieverse/signup')
       .field({
         username: 'testUser',
         email: 'test@email.com',
@@ -64,7 +64,7 @@ describe('/login', () => {
       })
       .attach('file', profilePicture);
 
-    const login = await request(app).post('/login').send({
+    const login = await request(app).post('/voxieverse/login').send({
       username: 'testUser',
       password: 'Passwrd'
     });

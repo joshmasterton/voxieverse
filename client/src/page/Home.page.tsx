@@ -2,11 +2,11 @@ import { PiPlus } from 'react-icons/pi';
 import { Navigate } from '../comp/Navigate.comp';
 import { Side } from '../comp/Side.comp';
 import { useEffect, useState } from 'react';
-import { request } from '../utilities/request.utilities';
 import { SerializedPostComment } from '../../types/utilities/request.utilities.types';
 import { PostCard } from '../comp/card/PostCard.comp';
 import { Button } from '../comp/Button.comp';
 import { Loading } from '../comp/Loading.comp';
+import { getPosts } from '../utilities/post.utilities';
 import '../style/page/Home.page.scss';
 
 export const Home = () => {
@@ -18,52 +18,15 @@ export const Home = () => {
     undefined
   );
 
-  const getPosts = async (currentPage = page, incrememtPage = true) => {
-    try {
-      setLoadingMore(true);
-
-      const postsData = await request<unknown, SerializedPostComment[]>(
-        `/getPostsComments?page=${currentPage}&type=post`,
-        'GET'
-      );
-
-      if (postsData) {
-        if (postsData.length < 10) {
-          setCanLoadMore(false);
-        }
-
-        setPosts((prevPosts) => {
-          if (prevPosts && postsData.length > 0) {
-            return [...prevPosts, ...postsData];
-          }
-
-          if (postsData.length > 0) {
-            return postsData;
-          }
-
-          if (prevPosts) {
-            return prevPosts;
-          }
-
-          return undefined;
-        });
-
-        if (incrememtPage) {
-          setPage((prevPage) => prevPage + 1);
-        }
-      }
-    } catch (error) {
-      if (error instanceof Error) {
-        console.error(error.message);
-        setCanLoadMore(false);
-      }
-    } finally {
-      setLoadingMore(false);
-    }
-  };
-
   useEffect(() => {
-    getPosts().finally(() => {
+    getPosts(
+      page,
+      true,
+      setPosts,
+      setCanLoadMore,
+      setPage,
+      setLoadingMore
+    ).finally(() => {
       setLoading(false);
     });
   }, []);
@@ -83,7 +46,16 @@ export const Home = () => {
                 <Button
                   type="button"
                   loading={loadingMore}
-                  onClick={async () => getPosts()}
+                  onClick={async () =>
+                    await getPosts(
+                      page,
+                      true,
+                      setPosts,
+                      setCanLoadMore,
+                      setPage,
+                      setLoadingMore
+                    )
+                  }
                   label="getMore"
                   className="buttonShade"
                   name="More posts"

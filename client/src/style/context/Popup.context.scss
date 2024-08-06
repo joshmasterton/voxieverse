@@ -63,13 +63,7 @@
   padding: App.$pad;
   gap: App.$pad;
   background: var(--background-shade);
-  background: var(--primary);
   z-index: 1;
-}
-
-#popup > div > main,
-#popup > div > header {
-  color: white;
 }
 
 #popup > div > footer {

@@ -4,14 +4,18 @@ import {
 } from '../../../types/utilities/request.utilities.types';
 import { Navigate } from '../Navigate.comp';
 import { useEffect, useState } from 'react';
-import { request } from '../../utilities/request.utilities';
 import { Button } from '../Button.comp';
 import { useUser } from '../../context/User.context';
 import { useNotification } from '../../context/Notification.context';
 import { CgUserAdd, CgUserRemove } from 'react-icons/cg';
 import { FaUserFriends } from 'react-icons/fa';
-import '../../style/comp/card/UserCard.comp.scss';
 import { Loading } from '../Loading.comp';
+import {
+  addFriend,
+  getFriend,
+  removeFriend
+} from '../../utilities/friend.utilities';
+import '../../style/comp/card/UserCard.comp.scss';
 
 export const UserCard = ({
   profile,
@@ -28,71 +32,8 @@ export const UserCard = ({
     undefined
   );
 
-  const getFriend = async () => {
-    try {
-      const friend = await request<unknown, FriendType>(
-        `/getFriend?friend_id=${profile.user_id}`,
-        'GET'
-      );
-
-      if (friend) {
-        setFriendship(friend);
-      }
-    } catch (error) {
-      if (error instanceof Error) {
-        console.error(error.message);
-      }
-    } finally {
-      setLoadingFriend(false);
-    }
-  };
-
-  const addFriend = async () => {
-    try {
-      setLoadingFriend(true);
-      const friend = await request<unknown, FriendType>('/addFriend', 'POST', {
-        friend_id: profile?.user_id
-      });
-
-      if (friend) {
-        setFriendship(friend);
-      }
-    } catch (error) {
-      if (error instanceof Error) {
-        console.error(error.message);
-      }
-    } finally {
-      await getRequests();
-      setLoadingFriend(false);
-    }
-  };
-
-  const removeFriend = async () => {
-    try {
-      setLoadingRemoveFriend(true);
-      const friend = await request<unknown, FriendType>(
-        '/removeFriend',
-        'DELETE',
-        {
-          friend_id: profile?.user_id
-        }
-      );
-
-      if (friend) {
-        setFriendship(undefined);
-      }
-    } catch (error) {
-      if (error instanceof Error) {
-        console.error(error.message);
-      }
-    } finally {
-      await getRequests();
-      setLoadingRemoveFriend(false);
-    }
-  };
-
   useEffect(() => {
-    getFriend();
+    getFriend(setLoadingFriend, setFriendship, profile.user_id);
   }, []);
 
   return (
@@ -116,14 +57,23 @@ export const UserCard = ({
           </div>
           <p>{profile?.email}</p>
         </div>
-      </header>
-      <div>
-        {loadingFriend ? (
-          <Loading />
-        ) : (
-          friendship?.friend_accepted && <FaUserFriends />
+        {(Date.now() - new Date(profile.last_online ?? 0).getTime()) / 1000 <
+          60 && (
+          <div className="online">
+            <div />
+            <div />
+          </div>
         )}
-      </div>
+      </header>
+      {!isRequest && (
+        <div>
+          {loadingFriend ? (
+            <Loading />
+          ) : (
+            friendship?.friend_accepted && <FaUserFriends />
+          )}
+        </div>
+      )}
       <footer>
         {isRequest && (
           <div className="friends">
@@ -132,7 +82,15 @@ export const UserCard = ({
                 <Button
                   type="button"
                   loading={loadingRemoveFriend}
-                  onClick={async () => await removeFriend()}
+                  disabled={loadingFriend || loadingRemoveFriend}
+                  onClick={async () =>
+                    await removeFriend(
+                      setLoadingRemoveFriend,
+                      setFriendship,
+                      getRequests,
+                      profile
+                    )
+                  }
                   label="removeFriend"
                   className="buttonOutline"
                   SVG={<CgUserRemove />}
@@ -146,7 +104,15 @@ export const UserCard = ({
                   <Button
                     type="button"
                     loading={loadingRemoveFriend}
-                    onClick={async () => await removeFriend()}
+                    disabled={loadingFriend || loadingRemoveFriend}
+                    onClick={async () =>
+                      await removeFriend(
+                        setLoadingRemoveFriend,
+                        setFriendship,
+                        getRequests,
+                        profile
+                      )
+                    }
                     label="waitingFriend"
                     className="buttonOutline"
                     SVG={<CgUserRemove />}
@@ -160,7 +126,15 @@ export const UserCard = ({
                   <Button
                     type="button"
                     loading={loadingFriend}
-                    onClick={async () => await addFriend()}
+                    disabled={loadingFriend || loadingRemoveFriend}
+                    onClick={async () =>
+                      await addFriend(
+                        setLoadingFriend,
+                        setFriendship,
+                        getRequests,
+                        profile
+                      )
+                    }
                     label="acceptFriend"
                     className="buttonOutline"
                     SVG={<CgUserAdd />}
@@ -169,7 +143,15 @@ export const UserCard = ({
                   <Button
                     type="button"
                     loading={loadingRemoveFriend}
-                    onClick={async () => await removeFriend()}
+                    disabled={loadingFriend || loadingRemoveFriend}
+                    onClick={async () =>
+                      await removeFriend(
+                        setLoadingRemoveFriend,
+                        setFriendship,
+                        getRequests,
+                        profile
+                      )
+                    }
                     label="declineFriend"
                     className="buttonOutline"
                     SVG={<CgUserRemove />}
@@ -177,12 +159,20 @@ export const UserCard = ({
                   />
                 </>
               )}
-            {!friendship && (
+            {(!friendship || !friendship.id) && (
               <>
                 <Button
                   type="button"
                   loading={loadingFriend}
-                  onClick={async () => await addFriend()}
+                  disabled={loadingFriend || loadingRemoveFriend}
+                  onClick={async () =>
+                    await addFriend(
+                      setLoadingFriend,
+                      setFriendship,
+                      getRequests,
+                      profile
+                    )
+                  }
                   label="addFriend"
                   className="buttonOutline"
                   SVG={<CgUserAdd />}

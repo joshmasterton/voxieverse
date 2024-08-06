@@ -8,7 +8,7 @@
   max-width: App.$widthMedium;
   padding: App.$pad;
   border-radius: App.$round;
-  background: var(--background-shade);
+  background: var(--background-shade-extra);
 }
 
 .userCard > a {
@@ -24,7 +24,7 @@
   position: absolute;
   right: App.$pad;
   border-radius: App.$round;
-  background: var(--background-shade);
+  background: var(--background-shade-extra);
 }
 
 .userCard > header {
@@ -74,5 +74,5 @@
 }
 
 .userCard > footer > div > button {
-  width: calc((App.$height * 2) + App.$padLarge);
+  width: fit-content;
 }

@@ -6,7 +6,7 @@ nav {
   left: 0;
   width: 100%;
   min-height: calc(App.$height + (App.$padSVG * 2));
-  z-index: 2;
+  z-index: 3;
   transition:
     height App.$anim,
     transform App.$anim,

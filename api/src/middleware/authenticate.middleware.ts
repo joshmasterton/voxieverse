@@ -35,6 +35,7 @@ export const authenticate = async (
         decodedAccessToken.user_id
       );
 
+      await user.updateLastOnline();
       await user.get();
       res.locals.user = user.serializeUser();
 
@@ -74,6 +75,7 @@ export const authenticate = async (
             'access'
           );
 
+          await user.updateLastOnline();
           await user.get();
           res.locals.user = user.serializeUser();
 

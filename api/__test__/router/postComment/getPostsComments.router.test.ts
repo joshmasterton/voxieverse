@@ -3,7 +3,7 @@ import { app } from '../../../src/app';
 import request from 'supertest';
 import path from 'path';
 
-describe('/getPostsComments', () => {
+describe('/voxieverse/getPostsComments', () => {
   const profilePicture = path.join(
     __dirname,
     '..',
@@ -14,7 +14,7 @@ describe('/getPostsComments', () => {
 
   test('Should return existing posts', async () => {
     const signup = await request(app)
-      .post('/signup')
+      .post('/voxieverse/signup')
       .field({
         username: 'testUser',
         email: 'test@email.com',
@@ -23,13 +23,13 @@ describe('/getPostsComments', () => {
       })
       .attach('file', profilePicture);
 
-    const login = await request(app).post('/login').send({
+    const login = await request(app).post('/voxieverse/login').send({
       username: signup.body.username,
       password: 'Password'
     });
 
     await request(app)
-      .post('/createPostComment')
+      .post('/voxieverse/createPostComment')
       .field({
         text: 'random text',
         type: 'post'
@@ -41,7 +41,7 @@ describe('/getPostsComments', () => {
       ]);
 
     await request(app)
-      .post('/createPostComment')
+      .post('/voxieverse/createPostComment')
       .field({
         text: 'random text',
         type: 'post'
@@ -53,7 +53,7 @@ describe('/getPostsComments', () => {
       ]);
 
     await request(app)
-      .post('/createPostComment')
+      .post('/voxieverse/createPostComment')
       .field({
         text: 'random text',
         post_parent_id: 1,
@@ -66,7 +66,7 @@ describe('/getPostsComments', () => {
       ]);
 
     const getPostsComments = await request(app)
-      .get('/getPostsComments')
+      .get('/voxieverse/getPostsComments')
       .query({
         type_id: 1,
         type: 'post'
@@ -81,7 +81,7 @@ describe('/getPostsComments', () => {
 
   test('Should return existing comments in a post', async () => {
     const signup = await request(app)
-      .post('/signup')
+      .post('/voxieverse/signup')
       .field({
         username: 'testUser',
         email: 'test@email.com',
@@ -90,13 +90,13 @@ describe('/getPostsComments', () => {
       })
       .attach('file', profilePicture);
 
-    const login = await request(app).post('/login').send({
+    const login = await request(app).post('/voxieverse/login').send({
       username: signup.body.username,
       password: 'Password'
     });
 
     await request(app)
-      .post('/createPostComment')
+      .post('/voxieverse/createPostComment')
       .field({
         text: 'random text',
         type: 'post'
@@ -108,7 +108,7 @@ describe('/getPostsComments', () => {
       ]);
 
     await request(app)
-      .post('/createPostComment')
+      .post('/voxieverse/createPostComment')
       .field({
         text: 'random text',
         type: 'post'
@@ -120,7 +120,7 @@ describe('/getPostsComments', () => {
       ]);
 
     await request(app)
-      .post('/createPostComment')
+      .post('/voxieverse/createPostComment')
       .field({
         text: 'random text',
         post_parent_id: 1,
@@ -133,7 +133,7 @@ describe('/getPostsComments', () => {
       ]);
 
     await request(app)
-      .post('/createPostComment')
+      .post('/voxieverse/createPostComment')
       .field({
         text: 'random text',
         post_parent_id: 1,
@@ -146,7 +146,7 @@ describe('/getPostsComments', () => {
       ]);
 
     await request(app)
-      .post('/createPostComment')
+      .post('/voxieverse/createPostComment')
       .field({
         text: 'random text',
         post_parent_id: 2,
@@ -159,7 +159,7 @@ describe('/getPostsComments', () => {
       ]);
 
     const getPostsComments = await request(app)
-      .get('/getPostsComments')
+      .get('/voxieverse/getPostsComments')
       .query({
         type_id: 1,
         type: 'comment',

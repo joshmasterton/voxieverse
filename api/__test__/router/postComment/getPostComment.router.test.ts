@@ -3,7 +3,7 @@ import { app } from '../../../src/app';
 import request from 'supertest';
 import path from 'path';
 
-describe('/getPostComment', () => {
+describe('/voxieverse/getPostComment', () => {
   const profilePicture = path.join(
     __dirname,
     '..',
@@ -14,7 +14,7 @@ describe('/getPostComment', () => {
 
   test('Should return existing post with user details and liked info', async () => {
     const signup = await request(app)
-      .post('/signup')
+      .post('/voxieverse/signup')
       .field({
         username: 'testUser',
         email: 'test@email.com',
@@ -23,13 +23,13 @@ describe('/getPostComment', () => {
       })
       .attach('file', profilePicture);
 
-    const login = await request(app).post('/login').send({
+    const login = await request(app).post('/voxieverse/login').send({
       username: signup.body.username,
       password: 'Password'
     });
 
     await request(app)
-      .post('/createPostComment')
+      .post('/voxieverse/createPostComment')
       .field({
         text: 'random text',
         type: 'post'
@@ -41,7 +41,7 @@ describe('/getPostComment', () => {
       ]);
 
     await request(app)
-      .post('/likeDislike')
+      .post('/voxieverse/likeDislike')
       .send({
         type: 'post',
         type_id: 1,
@@ -53,7 +53,7 @@ describe('/getPostComment', () => {
       ]);
 
     const getPostComment = await request(app)
-      .get('/getPostComment')
+      .get('/voxieverse/getPostComment')
       .query({
         type_id: 1,
         type: 'post'

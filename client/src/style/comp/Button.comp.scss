@@ -59,12 +59,6 @@ button.buttonNotification > div > p {
   animation: 0.5s cubic-bezier(0.645, 0.045, 0.355, 1) pop;
 }
 
-button.buttonOutline {
-  width: 100%;
-  max-width: App.$widthMedium;
-  border: var(--outline);
-}
-
 button.buttonName {
   padding-right: App.$pad;
 }
@@ -111,6 +105,11 @@ button.buttonShade {
   width: 100%;
   max-width: App.$widthMedium;
   background: var(--background-shade);
+}
+
+button.buttonShadeExtra {
+  max-width: App.$widthMedium;
+  background: var(--background-shade-extra);
 }
 
 button.buttonLarge {

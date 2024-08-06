@@ -46,12 +46,20 @@
   max-height: calc(App.$heightSmall + (App.$pad));
 }
 
+.loading.buttonSmall > svg {
+  top: -0.15rem;
+  min-width: calc(App.$heightSmall + (App.$pad));
+  max-width: calc(App.$heightSmall + (App.$pad));
+  min-height: calc(App.$heightSmall + (App.$pad));
+  max-height: calc(App.$heightSmall + (App.$pad));
+}
+
 .loading > svg > circle {
   transform: scale(2);
   transform-origin: center;
   stroke: var(--primaryOutline);
   stroke-linecap: round;
-  animation: 2s infinite dash linear;
+  animation: 1.5s infinite dash linear;
 }
 
 .loading.buttonPrimary > svg > circle {
