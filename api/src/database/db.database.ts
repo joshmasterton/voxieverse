@@ -1,7 +1,9 @@
 import pg from 'pg';
 import dotenv from 'dotenv';
 import { TableConfig } from '../types/db/database.types';
-dotenv.config();
+dotenv.config({
+  path: process.env.NODE_ENV === 'development' ? '../.env.dev' : '../.env.prod'
+});
 
 const { DB_URL } = process.env;
 

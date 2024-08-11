@@ -2,11 +2,13 @@
   "name": "client",
   "private": true,
   "version": "0.0.0",
+  "homepage": "/voxieverse",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "test": "vitest",
     "build": "tsc -b && vite build --base=/voxieverse",
+    "postbuild": "mkdir dist\\voxieverse && move dist\\assets dist\\voxieverse",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },

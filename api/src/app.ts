@@ -19,10 +19,14 @@ import { addFriend } from './router/friend/addFriend.router';
 import { getFriend } from './router/friend/getFriend.router';
 import { removeFriend } from './router/friend/removeFriend.router';
 import rateLimit from 'express-rate-limit';
-dotenv.config();
 
 export const app = express();
 const { NODE_ENV, CLIENT_URL, PORT } = process.env;
+
+dotenv.config({
+  path: NODE_ENV === 'development' ? '../.env.dev' : '../.env.prod'
+});
+
 const db = new Db();
 
 if (NODE_ENV !== 'test') {
