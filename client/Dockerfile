@@ -8,8 +8,6 @@ RUN npm install
 
 COPY . /app
 
-EXPOSE 9001
-
-ENV NODE_ENV=development
+EXPOSE 9000
 
 CMD ["npm", "run", "dev"]

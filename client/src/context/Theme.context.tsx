@@ -44,9 +44,11 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
     e?.currentTarget.blur();
     if (theme === 'dark') {
       localStorage.setItem('voxieverse_theme', 'light');
+      document.documentElement.setAttribute('data-theme', 'light');
       setTheme('light');
     } else {
       localStorage.setItem('voxieverse_theme', 'dark');
+      document.documentElement.setAttribute('data-theme', 'dark');
       setTheme('dark');
     }
   };

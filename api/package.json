@@ -4,8 +4,8 @@
   "scripts": {
     "dev": "tsx watch ./src/app.ts",
     "prod": "node ./dist/app.js",
-    "build": "tsc && tsc-alias --resolve-full-paths",
-    "test": "SET NODE_ENV=test&&vitest"
+    "build": "tsc&&tsc-alias --resolve-full-paths",
+    "test": "vitest"
   },
   "type": "module",
   "author": "",

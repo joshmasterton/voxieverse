@@ -15,8 +15,8 @@ import { IoIosArrowBack } from 'react-icons/io';
 import { useNotification } from '../context/Notification.context';
 import { CgClose } from 'react-icons/cg';
 import { useLocation } from 'react-router-dom';
-import logoDark from '../../public/voxieverse_logo_dark.png';
-import logoLight from '../../public/voxieverse_logo_light.png';
+import logoDark from '../assets/voxieverse_logo_dark.png';
+import logoLight from '../assets/voxieverse_logo_light.png';
 import { useTheme } from '../context/Theme.context';
 import '../style/comp/Nav.scss';
 

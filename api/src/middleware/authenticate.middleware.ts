@@ -14,8 +14,6 @@ export const authenticate = async (
     if (ACCESS_TOKEN_SECRET) {
       const { accessToken } = req.cookies;
 
-      console.log('updated');
-
       if (!accessToken) {
         throw new Error('No access token');
       }

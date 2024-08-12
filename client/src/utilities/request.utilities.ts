@@ -1,7 +1,6 @@
 import { ErrorResponse } from '../../types/utilities/request.utilities.types';
 
-const API_URL = 'https://api.zonomaly.com/voxieverse';
-// const API_URL = 'http://localhost:9001/voxieverse';
+const VITE_API_URL = import.meta.env.VITE_API_URL;
 
 export const request = async <T, D>(
   url: string,
@@ -20,7 +19,7 @@ export const request = async <T, D>(
       requestInfo.body = isFormData ? body : JSON.stringify(body);
     }
 
-    const response = await fetch(`${API_URL}${url}`, requestInfo);
+    const response = await fetch(`${VITE_API_URL}${url}`, requestInfo);
 
     if (!response.ok) {
       const { error } = (await response.json()) as ErrorResponse;
