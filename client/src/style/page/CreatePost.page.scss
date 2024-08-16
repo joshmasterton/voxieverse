@@ -9,41 +9,52 @@
   width: 100%;
   gap: App.$pad;
   padding: App.$pad;
-  padding-top: calc(App.$height + (App.$padSVG * 2));
+  padding-top: calc((App.$height) + (App.$padSVG * 2));
   border-radius: App.$round;
 }
 
 #createPost > div {
+  max-width: App.$widthMedium;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: App.$pad;
+  padding: App.$pad;
+  border-radius: App.$round;
+  border: var(--outline);
+  background: var(--background-shade);
+}
+
+#createPost > div > div {
   display: flex;
   justify-content: stretch;
   align-items: center;
   width: 100%;
   max-width: App.$widthMedium;
   gap: App.$pad;
-  border-radius: App.$round;
 }
 
 #createPost textarea,
 #createPost label {
-  outline: none;
-  background: var(--background-shade);
-}
-
-#createPost > div:first-of-type {
-  min-height: 10rem;
-  padding-top: 0.15rem;
-  background: var(--background-shade);
-}
-
-#createPost > div:last-of-type {
-  flex-wrap: wrap;
+  outline: var(--outline);
+  background: var(--background-shade-extra);
 }
 
 #createPost > div > div:first-of-type {
-  width: 100%;
+  min-height: 10rem;
+  border: 0.075rem solid transparent;
 }
 
 #createPost > div > div:last-of-type {
+  flex-wrap: wrap;
+}
+
+#createPost > div > div > div:first-of-type {
+  width: 100%;
+}
+
+#createPost > div > div > div:last-of-type {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -54,7 +65,7 @@
   background: var(--primary);
 }
 
-#createPost > div > button {
+#createPost > div > div > button {
   flex: 1;
 }
 

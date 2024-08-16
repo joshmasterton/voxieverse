@@ -8,6 +8,7 @@
   min-height: 100%;
   padding: App.$pad;
   padding-top: calc(App.$padSmall * 7);
+  z-index: 1;
 }
 
 #auth > form {
@@ -19,6 +20,7 @@
   padding: App.$padLarge;
   gap: App.$padLarge;
   border-radius: App.$round;
+  outline: var(--outline);
   background: var(--background-shade);
 }
 
@@ -46,6 +48,16 @@
 
 #auth > form > main > button {
   margin-top: App.$pad;
+}
+
+#auth > form > main > p {
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+  color: var(--danger);
+  padding-left: App.$pad;
+  padding-right: App.$pad;
+  opacity: 100%;
 }
 
 #auth > form > main > a {

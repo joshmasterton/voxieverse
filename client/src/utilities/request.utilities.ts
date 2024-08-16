@@ -1,6 +1,7 @@
 import { ErrorResponse } from '../../types/utilities/request.utilities.types';
 
-const VITE_API_URL = import.meta.env.VITE_API_URL;
+const VITE_API_URL =
+  import.meta.env.VITE_API_URL || 'https://api.zonomaly.com/voxieverse';
 
 export const request = async <T, D>(
   url: string,

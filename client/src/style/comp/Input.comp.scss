@@ -37,6 +37,7 @@ label > input {
   height: 100%;
   padding-left: App.$height;
   border-radius: App.$round;
+  outline: var(--outline);
   background: var(--background-shade-extra);
   transition:
     box-shadow App.$anim,
@@ -50,6 +51,7 @@ label > textarea {
   min-height: 100%;
   padding: App.$pad;
   border-radius: App.$round;
+  outline: var(--outline);
   background: var(--background-shade-extra);
   transition:
     box-shadow App.$anim,
@@ -63,12 +65,19 @@ div.input > button {
   z-index: 1;
 }
 
-label > input:hover,
-label > textarea:hover,
 label > input:focus,
 label > textarea:focus {
   outline: var(--outline);
   box-shadow: var(--outline-shadow);
+}
+
+@media (pointer: fine) {
+  label.file:hover,
+  label > input:hover,
+  label > textarea:hover {
+    outline: var(--outline);
+    box-shadow: var(--outline-shadow);
+  }
 }
 
 label > svg {
@@ -77,13 +86,13 @@ label > svg {
 
 label.file {
   cursor: pointer;
+  outline: var(--outline);
   background: var(--background-shade-extra);
   transition:
     box-shadow App.$anim,
     outline App.$anim;
 }
 
-label.file:hover,
 label.file:focus {
   outline: var(--outline);
   box-shadow: var(--outline-shadow);

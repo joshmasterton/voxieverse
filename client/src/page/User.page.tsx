@@ -28,6 +28,7 @@ import { MdEmail } from 'react-icons/md';
 import { BsImage } from 'react-icons/bs';
 import { RiLockPasswordFill } from 'react-icons/ri';
 import { usePopup } from '../context/Popup.context';
+import { validatorCheck } from '../utilities/form.utilities';
 import '../style/page/User.page.scss';
 
 export const User = () => {
@@ -48,6 +49,9 @@ export const User = () => {
   const [friends, setFriends] = useState<SerializedUser[] | undefined>(
     undefined
   );
+  const [validator, setValidator] = useState<
+    { type: string; text: string } | undefined
+  >(undefined);
   const [loadingRemoveFriend, setLoadingRemoveFriend] = useState(false);
   const [loadingFriend, setLoadingFriend] = useState(true);
   const [loadingFriends, setLoadingFriends] = useState(false);
@@ -215,12 +219,16 @@ export const User = () => {
   }, [user_id]);
 
   useEffect(() => {
-    if (showFriends) {
+    if (showFriends && friends && friends?.length > 0) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'auto';
     }
   }, [showFriends]);
+
+  useEffect(() => {
+    setValidator(validatorCheck(editDetails, true, false));
+  }, [editDetails]);
 
   return (
     <>
@@ -308,6 +316,9 @@ export const User = () => {
                         placeholder={user?.username ?? 'Username'}
                         SVG={<BiSolidUser />}
                       />
+                      {validator?.type === 'username' && (
+                        <p>{validator.text}</p>
+                      )}
                       <Input<EditDetails>
                         id="email"
                         type="email"
@@ -317,6 +328,7 @@ export const User = () => {
                         placeholder={user?.email ?? 'Email'}
                         SVG={<MdEmail />}
                       />
+                      {validator?.type === 'email' && <p>{validator.text}</p>}
                       <Input<EditDetails>
                         id="file"
                         type="file"
@@ -326,6 +338,7 @@ export const User = () => {
                         placeholder="Profile picture"
                         SVG={<BsImage />}
                       />
+                      {validator?.type === 'file' && <p>{validator.text}</p>}
                       <Input<EditDetails>
                         id="password"
                         className="labelPassword"
@@ -336,6 +349,9 @@ export const User = () => {
                         placeholder="New password"
                         SVG={<RiLockPasswordFill />}
                       />
+                      {validator?.type === 'password' && (
+                        <p>{validator.text}</p>
+                      )}
                       <Input<EditDetails>
                         id="confirmPassword"
                         className="labelPassword"
@@ -346,6 +362,9 @@ export const User = () => {
                         placeholder="Confirm password"
                         SVG={<RiLockPasswordFill />}
                       />
+                      {validator?.type === 'confirmPassword' && (
+                        <p>{validator.text}</p>
+                      )}
                       <Button
                         type="submit"
                         loading={loadingEdit}
@@ -564,6 +583,7 @@ export const User = () => {
                       />
                     </div>
                   )}
+                  {posts.length < 2 && <div className="empty" />}
                 </>
               ) : (
                 <div className="empty">No posts</div>

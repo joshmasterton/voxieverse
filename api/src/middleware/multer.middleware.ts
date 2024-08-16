@@ -3,7 +3,7 @@ import { multerFilter } from '../utilities/uploadImage.utilities';
 import multer from 'multer';
 
 const upload = multer({
-  limits: { fileSize: 500000 },
+  limits: { fileSize: 10000000 },
   fileFilter: multerFilter
 });
 

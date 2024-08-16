@@ -42,13 +42,15 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
 
   const changeTheme = (e: MouseEvent<HTMLButtonElement>) => {
     e?.currentTarget.blur();
+    const themeMetaTag = document.getElementById('themeMetaTag');
+
     if (theme === 'dark') {
       localStorage.setItem('voxieverse_theme', 'light');
-      document.documentElement.setAttribute('data-theme', 'light');
+      themeMetaTag?.setAttribute('content', 'rgb(247, 247, 250)');
       setTheme('light');
     } else {
       localStorage.setItem('voxieverse_theme', 'dark');
-      document.documentElement.setAttribute('data-theme', 'dark');
+      themeMetaTag?.setAttribute('content', 'rgba(25, 25, 30)');
       setTheme('dark');
     }
   };

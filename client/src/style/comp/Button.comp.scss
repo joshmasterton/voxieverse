@@ -66,6 +66,8 @@ button.buttonName {
 .buttonMore {
   width: 100%;
   max-width: App.$widthMedium;
+  border-radius: App.$round;
+  outline: var(--outline);
 }
 
 button.buttonFlat {
@@ -109,6 +111,7 @@ button.buttonShade {
 
 button.buttonShadeExtra {
   max-width: App.$widthMedium;
+  outline: var(--outline);
   background: var(--background-shade-extra);
 }
 
@@ -130,7 +133,13 @@ button.buttonLarge > svg {
   padding: App.$padSVG;
 }
 
-button:hover,
+@media (pointer: fine) {
+  button:hover {
+    outline: var(--outline);
+    box-shadow: var(--outline-shadow);
+  }
+}
+
 button:focus {
   outline: var(--outline);
   box-shadow: var(--outline-shadow);
@@ -177,6 +186,7 @@ div.buttonTheme > button {
   padding: 0;
   margin: 0;
   outline: none;
+  box-shadow: none;
   background: var(--background-shade);
 }
 

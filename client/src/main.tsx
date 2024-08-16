@@ -6,4 +6,9 @@ document.documentElement.setAttribute(
   localStorage.getItem('voxieverse_theme') || 'dark'
 );
 
-ReactDOM.createRoot(document.getElementById('root')!).render(<App />);
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <>
+    <div id="background" />
+    <App />
+  </>
+);

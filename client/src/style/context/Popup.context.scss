@@ -11,7 +11,7 @@
   height: 100%;
   padding: App.$pad;
   text-align: center;
-  z-index: 2;
+  z-index: 3;
 }
 
 #popup.hidden {
@@ -62,7 +62,7 @@
   border-radius: App.$round;
   padding: App.$pad;
   gap: App.$pad;
-  outline: 0.075rem solid var(--primaryOutline);
+  outline: var(--outline);
   background: var(--background-shade);
   z-index: 1;
 }

@@ -34,7 +34,7 @@ export const CreatePost = () => {
       const post = await request('/createPostComment', 'POST', formData);
 
       if (post) {
-        navigate(-1);
+        navigate('/');
       }
     } catch (error) {
       if (error instanceof Error) {
@@ -57,33 +57,35 @@ export const CreatePost = () => {
           await handleSubmit(e);
         }}
       >
-        <Input<PostDetails>
-          id="text"
-          type="text"
-          value={postDetails.text}
-          setValue={setPostDetails}
-          placeholder="New post here..."
-          isTextarea
-        />
         <div>
           <Input<PostDetails>
-            id="file"
-            type="file"
-            disabled={loading}
-            className="file"
+            id="text"
+            type="text"
+            value={postDetails.text}
             setValue={setPostDetails}
-            placeholder="Post picture"
-            SVG={<BsImage />}
+            placeholder="New post here..."
+            isTextarea
           />
-          <div>{postDetails.text.length}</div>
-          <Button
-            type="submit"
-            loading={loading}
-            onClick={() => {}}
-            label="createPost"
-            className="buttonPrimary"
-            name={'Create'}
-          />
+          <div>
+            <Input<PostDetails>
+              id="file"
+              type="file"
+              disabled={loading}
+              className="file"
+              setValue={setPostDetails}
+              placeholder="Post picture"
+              SVG={<BsImage />}
+            />
+            <div>{postDetails.text.length}</div>
+            <Button
+              type="submit"
+              loading={loading}
+              onClick={() => {}}
+              label="createPost"
+              className="buttonPrimary"
+              name={'Create'}
+            />
+          </div>
         </div>
       </form>
       <Side />

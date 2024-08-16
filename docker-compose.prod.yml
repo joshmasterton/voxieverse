@@ -1,0 +1,18 @@
+services:
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile.prod
+    image: 370761407999.dkr.ecr.eu-west-2.amazonaws.com/voxieverse
+    ports:
+      - '80:80'
+    environment:
+      - NODE_ENV=production
+      - DB_URL=''
+      - PORT=80
+      - ACCESS_TOKEN_SECRET=''
+      - REFRESH_TOKEN_SECRET=''
+      - AWS_ACCESS_KEY=''
+      - AWS_SECRET_ACCESS_KEY=''
+      - AWS_REGION='eu-west-2'
+      - AWS_BUCKET='voxieverse'

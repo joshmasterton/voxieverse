@@ -15,15 +15,15 @@ import { IoIosArrowBack } from 'react-icons/io';
 import { useNotification } from '../context/Notification.context';
 import { CgClose } from 'react-icons/cg';
 import { useLocation } from 'react-router-dom';
-import logoDark from '../assets/voxieverse_logo_dark.png';
-import logoLight from '../assets/voxieverse_logo_light.png';
+import logoLight from '../assets/zonomaly_light.png';
+import logoDark from '../assets/zonomaly_dark.png';
 import { useTheme } from '../context/Theme.context';
 import '../style/comp/Nav.scss';
 
 export const Nav = ({ isReturn = false }: { isReturn?: boolean }) => {
   const location = useLocation();
-  const { user, logout } = useUser();
   const { theme } = useTheme();
+  const { user, logout } = useUser();
   const { requests } = useNotification();
   const [loading, setLoading] = useState(false);
   const [isMenu, setIsMenu] = useState(false);
@@ -78,6 +78,7 @@ export const Nav = ({ isReturn = false }: { isReturn?: boolean }) => {
     <>
       <SideUser requests={requests?.length ?? 0} />
       <nav className={isMenu ? 'active' : 'hidden'}>
+        <div />
         {isReturn ? (
           <header id="returnNav">
             <div>

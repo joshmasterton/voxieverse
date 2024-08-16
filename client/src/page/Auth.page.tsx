@@ -1,7 +1,7 @@
 import { AuthProps, UserDetails } from '../../types/page/Auth.page.types';
 import { BiSolidUser } from 'react-icons/bi';
 import { Input } from '../comp/Input.comp';
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { Button, ButtonTheme } from '../comp/Button.comp';
 import { Navigate } from '../comp/Navigate.comp';
 import { request } from '../utilities/request.utilities';
@@ -10,15 +10,19 @@ import { BsImage } from 'react-icons/bs';
 import { MdEmail } from 'react-icons/md';
 import { RiLockPasswordFill } from 'react-icons/ri';
 import { usePopup } from '../context/Popup.context';
+import { validatorCheck } from '../utilities/form.utilities';
+import logoLight from '../assets/zonomaly_light.png';
+import logoDark from '../assets/zonomaly_dark.png';
 import { useTheme } from '../context/Theme.context';
-import logoDark from '../assets/voxieverse_logo_dark.png';
-import logoLight from '../assets/voxieverse_logo_light.png';
 import '../style/page/Auth.page.scss';
 
 export const Auth = ({ isSignup = false }: AuthProps) => {
   const { setUser } = useUser();
-  const { theme } = useTheme();
   const { setPopup } = usePopup();
+  const { theme } = useTheme();
+  const [validator, setValidator] = useState<
+    { type: string; text: string } | undefined
+  >(undefined);
   const [loading, setLoading] = useState(false);
   const [userDetails, setUserDetails] = useState<UserDetails>({
     username: '',
@@ -74,6 +78,10 @@ export const Auth = ({ isSignup = false }: AuthProps) => {
     }
   };
 
+  useEffect(() => {
+    setValidator(validatorCheck(userDetails, isSignup));
+  }, [userDetails]);
+
   return (
     <div id="auth">
       <form
@@ -97,6 +105,7 @@ export const Auth = ({ isSignup = false }: AuthProps) => {
             placeholder="Username"
             SVG={<BiSolidUser />}
           />
+          {validator?.type === 'username' && <p>{validator.text}</p>}
           {isSignup && (
             <>
               <Input<UserDetails>
@@ -108,6 +117,7 @@ export const Auth = ({ isSignup = false }: AuthProps) => {
                 placeholder="Email"
                 SVG={<MdEmail />}
               />
+              {validator?.type === 'email' && <p>{validator.text}</p>}
               <Input<UserDetails>
                 id="file"
                 type="file"
@@ -117,6 +127,7 @@ export const Auth = ({ isSignup = false }: AuthProps) => {
                 placeholder="Profile picture"
                 SVG={<BsImage />}
               />
+              {validator?.type === 'file' && <p>{validator.text}</p>}
             </>
           )}
           <Input<UserDetails>
@@ -129,6 +140,7 @@ export const Auth = ({ isSignup = false }: AuthProps) => {
             placeholder="Password"
             SVG={<RiLockPasswordFill />}
           />
+          {validator?.type === 'password' && <p>{validator.text}</p>}
           {isSignup && (
             <Input<UserDetails>
               id="confirmPassword"
@@ -141,6 +153,7 @@ export const Auth = ({ isSignup = false }: AuthProps) => {
               SVG={<RiLockPasswordFill />}
             />
           )}
+          {validator?.type === 'confirmPassword' && <p>{validator.text}</p>}
           <Button
             type="submit"
             loading={loading}

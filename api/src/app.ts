@@ -28,6 +28,7 @@ dotenv.config({
 });
 
 const db = new Db();
+const origin = ['https://www.zonomaly.com', 'https://zonomaly.com'];
 
 if (NODE_ENV !== 'test') {
   db.createUsers();
@@ -46,7 +47,12 @@ app.use(
 );
 app.disable('x-powered-by');
 app.use(helmet());
-app.use(cors({ origin: CLIENT_URL, credentials: true }));
+app.use(
+  cors({
+    origin: CLIENT_URL ? [CLIENT_URL, ...origin] : origin,
+    credentials: true
+  })
+);
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

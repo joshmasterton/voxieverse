@@ -15,11 +15,16 @@
 
 .loading.full {
   border-radius: App.$round;
+  border: var(--outline);
   background: var(--background-shade);
 }
 
+#friendPage .loading {
+  border: none;
+}
+
 .loading.buttonSmall {
-  margin-left: App.$padSmall;
+  margin-right: - calc(App.$padSmall);
   outline: none;
 }
 

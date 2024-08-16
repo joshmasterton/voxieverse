@@ -20,16 +20,21 @@ nav img {
   max-height: App.$heightSmall;
 }
 
+nav > div {
+  top: 0;
+  left: 0;
+  position: fixed;
+  width: 100%;
+  height: calc(App.$height + (App.$padSVG));
+  background: var(--background);
+}
+
 nav > header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 2;
-  border-radius: App.$round;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-  background: var(--background);
 }
 
 nav > header > div {
@@ -38,6 +43,8 @@ nav > header > div {
   align-items: center;
   gap: App.$padSVG;
   padding: App.$padSVG;
+  border-radius: App.$round;
+  background: var(--background);
 }
 
 nav > header > div > div {
@@ -65,7 +72,9 @@ nav > main {
   width: 100%;
   height: 100%;
   position: fixed;
+  top: 0;
   left: 0;
+  padding: App.$pad;
   z-index: 2;
 }
 
@@ -96,9 +105,6 @@ nav.hidden > main > div {
 }
 
 nav > main > ul {
-  position: fixed;
-  top: 0;
-  left: 0;
   height: 100%;
   width: 100%;
   max-width: calc(App.$widthMedium / 1.5);
@@ -109,14 +115,13 @@ nav > main > ul {
   padding: App.$pad;
   padding-bottom: App.$pad;
   z-index: 2;
-  background: var(--background);
   border-radius: App.$round;
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
+  border: var(--outline);
+  background: var(--background-shade);
 }
 
 nav.active > main > ul {
-  transform: translateX(0);
+  transform: translateX(0%);
   transition:
     opacity App.$anim 0.25s,
     height App.$anim,
@@ -124,7 +129,7 @@ nav.active > main > ul {
 }
 
 nav.hidden > main > ul {
-  transform: translateX(-100%);
+  transform: translateX(-110%);
   transition:
     opacity 0.05s ease,
     height App.$anim,
@@ -182,12 +187,12 @@ nav > main > ul > li > a {
   }
 
   nav.active > main > ul {
-    transform: translateX(-100%);
+    transform: translateX(-110%);
     transition: transform App.$anim;
   }
 
   nav.hidden > main > ul {
-    transform: translateX(-100%);
+    transform: translateX(-110%);
     transition: transform App.$anim;
   }
 

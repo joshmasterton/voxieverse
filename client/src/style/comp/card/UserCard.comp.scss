@@ -8,6 +8,7 @@
   max-width: App.$widthMedium;
   padding: App.$pad;
   border-radius: App.$round;
+  border: var(--outline);
   background: var(--background-shade-extra);
 }
 
@@ -75,4 +76,5 @@
 
 .userCard > footer > div > button {
   width: fit-content;
+  outline: var(--outline);
 }

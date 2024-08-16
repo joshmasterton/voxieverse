@@ -42,13 +42,14 @@ a.transparent {
   color: inherit;
 }
 
-a:hover,
 a:focus {
   outline: var(--outline);
   box-shadow: var(--outline-shadow);
 }
 
-a:focus:not(:focus-visible) {
-  outline: none;
-  box-shadow: none;
+@media (pointer: fine) {
+  a:hover {
+    outline: var(--outline);
+    box-shadow: var(--outline-shadow);
+  }
 }

@@ -7,6 +7,7 @@
   max-width: App.$widthMedium;
   flex-direction: column;
   border-radius: App.$round;
+  border: var(--outline);
   background: var(--background-shade);
 }
 
@@ -28,6 +29,7 @@
   max-width: App.$widthMedium;
   padding: App.$pad;
   border-radius: App.$round;
+  outline: var(--outline);
   background: var(--background-shade);
 }
 
@@ -84,6 +86,7 @@
   min-width: 100%;
   min-height: 100%;
   object-fit: cover;
+  border-radius: App.$round;
   opacity: var(--opacity);
   filter: blur(1rem);
   -webkit-filter: blur(1rem);
@@ -97,8 +100,8 @@
   max-width: fit-content;
   min-height: none;
   height: auto;
-  max-height: 50rem;
-  border-radius: 0;
+  max-height: 100%;
+  border-radius: App.$round;
   z-index: 0;
 }
 

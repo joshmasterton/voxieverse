@@ -24,15 +24,15 @@ $anim: 0.4s ease;
 [data-theme='dark'] {
   --color: white;
   --color-placeholder: rgb(240, 240, 250);
-  --danger: rgb(214, 54, 54);
+  --danger: rgb(252, 50, 50);
   --success: rgb(96, 181, 35);
   --primary: linear-gradient(45deg, #3953a8, #6624c4);
   --primaryOutline: #4657f0;
-  --background: rgba(24, 24, 29, 1);
-  --outline: 0.075rem solid rgb(50, 50, 60);
-  --background-outline: rgb(50, 50, 60);
+  --background: rgba(25, 25, 30);
+  --outline: 0.075rem solid rgb(33, 33, 43);
+  --background-outline: rgb(58, 58, 68);
   --background-shade: rgba(30, 30, 37);
-  --background-shade-extra: rgba(36, 36, 45);
+  --background-shade-extra: rgba(25, 25, 30);
   --outline-shadow: 0 0 0 0.15rem #4657f0;
   --opacity: 85%;
 }
@@ -40,15 +40,15 @@ $anim: 0.4s ease;
 [data-theme='light'] {
   --color: black;
   --color-placeholder: rgba(20, 20, 24);
-  --danger: rgb(233, 54, 54);
+  --danger: rgb(248, 55, 55);
   --success: rgb(96, 181, 35);
   --primary: linear-gradient(45deg, #5162f5, #7a33ff);
   --primaryOutline: #5162f5;
-  --background: rgb(245, 245, 250);
-  --outline: 0.075rem solid rgb(160, 160, 165);
-  --background-outline: rgb(160, 160, 165);
+  --background: rgb(247, 247, 250);
+  --outline: 0.075rem solid rgb(240, 240, 245);
+  --background-outline: rgb(215, 215, 220);
   --background-shade: rgba(255, 255, 255, 1);
-  --background-shade-extra: rgba(245, 245, 250);
+  --background-shade-extra: rgba(247, 247, 250);
   --outline-shadow: 0 0 0 0.15rem #5162f5;
   --opacity: 85%;
 }
@@ -80,12 +80,27 @@ $anim: 0.4s ease;
   opacity: 50%;
 }
 
+html {
+  color: var(--color);
+  background: var(--background);
+}
+
 html,
 body {
   width: 100%;
   height: 100%;
-  color: var(--color);
-  background: var(--background);
+}
+
+#background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 0%;
+  background-image: url(../assets/background.png);
+  background-size: cover;
+  background-position: center;
+  opacity: 100%;
 }
 
 #root {
@@ -135,7 +150,12 @@ img {
   flex: 1;
   border-radius: $round;
   padding: $pad;
+  outline: var(--outline);
   background: var(--background-shade);
+}
+
+#friendPage .empty {
+  outline: none;
 }
 
 .online {
@@ -148,7 +168,7 @@ img {
   padding: 0;
   z-index: 2;
   opacity: 75%;
-  border-radius: $round;
+  border-radius: 10rem;
   background: var(--success);
 }
 
@@ -157,7 +177,7 @@ img {
   width: 100%;
   height: 100%;
   transform: scale(0);
-  border-radius: $round;
+  border-radius: 10rem;
   animation: 3s infinite pulse ease;
   background: var(--success);
 }
