@@ -15,14 +15,11 @@ import { IoIosArrowBack } from 'react-icons/io';
 import { useNotification } from '../context/Notification.context';
 import { CgClose } from 'react-icons/cg';
 import { useLocation } from 'react-router-dom';
-import logoLight from '../assets/zonomaly_light.png';
-import logoDark from '../assets/zonomaly_dark.png';
-import { useTheme } from '../context/Theme.context';
+import logo from '../assets/zonomaly.png';
 import '../style/comp/Nav.scss';
 
 export const Nav = ({ isReturn = false }: { isReturn?: boolean }) => {
   const location = useLocation();
-  const { theme } = useTheme();
   const { user, logout } = useUser();
   const { requests } = useNotification();
   const [loading, setLoading] = useState(false);
@@ -90,7 +87,7 @@ export const Nav = ({ isReturn = false }: { isReturn?: boolean }) => {
               />
               <div>
                 {getCurrentTitle()}
-                <img alt="" src={theme === 'dark' ? logoLight : logoDark} />
+                <img alt="" src={logo} />
               </div>
             </div>
           </header>
@@ -98,7 +95,7 @@ export const Nav = ({ isReturn = false }: { isReturn?: boolean }) => {
           <header>
             <div>
               <div>
-                <img alt="" src={theme === 'dark' ? logoLight : logoDark} />
+                <img alt="" src={logo} />
                 {getCurrentTitle()}
               </div>
               <ul>

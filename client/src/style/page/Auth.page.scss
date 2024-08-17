@@ -34,9 +34,11 @@
   position: absolute;
   transform: translateX(-50%);
   left: 50%;
-  top: - calc(App.$height * 2);
+  top: - calc(App.$height + App.$pad);
+  min-width: calc(App.$height + App.$pad);
+  min-height: calc(App.$height + App.$pad);
   outline: none;
-  border-radius: App.$round;
+  border-radius: 0.25rem;
 }
 
 #auth > form > main {

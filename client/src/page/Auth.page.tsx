@@ -11,15 +11,12 @@ import { MdEmail } from 'react-icons/md';
 import { RiLockPasswordFill } from 'react-icons/ri';
 import { usePopup } from '../context/Popup.context';
 import { validatorCheck } from '../utilities/form.utilities';
-import logoLight from '../assets/zonomaly_light.png';
-import logoDark from '../assets/zonomaly_dark.png';
-import { useTheme } from '../context/Theme.context';
+import logo from '../assets/zonomaly.png';
 import '../style/page/Auth.page.scss';
 
 export const Auth = ({ isSignup = false }: AuthProps) => {
   const { setUser } = useUser();
   const { setPopup } = usePopup();
-  const { theme } = useTheme();
   const [validator, setValidator] = useState<
     { type: string; text: string } | undefined
   >(undefined);
@@ -91,7 +88,7 @@ export const Auth = ({ isSignup = false }: AuthProps) => {
         onSubmit={async (e) => await handleOnSubmit(e)}
       >
         <header>
-          <img alt="" src={theme === 'dark' ? logoLight : logoDark} />
+          <img alt="" src={logo} />
           <h1>{isSignup ? 'Signup' : 'Login'}</h1>
           <ButtonTheme />
         </header>

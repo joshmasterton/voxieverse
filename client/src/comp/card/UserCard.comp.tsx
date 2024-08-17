@@ -52,9 +52,7 @@ export const UserCard = ({
           <img alt="" src={profile?.profile_picture} />
         )}
         <div>
-          <div>
-            {profile?.username} - <p>{profile?.created_at}</p>
-          </div>
+          <div>{profile?.username}</div>
           <p>{profile?.email}</p>
         </div>
         {profile.is_online && (
