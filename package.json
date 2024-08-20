@@ -16,5 +16,8 @@
     "globals": "^15.8.0",
     "prettier": "^3.3.3",
     "typescript-eslint": "^8.0.1"
+  },
+  "dependencies": {
+    "@aws-sdk/credential-provider-sso": "^3.632.0"
   }
 }

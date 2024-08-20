@@ -15,7 +15,7 @@ import { IoIosArrowBack } from 'react-icons/io';
 import { useNotification } from '../context/Notification.context';
 import { CgClose } from 'react-icons/cg';
 import { useLocation } from 'react-router-dom';
-import logo from '../assets/zonomaly.png';
+import logoLight from '../assets/zonomaly.png';
 import '../style/comp/Nav.scss';
 
 export const Nav = ({ isReturn = false }: { isReturn?: boolean }) => {
@@ -87,7 +87,7 @@ export const Nav = ({ isReturn = false }: { isReturn?: boolean }) => {
               />
               <div>
                 {getCurrentTitle()}
-                <img alt="" src={logo} />
+                <img alt="" src={logoLight} />
               </div>
             </div>
           </header>
@@ -95,7 +95,7 @@ export const Nav = ({ isReturn = false }: { isReturn?: boolean }) => {
           <header>
             <div>
               <div>
-                <img alt="" src={logo} />
+                <img alt="" src={logoLight} />
                 {getCurrentTitle()}
               </div>
               <ul>

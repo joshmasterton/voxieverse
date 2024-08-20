@@ -14,10 +14,23 @@ nav {
 }
 
 nav img {
-  min-width: App.$heightSmall;
-  max-width: App.$heightSmall;
-  min-height: App.$heightSmall;
-  max-height: App.$heightSmall;
+  min-width: calc(App.$heightSmall * 1.25);
+  max-width: calc(App.$heightSmall * 1.25);
+  min-height: calc(App.$heightSmall * 1.25);
+  max-height: calc(App.$heightSmall * 1.25);
+  margin-right: App.$padSVG;
+  border-radius: 0.5rem;
+  padding: App.$padSmall;
+  background: var(--primary);
+}
+
+#returnNav img {
+  margin-right: 0;
+  margin-left: App.$padSVG;
+  padding: App.$padSmall;
+  border-radius: 0.5rem;
+  padding: App.$padSmall;
+  background: var(--primary);
 }
 
 nav > div {

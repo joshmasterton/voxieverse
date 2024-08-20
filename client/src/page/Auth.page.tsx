@@ -11,7 +11,7 @@ import { MdEmail } from 'react-icons/md';
 import { RiLockPasswordFill } from 'react-icons/ri';
 import { usePopup } from '../context/Popup.context';
 import { validatorCheck } from '../utilities/form.utilities';
-import logo from '../assets/zonomaly.png';
+import logoLight from '../assets/zonomaly.png';
 import '../style/page/Auth.page.scss';
 
 export const Auth = ({ isSignup = false }: AuthProps) => {
@@ -88,7 +88,7 @@ export const Auth = ({ isSignup = false }: AuthProps) => {
         onSubmit={async (e) => await handleOnSubmit(e)}
       >
         <header>
-          <img alt="" src={logo} />
+          <img alt="" src={logoLight} />
           <h1>{isSignup ? 'Signup' : 'Login'}</h1>
           <ButtonTheme />
         </header>

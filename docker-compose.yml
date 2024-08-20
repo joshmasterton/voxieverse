@@ -12,6 +12,8 @@ services:
     volumes:
       - ./api:/app
       - /app/node_modules
+      - ./api:/usr/src/app
+      - ~/.aws:/root/.aws
     depends_on:
       - postgres
 
