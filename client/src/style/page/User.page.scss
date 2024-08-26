@@ -6,8 +6,6 @@
   justify-content: start;
   align-items: center;
   width: 100%;
-  gap: App.$pad;
-  padding: App.$pad;
   min-height: 100%;
   padding-bottom: App.$pad;
   padding-top: calc((App.$height) + (App.$padSVG * 2));
@@ -22,9 +20,8 @@
   max-width: App.$widthMedium;
   gap: App.$pad;
   padding: App.$pad;
-  border-radius: App.$round;
-  border: var(--outline);
-  background: var(--background-shade);
+  border-bottom: var(--outline);
+  background: var(--background);
 }
 
 #userPage .edit {
@@ -40,15 +37,15 @@
   gap: App.$pad;
 }
 
+#userPage .empty {
+  padding-top: App.$pad;
+}
+
 #userPage form > p {
   color: var(--danger);
   opacity: 100%;
   padding-left: App.$pad;
   padding-right: App.$pad;
-}
-
-#userPage .empty {
-  padding-top: App.$pad;
 }
 
 #userPage > #userPageCon > div {
@@ -219,9 +216,20 @@
   max-width: fit-content;
 }
 
+@media screen and (min-width: App.$widthMedium) {
+  #userPage > #userPageCon {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  #userPage > #userPageCon > header {
+    padding-left: App.$pad;
+  }
+}
+
 @media screen and (min-width: App.$widthLarge) {
   #userPage {
-    padding-left: calc((App.$height * 6) + (App.$padSVG * 7));
+    padding-left: calc((App.$height * 6) + (App.$padSVG * 5.5));
   }
 }
 

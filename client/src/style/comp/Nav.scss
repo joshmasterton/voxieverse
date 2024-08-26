@@ -38,7 +38,7 @@ nav > div {
   left: 0;
   position: fixed;
   width: 100%;
-  height: calc(App.$height + (App.$padSVG));
+  height: calc(App.$height);
   background: var(--background);
 }
 

@@ -15,8 +15,7 @@
 
 .loading.full {
   border-radius: App.$round;
-  border: var(--outline);
-  background: var(--background-shade);
+  background: var(--background);
 }
 
 #friendPage .loading {

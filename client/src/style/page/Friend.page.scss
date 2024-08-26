@@ -7,7 +7,6 @@
   justify-content: start;
   width: 100%;
   gap: App.$pad;
-  padding: App.$pad;
   padding-top: calc((App.$height) + (App.$padSVG * 2));
 }
 
@@ -25,10 +24,9 @@
   max-width: App.$widthMedium;
   border-radius: App.$round;
   padding: App.$pad;
+  padding-top: 0.15rem;
   gap: App.$pad;
   flex: 1;
-  border: var(--outline);
-  background-color: var(--background-shade);
 }
 
 #friendPage > div > #friendPageCon {
@@ -49,7 +47,7 @@
   overflow: visible;
   border-radius: App.$round;
   max-width: App.$widthMedium;
-  background: var(--background-shade);
+  background: var(--background);
 }
 
 #friendPage > div > form > div {
@@ -60,9 +58,16 @@
   background: var(--background-shade);
 }
 
+@media screen and (min-width: App.$widthMedium) {
+  #friendPage > div {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
 @media screen and (min-width: App.$widthLarge) {
   #friendPage {
-    padding-left: calc((App.$height * 6) + (App.$padSVG * 7));
+    padding-left: calc((App.$height * 6) + (App.$padSVG * 5.5));
   }
 }
 

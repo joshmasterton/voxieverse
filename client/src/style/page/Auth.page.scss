@@ -38,7 +38,7 @@
   min-width: calc(App.$height + App.$padSmall);
   min-height: calc(App.$height + App.$padSmall);
   outline: none;
-  padding: App.$padSVG;
+  padding: App.$padSmall;
   background: var(--primary);
 }
 

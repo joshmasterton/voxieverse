@@ -27,9 +27,8 @@
   min-height: 10rem;
   flex: 1;
   height: 100%;
-  border-radius: App.$round;
-  border: var(--outline);
-  background: var(--background-shade);
+  border-left: var(--outline);
+  background: var(--background);
 }
 
 #sideUser {
@@ -52,9 +51,10 @@
   height: fit-content;
   gap: App.$pad;
   padding: App.$pad;
-  border-radius: App.$round;
-  border: var(--outline);
-  background: var(--background-shade);
+  padding-top: 0.15rem;
+  padding-bottom: 0rem;
+  border-right: var(--outline);
+  background: var(--background);
 }
 
 #sideUser > div > header {

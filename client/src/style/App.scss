@@ -150,8 +150,8 @@ img {
   flex: 1;
   border-radius: $round;
   padding: $pad;
-  outline: var(--outline);
-  background: var(--background-shade);
+  padding-top: 0;
+  background: var(--background);
 }
 
 #friendPage .empty {
@@ -184,6 +184,13 @@ img {
 
 .online > div:last-of-type {
   animation-delay: 500ms;
+}
+
+@media screen and (min-width: $widthMedium) {
+  .empty {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 
 @keyframes pulse {

@@ -20,10 +20,8 @@
   display: flex;
   flex-direction: column;
   gap: App.$pad;
-  padding: App.$pad;
+  padding-top: 0.15rem;
   border-radius: App.$round;
-  border: var(--outline);
-  background: var(--background-shade);
 }
 
 #createPost > div > div {
@@ -35,8 +33,7 @@
   gap: App.$pad;
 }
 
-#createPost textarea,
-#createPost label {
+#createPost textarea {
   outline: var(--outline);
   background: var(--background-shade-extra);
 }
