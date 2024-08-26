@@ -39,5 +39,5 @@ Ensure you have the following installed on your machine:
 If you want to contribute to Voxieverse, please follow the standard Github workflow:
   1. For the repo
   2. Create a new branch
-  3. Make your changed
-  4. Push your changed and create a pull request 
+  3. Make your changes
+  4. Push your changes and create a pull request 
