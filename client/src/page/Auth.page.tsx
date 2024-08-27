@@ -11,7 +11,7 @@ import { MdEmail } from 'react-icons/md';
 import { RiLockPasswordFill } from 'react-icons/ri';
 import { usePopup } from '../context/Popup.context';
 import { validatorCheck } from '../utilities/form.utilities';
-import logoLight from '../assets/zonomaly.png';
+import logoLight from '../assets/zonomaly_light.png';
 import '../style/page/Auth.page.scss';
 
 export const Auth = ({ isSignup = false }: AuthProps) => {

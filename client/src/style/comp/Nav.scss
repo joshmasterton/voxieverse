@@ -20,8 +20,7 @@ nav img {
   max-height: calc(App.$heightSmall * 1.25);
   margin-right: App.$padSVG;
   border-radius: calc(App.$round / 2);
-  padding: App.$padSmall;
-  background: var(--primary);
+  padding: calc(App.$padSmall / 2);
 }
 
 #returnNav img {
@@ -29,8 +28,7 @@ nav img {
   margin-left: App.$padSVG;
   padding: App.$padSmall;
   border-radius: calc(App.$round / 2);
-  padding: App.$padSmall;
-  background: var(--primary);
+  padding: calc(App.$padSmall / 2);
 }
 
 nav > div {
@@ -56,8 +54,8 @@ nav > header > div {
   align-items: center;
   gap: App.$padSVG;
   padding: App.$padSVG;
+  border-radius: App.$round;
   background: var(--background);
-  border-bottom: var(--outline);
 }
 
 nav > header > div > div {
@@ -87,7 +85,6 @@ nav > main {
   position: fixed;
   top: 0;
   left: 0;
-  padding: App.$pad;
   z-index: 2;
 }
 
@@ -129,8 +126,9 @@ nav > main > ul {
   padding-bottom: App.$pad;
   z-index: 2;
   border-radius: App.$round;
-  border: var(--outline);
-  background: var(--background-shade);
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  background: var(--background);
 }
 
 nav.active > main > ul {

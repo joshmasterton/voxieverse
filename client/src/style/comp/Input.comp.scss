@@ -38,7 +38,7 @@ label > input {
   padding-left: App.$height;
   border-radius: App.$round;
   outline: var(--outline);
-  background: var(--background-shade-extra);
+  background: var(--background);
   transition:
     box-shadow App.$anim,
     outline App.$anim;
@@ -52,7 +52,7 @@ label > textarea {
   padding: App.$pad;
   border-radius: App.$round;
   outline: var(--outline);
-  background: var(--background-shade-extra);
+  background: var(--background);
   transition:
     box-shadow App.$anim,
     outline App.$anim;
@@ -87,7 +87,7 @@ label > svg {
 label.file {
   cursor: pointer;
   outline: var(--outline);
-  background: var(--background-shade-extra);
+  background: var(--background);
   transition:
     box-shadow App.$anim,
     outline App.$anim;

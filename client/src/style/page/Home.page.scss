@@ -7,7 +7,9 @@
   align-items: center;
   width: 100%;
   min-height: 100%;
+  gap: App.$pad;
   padding-top: calc((App.$height) + (App.$padSVG * 2));
+  padding-bottom: App.$pad;
 }
 
 #home > a {

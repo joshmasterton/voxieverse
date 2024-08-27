@@ -23,7 +23,7 @@ export const Requests = () => {
               <div className="empty" />
             </div>
           ) : (
-            <div className="emptyExtra">No friend requests</div>
+            <div className="empty">No friend requests</div>
           )}
           <Navigate
             to="/users"

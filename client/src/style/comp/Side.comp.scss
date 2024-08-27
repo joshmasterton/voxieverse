@@ -7,7 +7,6 @@
   top: 0;
   padding: App.$pad;
   padding-left: 0;
-  padding-bottom: 0;
   padding-top: calc((App.$height) + (App.$padSVG * 2));
   width: calc(App.$height * 9);
   min-height: 100%;
@@ -28,8 +27,8 @@
   min-height: 10rem;
   flex: 1;
   height: 100%;
-  border-left: var(--outline);
-  background: var(--background);
+  border-radius: App.$round;
+  background: var(--background-shade);
 }
 
 #sideUser {
@@ -37,6 +36,7 @@
   display: none;
   overflow: scroll;
   top: 0;
+  padding-bottom: App.$pad;
   padding-top: calc((App.$height) + (App.$padSVG * 2));
   width: calc(App.$height * 6 + (App.$pad * 2));
   min-height: 100%;
@@ -51,8 +51,8 @@
   height: fit-content;
   gap: App.$pad;
   padding: App.$pad;
-  border-right: var(--outline);
-  background: var(--background);
+  border-radius: App.$round;
+  background: var(--background-shade);
 }
 
 #sideUser > div > header {

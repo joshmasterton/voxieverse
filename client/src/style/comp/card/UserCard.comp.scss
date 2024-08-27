@@ -8,8 +8,7 @@
   max-width: App.$widthMedium;
   padding: App.$pad;
   border-radius: App.$round;
-  border: var(--outline);
-  background: var(--background);
+  background: var(--background-shade);
 }
 
 .userCard > a {
@@ -17,6 +16,8 @@
   height: 100%;
   top: 0;
   left: 0;
+  outline: none;
+  box-shadow: none;
   position: absolute;
   z-index: 1;
 }
@@ -25,7 +26,7 @@
   position: absolute;
   right: App.$pad;
   border-radius: App.$round;
-  background: var(--background);
+  background: var(--background-shade);
 }
 
 .userCard > header {

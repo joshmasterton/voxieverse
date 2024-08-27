@@ -28,27 +28,23 @@ $anim: 0.4s ease;
   --success: rgb(96, 181, 35);
   --primary: linear-gradient(65deg, #5154ea, #456eea);
   --primaryOutline: #4c79ff;
-  --background: rgba(0, 0, 0);
-  --outline: 0.075rem solid rgb(38, 38, 46);
-  --background-outline: rgb(38, 38, 46);
-  --background-shade: rgba(0, 0, 0);
-  --background-shade-extra: rgba(0, 0, 0);
+  --background: rgb(18, 18, 23);
+  --outline: 0.075rem solid rgb(24, 24, 31);
+  --background-shade: rgb(21, 21, 27);
   --outline-shadow: 0 0 0 0.15rem #4c79ff;
   --opacity: 60%;
 }
 
 [data-theme='light'] {
   --color: black;
-  --color-placeholder: rgba(10, 10, 14);
+  --color-placeholder: rgb(10, 10, 14);
   --danger: rgb(248, 55, 55);
   --success: rgb(96, 181, 35);
   --primary: linear-gradient(65deg, #676aff, #4c79ff);
   --primaryOutline: #4c79ff;
   --background: rgb(247, 247, 250);
-  --outline: 0.075rem solid rgb(200, 200, 205);
-  --background-outline: rgb(200, 200, 205);
-  --background-shade: rgba(247, 247, 250);
-  --background-shade-extra: rgba(247, 247, 250);
+  --outline: 0.075rem solid rgb(240, 240, 245);
+  --background-shade: rgb(255, 255, 255);
   --outline-shadow: 0 0 0 0.15rem #4c79ff;
   --opacity: 65%;
 }
@@ -82,13 +78,13 @@ $anim: 0.4s ease;
 
 html {
   color: var(--color);
-  background: var(--background);
 }
 
 html,
 body {
   width: 100%;
   height: 100%;
+  background-color: var(--background);
 }
 
 #background {
@@ -97,7 +93,6 @@ body {
   left: 0;
   width: 0%;
   height: 0%;
-  background-image: url(../assets/background.png);
   background-size: cover;
   background-position: center;
   opacity: 100%;
@@ -150,12 +145,7 @@ img {
   flex: 1;
   border-radius: $round;
   padding: $pad;
-  padding-top: 0;
-  background: var(--background);
-}
-
-#friendPage .empty {
-  outline: none;
+  background: var(--background-shade);
 }
 
 .online {
@@ -172,12 +162,6 @@ img {
   background: var(--success);
 }
 
-@media screen and (min-width: $widthMedium) {
-  .postCard .online {
-    left: 0;
-  }
-}
-
 .online > div {
   position: absolute;
   width: 100%;
@@ -190,13 +174,6 @@ img {
 
 .online > div:last-of-type {
   animation-delay: 500ms;
-}
-
-@media screen and (min-width: $widthMedium) {
-  .empty {
-    padding-left: 0;
-    padding-right: 0;
-  }
 }
 
 @keyframes pulse {

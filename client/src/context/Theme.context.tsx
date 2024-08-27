@@ -35,24 +35,23 @@ export const useTheme = () => {
 
 export const ThemeProvider = ({ children }: ThemeProviderProps) => {
   const [theme, setTheme] = useState(getTheme());
+  const themeColorTag = document.getElementById('metaThemeColor');
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
+    themeColorTag?.setAttribute(
+      'content',
+      theme === 'dark' ? 'rgb(18, 18, 23)' : 'rgb(247, 247, 250)'
+    );
   }, [theme]);
 
   const changeTheme = (e: MouseEvent<HTMLButtonElement>) => {
     e?.currentTarget.blur();
-    const themeMetaTag = document.getElementById('themeMetaTag');
 
-    if (theme === 'dark') {
-      localStorage.setItem('voxieverse_theme', 'light');
-      themeMetaTag?.setAttribute('content', 'rgb(247, 247, 250)');
-      setTheme('light');
-    } else {
-      localStorage.setItem('voxieverse_theme', 'dark');
-      themeMetaTag?.setAttribute('content', 'rgba(0, 0, 0)');
-      setTheme('dark');
-    }
+    const newTheme = theme === 'dark' ? 'light' : 'dark';
+
+    localStorage.setItem('voxieverse_theme', newTheme);
+    setTheme(newTheme);
   };
 
   return (

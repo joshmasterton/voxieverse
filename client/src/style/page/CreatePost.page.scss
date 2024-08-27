@@ -9,7 +9,9 @@
   width: 100%;
   gap: App.$pad;
   padding: App.$pad;
-  padding-top: calc((App.$height) + (App.$padSVG * 3.5));
+  padding-left: 0;
+  padding-right: 0;
+  padding-top: calc((App.$height) + (App.$padSVG * 2));
   border-radius: App.$round;
 }
 
@@ -20,7 +22,6 @@
   display: flex;
   flex-direction: column;
   gap: App.$pad;
-  padding-top: 0.15rem;
   border-radius: App.$round;
 }
 
@@ -34,8 +35,14 @@
 }
 
 #createPost textarea {
-  outline: var(--outline);
-  background: var(--background-shade-extra);
+  outline: 0.075rem solid var(--background-shade);
+  box-shadow: none;
+  background: var(--background-shade);
+}
+
+#createPost label {
+  border: none;
+  outline: none;
 }
 
 #createPost > div > div:first-of-type {
@@ -45,6 +52,9 @@
 
 #createPost > div > div:last-of-type {
   flex-wrap: wrap;
+  padding: App.$pad;
+  border-radius: App.$round;
+  background: var(--background-shade);
 }
 
 #createPost > div > div > div:first-of-type {
@@ -68,13 +78,13 @@
 
 @media screen and (min-width: App.$widthLarge) {
   #createPost {
-    padding-left: calc((App.$height * 6) + (App.$padSVG * 7));
+    padding-left: calc((App.$height * 6) + (App.$padSVG * 5.5));
   }
 }
 
 @media screen and (min-width: App.$widthExtraLarge) {
   #createPost {
     padding-left: 0;
-    padding-right: calc((App.$height * 1) + (App.$padSVG * 2.5));
+    padding-right: calc((App.$height * 1) + (App.$padSVG * 2.4));
   }
 }

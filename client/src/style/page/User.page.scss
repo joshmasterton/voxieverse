@@ -7,13 +7,9 @@
   align-items: center;
   width: 100%;
   min-height: 100%;
+  gap: App.$pad;
   padding-top: calc((App.$height) + (App.$padSVG * 2));
-}
-
-@media screen and (min-width: App.$widthMedium) {
-  #userPage {
-    padding-top: calc((App.$height) + (App.$padSVG * 4));
-  }
+  padding-bottom: App.$pad;
 }
 
 #userPage > #userPageCon {
@@ -25,8 +21,8 @@
   max-width: App.$widthMedium;
   gap: App.$pad;
   padding: App.$pad;
-  border-bottom: var(--outline);
-  background: var(--background);
+  border-radius: App.$round;
+  background: var(--background-shade);
 }
 
 #userPage .edit {
@@ -34,6 +30,7 @@
   top: App.$pad;
   right: App.$pad;
   width: fit-content;
+  background: var(--background-shade);
 }
 
 #userPage form {
@@ -60,7 +57,6 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  padding: App.$pad;
   top: 0;
   left: 0;
   width: 100%;
@@ -78,8 +74,7 @@
   padding: App.$pad;
   gap: App.$pad;
   border-radius: App.$round;
-  outline: var(--outline);
-  background: var(--background-shade);
+  background: var(--background);
 }
 
 #userPage > #userPageCon > div > div > div:first-of-type {
@@ -219,17 +214,6 @@
 #userPage > #userPageCon > main > .friends > button {
   min-width: fit-content;
   max-width: fit-content;
-}
-
-@media screen and (min-width: App.$widthMedium) {
-  #userPage > #userPageCon {
-    padding-left: 0;
-    padding-right: 0;
-  }
-
-  #userPage > #userPageCon > header {
-    padding-left: App.$pad;
-  }
 }
 
 @media screen and (min-width: App.$widthLarge) {

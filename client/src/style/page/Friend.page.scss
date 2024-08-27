@@ -7,6 +7,7 @@
   justify-content: start;
   width: 100%;
   gap: App.$pad;
+  padding-bottom: App.$pad;
   padding-top: calc((App.$height) + (App.$padSVG * 2));
 }
 
@@ -23,7 +24,6 @@
   width: 100%;
   max-width: App.$widthMedium;
   border-radius: App.$round;
-  padding: App.$pad;
   gap: App.$pad;
   flex: 1;
 }
@@ -46,7 +46,12 @@
   overflow: visible;
   border-radius: App.$round;
   max-width: App.$widthMedium;
-  background: var(--background);
+  padding: App.$pad;
+  background: var(--background-shade);
+}
+
+#friendPage input {
+  outline: 0.075rem solid transparent;
 }
 
 #friendPage > div > form > div {
@@ -55,6 +60,10 @@
   overflow: visible;
   border-radius: App.$round;
   background: var(--background-shade);
+}
+
+#friendPage button {
+  outline: none;
 }
 
 @media screen and (min-width: App.$widthMedium) {

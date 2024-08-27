@@ -9,7 +9,6 @@
   left: 0;
   width: 100%;
   height: 100%;
-  padding: App.$pad;
   text-align: center;
   z-index: 3;
 }
@@ -62,8 +61,8 @@
   border-radius: App.$round;
   padding: App.$pad;
   gap: App.$pad;
-  outline: var(--outline);
-  background: var(--background-shade);
+  color: white;
+  background: var(--primary);
   z-index: 1;
 }
 
@@ -76,4 +75,6 @@
 
 #popup > div > footer > button {
   flex: 1;
+  color: var(--color);
+  background: var(--background);
 }

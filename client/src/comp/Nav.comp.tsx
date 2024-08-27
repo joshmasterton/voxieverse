@@ -15,13 +15,16 @@ import { IoIosArrowBack } from 'react-icons/io';
 import { useNotification } from '../context/Notification.context';
 import { CgClose } from 'react-icons/cg';
 import { useLocation } from 'react-router-dom';
-import logoLight from '../assets/zonomaly.png';
+import { useTheme } from '../context/Theme.context';
+import logoLight from '../assets/zonomaly_light.png';
+import logoDark from '../assets/zonomaly_dark.png';
 import '../style/comp/Nav.scss';
 
 export const Nav = ({ isReturn = false }: { isReturn?: boolean }) => {
   const location = useLocation();
   const { user, logout } = useUser();
   const { requests } = useNotification();
+  const { theme } = useTheme();
   const [loading, setLoading] = useState(false);
   const [isMenu, setIsMenu] = useState(false);
 
@@ -71,6 +74,14 @@ export const Nav = ({ isReturn = false }: { isReturn?: boolean }) => {
     };
   }, []);
 
+  useEffect(() => {
+    if (isMenu) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+  }, [isMenu]);
+
   return (
     <>
       <SideUser requests={requests?.length ?? 0} />
@@ -87,7 +98,7 @@ export const Nav = ({ isReturn = false }: { isReturn?: boolean }) => {
               />
               <div>
                 {getCurrentTitle()}
-                <img alt="" src={logoLight} />
+                <img alt="" src={theme === 'dark' ? logoLight : logoDark} />
               </div>
             </div>
           </header>
@@ -95,7 +106,11 @@ export const Nav = ({ isReturn = false }: { isReturn?: boolean }) => {
           <header>
             <div>
               <div>
-                <img alt="" src={logoLight} />
+                <img
+                  className={theme}
+                  alt=""
+                  src={theme === 'dark' ? logoLight : logoDark}
+                />
                 {getCurrentTitle()}
               </div>
               <ul>

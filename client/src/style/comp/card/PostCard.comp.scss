@@ -3,10 +3,11 @@
 .postCard {
   position: relative;
   display: flex;
+  flex-direction: column;
   width: 100%;
   max-width: App.$widthMedium;
-  flex-direction: column;
-  border-bottom: var(--outline);
+  border-radius: App.$round;
+  background: var(--background-shade);
 }
 
 .postCard > a {
@@ -27,7 +28,7 @@
   max-width: App.$widthMedium;
   padding: App.$pad;
   border-radius: App.$round;
-  border-bottom: var(--outline);
+  background: var(--background-shade);
 }
 
 .postCard > a,
@@ -123,14 +124,4 @@
 .postCard > form button {
   padding: App.$pad;
   min-width: calc(App.$height * 3);
-}
-
-@media screen and (min-width: App.$widthMedium) {
-  .postCard > header,
-  .postCard > main > p,
-  .postCard > form,
-  .commentsCon {
-    padding-left: 0;
-    padding-right: 0;
-  }
 }
