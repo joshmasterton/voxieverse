@@ -57,7 +57,6 @@ export const Home = () => {
                     )
                   }
                   label="getMore"
-                  className="buttonShade"
                   name="More posts"
                 />
               </div>

@@ -19,7 +19,7 @@ nav img {
   min-height: calc(App.$heightSmall * 1.25);
   max-height: calc(App.$heightSmall * 1.25);
   margin-right: App.$padSVG;
-  border-radius: 0.5rem;
+  border-radius: calc(App.$round / 2);
   padding: App.$padSmall;
   background: var(--primary);
 }
@@ -28,7 +28,7 @@ nav img {
   margin-right: 0;
   margin-left: App.$padSVG;
   padding: App.$padSmall;
-  border-radius: 0.5rem;
+  border-radius: calc(App.$round / 2);
   padding: App.$padSmall;
   background: var(--primary);
 }
@@ -56,8 +56,8 @@ nav > header > div {
   align-items: center;
   gap: App.$padSVG;
   padding: App.$padSVG;
-  border-radius: App.$round;
   background: var(--background);
+  border-bottom: var(--outline);
 }
 
 nav > header > div > div {

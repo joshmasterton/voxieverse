@@ -282,7 +282,7 @@ export const PostCard = ({
           loading={loadingMore}
           onClick={async () => getComments()}
           label="getMore"
-          className="buttonShade"
+          className="buttonMore"
           name="More comments"
         />
       )}

@@ -67,7 +67,16 @@ button.buttonName {
   width: 100%;
   max-width: App.$widthMedium;
   border-radius: App.$round;
-  outline: var(--outline);
+  background: var(--background);
+  font-size: App.$fontSmall;
+}
+
+.buttonMore > button {
+  box-shadow: none;
+  outline: none;
+  border: none;
+  width: 100%;
+  font-size: App.$fontSmall;
 }
 
 button.buttonFlat {
@@ -106,13 +115,13 @@ button.buttonSmall > svg {
 button.buttonShade {
   width: 100%;
   max-width: App.$widthMedium;
-  background: var(--background-shade);
+  background: var(--background);
 }
 
 button.buttonShadeExtra {
   max-width: App.$widthMedium;
   outline: var(--outline);
-  background: var(--background-shade-extra);
+  background: var(--background);
 }
 
 button.buttonLarge {
@@ -187,7 +196,7 @@ div.buttonTheme > button {
   margin: 0;
   outline: none;
   box-shadow: none;
-  background: var(--background-shade);
+  background: var(--background);
 }
 
 div.buttonTheme > button.dark {

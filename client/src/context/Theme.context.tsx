@@ -50,7 +50,7 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
       setTheme('light');
     } else {
       localStorage.setItem('voxieverse_theme', 'dark');
-      themeMetaTag?.setAttribute('content', 'rgba(25, 25, 30)');
+      themeMetaTag?.setAttribute('content', 'rgba(0, 0, 0)');
       setTheme('dark');
     }
   };

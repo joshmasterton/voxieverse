@@ -6,8 +6,7 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  gap: App.$pad;
-  padding-top: calc((App.$height) + (App.$padSVG));
+  padding-top: calc((App.$height) + (App.$padSVG * 2));
 }
 
 @media screen and (min-width: App.$widthLarge) {

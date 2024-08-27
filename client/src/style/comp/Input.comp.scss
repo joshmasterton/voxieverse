@@ -106,8 +106,8 @@ label.file > div {
   display: flex;
   justify-content: center;
   align-items: center;
-  color: var(--color);
-  opacity: 50%;
+  color: var(--color-placeholder);
+  opacity: var(--opacity);
 }
 
 label.file > p {
