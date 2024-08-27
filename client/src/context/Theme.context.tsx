@@ -41,7 +41,7 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
     document.documentElement.setAttribute('data-theme', theme);
     themeColorTag?.setAttribute(
       'content',
-      theme === 'dark' ? 'rgb(18, 18, 23)' : 'rgb(247, 247, 250)'
+      theme === 'dark' ? 'rgb(18, 18, 20)' : 'rgb(247, 247, 250)'
     );
   }, [theme]);
 

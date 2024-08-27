@@ -13,7 +13,7 @@ $padSVG: 0.6rem;
 $padLarge: 1.5rem;
 $padSmall: 0.4rem;
 
-$round: 0.25rem;
+$round: 0.5rem;
 
 $fontLarge: 1.25rem;
 $font: 1rem;
@@ -28,9 +28,9 @@ $anim: 0.4s ease;
   --success: rgb(96, 181, 35);
   --primary: linear-gradient(65deg, #5154ea, #456eea);
   --primaryOutline: #4c79ff;
-  --background: rgb(18, 18, 23);
-  --outline: 0.075rem solid rgb(24, 24, 31);
-  --background-shade: rgb(21, 21, 27);
+  --background: rgb(18, 18, 20);
+  --outline: 0.075rem solid rgb(24, 24, 28);
+  --background-shade: rgb(21, 21, 24);
   --outline-shadow: 0 0 0 0.15rem #4c79ff;
   --opacity: 60%;
 }

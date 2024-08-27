@@ -20,7 +20,7 @@ nav img {
   max-height: calc(App.$heightSmall * 1.25);
   margin-right: App.$padSVG;
   border-radius: calc(App.$round / 2);
-  padding: calc(App.$padSmall / 2);
+  padding: calc(App.$padSVG / 1.75);
 }
 
 #returnNav img {
@@ -28,7 +28,7 @@ nav img {
   margin-left: App.$padSVG;
   padding: App.$padSmall;
   border-radius: calc(App.$round / 2);
-  padding: calc(App.$padSmall / 2);
+  padding: calc(App.$padSVG / 1.75);
 }
 
 nav > div {
